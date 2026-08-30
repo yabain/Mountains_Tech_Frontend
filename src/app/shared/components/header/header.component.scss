@@ -1,0 +1,118 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 2.5rem;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+  transition: box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.header.scrolled {
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+}
+
+.logo {
+  width: 170px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  position: relative;
+  display: inline-block;
+  color: #5467b0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 10px 10px 0 10px;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0.8rem;
+  bottom: 0.35rem;
+  width: calc(100% - 1.6rem);
+  height: 2px;
+  background: linear-gradient(90deg, #089acf, #5467b0);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.nav a:hover {
+  color: #089acf;
+}
+
+.nav a:hover::after {
+  transform: scaleX(1);
+}
+
+.login-link {
+  background: #5467b0;
+  color: #ffff !important;
+  box-shadow: 0 6px 18px rgba(0, 68, 126, 0.18);
+  text-decoration: none;
+}
+
+.login-link::after {
+  display: none;
+}
+
+.login-link:hover {
+  background: #089acf !important;
+  color: #fff !important;
+  text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  .header {
+    padding: 0.8rem 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .nav {
+    justify-content: center;
+  }
+
+  .brand-link {
+    min-width: unset;
+  }
+
+  .logo {
+    width: 140px;
+  }
+}

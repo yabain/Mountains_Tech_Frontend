@@ -1,0 +1,14 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.pagination button {
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: white;
+}
