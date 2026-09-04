@@ -1,21 +1,37 @@
 .header {
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1030;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.85rem 2.5rem;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
-  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
-  transition: box-shadow 0.25s ease, background-color 0.25s ease;
+  padding: 1rem 2.5rem;
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  transition: all 0.25s ease;
+}
+
+.header.home-page {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  box-shadow: none;
 }
 
 .header.scrolled {
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
   background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+}
+
+.header.home-page.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
 }
 
 .brand {
@@ -35,7 +51,7 @@
   height: auto;
   display: block;
   object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .nav {
@@ -45,10 +61,43 @@
   flex-wrap: wrap;
 }
 
+.menu-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(0, 68, 126, 0.16);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menu-toggle img {
+  width: 21px;
+  height: 21px;
+  object-fit: contain;
+}
+
+.menu-toggle:hover,
+.menu-toggle.is-open {
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(0, 68, 126, 0.2);
+  transform: translateY(-1px);
+}
+
+.header.home-page:not(.scrolled) .menu-toggle {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
 .nav a {
   position: relative;
   display: inline-block;
-  color: #5467b0;
+  color: #334155;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.95rem;
@@ -58,6 +107,14 @@
   overflow: hidden;
 }
 
+.header.home-page .nav a {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.header.home-page.scrolled .nav a {
+  color: #334155;
+}
+
 .nav a::after {
   content: "";
   position: absolute;
@@ -65,47 +122,153 @@
   bottom: 0.35rem;
   width: calc(100% - 1.6rem);
   height: 2px;
-  background: linear-gradient(90deg, #089acf, #5467b0);
+  background: linear-gradient(90deg, #00447e, #18cbff);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.25s ease;
 }
 
-.nav a:hover {
-  color: #089acf;
+.header.home-page .nav a::after {
+  background: linear-gradient(90deg, #ffffff, #18cbff);
 }
 
-.nav a:hover::after {
+.nav a:hover,
+.nav a.active {
+  color: var(--primary);
+}
+
+.header.home-page .nav a:hover,
+.header.home-page .nav a.active {
+  color: #ffffff;
+}
+
+.header.home-page.scrolled .nav a:hover,
+.header.home-page.scrolled .nav a.active {
+  color: var(--primary);
+}
+
+.nav a:hover::after,
+.nav a.active::after {
   transform: scaleX(1);
 }
 
 .login-link {
-  background: #5467b0;
-  color: #ffff !important;
-  box-shadow: 0 6px 18px rgba(0, 68, 126, 0.18);
+  background: rgba(0, 68, 126, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  color: #0f172a !important;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
   text-decoration: none;
+}
+
+.header.home-page .login-link {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.header.home-page.scrolled .login-link {
+  background: var(--primary);
+  border-color: transparent;
+  color: #ffffff !important;
 }
 
 .login-link::after {
   display: none;
 }
 
-.login-link:hover {
-  background: #089acf !important;
-  color: #fff !important;
+.login-link:hover,
+.login-link.active {
+  background: rgba(0, 68, 126, 0.12) !important;
+  color: #0f172a !important;
   text-decoration: none;
 }
 
-@media (max-width: 900px) {
+.header.home-page .login-link:hover,
+.header.home-page .login-link.active {
+  background: rgba(24, 203, 255, 0.18) !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 1100px) {
   .header {
+    position: fixed;
+    left: 0;
+    right: 0;
     padding: 0.8rem 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
+  }
+
+  .header:not(.home-page) {
+    position: sticky;
+  }
+
+  .header__inner {
+    gap: 1rem;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
   }
 
   .nav {
-    justify-content: center;
+    position: absolute;
+    top: calc(100% + 0.65rem);
+    left: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+    padding: 0.7rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(0.98);
+    transform-origin: top right;
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  }
+
+  .nav.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .nav a,
+  .header.home-page .nav a,
+  .header.home-page.scrolled .nav a {
+    width: 100%;
+    color: #334155;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+  }
+
+  .nav a:hover,
+  .nav a.active,
+  .header.home-page .nav a:hover,
+  .header.home-page .nav a.active,
+  .header.home-page.scrolled .nav a:hover,
+  .header.home-page.scrolled .nav a.active {
+    color: var(--primary);
+    background: rgba(0, 68, 126, 0.06);
+  }
+
+  .nav a::after,
+  .header.home-page .nav a::after {
+    display: none;
+  }
+
+  .login-link,
+  .header.home-page .login-link,
+  .header.home-page.scrolled .login-link {
+    margin-top: 0.3rem;
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    border-color: transparent;
+    text-align: center;
   }
 
   .brand-link {

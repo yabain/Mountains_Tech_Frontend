@@ -1,12 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private readonly http = inject(HttpClient);
+  constructor(private http: HttpClient) {}
 
   get<T>(url: string, params?: Record<string, unknown>): Observable<T> {
     const httpParams = params ? new HttpParams({ fromObject: params as any }) : undefined;

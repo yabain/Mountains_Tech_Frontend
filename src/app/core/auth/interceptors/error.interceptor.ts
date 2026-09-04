@@ -1,16 +1,20 @@
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NotificationService } from '../../services/notification.service';
 
-export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-  const notificationService = inject(NotificationService);
+@Injectable()
+export class ErrorInterceptor implements HttpInterceptor {
+  constructor(private notificationService: NotificationService) {}
 
-  return next(req).pipe(
-    catchError((error: HttpErrorResponse) => {
-      const message = error.error?.message ?? 'Une erreur est survenue.';
-      notificationService.error(message);
-      return throwError(() => error);
-    })
-  );
-};
+  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<any> {
+    return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+        const message = error.error?.message ?? 'Une erreur est survenue.';
+        this.notificationService.error(message);
+        return throwError(() => error);
+      })
+    );
+  }
+}

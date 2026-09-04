@@ -1,10 +1,204 @@
-<section class="hero">
-  <h1>Bienvenue à MountainsTech</h1>
-  <p>Une communauté qui connecte les talents, les projets et les opportunités technologiques.</p>
-</section>
+<div class="page-home" *ngIf="siteData$ | async as data">
+  <section class="hero">
+    <div class="container-fluid hero__container px-3 px-lg-4">
+      <div class="row align-items-center min-vh-100 py-3 g-4">
+        <div class="col-12 col-lg-5 hero__spacer" aria-hidden="true"></div>
 
-<div class="grid">
-  <app-card title="Membres" subtitle="Rejoignez une communauté dynamique."></app-card>
-  <app-card title="Événements" subtitle="Participez à des rencontres inspirantes."></app-card>
-  <app-card title="Projets" subtitle="Concrétisez vos idées et collaborations."></app-card>
+        <div class="col-12 col-lg-7 d-flex justify-content-lg-end">
+          <div class="hero__panel">
+            <span class="eyebrow">{{ data.hero.eyebrow }}</span>
+            <h1>{{ data.hero.title }}</h1>
+            <p class="subtitle">{{ data.hero.subtitle }}</p>
+            <p class="description">{{ data.hero.description }}</p>
+
+            <div class="hero__actions">
+              <a routerLink="/members" class="btn btn-primary">{{ data.hero.ctaPrimary }}</a>
+              <a routerLink="/contact" class="btn btn-secondary">{{ data.hero.ctaSecondary }}</a>
+            </div>
+
+            <div class="hero__stats row g-3">
+              <div class="col-12 col-sm-4" *ngFor="let stat of data.hero.stats.slice(0, 3)">
+                <div class="stat">
+                  <strong>{{ stat.value }}</strong>
+                  <span>{{ stat.label }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about section-shell" id="about">
+    <div class="section-heading">
+      <span class="section-tag">Présentation</span>
+      <h2>{{ data.about.title }}</h2>
+    </div>
+
+    <div class="about__grid">
+      <div class="about__text">
+        <p>{{ data.about.description }}</p>
+      </div>
+
+      <div class="about__highlights">
+        <article class="highlight" *ngFor="let item of data.about.highlights">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.text }}</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="section-actions">
+      <a routerLink="/about" class="btn btn-primary">En savoir plus</a>
+      <a routerLink="/members" class="btn btn-secondary">Voir plus</a>
+    </div>
+  </section>
+
+  <section class="showcase section-shell" id="members">
+    <div class="section-heading">
+      <span class="section-tag">Membres</span>
+      <h2>Les entreprises qui composent l’alliance</h2>
+    </div>
+
+    <div class="card-grid">
+      <article class="info-card" *ngFor="let member of data.members.slice(0, 4)">
+        <img [src]="member.image" [alt]="member.name" loading="lazy" width="320" height="220" />
+        <div class="info-card__body">
+          <small>{{ member.city }}</small>
+          <h3>{{ member.name }}</h3>
+          <p class="role">{{ member.role }}</p>
+          <p>{{ member.description }}</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="section-actions">
+      <a routerLink="/members" class="btn btn-primary">Voir plus</a>
+      <a routerLink="/members" class="btn btn-secondary">En savoir plus</a>
+    </div>
+  </section>
+
+  <section class="showcase section-shell" id="activities">
+    <div class="section-heading">
+      <span class="section-tag">Activités</span>
+      <h2>Notre dynamique de collaboration</h2>
+    </div>
+
+    <div class="card-grid">
+      <article class="info-card" *ngFor="let activity of data.activities">
+        <img [src]="activity.image" [alt]="activity.title" loading="lazy" width="320" height="220" />
+        <div class="info-card__body">
+          <h3>{{ activity.title }}</h3>
+          <p>{{ activity.description }}</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="section-actions">
+      <a routerLink="/activities" class="btn btn-primary">Voir plus</a>
+      <a routerLink="/activities" class="btn btn-secondary">En savoir plus</a>
+    </div>
+  </section>
+
+  <section class="showcase section-shell" id="projects">
+    <div class="section-heading">
+      <span class="section-tag">Projets</span>
+      <h2>Des initiatives qui façonnent l’avenir</h2>
+    </div>
+
+    <div class="project-grid">
+      <article class="project-card" *ngFor="let project of data.projects">
+        <img [src]="project.image" [alt]="project.title" loading="lazy" width="320" height="220" />
+        <div class="project-card__content">
+          <span class="project-tag">{{ project.tag }}</span>
+          <h3>{{ project.title }}</h3>
+          <p>{{ project.description }}</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="section-actions">
+      <a routerLink="/projects" class="btn btn-primary">Voir plus</a>
+      <a routerLink="/projects" class="btn btn-secondary">En savoir plus</a>
+    </div>
+  </section>
+
+  <section class="showcase section-shell" id="hackathons">
+    <div class="section-heading">
+      <span class="section-tag">Hackathons</span>
+      <h2>Des défis pour créer et transformer</h2>
+    </div>
+
+    <div class="card-grid">
+      <article class="info-card" *ngFor="let hackathon of data.hackathons">
+        <img [src]="hackathon.image" [alt]="hackathon.title" loading="lazy" width="320" height="220" />
+        <div class="info-card__body">
+          <small>{{ hackathon.date }}</small>
+          <h3>{{ hackathon.title }}</h3>
+          <p>{{ hackathon.description }}</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="section-actions">
+      <a routerLink="/hackathons" class="btn btn-primary">Voir plus</a>
+      <a routerLink="/hackathons" class="btn btn-secondary">En savoir plus</a>
+    </div>
+  </section>
+
+  <section class="partners section-shell" id="partners">
+    <div class="section-heading">
+      <span class="section-tag">Partenaires</span>
+      <h2>Ils nous accompagnent</h2>
+    </div>
+
+    <div class="partners__marquee">
+      <div class="partners__track">
+        <div class="partner-item" *ngFor="let partner of data.partners">
+          <a [href]="partner.website" target="_blank" rel="noreferrer">
+            <img [src]="partner.logo" [alt]="partner.name" loading="lazy" width="160" height="80" />
+          </a>
+        </div>
+        <div class="partner-item" *ngFor="let partner of data.partners">
+          <a [href]="partner.website" target="_blank" rel="noreferrer">
+            <img [src]="partner.logo" [alt]="partner.name" loading="lazy" width="160" height="80" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-actions section-actions--center">
+      <a routerLink="/contact" class="btn btn-primary">Devenir partenaire</a>
+    </div>
+  </section>
+
+  <section class="newsletter section-shell" id="newsletter">
+    <div class="newsletter__content">
+      <div class="newsletter__intro">
+        <span class="section-tag">Newsletter</span>
+        <h2>{{ data.newsletter.title }}</h2>
+        <p>{{ data.newsletter.description }}</p>
+        <a routerLink="/contact" class="btn btn-primary btn-large">{{ data.newsletter.buttonLabel }}</a>
+      </div>
+
+      <form class="newsletter__form">
+        <div class="field" *ngFor="let field of data.newsletter.formFields">
+          <label [for]="field.name">{{ field.label }}</label>
+          <input
+            [id]="field.name"
+            [name]="field.name"
+            [type]="field.type"
+            [placeholder]="field.placeholder"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-secondary btn-large">S’abonner</button>
+      </form>
+    </div>
+  </section>
+
+  <button *ngIf="showScrollTop$ | async" class="scroll-top" type="button" (click)="scrollToTop()" aria-label="Remonter en haut">
+    ↑
+  </button>
 </div>

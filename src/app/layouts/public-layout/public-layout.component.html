@@ -1,5 +1,5 @@
 <app-header></app-header>
-<main class="page-shell">
-  <router-outlet></router-outlet>
+<main [@pageTransition]="'visible'">
+	<router-outlet></router-outlet>
 </main>
 <app-footer></app-footer>

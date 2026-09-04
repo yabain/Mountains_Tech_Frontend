@@ -1,6 +1,6 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 
 export interface AuthUser {
   id: string;
@@ -13,24 +13,25 @@ export interface AuthUser {
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly http = inject(HttpClient);
-  readonly currentUser = signal<AuthUser | null>(null);
+  readonly currentUser$ = new BehaviorSubject<AuthUser | null>(null);
+
+  constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<AuthUser> {
     return this.http.post<AuthUser>('/api/auth/login', { email, password }).pipe(
-      tap((user) => this.currentUser.set(user))
+      tap((user) => this.currentUser$.next(user))
     );
   }
 
   logout(): Observable<boolean> {
-    return of(true).pipe(tap(() => this.currentUser.set(null)));
+    return of(true).pipe(tap(() => this.currentUser$.next(null)));
   }
 
   isAuthenticated(): boolean {
-    return !!this.currentUser();
+    return this.currentUser$.value !== null;
   }
 
   isAdmin(): boolean {
-    return this.currentUser()?.role === 'admin';
+    return this.currentUser$.value?.role === 'admin';
   }
 }

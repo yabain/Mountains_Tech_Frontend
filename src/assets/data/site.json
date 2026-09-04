@@ -1,0 +1,77 @@
+{
+  "hero": {
+    "eyebrow": "MountainsTech",
+    "title": "Uniting Cameroonian Forces in New Technologies!",
+    "subtitle": "A consortium that brings together key players in Cameroon’s new technology sector.",
+    "description": "Together, we form a strategic alliance to innovate, collaborate, and propel the African tech ecosystem to international heights.",
+    "ctaPrimary": "Découvrir les membres",
+    "ctaSecondary": "Nous contacter",
+    "stats": [
+      { "label": "Membres", "value": "12+" },
+      { "label": "Projets", "value": "25+" },
+      { "label": "Hackathons", "value": "8" },
+      { "label": "Impact", "value": "Pan-Africain" }
+    ]
+  },
+  "about": {
+    "title": "Qui sommes-nous ?",
+    "description": "MountainsTech réunit des acteurs clés du numérique au Cameroun pour créer un écosystème fort, innovant et collaboratif.",
+    "highlights": [
+      {
+        "title": "Collaboration",
+        "text": "Foster collaboration among local businesses and innovation stakeholders."
+      },
+      {
+        "title": "Innovation",
+        "text": "Promote technological innovation made in Cameroon and built for the future."
+      },
+      {
+        "title": "Impact",
+        "text": "Strengthen our collective impact in the new technologies market and beyond."
+      }
+    ]
+  },
+  "members": [
+    { "id": 1, "name": "Clemios", "role": "Digital innovation", "city": "Bangangté", "description": "Entreprise spécialisée dans les solutions numériques et le développement d’écosystèmes technologiques.", "image": "/logopartenaires/clemios_logo.jpg" },
+    { "id": 2, "name": "Skyeng Pro", "role": "IT & consulting", "city": "Bangangté", "description": "Accompagnement stratégique et opérationnel pour les entreprises ambitieuses.", "image": "/logopartenaires/sky.jpg" },
+    { "id": 3, "name": "Mboa Intech", "role": "Innovation tech", "city": "Bangangté", "description": "Mise en place d’outils pour la transformation numérique locale.", "image": "/logopartenaires/mboa-in-tech.jpg" },
+    { "id": 4, "name": "Yaba-In", "role": "Startups & ecosystem", "city": "Bangangté", "description": "Création de ponts entre talents, investisseurs et projets d’avenir.", "image": "/logopartenaires/yabaIn.webp" },
+    { "id": 5, "name": "Général Biotech", "role": "Biotech & data", "city": "Bangangté", "description": "Innovation à la croisée du numérique, de la biotechnologie et de l’impact social.", "image": "/logopartenaires/Generabiotech.jpg" }
+  ],
+  "activities": [
+    { "id": 1, "title": "Ateliers et rencontres", "description": "Des sessions de co-création et de partage d’expertise entre acteurs du secteur.", "image": "/logoMountainsTech/logoNavBar.png" },
+    { "id": 2, "title": "Partenariats stratégiques", "description": "Des collaborations concrètes pour accélérer les projets tech camerounais.", "image": "/logoMountainsTech/logoNavBar.png" },
+    { "id": 3, "title": "Formation & sensibilisation", "description": "Des initiatives pour renforcer les compétences numériques et les bonnes pratiques.", "image": "/logoMountainsTech/logoNavBar.png" }
+  ],
+  "projects": [
+    { "id": 1, "title": "Plateforme d’innovation", "description": "Un espace de collaboration pour incubateurs, startups et entreprises.", "image": "/logoMountainsTech/logoNavBar.png", "tag": "Innovation" },
+    { "id": 2, "title": "Campus digital", "description": "Un écosystème éducatif et technique pour stimuler le talent local.", "image": "/logoMountainsTech/logoNavBar.png", "tag": "Éducation" },
+    { "id": 3, "title": "Solutions locales", "description": "Développement d’outils conçus pour les besoins du marché africain.", "image": "/logoMountainsTech/logoNavBar.png", "tag": "Produit" }
+  ],
+  "hackathons": [
+    { "id": 1, "title": "Hackathon ID", "description": "Un challenge de création pour générer des solutions utiles et impactantes.", "image": "/logoMountainsTech/logoNavBar.png", "date": "12 Oct 2026" },
+    { "id": 2, "title": "Startup Sprint", "description": "Un espace de prototypage rapide pour transformer les idées en projets concrets.", "image": "/logoMountainsTech/logoNavBar.png", "date": "18 Nov 2026" },
+    { "id": 3, "title": "Tech for Africa", "description": "Une rencontre de talents pour résoudre les problématiques du continent.", "image": "/logoMountainsTech/logoNavBar.png", "date": "02 Dec 2026" }
+  ],
+  "partners": [
+    { "id": 1, "name": "Clemios", "logo": "/logoMountainsTech/logoNavBar.png", "website": "https://example.com" },
+    { "id": 2, "name": "Skyeng Pro", "logo": "/logoMountainsTech/logoNavBar.png", "website": "https://example.com" },
+    { "id": 3, "name": "Mboa Intech", "logo": "/logoMountainsTech/logoNavBar.png", "website": "https://example.com" },
+    { "id": 4, "name": "Yaba-In", "logo": "/logoMountainsTech/logoNavBar.png", "website": "https://example.com" },
+    { "id": 5, "name": "Général Biotech", "logo": "/logoMountainsTech/logoNavBar.png", "website": "https://example.com" },
+    { "id": 6, "name": "DigiKuntz", "logo": "/logoMountainsTech/logoNavBar.png", "website": "https://example.com" },
+    { "id": 7, "name": "SDK Games Africa", "logo": "/logoMountainsTech/logoNavBar.png", "website": "https://example.com" },
+    { "id": 8, "name": "TechnoPark MeMe", "logo": "/logoMountainsTech/logoNavBar.png", "website": "https://example.com" }
+  ],
+  "newsletter": {
+    "title": "Restez connecté",
+    "description": "Recevez les dernières actualités, événements et opportunités du réseau MountainsTech.",
+    "buttonLabel": "Nous contacter",
+    "buttonLink": "/contact",
+    "formFields": [
+      { "name": "name", "label": "Nom*", "type": "text", "placeholder": "Votre nom" },
+      { "name": "email", "label": "Email*", "type": "email", "placeholder": "Votre email" },
+      { "name": "phone", "label": "Téléphone", "type": "tel", "placeholder": "+237 ..." }
+    ]
+  }
+}
