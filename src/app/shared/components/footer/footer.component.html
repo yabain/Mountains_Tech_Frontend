@@ -1,3 +1,52 @@
-<footer class="footer">
-  <p>© 2026 MountainsTech. Tous droits réservés.</p>
+<footer class="footer" id="footer">
+
+
+  <div class="footer__main">
+    <section class="footer__brand" aria-labelledby="footer-brand-title">
+      <a routerLink="/" class="footer__logo-link" aria-label="Retour à l'accueil">
+        <img class="footer__logo" src="/logoMountainsTech/logo.png" alt="MountainsTech" />
+      </a>
+      <h2 id="footer-brand-title" class="visually-hidden">MountainsTech</h2>
+      <p>Uniting Cameroonian Forces in New Technologies!</p>
+      <div class="footer__socials" aria-label="Réseaux sociaux">
+        <a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+          <img src="/inconInterface/facebook.png" alt="" aria-hidden="true" />
+        </a>
+        <a href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <img src="/inconInterface/linkedin.png" alt="" aria-hidden="true" />
+        </a>
+        <a href="https://wa.me/237671875946" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <img src="/inconInterface/whatsapp.png" alt="" aria-hidden="true" />
+        </a>
+      </div>
+    </section>
+
+    <section class="footer__column" aria-labelledby="footer-company-title">
+      <h3 id="footer-company-title">Navigation</h3>
+      <a routerLink="/about">À propos</a>
+      <a routerLink="/contact">Contactez-nous</a>
+      <a routerLink="/projects">Nos projets</a>
+      <a routerLink="/members">Nos membres</a>
+    </section>
+
+    <section class="footer__column" aria-labelledby="footer-links-title">
+      <h3 id="footer-links-title">Liens rapides</h3>
+      <a routerLink="/events">Événements</a>
+      <a routerLink="/hackathons">Hackathons</a>
+      <a routerLink="/partners">Partenaires</a>
+      <a routerLink="/newsletter">Newsletter</a>
+    </section>
+
+    <section class="footer__column footer__contact" aria-labelledby="footer-contact-title">
+      <h3 id="footer-contact-title">Contactez-nous</h3>
+      <a href="tel:+237671875946">+237 671 87 59 46</a>
+      <a href="mailto:contact@mountainstech.cm">contact&#64;mountainstech.cm</a>
+      <p>Bangangté, Cameroun</p>
+    </section>
+  </div>
+
+  <div class="footer__bottom">
+    <p>Droits d’auteur © 2026 MountainsTech. Tous droits réservés.</p>
+    <a routerLink="/contact">Nous contacter</a>
+  </div>
 </footer>
