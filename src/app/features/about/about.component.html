@@ -1,14 +1,13 @@
 <main class="about-page" *ngIf="siteData$ | async as data">
-  <section class="about-hero" aria-labelledby="about-hero-title">
-    <div class="about-hero__content">
-      <h1 id="about-hero-title">{{ data.about.title }}</h1>
-      <nav class="about-breadcrumb" aria-label="Fil d’Ariane">
-        <a routerLink="/">Accueil</a>
-        <span aria-hidden="true">›</span>
-        <span>À propos</span>
-      </nav>
-    </div>
-  </section>
+  <header class="events-hero" aria-labelledby="about-hero-title">
+    <h1 id="about-hero-title">{{ data.about.title }}</h1>
+    <p>{{ data.about.description }}</p>
+    <nav class="about-breadcrumb" aria-label="Fil d’Ariane">
+      <a routerLink="/home">Accueil</a>
+      <span aria-hidden="true">›</span>
+      <span>À propos</span>
+    </nav>
+  </header>
 
   <section class="manager-section" aria-labelledby="manager-title">
     <div class="manager-section__heading">
