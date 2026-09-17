@@ -11,7 +11,6 @@
 
   <section class="manager-section" aria-labelledby="manager-title">
     <div class="manager-section__heading">
-      <span class="section-label">{{ data.generalManager.eyebrow }}</span>
       <h1 id="manager-title">{{ data.generalManager.title }}</h1>
       <span class="section-rule" aria-hidden="true"></span>
     </div>
@@ -41,8 +40,8 @@
 
   <section class="about-section role-section" aria-labelledby="role-title">
     <div class="section-heading">
-      <span class="section-label">Notre rôle</span>
-      <h2 id="role-title">Un point de rencontre pour les talents africains</h2>
+      <h2 id="role-title">Notre rôle</h2>
+      <p id="role-description">Un point de rencontre pour les talents africains</p>
     </div>
     <div class="objective-grid">
       <article class="objective" *ngFor="let item of data.values.highlights; let index = index">
@@ -55,8 +54,7 @@
 
   <section class="vision-section" aria-labelledby="vision-title">
     <div class="section-heading section-heading--light">
-      <span class="section-label">{{ data.values.eyebrow }}</span>
-      <h2 id="vision-title">Our Vision</h2>
+      <h2 id="vision-title">Notre vision</h2>
       <p>{{ data.values.description }}</p>
     </div>
     <div class="vision-card">
@@ -71,7 +69,6 @@
 
   <section class="about-section about-section--bureau" aria-labelledby="bureau-title">
     <div class="section-heading">
-      <span class="section-label">Gouvernance</span>
       <h2 id="bureau-title">Les membres du bureau</h2>
       <p>Les portraits et fonctions de l'équipe pourront être ajoutés dans le dossier <strong>public/photoBureau</strong>.</p>
     </div>
@@ -89,8 +86,7 @@
 
   <section class="history-section" aria-labelledby="history-title">
     <div class="section-heading">
-      <span class="section-label">{{ data.history.eyebrow }}</span>
-      <h2 id="history-title">Our History</h2>
+      <h2 id="history-title">Notre histoire</h2>
       <p>{{ data.history.description }}</p>
     </div>
     <div class="history-timeline">
