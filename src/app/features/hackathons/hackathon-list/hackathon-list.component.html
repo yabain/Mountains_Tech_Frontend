@@ -1,8 +1,71 @@
-<section>
-  <h2>Hackathons</h2>
-  <ul>
-    <li>Hackathon 2026</li>
-    <li>Challenge AI</li>
-    <li>Startup sprint</li>
-  </ul>
+<section class="hackathon-page">
+  <nav class="program-nav" aria-label="Navigation des programmes">
+    <a class="brand" routerLink="/hackathons" aria-label="Tous les programmes">MT</a>
+    <div class="program-nav__links">
+      <a class="active" routerLink="/hackathons">All Programs</a>
+      <a routerLink="/members">Profile</a>
+      <a routerLink="/hackathons">My Programs</a>
+    </div>
+    <a class="host-button" routerLink="/login">＋ Host</a>
+  </nav>
+
+  <header class="program-hero">
+    <div class="hero-copy">
+      <p class="eyebrow">MountainTech programs</p>
+      <h1>Discover your next opportunity</h1>
+      <p>Explore curated innovation programs, hackathons, startup challenges and more. Find your next opportunity to build.</p>
+      <div class="hero-actions">
+        <label class="search-box">
+          <span aria-hidden="true">⌕</span>
+          <input type="search" placeholder="Search startup challenges" aria-label="Search startup challenges"
+            [value]="searchTerm" (input)="searchTerm = $any($event.target).value">
+        </label>
+        <a class="my-programs-button" routerLink="/hackathons">My Programs <span aria-hidden="true">›</span></a>
+      </div>
+    </div>
+    <article class="featured-program featured-program--hero" *ngIf="featuredProgram as featured">
+      <span class="featured-ribbon">Featured</span>
+      <div class="program-art program-art--blue">
+        <img *ngIf="featured.coverUrl" [src]="featured.coverUrl" [alt]="featured.title">
+        <ng-container *ngIf="!featured.coverUrl">
+          <span>{{ featured.category || 'MountainTech' }}</span>
+          <strong>{{ featured.title }}</strong>
+        </ng-container>
+      </div>
+      <div class="featured-program__footer"><strong>{{ featured.title }}</strong><small>{{ formatDates(featured) }} · {{ featured.location || 'En ligne' }}</small></div>
+    </article>
+  </header>
+
+  <div class="program-shell">
+    <div class="filter-bar">
+      <button class="filter-pill" [class.filter-pill--active]="selectedFilter === 'All Programs'" type="button" (click)="selectFilter('All Programs')">All Programs</button>
+      <button class="filter-pill" [class.filter-pill--active]="selectedFilter === 'Hackathons'" type="button" (click)="selectFilter('Hackathons')">Hackathons</button>
+      <button class="filter-pill" [class.filter-pill--active]="selectedFilter === 'Innovation Challenges'" type="button" (click)="selectFilter('Innovation Challenges')">Innovation Challenges</button>
+      <button class="filter-pill" [class.filter-pill--active]="selectedFilter === 'Startup Challenges'" type="button" (click)="selectFilter('Startup Challenges')">Startup Challenges</button>
+      <span class="opportunity-count">{{ filteredHackathons.length }} opportunities</span>
+    </div>
+
+    <p class="state-message" *ngIf="isLoading">Loading programs...</p>
+    <p class="state-message state-message--error" *ngIf="hasError">Unable to load programs right now.</p>
+    <p class="state-message" *ngIf="!isLoading && !hasError && !filteredHackathons.length">No programs match your search.</p>
+
+    <div class="program-grid" *ngIf="!isLoading && !hasError && filteredHackathons.length">
+      <article class="program-card" *ngFor="let program of programs">
+        <div class="program-card__visual" [class]="'program-card__visual program-card__visual--' + program.tone">
+          <img *ngIf="program.coverUrl" [src]="program.coverUrl" [alt]="program.title">
+          <span class="program-mark">{{ program.title.substring(0, 2).toUpperCase() }}</span>
+          <span class="date-chip">▣ {{ formatDates(program) }}</span>
+          <span class="featured-chip" *ngIf="program.featured">★ Featured</span>
+        </div>
+        <div class="program-card__body">
+          <h2>{{ program.title }}</h2>
+          <p *ngIf="program.category">◈ {{ program.category }}</p>
+          <p>⌖ {{ program.location || 'En ligne' }}</p>
+          <div class="program-card__footer"><span>♧ Participants</span><button type="button">Register Now</button></div>
+        </div>
+      </article>
+    </div>
+
+    <button class="view-more" type="button">View More <span aria-hidden="true">⌄</span></button>
+  </div>
 </section>

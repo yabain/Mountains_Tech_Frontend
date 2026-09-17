@@ -1,8 +1,40 @@
-<section>
-  <h2>Membres</h2>
-  <ul>
-    <li>Alexandre - Développeur</li>
-    <li>Sarah - Product Manager</li>
-    <li>Yanis - Data Scientist</li>
-  </ul>
+<section class="members-page">
+  <header class="members-hero">
+    <p class="eyebrow">La communauté</p>
+    <h1>Les membres du MountainTech</h1>
+    <p>Découvrez les talents qui font vivre notre communauté.</p>
+  </header>
+
+  <div class="members-shell">
+    <div class="section-heading">
+      <div><p class="section-tag">Membres</p><h2>Une communauté engagée</h2></div>
+      <span>{{ filteredMembers.length }} membre{{ filteredMembers.length > 1 ? 's' : '' }}</span>
+    </div>
+    <label class="search-box">
+      <span aria-hidden="true">⌕</span>
+      <input type="search" placeholder="Rechercher par nom, email ou rôle..." [value]="searchTerm"
+        (input)="searchTerm = $any($event.target).value" aria-label="Rechercher un membre">
+    </label>
+
+    <p class="state-message" *ngIf="isLoading">Chargement des membres...</p>
+    <p class="state-message state-message--error" *ngIf="hasError">Impossible de charger les membres. Vérifiez votre accès administrateur.</p>
+    <p class="state-message" *ngIf="!isLoading && !hasError && !filteredMembers.length">Aucun membre ne correspond à votre recherche.</p>
+
+    <div class="member-grid" *ngIf="!isLoading && !hasError && filteredMembers.length">
+      <article class="member-card" *ngFor="let member of filteredMembers">
+        <div class="member-avatar">
+          <img *ngIf="member.avatarUrl" [src]="member.avatarUrl" [alt]="memberName(member)">
+          <span *ngIf="!member.avatarUrl">{{ memberName(member).charAt(0).toUpperCase() }}</span>
+        </div>
+        <div class="member-info">
+          <h3>{{ memberName(member) }}</h3>
+          <p class="member-role" *ngIf="member.role">{{ member.role }}</p>
+          <p class="member-email">{{ member.email }}</p>
+          <span class="status-badge" [class.status-badge--pending]="member.status.toLowerCase() === 'pending'"
+            [class.status-badge--inactive]="member.status.toLowerCase() === 'inactive'">{{ statusLabel(member.status) }}</span>
+        </div>
+        <a class="member-link" [routerLink]="['/members', member.id]" [attr.aria-label]="'Voir le profil de ' + memberName(member)">→</a>
+      </article>
+    </div>
+  </div>
 </section>

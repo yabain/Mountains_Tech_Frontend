@@ -1,8 +1,43 @@
-<section>
-  <h2>Projets</h2>
-  <ul>
-    <li>Projet IA pour la santé</li>
-    <li>Plateforme de gestion communautaire</li>
-    <li>Expérience utilisateur mobile</li>
-  </ul>
+<section class="directory-page">
+  <header class="directory-hero">
+    <p class="eyebrow">Nos réalisations</p>
+    <h1>Des projets qui prennent vie</h1>
+    <p>Explorez les initiatives portées par MountainTech.</p>
+  </header>
+
+  <div class="directory-shell">
+    <div class="section-heading">
+      <div>
+        <p class="section-tag">Projets</p>
+        <h2>Découvrez nos projets</h2>
+      </div>
+      <span>{{ filteredProjects.length }} projet{{ filteredProjects.length > 1 ? 's' : '' }}</span>
+    </div>
+
+    <label class="search-box">
+      <span aria-hidden="true">⌕</span>
+      <input type="search" placeholder="Rechercher un projet..." [value]="searchTerm"
+        (input)="searchTerm = $any($event.target).value" aria-label="Rechercher un projet">
+    </label>
+
+    <p class="state-message" *ngIf="isLoading">Chargement des projets...</p>
+    <p class="state-message state-message--error" *ngIf="hasError">Impossible de charger les projets. Vérifiez votre accès administrateur.</p>
+    <p class="state-message" *ngIf="!isLoading && !hasError && !filteredProjects.length">Aucun projet ne correspond à votre recherche.</p>
+
+    <div class="card-grid" *ngIf="!isLoading && !hasError && filteredProjects.length">
+      <article class="directory-card" *ngFor="let project of filteredProjects">
+        <div class="card-cover">
+          <img *ngIf="project.coverUrl" [src]="project.coverUrl" [alt]="projectTitle(project)">
+          <span *ngIf="!project.coverUrl" aria-hidden="true">MT</span>
+          <strong>{{ statusLabel(project.status) }}</strong>
+        </div>
+        <div class="card-body">
+          <p class="card-category" *ngIf="project.category">{{ project.category }}</p>
+          <h3>{{ projectTitle(project) }}</h3>
+          <p>{{ projectDescription(project) }}</p>
+          <a class="card-link" [routerLink]="['/projects', project.id]">Découvrir le projet <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
 </section>

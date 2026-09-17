@@ -1,8 +1,66 @@
-<section>
-  <h2>Événements</h2>
-  <ul>
-    <li>Meetup MountainTech</li>
-    <li>Hackathon local</li>
-    <li>Salon innovation</li>
-  </ul>
+<section class="events-page">
+  <header class="events-hero">
+    <p class="eyebrow">Événements</p>
+    <h1>Nos rendez-vous</h1>
+    <p>Retrouvez nos événements à venir et passés.</p>
+  </header>
+
+  <div class="events-shell">
+    <div class="section-heading">
+      <div>
+        <p class="section-tag">À l'affiche</p>
+        <h2>Choisissez votre prochain rendez-vous</h2>
+      </div>
+      <span class="event-count">{{ filteredEvents.length }} événement{{ filteredEvents.length > 1 ? 's' : '' }} à découvrir</span>
+    </div>
+
+    <label class="search-box">
+      <span aria-hidden="true">⌕</span>
+      <input
+        type="search"
+        placeholder="Rechercher par thème, lieu ou date..."
+        [value]="searchTerm"
+        (input)="searchTerm = $any($event.target).value"
+        aria-label="Rechercher un événement">
+    </label>
+
+    <p class="state-message" *ngIf="isLoading">Chargement des événements...</p>
+    <p class="state-message state-message--error" *ngIf="hasError">Impossible de charger les événements pour le moment.</p>
+    <p class="state-message" *ngIf="!isLoading && !hasError && !filteredEvents.length">Aucun événement ne correspond à votre recherche.</p>
+
+    <div class="event-grid" *ngIf="!isLoading && !hasError && filteredEvents.length">
+      <article class="event-card" *ngFor="let event of filteredEvents">
+        <div class="event-cover">
+          <img *ngIf="event.coverUrl" [src]="event.coverUrl" [alt]="event.title">
+          <div class="event-cover__fallback" *ngIf="!event.coverUrl" aria-hidden="true">MT</div>
+          <span class="status-badge">{{ statusLabel(event.status) }}</span>
+          <span class="date-badge">{{ formatDate(event.startAt) }}</span>
+        </div>
+
+        <div class="event-card__body">
+          <p class="event-category" *ngIf="event.category">{{ event.category }}</p>
+          <h3>{{ event.title }}</h3>
+          <p class="event-meta" *ngIf="event.location">⌖ {{ event.location }}</p>
+          <p class="event-meta">◷ {{ formatTime(event.startAt) }}</p>
+          <p class="event-description">{{ event.excerpt || 'Découvrez cet événement MountainTech.' }}</p>
+
+          <div class="event-partner" *ngIf="event.partner">
+            <span>Partenaire</span>
+            <a *ngIf="event.partner.website; else partnerName" [href]="event.partner.website" target="_blank" rel="noopener noreferrer">
+              <img *ngIf="event.partner.logoUrl" [src]="event.partner.logoUrl" [alt]="event.partner.name">
+              <strong>{{ event.partner.name }}</strong>
+            </a>
+            <ng-template #partnerName>
+              <span class="partner-name">
+                <img *ngIf="event.partner.logoUrl" [src]="event.partner.logoUrl" [alt]="event.partner.name">
+                <strong>{{ event.partner.name }}</strong>
+              </span>
+            </ng-template>
+          </div>
+
+          <a class="event-link" [routerLink]="['/events', event.id]">Découvrir l'événement <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
 </section>
