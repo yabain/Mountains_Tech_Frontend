@@ -1,4 +1,108 @@
-<section>
-  <h2>À propos</h2>
-  <p>MountainsTech est une organisation axée sur l’innovation, la formation et le partage de connaissances dans le domaine technologique.</p>
-</section>
+<main class="about-page" *ngIf="siteData$ | async as data">
+  <section class="about-hero" aria-labelledby="about-hero-title">
+    <div class="about-hero__content">
+      <h1 id="about-hero-title">{{ data.about.title }}</h1>
+      <nav class="about-breadcrumb" aria-label="Fil d’Ariane">
+        <a routerLink="/home">Accueil</a>
+        <span aria-hidden="true">›</span>
+        <span>À propos</span>
+      </nav>
+    </div>
+  </section>
+
+  <section class="manager-section" aria-labelledby="manager-title">
+    <div class="manager-section__heading">
+      <span class="section-label">{{ data.generalManager.eyebrow }}</span>
+      <h1 id="manager-title">{{ data.generalManager.title }}</h1>
+      <span class="section-rule" aria-hidden="true"></span>
+    </div>
+
+    <div class="manager-layout">
+      <div class="manager-profile">
+        <div class="manager-profile__photo">
+          <img *ngIf="data.generalManager.image; else managerPlaceholder" [src]="data.generalManager.image" [alt]="data.generalManager.name" />
+          <ng-template #managerPlaceholder><span aria-hidden="true">JYS</span></ng-template>
+        </div>
+        <div class="manager-profile__caption">
+          <strong>{{ data.generalManager.role }}</strong>
+          <span>{{ data.generalManager.name }}</span>
+        </div>
+      </div>
+
+      <div class="manager-message">
+        <p *ngFor="let paragraph of data.generalManager.paragraphs">{{ paragraph }}</p>
+        <blockquote>{{ data.generalManager.quote }}</blockquote>
+        <div class="manager-signature">
+          <strong>{{ data.generalManager.role }}</strong>
+          <span>{{ data.generalManager.name }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section role-section" aria-labelledby="role-title">
+    <div class="section-heading">
+      <span class="section-label">Notre rôle</span>
+      <h2 id="role-title">Un point de rencontre pour les talents africains</h2>
+    </div>
+    <div class="objective-grid">
+      <article class="objective" *ngFor="let item of data.values.highlights; let index = index">
+        <span class="objective__number">0{{ index + 1 }}</span>
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.text }}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="vision-section" aria-labelledby="vision-title">
+    <div class="section-heading section-heading--light">
+      <span class="section-label">{{ data.values.eyebrow }}</span>
+      <h2 id="vision-title">Our Vision</h2>
+      <p>{{ data.values.description }}</p>
+    </div>
+    <div class="vision-card">
+      <h3>{{ data.values.title }}</h3>
+      <p>Faire de Bangangté un carrefour technologique dynamique, où l'innovation locale se transforme en solutions pour l'Afrique.</p>
+      <div class="vision-card__facts">
+        <span>{{ data.values.launchDate }}</span>
+        <span>{{ data.values.location }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section about-section--bureau" aria-labelledby="bureau-title">
+    <div class="section-heading">
+      <span class="section-label">Gouvernance</span>
+      <h2 id="bureau-title">Les membres du bureau</h2>
+      <p>Les portraits et fonctions de l'équipe pourront être ajoutés dans le dossier <strong>public/photoBureau</strong>.</p>
+    </div>
+    <div class="bureau-grid">
+      <article class="bureau-card" *ngFor="let member of data.values.officeMembers">
+        <div class="bureau-card__photo">
+          <img *ngIf="member.image; else memberPlaceholder" [src]="member.image" [alt]="member.name" loading="lazy" />
+          <ng-template #memberPlaceholder><span aria-hidden="true">{{ member.name.charAt(0) }}</span></ng-template>
+        </div>
+        <h3>{{ member.name }}</h3>
+        <p>{{ member.role }}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="history-section" aria-labelledby="history-title">
+    <div class="section-heading">
+      <span class="section-label">{{ data.history.eyebrow }}</span>
+      <h2 id="history-title">Our History</h2>
+      <p>{{ data.history.description }}</p>
+    </div>
+    <div class="history-timeline">
+      <article class="history-item" *ngFor="let item of data.history.items; let last = last">
+        <div class="history-item__year">{{ item.year }}</div>
+        <div class="history-item__line" [class.history-item__line--last]="last" aria-hidden="true"></div>
+        <div class="history-item__card">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>

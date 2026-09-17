@@ -13,7 +13,60 @@
       { "label": "Impact", "value": "Pan-Africain" }
     ]
   },
-  "about": {
+  "generalManager": {
+    "eyebrow": "Leadership",
+    "title": "Meet Our General Manager",
+    "role": "General Manager",
+    "name": "Flambel Sanou",
+    "image": "",
+    "paragraphs": [
+      "Chaque étape comporte ses propres défis. Elle exige d'adopter un état d'esprit de croissance, de décomposer les problèmes en étapes maîtrisables et de rester fort et résilient.",
+      "MountainsTech avance avec la conviction que les fondations posées aujourd'hui permettront de relever les défis de demain.",
+      "Avec plus de 500 jeunes Camerounais recrutés en 2025 dans l'écosystème numérique, nous contribuons à ouvrir davantage l'accès au marché de l'emploi et à donner aux talents les moyens de créer des solutions utiles.",
+      "Nous poursuivons cette dynamique en accélérant les projets qui connectent les communautés, renforcent les compétences et font grandir les technologies africaines."
+    ],
+    "quote": "Notre ambition est de construire un écosystème où chaque talent peut apprendre, collaborer et transformer une idée en impact."
+  },
+  "values": {
+    "eyebrow": "Nos valeurs",
+    "title": "Un technopôle pour faire grandir l'innovation africaine",
+    "description": "Mountains Tech In Africa est un technopôle innovant basé à Bangangté, officiellement lancé le 11 janvier 2025 à l'occasion d'un hackathon. Il accompagne les jeunes créateurs, développeurs et porteurs de projets pour transformer leurs idées en solutions utiles et porter les technologies africaines vers de nouveaux sommets.",
+    "launchDate": "11 janvier 2025",
+    "location": "Bangangté, Cameroun",
+    "sourceUrl": "https://www.linkedin.com/posts/mountains-tech_mountainstechinafrica-innovation-africantechnology-activity-7284997936915099648-mg3L",
+    "highlights": [
+      {
+        "title": "Soutenir l'innovation locale",
+        "text": "Aider les jeunes créateurs, développeurs et porteurs de projets à concrétiser leurs idées technologiques."
+      },
+      {
+        "title": "Créer des connexions",
+        "text": "Rassembler talents, chercheurs et entrepreneurs africains pour partager des solutions aux défis du continent."
+      },
+      {
+        "title": "Accélérer le développement",
+        "text": "Faire de Bangangté et de la région un carrefour technologique dynamique, ouvert sur l'Afrique et le monde."
+      }
+    ],
+    "officeMembers": [
+      { "id": 1, "name": "À compléter", "role": "Membre du bureau", "image": "" },
+      { "id": 2, "name": "À compléter", "role": "Membre du bureau", "image": "" },
+      { "id": 3, "name": "À compléter", "role": "Membre du bureau", "image": "" }
+    ]
+  },
+  "history": {
+    "eyebrow": "Notre histoire",
+    "title": "Une trajectoire d'innovation",
+    "description": "Des premières collaborations au technopôle Mountains Tech In Africa, chaque étape renforce notre capacité à faire émerger des solutions africaines.",
+    "items": [
+      { "year": "2022", "title": "Les premières connexions", "description": "Des acteurs du numérique commencent à structurer des échanges autour des talents et des besoins technologiques locaux." },
+      { "year": "2023", "title": "Une communauté se construit", "description": "Les rencontres, ateliers et collaborations rapprochent entrepreneurs, développeurs et porteurs de projets." },
+      { "year": "2024", "title": "Préparer le technopôle", "description": "Les bases d'un espace d'innovation à Bangangté se consolident avec une ambition tournée vers l'Afrique." },
+      { "year": "2025", "title": "Lancement officiel", "description": "Mountains Tech In Africa est officiellement lancé le 11 janvier 2025 à l'occasion d'un hackathon." },
+      { "year": "Aujourd'hui", "title": "Accélérer l'impact", "description": "Le réseau continue de soutenir l'innovation locale, le partage de compétences et les projets à fort potentiel." }
+    ]
+  },
+    "about": {
     "title": "À propos de MountainsTech",
     "description": "MountainsTech réunit des acteurs clés du numérique au Cameroun pour créer un écosystème fort, innovant et collaboratif.",
     "highlights": [

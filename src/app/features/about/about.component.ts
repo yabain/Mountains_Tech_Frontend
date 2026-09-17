@@ -1,10 +1,22 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+
+import { SiteData } from '../../core/models/site.model';
+import { SiteDataService } from '../../core/services/site-data.service';
 
 @Component({
   selector: 'app-about',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AboutComponent {}
+export class AboutComponent {
+  readonly siteData$: Observable<SiteData>;
+
+  constructor(private readonly siteDataService: SiteDataService) {
+    this.siteData$ = this.siteDataService.getSiteData();
+  }
+}

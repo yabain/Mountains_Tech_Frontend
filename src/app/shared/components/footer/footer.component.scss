@@ -5,7 +5,6 @@
   padding: 3.5rem clamp(1.25rem, 4vw, 4.5rem) 1.25rem;
 }
 
-.footer__newsletter,
 .footer__main,
 .footer__bottom {
   width: min(100%, 1240px);
@@ -52,61 +51,9 @@
 }
 
 .footer h2,
-.footer h3,
+.footer h2,
 .footer p {
   margin-top: 0;
-}
-
-.footer__newsletter h2 {
-  margin-bottom: 0;
-  color: var(--white);
-  font-size: clamp(1.1rem, 2vw, 1.45rem);
-}
-
-.footer__newsletter-form {
-  display: flex;
-  width: min(100%, 460px);
-  min-height: 48px;
-}
-
-.footer__newsletter-form input {
-  min-width: 0;
-  flex: 1;
-  padding: 0 1rem;
-  border: 1px solid var(--blue-3);
-  border-right: 0;
-  border-radius: 10px 0 0 10px;
-  color: var(--black);
-  outline: none;
-}
-
-.footer__newsletter-form input:focus {
-  border-color: var(--secondary);
-  box-shadow: 0 0 0 3px var(--blue-3);
-}
-
-.footer__newsletter-form button {
-  padding: 0 1.35rem;
-  border: 0;
-  border-radius: 0 10px 10px 0;
-  background: var(--secondary);
-  color: var(--black);
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.footer__newsletter-form button:hover {
-  background: var(--blue-3);
-  transform: translateY(-1px);
-}
-
-.footer__divider {
-  width: min(100%, 1240px);
-  height: 1px;
-  margin: 2.5rem auto 2.25rem;
-  background: var(--blue-3);
 }
 
 .footer__main {

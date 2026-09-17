@@ -1,6 +1,9 @@
 export interface SiteData {
   hero: HeroSection;
   about: AboutSection;
+  generalManager: GeneralManagerSection;
+  values: ValuesSection;
+  history: HistorySection;
   members: MemberItem[];
   activities: ActivityItem[];
   projects: ProjectItem[];
@@ -21,8 +24,48 @@ export interface HeroSection {
 
 export interface AboutSection {
   title: string;
+  eyebrow: string;
   description: string;
+  launchDate: string;
+  location: string;
+  sourceUrl: string;
   highlights: { title: string; text: string }[];
+  officeMembers: OfficeMember[];
+}
+
+export interface OfficeMember {
+  id: number;
+  name: string;
+  role: string;
+  image: string;
+}
+
+export interface GeneralManagerSection {
+  eyebrow: string;
+  title: string;
+  role: string;
+  name: string;
+  image: string;
+  paragraphs: string[];
+  quote: string;
+}
+
+export interface ValuesSection {
+  eyebrow: string;
+  title: string;
+  description: string;
+  launchDate: string;
+  location: string;
+  sourceUrl: string;
+  highlights: { title: string; text: string }[];
+  officeMembers: OfficeMember[];
+}
+
+export interface HistorySection {
+  eyebrow: string;
+  title: string;
+  description: string;
+  items: { year: string; title: string; description: string }[];
 }
 
 export interface MemberItem {
