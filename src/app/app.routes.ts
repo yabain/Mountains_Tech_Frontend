@@ -27,10 +27,10 @@ export const routes: Routes = [
       { path: 'hackathons/:id/register', loadComponent: () => import('./features/hackathons/team-registration/team-registration.component').then((m) => m.TeamRegistrationComponent) },
       { path: 'partners', loadComponent: () => import('./features/partners/partners.component').then((m) => m.PartnersComponent) },
       { path: 'contact', loadComponent: () => import('./features/contact/contact.component').then((m) => m.ContactComponent) },
-      { path: 'newsletter', loadComponent: () => import('./features/newsletter/newsletter-subscription/newsletter-subscription.component').then((m) => m.NewsletterSubscriptionComponent) },
-      { path: 'login', loadComponent: () => import('./features/auth/login/login.component').then((m) => m.LoginComponent) }
+      { path: 'newsletter', loadComponent: () => import('./features/newsletter/newsletter-subscription/newsletter-subscription.component').then((m) => m.NewsletterSubscriptionComponent) }
     ]
   },
+  { path: 'login', loadComponent: () => import('./features/auth/login/login.component').then((m) => m.LoginComponent) },
   {
     path: 'admin',
     component: AdminLayoutComponent,
