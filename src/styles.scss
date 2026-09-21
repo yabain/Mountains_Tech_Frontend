@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 :root {
   --primary: #00447e;
   --secondary: #ffe721;
@@ -8,10 +10,8 @@
   --green: #00c61a;
   --white: #ffffff;
   --black: #000000;
+  --bs-body-font-family: 'Roboto';
 }
-
-@import "bootstrap/dist/css/bootstrap.min.css";
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 html {
   scroll-behavior: smooth;
@@ -19,10 +19,14 @@ html {
 
 html, body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
   background: var(--white);
   color: var(--black);
   min-height: 100%;
+}
+
+*, *::before, *::after {
+  font-family: 'Roboto';
 }
 
 body {

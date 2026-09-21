@@ -1,0 +1,40 @@
+<section class="admin-page-heading">
+  <div>
+    <span class="admin-eyebrow">Administration</span>
+    <h1>{{ title }}</h1>
+    <p>Données récupérées automatiquement depuis le backend.</p>
+  </div>
+</section>
+
+@if (loading()) {
+  <div class="admin-state">Chargement des données...</div>
+} @else if (error()) {
+  <div class="admin-state admin-state--error" role="alert">{{ error() }}</div>
+} @else if (!rows().length) {
+  <div class="admin-state">Aucune donnée disponible.</div>
+} @else {
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          @for (entry of (entries(rows()[0]) | keyvalue); track entry.key) {
+            <th>{{ entry.key }}</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of rows(); track $index) {
+          <tr>
+            @if (isRecord(row)) {
+              @for (entry of (entries(row) | keyvalue); track entry.key) {
+                <td>{{ displayValue(entry.value) }}</td>
+              }
+            } @else {
+              <td>{{ displayValue(row) }}</td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

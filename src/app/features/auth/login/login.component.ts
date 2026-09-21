@@ -48,7 +48,7 @@ export class LoginComponent {
     const { email, password } = this.loginForm.getRawValue();
 
     this.authService.login(email.trim(), password).subscribe({
-      next: () => this.router.navigate(['/admin']),
+      next: () => this.router.navigateByUrl(this.authService.hasDashboardAccess() ? '/dashboard' : '/'),
       error: (error: HttpErrorResponse) => {
         this.errorMessage = error.error?.message ?? 'Impossible de vous connecter. Vérifiez vos identifiants.';
         this.isSubmitting = false;

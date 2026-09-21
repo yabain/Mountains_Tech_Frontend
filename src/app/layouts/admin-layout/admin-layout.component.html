@@ -1,6 +1,53 @@
-<div class="admin-shell">
-  <app-sidebar></app-sidebar>
-  <main class="admin-content">
-    <router-outlet></router-outlet>
-  </main>
+<div class="admin-shell" [class.admin-shell--sidebar-open]="sidebarOpen()">
+  <button class="admin-overlay" type="button" aria-label="Fermer le menu" (click)="closeSidebar()"></button>
+
+  <aside class="admin-sidebar">
+    <a class="admin-brand" routerLink="/dashboard" (click)="closeSidebar()">
+      <img src="/logoMountainsTech/logoNavBar.png" alt="Mountains Tech">
+    </a>
+
+    @if (currentUser$ | async; as user) {
+      <div class="admin-profile">
+        <div class="admin-avatar">{{ (user.name || user.email).charAt(0).toUpperCase() }}</div>
+        <strong>{{ user.name || user.email }}</strong>
+        <span>{{ user.role }}</span>
+      </div>
+    }
+
+    <nav class="admin-nav" aria-label="Navigation administrateur">
+      @if (currentUser$ | async; as user) {
+        @for (group of navGroups; track group) {
+          @if (navigationForGroup(user, group).length) {
+            <span class="admin-nav-group">{{ groupLabel(group) }}</span>
+            @for (item of navigationForGroup(user, group); track item.permission) {
+              <a [routerLink]="item.route" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: item.permission === 'dashboard' }" (click)="closeSidebar()">
+                <i [class]="'bi ' + item.icon" aria-hidden="true"></i><span>{{ item.label }}</span>
+              </a>
+            }
+          }
+        }
+      }
+    </nav>
+
+    <button class="admin-logout" type="button" (click)="logout()">
+      <i class="bi bi-box-arrow-right" aria-hidden="true"></i><span>Se déconnecter</span>
+    </button>
+  </aside>
+
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button class="admin-menu-button" type="button" aria-label="Ouvrir le menu" (click)="toggleSidebar()">
+        <i class="bi bi-list" aria-hidden="true"></i>
+      </button>
+      <div>
+        <span class="admin-kicker">Espace sécurisé</span>
+        <strong>Administration Mountains Tech</strong>
+      </div>
+      <a class="admin-site-link" routerLink="/">Voir le site <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+    </header>
+
+    <main class="admin-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>
