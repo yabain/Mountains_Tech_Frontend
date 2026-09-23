@@ -39,11 +39,11 @@ export const routes: Routes = [
     children: [
       { path: '', data: { permission: 'dashboard' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/dashboard/admin-dashboard.component').then((m) => m.AdminDashboardComponent) },
       { path: 'users', data: { title: 'Utilisateurs', endpoint: 'users', permission: 'users' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/resource/admin-resource.component').then((m) => m.AdminResourceComponent) },
-      { path: 'audit-logs', data: { title: 'Journaux d’audit', endpoint: 'auditLogs', permission: 'audit-logs' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/resource/admin-resource.component').then((m) => m.AdminResourceComponent) },
+      { path: 'audit-logs', data: { title: 'Journaux audit', endpoint: 'auditLogs', permission: 'audit-logs' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/resource/admin-resource.component').then((m) => m.AdminResourceComponent) },
       ...[
-        ['settings', 'Paramètres', 'settings'], ['media', 'Médias', 'media'], ['contacts', 'Contacts', 'contacts'],
-        ['members', 'Membres', 'members'], ['projects', 'Projets', 'projects'], ['activities', 'Activités', 'activities'],
-        ['events', 'Événements', 'events'], ['hackathons', 'Hackathons', 'hackathons'], ['partners', 'Partenaires', 'partners'],
+        ['settings', 'Parametres', 'settings'], ['media', 'Medias', 'media'], ['contacts', 'Contacts', 'contacts'],
+        ['members', 'Membres', 'members'], ['projects', 'Projets', 'projects'], ['activities', 'Activites', 'activities'],
+        ['events', 'Evenements', 'events'], ['hackathons', 'Hackathons', 'hackathons'], ['partners', 'Partenaires', 'partners'],
         ['newsletter', 'Newsletter', 'newsletter'], ['announcements', 'Annonces', 'announcements']
       ].map(([path, title, permission]) => ({
         path,

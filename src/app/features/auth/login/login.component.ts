@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { Router, RouterLink } from '@angular/router';
@@ -18,6 +18,7 @@ export class LoginComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   readonly loginForm = this.formBuilder.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -52,6 +53,7 @@ export class LoginComponent {
       error: (error: HttpErrorResponse) => {
         this.errorMessage = error.error?.message ?? 'Impossible de vous connecter. Vérifiez vos identifiants.';
         this.isSubmitting = false;
+        this.cdr.markForCheck();
       }
     });
   }

@@ -5,12 +5,11 @@ import { BehaviorSubject } from 'rxjs';
 import { SiteData } from '../../core/models/site.model';
 import { SiteDataService } from '../../core/services/site-data.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
-import { LoadingStateComponent } from '../../shared/components/loading-state/loading-state.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, LoadingStateComponent],
+  imports: [CommonModule, ButtonComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

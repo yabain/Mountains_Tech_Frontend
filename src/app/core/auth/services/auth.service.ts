@@ -89,9 +89,8 @@ export class AuthService {
 
   private storeToken(token: string | undefined): void {
     if (!token) {
-      throw new Error('Le backend n’a pas renvoyé de token JWT.');
+      throw new Error('No token returned by the backend.');
     }
-
     localStorage.setItem('access_token', token);
   }
 
@@ -117,7 +116,7 @@ export class AuthService {
       ?? [this.asString(user['firstName']), this.asString(user['lastName'])].filter(Boolean).join(' ');
 
     if (!id || !email || !role || !name) {
-      throw new Error('Le profil renvoyé par le backend est incomplet.');
+      throw new Error('Incomplete user profile returned by the backend.');
     }
 
     return {
