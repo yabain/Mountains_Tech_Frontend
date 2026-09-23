@@ -9,7 +9,7 @@
       <select class="time-select" [value]="selectedTimeRange()" (change)="onTimeRangeChange($any($event.target).value)">
         @for (range of timeRanges; track range.value) { <option [value]="range.value">{{ range.label }}</option> }
       </select>
-      <button type="button" class="btn btn--outline"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i>Actualiser</button>
+      <app-button variant="outline"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i>Actualiser</app-button>
     </div>
   </header>
 

@@ -1,0 +1,59 @@
+$primary: #00447e;
+$secondary: #ffe721;
+$accent: #ff0047;
+$white: #ffffff;
+$black: #000000;
+$gray-50: #f8f9fa;
+$gray-100: #e9ecef;
+$gray-200: #dee2e6;
+$gray-300: #ced4da;
+$gray-400: #adb5bd;
+$gray-500: #6c757d;
+$gray-600: #495057;
+$gray-700: #343a40;
+$gray-800: #212529;
+$gray-900: #1a1d20;
+$blue-1: #2272c0;
+$blue-2: #347ccf;
+$blue-3: #18cbff;
+$green: #00c61a;
+$red: #dc3545;
+$orange: #fd7e14;
+$yellow: #ffc107;
+$purple: #6f42c1;
+
+$transition-fast: 150ms ease;
+$transition-normal: 220ms ease;
+$transition-slow: 350ms ease;
+
+$radius-sm: 8px;
+$radius-md: 10px;
+$radius-lg: 16px;
+$radius-full: 999px;
+
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+$shadow-nav: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+$font-family-base: 'Roboto', sans-serif;
+$font-family-serif: 'Roboto', serif;
+
+$font-size-xs: 0.65rem;
+$font-size-sm: 0.75rem;
+$font-size-base: 0.875rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+$font-size-4xl: 2.25rem;
+$font-size-5xl: 3rem;
+$font-size-6xl: 3.75rem;
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+$line-height-base: 1.5;
+$line-height-tight: 1.2;

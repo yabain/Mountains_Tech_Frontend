@@ -1,11 +1,15 @@
+@use 'sass:color';
+
+@import '../../../../styles/_tokens-admin';
+
 .admin-page-heading { margin-bottom: 1.5rem; }
 .admin-page-heading h1 { margin: .25rem 0 .35rem; font-size: clamp(1.7rem, 3vw, 2.35rem); }
-.admin-page-heading p { margin: 0; color: #718092; }
-.admin-eyebrow { color: #008ec8; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-.admin-table-wrap { overflow-x: auto; border: 1px solid #e3eaf0; border-radius: 10px; background: #fff; box-shadow: 0 8px 24px rgba(22, 37, 54, .05); }
+.admin-page-heading p { margin: 0; color: $gray-600; }
+.admin-eyebrow { color: $primary; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.admin-table-wrap { overflow-x: auto; border: 1px solid $gray-200; border-radius: $radius-md; background: $white; box-shadow: $shadow-md; }
 .admin-table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: .82rem; }
-.admin-table th { padding: .85rem 1rem; background: #f4f7f9; color: #718092; font-size: .7rem; letter-spacing: .06em; text-align: left; text-transform: uppercase; }
-.admin-table td { max-width: 280px; padding: .85rem 1rem; border-top: 1px solid #e3eaf0; overflow-wrap: anywhere; }
-.admin-table tbody tr:hover { background: #fbfdfe; }
-.admin-state { padding: 2rem; border: 1px dashed #b9cbd7; border-radius: 10px; background: #fff; color: #718092; text-align: center; }
-.admin-state--error { border-color: #e6a7ae; color: #a51d2d; }
+.admin-table th { padding: .85rem 1rem; background: $gray-100; color: $gray-600; font-size: .7rem; letter-spacing: .06em; text-align: left; text-transform: uppercase; }
+.admin-table td { max-width: 280px; padding: .85rem 1rem; border-top: 1px solid $gray-200; overflow-wrap: anywhere; }
+.admin-table tbody tr:hover { background: $gray-50; }
+.admin-state { padding: 2rem; border: 1px dashed $gray-300; border-radius: $radius-md; background: $white; color: $gray-600; text-align: center; }
+.admin-state--error { border-color: $red; color: $red; }

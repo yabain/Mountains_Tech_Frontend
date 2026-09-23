@@ -1,0 +1,23 @@
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+
+  .empty-state-icon {
+    display: inline-block;
+    font-size: 3rem;
+    color: var(--gray-300);
+    margin-bottom: 1rem;
+  }
+
+  .empty-state-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    color: var(--primary);
+  }
+
+  .empty-state-description {
+    margin: 0;
+    color: var(--gray-600);
+    font-size: 0.95rem;
+  }
+}

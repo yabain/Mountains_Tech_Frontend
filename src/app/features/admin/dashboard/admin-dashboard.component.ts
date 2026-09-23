@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { KeyValuePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ApiService } from '../../../core/http/api.service';
 import { API_ROUTES } from '../../../core/constants/api-routes';
 import { AuthService } from '../../../core/auth/services/auth.service';
@@ -16,7 +17,7 @@ interface DashboardMetric {
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [KeyValuePipe, RouterLink],
+  imports: [KeyValuePipe, RouterLink, ButtonComponent],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -89,7 +90,8 @@ export class AdminDashboardComponent {
     if (!source) {
       return [];
     }
-    const value = source[name] ?? this.asRecord(source['data'])?.[name];
+    const data = source['data'];
+    const value = source[name] ?? (this.isRecord(data) ? data[name] : undefined);
     return Array.isArray(value) ? value.filter((item): item is Record<string, unknown> => this.isRecord(item)) : [];
   }
 

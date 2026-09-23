@@ -4,11 +4,13 @@ import { BehaviorSubject } from 'rxjs';
 
 import { SiteData } from '../../core/models/site.model';
 import { SiteDataService } from '../../core/services/site-data.service';
+import { ButtonComponent } from '../../shared/components/button/button.component';
+import { LoadingStateComponent } from '../../shared/components/loading-state/loading-state.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonComponent, LoadingStateComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -16,12 +18,14 @@ import { SiteDataService } from '../../core/services/site-data.service';
 export class HomeComponent implements OnInit {
   readonly siteData$ = new BehaviorSubject<SiteData | undefined>(undefined);
   readonly showScrollTop$ = new BehaviorSubject(false);
+  readonly loading = new BehaviorSubject(true);
 
   constructor(private siteDataService: SiteDataService) {}
 
   ngOnInit(): void {
     this.siteDataService.getSiteData().subscribe((data) => {
       this.siteData$.next(data);
+      this.loading.next(false);
     });
 
     this.updateScrollState();

@@ -11,8 +11,8 @@
             <p class="description">{{ data.hero.description }}</p>
 
             <div class="hero__actions">
-              <a routerLink="/members" class="btn btn-primary">{{ data.hero.ctaPrimary }}</a>
-              <a routerLink="/contact" class="btn btn-secondary">{{ data.hero.ctaSecondary }}</a>
+              <app-button routerLink="/members" variant="primary" [buttonAs]="'link'">{{ data.hero.ctaPrimary }}</app-button>
+              <app-button routerLink="/contact" variant="secondary" [buttonAs]="'link'">{{ data.hero.ctaSecondary }}</app-button>
             </div>
 
             <div class="hero__stats row g-3">
@@ -29,7 +29,7 @@
     </div>
   </section>
 
-  <section class="about section-shell" id="about" style="background-color: #f5f5f5; max-width: none; margin-bottom: 0; padding: 4.5rem 5vw;">
+  <section class="about section-shell" id="about">
     <div class="section-heading">
       <h2>{{ data.about.title }}</h2>
     </div>
@@ -64,17 +64,12 @@
         </a>
       </div>
     </div>
-
-    <div class="section-actions section-actions--center">
-      <a routerLink="/about" class="btn btn-primary">En savoir plus</a>
-      <a routerLink="/members" class="btn btn-secondary">Voir plus</a>
-    </div>
   </section>
 
-  <section class="showcase section-shell" id="members" style="background-color: #f5f5f5; max-width: none; margin-bottom: 0; padding: 4.5rem 5vw;">
+  <section class="showcase section-shell" id="members">
     <div class="section-heading">
       <span class="section-tag">Membres</span>
-      <h2>Les entreprises qui composent l’alliance</h2>
+      <h2>Les entreprises qui composent l'alliance</h2>
     </div>
 
     <div class="card-grid">
@@ -90,37 +85,47 @@
     </div>
 
     <div class="section-actions section-actions--center">
-      <a routerLink="/members" class="btn btn-primary">Voir plus</a>
-      <a routerLink="/members" class="btn btn-secondary">En savoir plus</a>
+      <app-button routerLink="/members" variant="primary" [buttonAs]="'link'">Voir plus</app-button>
+      <app-button routerLink="/members" variant="secondary" [buttonAs]="'link'">En savoir plus</app-button>
     </div>
   </section>
 
-  <section class="showcase section-shell" id="activities" style="background-color: #f5f5f5; max-width: none; margin-bottom: 0; padding: 4.5rem 5vw;">
+  <section class="showcase section-shell" id="activities">
     <div class="section-heading">
       <span class="section-tag">Activités</span>
       <h2>Notre dynamique de collaboration</h2>
     </div>
 
-    <div class="card-grid">
-      <article class="info-card" *ngFor="let activity of data.activities">
-        <img [src]="activity.image" [alt]="activity.title" loading="lazy" width="320" height="220" />
-        <div class="info-card__body">
-          <h3>{{ activity.title }}</h3>
-          <p>{{ activity.description }}</p>
-        </div>
-      </article>
-    </div>
+    <ng-container *ngIf="data.activities; else emptyActivities">
+      <div class="card-grid">
+        <article class="info-card" *ngFor="let activity of data.activities">
+          <img [src]="activity.image" [alt]="activity.title" loading="lazy" width="320" height="220" />
+          <div class="info-card__body">
+            <h3>{{ activity.title }}</h3>
+            <p>{{ activity.description }}</p>
+          </div>
+        </article>
+      </div>
 
-    <div class="section-actions section-actions--center">
-      <a routerLink="/activities" class="btn btn-primary">Voir plus</a>
-      <a routerLink="/activities" class="btn btn-secondary">En savoir plus</a>
-    </div>
+      <div class="section-actions section-actions--center">
+        <app-button routerLink="/activities" variant="primary" [buttonAs]="'link'">Voir plus</app-button>
+        <app-button routerLink="/activities" variant="secondary" [buttonAs]="'link'">En savoir plus</app-button>
+      </div>
+    </ng-container>
+
+    <ng-template #emptyActivities>
+      <div class="empty-state">
+        <span class="empty-state-icon" aria-hidden="true">ℹ</span>
+        <h3 class="empty-state-title">Aucune activité disponible</h3>
+        <p class="empty-state-description">Aucune activité disponible pour le moment.</p>
+      </div>
+    </ng-template>
   </section>
 
-  <section class="showcase section-shell" id="projects" style="background-color: #f5f5f5; max-width: none; margin-bottom: 0; padding: 4.5rem 5vw;">
+  <section class="showcase section-shell" id="projects">
     <div class="section-heading">
       <span class="section-tag">Projets</span>
-      <h2>Des initiatives qui façonnent l’avenir</h2>
+      <h2>Des initiatives qui façonnent l'avenir</h2>
     </div>
 
     <div class="project-grid">
@@ -135,12 +140,12 @@
     </div>
 
     <div class="section-actions section-actions--center">
-      <a routerLink="/projects" class="btn btn-primary">Voir plus</a>
-      <a routerLink="/projects" class="btn btn-secondary">En savoir plus</a>
+      <app-button routerLink="/projects" variant="primary" [buttonAs]="'link'">Voir plus</app-button>
+      <app-button routerLink="/projects" variant="secondary" [buttonAs]="'link'">En savoir plus</app-button>
     </div>
   </section>
 
-  <section class="showcase section-shell" id="hackathons" style="background-color: #f5f5f5; max-width: none; margin-bottom: 0; padding: 4.5rem 5vw;">
+  <section class="showcase section-shell" id="hackathons">
     <div class="section-heading">
       <span class="section-tag">Hackathons</span>
       <h2>Des défis pour créer et transformer</h2>
@@ -158,12 +163,12 @@
     </div>
 
     <div class="section-actions section-actions--center">
-      <a routerLink="/hackathons" class="btn btn-primary">Voir plus</a>
-      <a routerLink="/hackathons" class="btn btn-secondary">En savoir plus</a>
+      <app-button routerLink="/hackathons" variant="primary" [buttonAs]="'link'">Voir plus</app-button>
+      <app-button routerLink="/hackathons" variant="secondary" [buttonAs]="'link'">En savoir plus</app-button>
     </div>
   </section>
 
-  <section class="partners section-shell" id="partners" style="background-color: #f5f5f5; max-width: none; margin-bottom: 0; padding: 4.5rem 5vw;">
+  <section class="partners section-shell" id="partners">
     <div class="section-heading">
       <span class="section-tag">Partenaires</span>
       <h2>Ils nous accompagnent</h2>
@@ -185,17 +190,17 @@
     </div>
 
     <div class="section-actions section-actions--center">
-      <a routerLink="/contact" class="btn btn-primary">Devenir partenaire</a>
+      <app-button routerLink="/contact" variant="primary" [buttonAs]="'link'">Devenir partenaire</app-button>
     </div>
   </section>
 
-  <section class="newsletter section-shell" id="newsletter" style="background-image: url('/newsletter.jpg'); background-size: cover; background-position: center;">
+  <section class="newsletter section-shell" id="newsletter">
     <div class="newsletter__content">
       <div class="newsletter__intro">
         <span class="section-tag">Newsletter</span>
         <h2>{{ data.newsletter.title }}</h2>
         <p>{{ data.newsletter.description }}</p>
-        <a routerLink="/contact" class="btn btn-primary btn-large">{{ data.newsletter.buttonLabel }}</a>
+        <app-button routerLink="/contact" variant="primary" [buttonAs]="'link'">{{ data.newsletter.buttonLabel }}</app-button>
       </div>
 
       <form class="newsletter__form">
@@ -208,8 +213,7 @@
             [placeholder]="field.placeholder"
           />
         </div>
-
-        <button type="submit" class="btn btn-secondary btn-large">S’abonner</button>
+        <app-button variant="secondary" [buttonAs]="'link'">S'abonner</app-button>
       </form>
     </div>
   </section>

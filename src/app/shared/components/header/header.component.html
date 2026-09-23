@@ -11,7 +11,7 @@
         [class.is-open]="isMenuOpen$ | async" [attr.aria-expanded]="isMenuOpen$ | async"
         aria-controls="main-navigation" aria-label="Ouvrir le menu principal"
         (click)="toggleMenu()">
-        <img src="/inconInterface/menu-burger.png" alt="" aria-hidden="true" />
+        <i class="bi bi-list"></i>
       </button>
 
       <nav id="main-navigation" class="nav d-flex align-items-center justify-content-center" [class.is-open]="isMenuOpen$ | async" aria-label="Navigation principale">
