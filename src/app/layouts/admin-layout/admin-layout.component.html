@@ -1,18 +1,18 @@
 <div class="admin-shell" [class.admin-shell--sidebar-open]="sidebarOpen()">
   <button class="admin-overlay" type="button" aria-label="Fermer le menu" (click)="closeSidebar()"></button>
 
-  <aside class="admin-sidebar">
-    <a class="admin-brand" routerLink="/dashboard" (click)="closeSidebar()">
-      <img src="/logoMountainsTech/logoNavBar.png" alt="Mountains Tech">
-    </a>
-
-    @if (currentUser$ | async; as user) {
-      <div class="admin-profile">
-        <div class="admin-avatar">{{ (user.name || user.email).charAt(0).toUpperCase() }}</div>
-        <strong>{{ user.name || user.email }}</strong>
-        <span>{{ user.role }}</span>
-      </div>
-    }
+  <aside class="admin-sidebar" [class.admin-sidebar--collapsed]="sidebarCollapsed()">
+    <div class="admin-brand-row">
+      <a class="admin-brand" routerLink="/dashboard" (click)="closeSidebar()">
+        <img src="/logoMountainsTech/logoNavBar.png" alt="Mountains Tech">
+      </a>
+      <button class="admin-collapse" type="button"
+        [attr.aria-label]="sidebarCollapsed() ? 'Développer la barre latérale' : 'Réduire la barre latérale'"
+        [attr.aria-expanded]="!sidebarCollapsed()"
+        (click)="toggleCollapsed()">
+        <i class="bi" [ngClass]="sidebarCollapsed() ? 'bi-chevron-double-right' : 'bi-chevron-double-left'" aria-hidden="true"></i>
+      </button>
+    </div>
 
     <nav class="admin-nav" aria-label="Navigation administrateur">
       @if (currentUser$ | async; as user) {
@@ -20,7 +20,7 @@
           @if (navigationForGroup(user, group).length) {
             <span class="admin-nav-group">{{ groupLabel(group) }}</span>
             @for (item of navigationForGroup(user, group); track item.permission) {
-              <a [routerLink]="item.route" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: item.permission === 'dashboard' }" (click)="closeSidebar()">
+              <a [routerLink]="item.route" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: item.permission === 'dashboard' }" [attr.title]="sidebarCollapsed() ? item.label : null" (click)="closeSidebar()">
                 <i [class]="'bi ' + item.icon" aria-hidden="true"></i><span>{{ item.label }}</span>
               </a>
             }
@@ -29,7 +29,7 @@
       }
     </nav>
 
-    <button class="admin-logout" type="button" (click)="logout()">
+    <button class="admin-logout" type="button" (click)="logout()" [attr.title]="sidebarCollapsed() ? 'Se déconnecter' : null">
       <i class="bi bi-box-arrow-right" aria-hidden="true"></i><span>Se déconnecter</span>
     </button>
   </aside>
