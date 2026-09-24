@@ -6,3 +6,11 @@ export interface Contact {
   message: string;
   createdAt?: string;
 }
+
+export interface ContactSubmission {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  message: string;
+}

@@ -15,7 +15,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
       <ng-container *ngTemplateOutlet="content"></ng-container>
     </a>
     <ng-template #btn>
-      <button [type]="type" class="btn" [ngClass]="'btn-' + variant">
+      <button [type]="type" class="btn" [ngClass]="'btn-' + variant" [disabled]="disabled">
         <ng-container *ngTemplateOutlet="content"></ng-container>
       </button>
     </ng-template>
@@ -28,6 +28,7 @@ export class ButtonComponent {
   @Input() type: 'button' | 'submit' = 'button';
   @Input() variant: 'primary' | 'secondary' | 'outline' = 'primary';
   @Input() buttonAs: 'button' | 'link' = 'button';
+  @Input() disabled = false;
   @Input() href?: string;
   @Input() target?: string;
   @Input() rel?: string;
