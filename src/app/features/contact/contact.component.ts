@@ -24,6 +24,7 @@ export class ContactComponent {
   lastName = '';
   email = '';
   phone = '';
+  subject = '';
   message = '';
   sent = false;
   sending = false;
@@ -34,11 +35,11 @@ export class ContactComponent {
 
     this.error = '';
     const payload: ContactSubmission = {
-      firstName: this.firstName.trim(),
-      lastName: this.lastName.trim(),
+      name: `${this.firstName.trim()} ${this.lastName.trim()}`.trim(),
       email: this.email.trim(),
-      phone: this.phone.trim(),
-      message: this.message.trim()
+      subject: this.subject.trim() || 'Demande de contact',
+      message: this.message.trim(),
+      consent: true
     };
 
     this.sending = true;
@@ -60,6 +61,7 @@ export class ContactComponent {
     this.lastName = '';
     this.email = '';
     this.phone = '';
+    this.subject = '';
     this.message = '';
     this.error = '';
     this.sent = false;

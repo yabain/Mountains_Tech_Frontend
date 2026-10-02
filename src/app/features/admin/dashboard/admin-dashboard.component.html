@@ -1,17 +1,17 @@
 <section class="dashboard">
-  <header class="dashboard-header">
-    <div class="header-content">
-      <span class="eyebrow">Espace {{ roleLabel() }}</span>
-      <h1>Dashboard</h1>
-      <p>Vue d’ensemble de votre activité Mountains Tech.</p>
+  <div class="dashboard-toolbar">
+    <h1>Dashboard</h1>
+    <div class="toolbar-actions">
+      <a routerLink="/" class="dash-btn dash-btn--primary">
+        <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+        Voir le site
+      </a>
+      <button type="button" class="dash-btn dash-btn--outline" (click)="refresh()" [disabled]="refreshing()">
+        <i class="bi bi-arrow-clockwise" [class.dash-spin]="refreshing()" aria-hidden="true"></i>
+        Actualiser
+      </button>
     </div>
-    <div class="header-actions">
-      <select class="time-select" [value]="selectedTimeRange()" (change)="onTimeRangeChange($any($event.target).value)">
-        @for (range of timeRanges; track range.value) { <option [value]="range.value">{{ range.label }}</option> }
-      </select>
-      <app-button variant="outline"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i>Actualiser</app-button>
-    </div>
-  </header>
+  </div>
 
   @if (loading()) {
     <div class="admin-state">Chargement des données...</div>
@@ -21,49 +21,116 @@
     <section class="kpi-grid" aria-label="Indicateurs clés">
       @for (metric of metrics(); track metric.label) {
         <article class="kpi-card">
-          <div class="kpi-icon" [class]="'kpi-icon--' + metric.tone"><i [class]="'bi ' + metric.icon" aria-hidden="true"></i></div>
-          <div class="kpi-content"><span class="kpi-label">{{ metric.label }}</span><strong class="kpi-value">{{ displayValue(metric.value) }}</strong><span class="kpi-period">Données backend</span></div>
+          <div class="kpi-icon" [class]="'kpi-icon--' + metric.tone">
+            <i [class]="'bi ' + metric.icon" aria-hidden="true"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">{{ metric.label }}</span>
+            <strong class="kpi-value">{{ displayValue(metric.value) }}</strong>
+            <span class="kpi-period">Données backend</span>
+          </div>
         </article>
       }
     </section>
 
     <div class="dashboard-content">
       <div class="dashboard-primary">
-        <article class="section-card">
-          <div class="card-header"><div><h2>Résumé de la plateforme</h2><p>Réponse de <code>/api/v1/admin/dashboard</code></p></div><i class="bi bi-activity card-icon" aria-hidden="true"></i></div>
-          @if (dashboard(); as data) {
-            <div class="summary-list">
-              @for (entry of (data | keyvalue); track entry.key) {
-                @if (isScalar(entry.value)) {
-                  <div class="summary-row"><span>{{ entry.key }}</span><strong>{{ displayValue(entry.value) }}</strong></div>
+        <div class="preview-heading">
+          <h2><i class="bi bi-inbox" aria-hidden="true"></i> Nouvelles demandes à traiter</h2>
+        </div>
+        <div class="preview-grid">
+          @for (preview of requestPreviews(); track preview.id) {
+            <article class="section-card preview-card">
+              <div class="card-header">
+                <div class="preview-title">
+                  <span class="preview-icon" [class]="'preview-icon--' + preview.tone">
+                    <i [class]="'bi ' + preview.icon" aria-hidden="true"></i>
+                  </span>
+                  <div>
+                    <h2>{{ preview.title }}</h2>
+                    <p>{{ preview.count }} en attente</p>
+                  </div>
+                </div>
+                <a class="preview-link" [routerLink]="preview.link">Tout voir <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+              </div>
+              <div class="preview-list">
+                @for (item of preview.items; track $index) {
+                  <div class="preview-item">
+                    <div class="preview-item__text">
+                      <strong>{{ item.title }}</strong>
+                      <small>{{ item.subtitle }}</small>
+                    </div>
+                    <div class="preview-item__meta">
+                      @if (item.createdAt) {
+                        <span class="preview-date">{{ item.createdAt | date: 'd MMM.' }}</span>
+                      }
+                      @if (item.status) {
+                        <span [class]="statusClass(item.status)">{{ item.status }}</span>
+                      }
+                    </div>
+                  </div>
+                } @empty {
+                  <p class="empty-state">Aucune demande en attente.</p>
                 }
-              }
-            </div>
+              </div>
+            </article>
           }
-        </article>
-        <article class="section-card">
-          <div class="card-header"><h2>Collections récentes</h2><i class="bi bi-bar-chart-line card-icon" aria-hidden="true"></i></div>
-          <div class="collection-grid">
-            @for (name of ['activities', 'events', 'projects']; track name) {
-              <div class="collection-card"><span>{{ name }}</span><strong>{{ collection(name).length || '-' }}</strong><small>éléments retournés</small></div>
-            }
-          </div>
-        </article>
+        </div>
+
+        <div class="preview-heading preview-heading--content">
+          <h2><i class="bi bi-collection" aria-hidden="true"></i> Derniers contenus</h2>
+        </div>
+        <div class="preview-grid">
+          @for (preview of contentPreviews(); track preview.id) {
+            <article class="section-card preview-card">
+              <div class="card-header">
+                <div class="preview-title">
+                  <span class="preview-icon" [class]="'preview-icon--' + preview.tone">
+                    <i [class]="'bi ' + preview.icon" aria-hidden="true"></i>
+                  </span>
+                  <div>
+                    <h2>{{ preview.title }}</h2>
+                    <p>{{ preview.count }} élément(s)</p>
+                  </div>
+                </div>
+                <a class="preview-link" [routerLink]="preview.link">Tout voir <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+              </div>
+              <div class="preview-list">
+                @for (item of preview.items; track $index) {
+                  <div class="preview-item">
+                    <div class="preview-item__text">
+                      <strong>{{ item.title }}</strong>
+                      <small>{{ item.subtitle }}</small>
+                    </div>
+                    <div class="preview-item__meta">
+                      @if (item.createdAt) {
+                        <span class="preview-date">{{ item.createdAt | date: 'd MMM.' }}</span>
+                      }
+                      @if (item.status) {
+                        <span [class]="statusClass(item.status)">{{ item.status }}</span>
+                      }
+                    </div>
+                  </div>
+                } @empty {
+                  <p class="empty-state">Aucun contenu publié pour l’instant.</p>
+                }
+              </div>
+            </article>
+          }
+        </div>
       </div>
 
       <aside class="dashboard-sidebar">
         <article class="section-card">
-          <div class="card-header"><h2>Activité récente</h2><i class="bi bi-clock-history card-icon" aria-hidden="true"></i></div>
-          <div class="activity-list">
-            @for (activity of collection('activities').slice(0, 5); track $index) {
-              <div class="activity-item"><span class="activity-dot"></span><div><strong>{{ displayValue(activity['action'] || activity['title'] || activity['name']) }}</strong><small>{{ displayValue(activity['createdAt'] || activity['date'] || 'Récemment') }}</small></div></div>
-            } @empty { <p class="empty-state">Aucune activité récente.</p> }
+          <div class="card-header">
+            <h2>Actions rapides</h2>
           </div>
-        </article>
-        <article class="section-card quick-actions">
-          <div class="card-header"><h2>Actions rapides</h2></div>
-          @for (item of ['members', 'events', 'projects', 'announcements']; track item) {
-            <a [routerLink]="'/dashboard/' + item" class="quick-action"><i class="bi bi-plus-circle" aria-hidden="true"></i><span>Gérer {{ item }}</span><i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+          @for (action of quickActions(); track action.route) {
+            <a [routerLink]="action.route" class="quick-action">
+              <i class="bi" [class]="action.icon" aria-hidden="true"></i>
+              <span>{{ action.label }}</span>
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
           }
         </article>
       </aside>

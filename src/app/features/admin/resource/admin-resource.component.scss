@@ -1,15 +1,430 @@
-@use 'sass:color';
-
 @import '../../../../styles/_tokens-admin';
 
-.admin-page-heading { margin-bottom: 1.5rem; }
-.admin-page-heading h1 { margin: .25rem 0 .35rem; font-size: clamp(1.7rem, 3vw, 2.35rem); }
-.admin-page-heading p { margin: 0; color: $gray-600; }
-.admin-eyebrow { color: $primary; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-.admin-table-wrap { overflow-x: auto; border: 1px solid $gray-200; border-radius: $radius-md; background: $white; box-shadow: $shadow-md; }
-.admin-table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: .82rem; }
-.admin-table th { padding: .85rem 1rem; background: $gray-100; color: $gray-600; font-size: .7rem; letter-spacing: .06em; text-align: left; text-transform: uppercase; }
-.admin-table td { max-width: 280px; padding: .85rem 1rem; border-top: 1px solid $gray-200; overflow-wrap: anywhere; }
-.admin-table tbody tr:hover { background: $gray-50; }
-.admin-state { padding: 2rem; border: 1px dashed $gray-300; border-radius: $radius-md; background: $white; color: $gray-600; text-align: center; }
-.admin-state--error { border-color: $red; color: $red; }
+.admin-page-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-page-heading h1 {
+  margin: 0.25rem 0 0.35rem;
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  color: $gray-800;
+}
+
+.admin-page-heading p {
+  margin: 0;
+  color: $gray-600;
+}
+
+.admin-eyebrow {
+  color: $primary;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.res-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.res-search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 1 240px;
+  min-width: 220px;
+  height: 40px;
+  padding: 0 0.8rem;
+  border: 1px solid $gray-300;
+  border-radius: $radius-md;
+  background: $white;
+  color: $gray-500;
+
+  i {
+    font-size: 0.9rem;
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: $gray-800;
+    font: inherit;
+    font-size: 0.85rem;
+  }
+}
+
+.res-select,
+.res-status-select {
+  height: 40px;
+  border: 1px solid $gray-300;
+  border-radius: $radius-md;
+  background: $white;
+  color: $gray-700;
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.res-select {
+  padding: 0 0.7rem;
+}
+
+.res-count {
+  margin-left: auto;
+  color: $gray-500;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+  border: 1px solid $gray-200;
+  border-radius: $radius-md;
+  background: $white;
+  box-shadow: $shadow-md;
+}
+
+.admin-table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.admin-table th {
+  padding: 0.85rem 1rem;
+  background: $gray-100;
+  color: $gray-600;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.admin-table td {
+  max-width: 280px;
+  padding: 0.85rem 1rem;
+  border-top: 1px solid $gray-200;
+  overflow-wrap: anywhere;
+}
+
+.admin-table tbody tr:hover {
+  background: $gray-50;
+}
+
+.res-th-actions {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.res-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.res-icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid $gray-200;
+  border-radius: $radius-md;
+  background: $white;
+  color: $gray-600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color $transition-fast, border-color $transition-fast, background $transition-fast;
+
+  &:hover {
+    border-color: $primary;
+    background: $gray-50;
+    color: $primary;
+  }
+
+  &--danger:hover {
+    border-color: $red;
+    background: #fdf0f1;
+    color: $red;
+  }
+}
+
+.res-status-select {
+  max-width: 170px;
+  padding: 0 0.4rem;
+  height: 32px;
+  font-size: 0.75rem;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: wait;
+  }
+}
+
+.res-status {
+  display: inline-block;
+  padding: 0.25rem 0.55rem;
+  border-radius: $radius-full;
+  font-size: 0.7rem;
+  font-weight: $font-weight-medium;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+
+  &--success {
+    background: #e5f7ef;
+    color: #16865a;
+  }
+
+  &--pending {
+    background: #fff5d9;
+    color: #ac7610;
+  }
+
+  &--danger {
+    background: #fdebea;
+    color: #b02a37;
+  }
+
+  &--info {
+    background: #e3f8fb;
+    color: #078695;
+  }
+
+  &--neutral {
+    background: $gray-100;
+    color: $gray-600;
+  }
+}
+
+.res-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  color: $gray-600;
+  font-size: 0.8rem;
+}
+
+.res-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 40px;
+  padding: 0 1rem;
+  border: 1px solid transparent;
+  border-radius: $radius-md;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: background $transition-fast, border-color $transition-fast, color $transition-fast;
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  &--primary {
+    background: $primary;
+    color: $white;
+
+    &:hover:not(:disabled) {
+      background: $blue-1;
+    }
+  }
+
+  &--outline {
+    border-color: $gray-300;
+    background: $white;
+    color: $gray-700;
+
+    &:hover:not(:disabled) {
+      border-color: $primary;
+      color: $primary;
+    }
+  }
+
+  &--danger {
+    background: $red;
+    color: $white;
+
+    &:hover:not(:disabled) {
+      background: #b02a37;
+    }
+  }
+}
+
+.res-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: $white;
+  border-radius: 50%;
+  animation: res-spin 0.7s linear infinite;
+}
+
+@keyframes res-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.res-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(23, 32, 43, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.res-modal {
+  width: 100%;
+  max-width: 680px;
+  max-height: 88vh;
+  overflow-y: auto;
+  border-radius: $radius-lg;
+  background: $white;
+  box-shadow: $shadow-xl;
+}
+
+.res-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.3rem;
+  border-bottom: 1px solid $gray-200;
+
+  h2 {
+    margin: 0;
+    color: $gray-800;
+    font-size: 1.05rem;
+  }
+}
+
+.res-modal__text {
+  margin: 0;
+  padding: 1.3rem;
+  color: $gray-600;
+  font-size: 0.88rem;
+}
+
+.res-modal__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1.3rem;
+}
+
+.res-field {
+  display: grid;
+  gap: 0.35rem;
+
+  &--full {
+    grid-column: 1 / -1;
+  }
+}
+
+.res-field__label {
+  color: $gray-700;
+  font-size: 0.78rem;
+  font-weight: $font-weight-medium;
+}
+
+.res-field__input {
+  width: 100%;
+  min-height: 40px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid $gray-300;
+  border-radius: $radius-md;
+  background: $white;
+  color: $gray-800;
+  font: inherit;
+  font-size: 0.85rem;
+  outline: none;
+
+  &:focus {
+    border-color: $blue-1;
+    box-shadow: 0 0 0 3px rgba(34, 114, 192, 0.15);
+  }
+
+  &--textarea {
+    resize: vertical;
+    min-height: 96px;
+  }
+}
+
+.res-error {
+  margin: 0 1.3rem 1rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #e6a7ae;
+  border-radius: $radius-md;
+  background: #fdf0f1;
+  color: #b02a37;
+  font-size: 0.8rem;
+}
+
+.res-modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding: 1rem 1.3rem;
+  border-top: 1px solid $gray-200;
+}
+
+.res-modal__footer .res-btn--primary .res-spinner {
+  border-color: rgba(255, 255, 255, 0.4);
+  border-top-color: $white;
+}
+
+.admin-state {
+  padding: 2rem;
+  border: 1px dashed $gray-300;
+  border-radius: $radius-md;
+  background: $white;
+  color: $gray-600;
+  text-align: center;
+}
+
+.admin-state--error {
+  border-color: $red;
+  color: $red;
+}
+
+@media (max-width: 768px) {
+  .admin-page-heading {
+    align-items: stretch;
+    flex-direction: column;
+
+    .res-btn {
+      width: 100%;
+    }
+  }
+
+  .res-modal__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .res-count {
+    width: 100%;
+    margin-left: 0;
+  }
+}

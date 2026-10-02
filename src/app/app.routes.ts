@@ -40,6 +40,12 @@ export const routes: Routes = [
       { path: '', data: { permission: 'dashboard' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/dashboard/admin-dashboard.component').then((m) => m.AdminDashboardComponent) },
       { path: 'users', data: { title: 'Utilisateurs', endpoint: 'users', permission: 'users' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/resource/admin-resource.component').then((m) => m.AdminResourceComponent) },
       { path: 'audit-logs', data: { title: 'Journaux audit', endpoint: 'auditLogs', permission: 'audit-logs' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/resource/admin-resource.component').then((m) => m.AdminResourceComponent) },
+      {
+        path: 'members/applications',
+        data: { title: 'Demandes d’adhésion', endpoint: 'memberApplications', permission: 'members' },
+        canActivate: [AdminPermissionGuard],
+        loadComponent: () => import('./features/admin/resource/admin-resource.component').then((m) => m.AdminResourceComponent)
+      },
       ...[
         ['settings', 'Parametres', 'settings'], ['media', 'Medias', 'media'], ['contacts', 'Contacts', 'contacts'],
         ['members', 'Membres', 'members'], ['projects', 'Projets', 'projects'], ['activities', 'Activites', 'activities'],

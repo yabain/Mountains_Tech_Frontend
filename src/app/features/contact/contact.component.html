@@ -75,8 +75,12 @@
             </div>
             <div class="mv-contact__field">
               <label class="mv-visually-hidden" for="contact-phone">Téléphone</label>
-              <input id="contact-phone" class="mv-contact__input" type="tel" name="phone" [(ngModel)]="phone" placeholder="Téléphone*" autocomplete="tel" />
+              <input id="contact-phone" class="mv-contact__input" type="tel" name="phone" [(ngModel)]="phone" placeholder="Téléphone" autocomplete="tel" />
             </div>
+          </div>
+          <div class="mv-contact__field">
+            <label class="mv-visually-hidden" for="contact-subject">Sujet</label>
+            <input id="contact-subject" class="mv-contact__input" type="text" name="subject" [(ngModel)]="subject" placeholder="Sujet*" />
           </div>
           <div class="mv-contact__field">
             <label class="mv-visually-hidden" for="contact-message">Message</label>
@@ -89,6 +93,8 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
         </form>
+
+
       </ng-container>
 
       <ng-container *ngIf="sent">
