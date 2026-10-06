@@ -1,4 +1,241 @@
-<section>
-  <h2>Inscription équipe</h2>
-  <p>Formez votre équipe et rejoignez la compétition.</p>
-</section>
+<div class="sr-page">
+  <div class="sr" *ngIf="!loadingHackathon && hackathon">
+
+    <!-- Left: Stepper + Hackathon Info -->
+    <aside class="sr__aside">
+      <a class="sr__brand" routerLink="/" aria-label="Mountains Tech - accueil">
+        <img class="sr__logo" src="/logoMountainsTech/logo.png" alt="Mountains Tech" />
+      </a>
+      <div class="sr__intro">
+        <h1>Créer votre inscription</h1>
+        <p>Présentez votre équipe et votre projet en quelques étapes.</p>
+      </div>
+      <div class="sr__event-cover" *ngIf="hackathon.coverUrl">
+        <img [src]="hackathon.coverUrl" [alt]="hackathon.title" />
+      </div>
+      <div class="sr__event-info" *ngIf="!hackathon.coverUrl">
+        <div class="sr__event-placeholder">🏆</div>
+      </div>
+
+      <div class="sr__event-details">
+        <h2 class="sr__event-title">{{ hackathon.title }}</h2>
+        <div class="sr__event-meta">
+          <span class="sr__meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sr__meta-icon"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+            {{ formatDate(hackathon.startDate) }} - {{ formatDate(hackathon.endDate) }}
+          </span>
+          <span class="sr__meta-item" *ngIf="hackathon.registrationDeadline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sr__meta-icon"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Inscription jusqu'au {{ formatDate(hackathon.registrationDeadline) }}
+          </span>
+          <span class="sr__meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sr__meta-icon"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            {{ minSize }} - {{ maxSize }} membres
+          </span>
+        </div>
+      </div>
+
+      <nav class="sr__stepper">
+        <div *ngFor="let step of steps; let last = last" class="sr__step-wrap">
+          <div class="sr__step" [class.sr__step--active]="step.id === currentStep" [class.sr__step--done]="step.id < currentStep">
+            <div class="sr__step-circle">
+              <svg *ngIf="step.id < currentStep" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span *ngIf="step.id >= currentStep">{{ step.id }}</span>
+            </div>
+            <span class="sr__step-label">{{ step.label }}</span>
+          </div>
+          <div *ngIf="!last" class="sr__step-line"></div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Right: Form -->
+    <main class="sr__main">
+      <header class="sr__main-heading">
+        <h2>{{ steps[currentStep - 1].label }}</h2>
+        <p>Complétez les informations ci-dessous pour continuer.</p>
+      </header>
+
+      <div class="sr__content">
+      <!-- Step 1 – Équipe -->
+      <div *ngIf="currentStep === 1">
+        <p class="sr__section-label">INFORMATIONS ÉQUIPE</p>
+
+        <div class="sr__field sr__field--highlighted">
+          <label class="sr__float-label">Nom de l'équipe *</label>
+          <input class="sr__input" type="text" [(ngModel)]="teamName" placeholder="Ex: Tech Mountains" />
+        </div>
+
+        <div class="sr__field">
+          <label class="sr__float-label">Établissement / Organisation *</label>
+          <input class="sr__input sr__input--plain" type="text" [(ngModel)]="schoolOrOrganization" placeholder="Ex: Université de Bangangté / MonEntreprise" />
+        </div>
+
+        <div class="sr__info-box">
+          <svg class="sr__info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <div class="sr__info-text">
+            <strong>Taille d'équipe :</strong> Minimum {{ minSize }}, maximum {{ maxSize }} membres (chef d'équipe inclus).
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 – Chef d'équipe -->
+      <div *ngIf="currentStep === 2">
+        <p class="sr__section-label">CHEF D'ÉQUIPE (LEADER)</p>
+
+        <div class="sr__row">
+          <div class="sr__field">
+            <input class="sr__input sr__input--plain" type="text" [(ngModel)]="leader.firstName" placeholder="Prénom *" />
+          </div>
+          <div class="sr__field">
+            <input class="sr__input sr__input--plain" type="text" [(ngModel)]="leader.lastName" placeholder="Nom *" />
+          </div>
+        </div>
+
+        <div class="sr__field sr__field--highlighted">
+          <label class="sr__float-label">Email *</label>
+          <input class="sr__input" type="email" [(ngModel)]="leader.email" placeholder="leader@email.com" />
+        </div>
+
+        <div class="sr__field">
+          <div class="sr__phone-wrap">
+            <span class="sr__phone-flag">🇨🇲 +237</span>
+            <input class="sr__input sr__input--plain sr__input--phone" type="tel" [(ngModel)]="leader.phone" placeholder="Téléphone" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 – Membres -->
+      <div *ngIf="currentStep === 3">
+        <p class="sr__section-label">MEMBRES DE L'ÉQUIPE</p>
+
+        <div class="sr__team-size">
+          <span class="sr__size-current">{{ currentTeamSize }}</span>
+          <span class="sr__size-separator">/</span>
+          <span class="sr__size-max">{{ maxSize }}</span>
+          <span class="sr__size-label">membres</span>
+        </div>
+
+        <div class="sr__member-list" *ngIf="members.length > 0">
+          <div *ngFor="let member of members; let i = index" class="sr__member-card">
+            <div class="sr__member-info">
+              <span class="sr__member-name">{{ member.firstName }} {{ member.lastName }}</span>
+              <span class="sr__member-email">{{ member.email }}</span>
+              <span class="sr__member-role" *ngIf="member.role">{{ member.role }}</span>
+            </div>
+            <button class="sr__member-remove" (click)="removeMember(i)" aria-label="Retirer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <p class="sr__empty-members" *ngIf="members.length === 0">Aucun membre ajouté pour l'instant</p>
+
+        <div class="sr__add-member-form">
+          <p class="sr__section-label" style="margin-top:0">AJOUTER UN MEMBRE</p>
+          <div class="sr__row">
+            <div class="sr__field">
+              <input class="sr__input sr__input--plain" type="text" [(ngModel)]="newMember.firstName" placeholder="Prénom" />
+            </div>
+            <div class="sr__field">
+              <input class="sr__input sr__input--plain" type="text" [(ngModel)]="newMember.lastName" placeholder="Nom" />
+            </div>
+          </div>
+          <div class="sr__field sr__field--highlighted">
+            <label class="sr__float-label">Email</label>
+            <input class="sr__input" type="email" [(ngModel)]="newMember.email" placeholder="membre@email.com" />
+          </div>
+          <div class="sr__row">
+            <div class="sr__field">
+              <div class="sr__phone-wrap">
+                <span class="sr__phone-flag">🇨🇲 +237</span>
+                <input class="sr__input sr__input--plain sr__input--phone" type="tel" [(ngModel)]="newMember.phone" placeholder="Téléphone" />
+              </div>
+            </div>
+            <div class="sr__field">
+              <input class="sr__input sr__input--plain" type="text" [(ngModel)]="newMember.role" placeholder="Rôle (ex: Développeur, Designer)" />
+            </div>
+          </div>
+          <button class="sr__btn sr__btn--add" (click)="addMember()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sr__btn-icon"><path d="M12 5v14M5 12h14"/></svg>
+            Ajouter
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 4 – Projet -->
+      <div *ngIf="currentStep === 4">
+        <p class="sr__section-label">VOTRE PROJET</p>
+
+        <div class="sr__field">
+          <label class="sr__float-label">Idée du projet *</label>
+          <textarea class="sr__input sr__input--plain" [(ngModel)]="projectIdea" rows="4" placeholder="Décrivez votre idée, le problème résolu, la solution envisagée..."></textarea>
+        </div>
+
+        <p class="sr__section-label">TECHNOLOGIES ENVISAGÉES</p>
+        <div class="sr__field">
+          <div class="sr__chips-wrap">
+            <button type="button" *ngFor="let tech of techOptions" class="sr__chip" [class.sr__chip--selected]="technologyStack.includes(tech)" [attr.aria-pressed]="technologyStack.includes(tech)" (click)="toggleTech(tech)">
+              {{ tech }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 – Confirmation -->
+      <div *ngIf="currentStep === 5">
+        <p class="sr__section-label">CONSENTEMENT</p>
+
+        <div class="sr__field sr__field--consent">
+          <label class="sr__consent-label">
+            <input type="checkbox" [(ngModel)]="consent" />
+            <span class="sr__consent-check"></span>
+            <span class="sr__consent-text">
+              <strong>J'accepte</strong> au nom de toute l'équipe que nos données soient utilisées pour l'organisation du hackathon et que nous respections le règlement.
+            </span>
+          </label>
+        </div>
+
+        <div class="sr__info-box">
+          <svg class="sr__info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <div class="sr__info-text">
+            <strong>Prochaines étapes :</strong> Votre équipe sera en statut "En attente". L'équipe organisatrice validera votre inscription sous 48h. Vous recevrez un email de confirmation.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6 – Reçu -->
+      <div *ngIf="currentStep === 6" class="sr__receipt">
+        <div class="sr__receipt-icon">🏆</div>
+        <h3>Équipe enregistrée !</h3>
+        <p>Votre équipe <strong>{{ teamName }}</strong> est inscrite au hackathon.</p>
+        <p class="sr__receipt-email">Confirmation envoyée à <strong>{{ leader.email }}</strong>.</p>
+        <p class="sr__receipt-note">Statut : <span class="sr__status sr__status--pending">En attente de validation</span></p>
+      </div>
+      </div>
+
+      <!-- Footer actions -->
+      <div class="sr__actions">
+        <hr class="sr__divider" />
+        <div class="sr__actions-row">
+          <button *ngIf="currentStep > 1" class="sr__btn sr__btn--back" (click)="prevStep()">Retour</button>
+          <button *ngIf="currentStep < 5 && !submitting" class="sr__btn sr__btn--next" (click)="nextStep()">Suivant</button>
+          <button *ngIf="currentStep === 5 && !submitting" class="sr__btn sr__btn--next" (click)="submit()">Soumettre l'équipe</button>
+          <button *ngIf="currentStep === 6" class="sr__btn sr__btn--next" (click)="goToHackathon()">Voir le hackathon</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <section class="sr__error" *ngIf="!loadingHackathon && !hackathon" role="alert">
+    <a class="sr__brand" routerLink="/" aria-label="Mountains Tech - accueil">
+      <img class="sr__logo" src="/logoMountainsTech/logo.png" alt="Mountains Tech" />
+    </a>
+    <h1>Hackathon indisponible</h1>
+    <p>{{ hackathonLoadError }}</p>
+    <button class="sr__btn sr__btn--next" (click)="goToHackathons()">Voir les hackathons</button>
+  </section>
+
+  <div *ngIf="loadingHackathon" class="sr__loading">Chargement du hackathon...</div>
+</div>

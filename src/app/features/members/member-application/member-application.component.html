@@ -1,4 +1,206 @@
-<section>
-  <h2>Devenir membre</h2>
-  <p>Remplissez votre candidature pour rejoindre la communauté.</p>
-</section>
+<div class="sr-page">
+  <div class="sr">
+
+    <!-- Left: Stepper -->
+    <aside class="sr__aside">
+      <a class="sr__brand" routerLink="/" aria-label="Mountains Tech - accueil">
+        <img class="sr__logo" src="/logoMountainsTech/logo.png" alt="Mountains Tech" />
+      </a>
+      <h2 class="sr__title">Devenir membre</h2>
+      <p class="sr__subtitle">Quelques informations pour rejoindre MountainsTech.</p>
+
+      <nav class="sr__stepper">
+        <div *ngFor="let step of steps; let last = last" class="sr__step-wrap">
+          <div class="sr__step"
+               [class.sr__step--active]="step.id === currentStep"
+               [class.sr__step--done]="step.id < currentStep">
+            <div class="sr__step-circle">
+              <svg *ngIf="step.id < currentStep" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span *ngIf="step.id >= currentStep">{{ step.id }}</span>
+            </div>
+            <span class="sr__step-label">{{ step.label }}</span>
+          </div>
+          <div *ngIf="!last" class="sr__step-line"></div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Right: Form content -->
+    <main class="sr__main">
+      <header class="sr__main-heading">
+        <h2>{{ steps[currentStep - 1].label }}</h2>
+        <p>Complétez les informations ci-dessous pour continuer.</p>
+      </header>
+
+      <div class="sr__content">
+      <!-- Step 1 - Informations Entreprise -->
+      <ng-container *ngIf="currentStep === 1">
+        <p class="sr__section-label">INFORMATIONS ENTREPRISE</p>
+
+        <div class="sr__field sr__field--highlighted">
+          <label class="sr__float-label">Nom de l'entreprise *</label>
+          <input class="sr__input" type="text" [(ngModel)]="companyName" placeholder="Ex: Yaba-In SARL" />
+        </div>
+
+        <div class="sr__row">
+          <div class="sr__field">
+            <div class="sr__select-wrap">
+              <select class="sr__select" [(ngModel)]="legalForm">
+                <option value="" disabled>Forme juridique *</option>
+                <option *ngFor="let opt of legalFormOptions" [value]="opt">{{ opt }}</option>
+              </select>
+              <svg class="sr__select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="sr__field">
+          <label class="sr__float-label">Description de l'activite *</label>
+          <textarea class="sr__input sr__input--plain" [(ngModel)]="description" rows="3" placeholder="Decrivez l'activite de votre entreprise..."></textarea>
+        </div>
+
+        <div class="sr__field">
+          <label class="sr__float-label">Adresse complete *</label>
+          <textarea class="sr__input sr__input--plain" [(ngModel)]="address" rows="2" placeholder="Adresse siege social (ville, pays)"></textarea>
+        </div>
+      </ng-container>
+
+      <!-- Step 2 - Coordonnees et secteurs -->
+      <ng-container *ngIf="currentStep === 2">
+        <p class="sr__section-label">COORDONNEES DE L'ENTREPRISE</p>
+
+        <div class="sr__field">
+          <label class="sr__float-label">Effectif</label>
+          <input class="sr__input sr__input--plain" type="number" [(ngModel)]="employees" placeholder="Nombre d'employés" min="1" />
+        </div>
+
+        <div class="sr__row">
+          <div class="sr__field">
+            <input class="sr__input sr__input--plain" type="url" [(ngModel)]="website" placeholder="Site web" />
+          </div>
+          <div class="sr__field sr__field--highlighted">
+            <label class="sr__float-label">Email de l'entreprise *</label>
+            <input class="sr__input" type="email" [(ngModel)]="email" placeholder="contact@entreprise.cm" />
+          </div>
+        </div>
+
+        <div class="sr__row">
+          <div class="sr__field">
+            <input class="sr__input sr__input--plain" type="tel" [(ngModel)]="phone" placeholder="Téléphone" />
+          </div>
+          <div class="sr__field">
+            <input class="sr__input sr__input--plain" type="url" [(ngModel)]="logoUrl" placeholder="Logo (URL)" />
+          </div>
+        </div>
+
+        <p class="sr__section-label">SECTEURS D'ACTIVITE</p>
+        <div class="sr__field">
+          <div class="sr__chips-wrap">
+            <button type="button" *ngFor="let sector of sectorOptions"
+                  class="sr__chip"
+                  [class.sr__chip--selected]="sectors.includes(sector.value)"
+                  [attr.aria-pressed]="sectors.includes(sector.value)"
+                  (click)="toggleSector(sector.value)">
+              {{ sector.label }}
+            </button>
+          </div>
+          <span class="sr__hint" *ngIf="sectors.length === 0">Selectionnez au moins un secteur</span>
+          <span class="sr__hint sr__hint--ok" *ngIf="sectors.length > 0">{{ sectors.length }} secteur(s) selectionne(s)</span>
+        </div>
+      </ng-container>
+
+      <!-- Step 3 - Representant -->
+      <ng-container *ngIf="currentStep === 3">
+        <p class="sr__section-label">REPRESENTANT LEGAL</p>
+
+        <div class="sr__row">
+          <div class="sr__field">
+            <input class="sr__input sr__input--plain" type="text" [(ngModel)]="representativeName" placeholder="Prenom *" />
+          </div>
+          <div class="sr__field">
+            <input class="sr__input sr__input--plain" type="text" [(ngModel)]="representativeLastName" placeholder="Nom *" />
+          </div>
+        </div>
+
+        <div class="sr__field sr__field--highlighted">
+          <label class="sr__float-label">Email du representant *</label>
+          <input class="sr__input" type="email" [(ngModel)]="representativeEmail" placeholder="prenom.nom@entreprise.cm" />
+        </div>
+      </ng-container>
+
+      <!-- Step 4 - Consentement -->
+      <ng-container *ngIf="currentStep === 4">
+        <p class="sr__section-label">CONSENTEMENT ET VALIDATION</p>
+
+        <div class="sr__field sr__field--consent">
+          <label class="sr__consent-label">
+            <input type="checkbox" [(ngModel)]="consent" />
+            <span class="sr__consent-check"></span>
+            <span class="sr__consent-text">
+              <strong>J'accepte</strong> que les informations recueillies soient utilisees pour l'etude de ma candidature d'adhesion a MountainsTech, conformement a la politique de confidentialite.
+            </span>
+          </label>
+        </div>
+
+        <div class="sr__info-box">
+          <svg class="sr__info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+          </svg>
+          <div class="sr__info-text">
+            <strong>Traitement de votre demande :</strong> Notre equipe examinera votre dossier sous 15 jours ouvres. Vous recevrez une confirmation par email a l'adresse du representant.
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Step 5 - Recapitulatif -->
+      <ng-container *ngIf="currentStep === 5">
+        <p class="sr__section-label">RECAPITULATIF</p>
+        <div class="sr__summary">
+          <div class="sr__summary-row"><span>Entreprise</span><strong>{{ companyName }}</strong></div>
+          <div class="sr__summary-row"><span>Forme juridique</span><strong>{{ legalForm }}</strong></div>
+          <div class="sr__summary-row"><span>Effectif</span><strong>{{ employees || 'Non renseigne' }}</strong></div>
+          <div class="sr__summary-row"><span>Secteurs</span><strong>{{ sectors.join(', ') || 'Aucun' }}</strong></div>
+          <div class="sr__summary-row"><span>Email entreprise</span><strong>{{ email || 'Non renseigne' }}</strong></div>
+          <div class="sr__summary-row"><span>Telephone</span><strong>{{ phone || 'Non renseigne' }}</strong></div>
+          <div class="sr__summary-row"><span>Representant</span><strong>{{ representativeName }} {{ representativeLastName }}</strong></div>
+          <div class="sr__summary-row"><span>Email representant</span><strong>{{ representativeEmail }}</strong></div>
+          <div class="sr__summary-row"><span>Consentement</span><strong>{{ consent ? 'Donne' : 'Non donne' }}</strong></div>
+        </div>
+      </ng-container>
+
+      <!-- Step 6 - Recu -->
+      <ng-container *ngIf="currentStep === 6">
+        <div class="sr__receipt">
+          <div class="sr__receipt-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <h3>Candidature envoyee !</h3>
+          <p>Votre demande d'adhesion a bien ete recue.</p>
+          <p *ngIf="emailSent === true" class="sr__receipt-email">Le serveur de messagerie a accepté l'email de confirmation pour <strong>{{ representativeEmail }}</strong>. Pensez à vérifier vos courriers indésirables.</p>
+          <p *ngIf="emailSent === false" class="sr__receipt-note">L'email de confirmation n'a pas pu être envoyé. Votre demande est bien enregistrée ; contactez-nous si vous avez besoin d'un suivi.</p>
+          <p *ngIf="emailSent === null" class="sr__receipt-note">L'envoi de l'email de confirmation n'a pas pu être vérifié. Votre demande est bien enregistrée ; vérifiez vos courriers indésirables ou contactez-nous.</p>
+          <p class="sr__receipt-note">Notre equipe vous recontactera sous 15 jours ouvres.</p>
+        </div>
+      </ng-container>
+      </div>
+
+      <!-- Footer actions -->
+      <div class="sr__actions">
+        <hr class="sr__divider" />
+        <div class="sr__actions-row">
+          <button *ngIf="currentStep > 1 && currentStep < 6" class="sr__btn sr__btn--back" (click)="prevStep()">Retour</button>
+          <button *ngIf="currentStep < 5" class="sr__btn sr__btn--next" (click)="nextStep()">Suivant</button>
+          <button *ngIf="currentStep === 5" class="sr__btn sr__btn--next" (click)="nextStep()" [disabled]="submitting">
+            {{ submitting ? 'Envoi...' : 'Soumettre la candidature' }}
+          </button>
+          <button *ngIf="currentStep === 6" class="sr__btn sr__btn--next" (click)="restart()">Nouvelle candidature</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>

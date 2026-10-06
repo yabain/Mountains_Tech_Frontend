@@ -1,4 +1,155 @@
-<section>
-  <h2>Inscription à l'événement</h2>
-  <p>Renseignez vos informations pour confirmer votre présence.</p>
-</section>
+<div class="sr-page">
+  <div class="sr" *ngIf="!loadingEvent && event">
+
+    <!-- Left: Stepper + Event Info -->
+    <aside class="sr__aside">
+      <a class="sr__brand" routerLink="/" aria-label="Mountains Tech - accueil">
+        <img class="sr__logo" src="/logoMountainsTech/logo.png" alt="Mountains Tech" />
+      </a>
+      <div class="sr__intro">
+        <h1>Créer votre inscription</h1>
+        <p>Quelques informations suffisent pour réserver votre place.</p>
+      </div>
+      <div class="sr__event-cover" *ngIf="event.coverUrl">
+        <img [src]="event.coverUrl" [alt]="event.title" />
+      </div>
+      <div class="sr__event-info" *ngIf="!event.coverUrl">
+        <div class="sr__event-placeholder">MT</div>
+      </div>
+
+      <div class="sr__event-details">
+        <h2 class="sr__event-title">{{ event.title }}</h2>
+        <div class="sr__event-meta">
+          <span class="sr__meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sr__meta-icon">
+              <path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>
+            </svg>
+            {{ formatDate(event.startAt) }}
+          </span>
+          <span class="sr__meta-item" *ngIf="event.endAt">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sr__meta-icon">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            {{ formatTime(event.startAt) }} - {{ formatTime(event.endAt) }}
+          </span>
+          <span class="sr__meta-item" *ngIf="event.location">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sr__meta-icon">
+              <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            {{ event.location }}
+          </span>
+        </div>
+      </div>
+
+      <nav class="sr__stepper">
+        <div *ngFor="let step of steps; let last = last" class="sr__step-wrap">
+          <div class="sr__step" [class.sr__step--active]="step.id === currentStep" [class.sr__step--done]="step.id < currentStep">
+            <div class="sr__step-circle">
+              <svg *ngIf="step.id < currentStep" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span *ngIf="step.id >= currentStep">{{ step.id }}</span>
+            </div>
+            <span class="sr__step-label">{{ step.label }}</span>
+          </div>
+          <div *ngIf="!last" class="sr__step-line"></div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Right: Form -->
+    <main class="sr__main">
+      <header class="sr__main-heading">
+        <h2>{{ steps[currentStep - 1].label }}</h2>
+        <p>Complétez les informations ci-dessous pour continuer.</p>
+      </header>
+
+      <div class="sr__content">
+      <!-- Step 1 – Mes informations -->
+      <div *ngIf="currentStep === 1">
+        <p class="sr__section-label">MES INFORMATIONS</p>
+
+        <div class="sr__row">
+          <div class="sr__field">
+            <input class="sr__input sr__input--plain" type="text" [(ngModel)]="firstName" placeholder="Prénom *" />
+          </div>
+          <div class="sr__field">
+            <input class="sr__input sr__input--plain" type="text" [(ngModel)]="lastName" placeholder="Nom *" />
+          </div>
+        </div>
+
+        <div class="sr__field sr__field--highlighted">
+          <label class="sr__float-label">Email *</label>
+          <input class="sr__input" type="email" [(ngModel)]="email" placeholder="vous@exemple.com" />
+        </div>
+
+        <div class="sr__row">
+          <div class="sr__field">
+            <div class="sr__phone-wrap">
+              <span class="sr__phone-flag">🇨🇲 +237</span>
+              <input class="sr__input sr__input--plain sr__input--phone" type="tel" [(ngModel)]="phone" placeholder="Téléphone" />
+            </div>
+          </div>
+          <div class="sr__field">
+            <input class="sr__input sr__input--plain" type="text" [(ngModel)]="organization" placeholder="Organisation (optionnel)" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 – Confirmation -->
+      <div *ngIf="currentStep === 2">
+        <p class="sr__section-label">CONFIRMATION</p>
+
+        <div class="sr__field sr__field--consent">
+          <label class="sr__consent-label">
+            <input type="checkbox" [(ngModel)]="consent" />
+            <span class="sr__consent-check"></span>
+            <span class="sr__consent-text">
+              <strong>J'accepte</strong> de m'inscrire à cet événement et que mes données soient utilisées pour la gestion des inscriptions.
+            </span>
+          </label>
+        </div>
+
+        <div class="sr__info-box">
+          <svg class="sr__info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <div class="sr__info-text">
+            <strong>Confirmation :</strong> Vous recevrez un email de confirmation avec votre numéro d'inscription. Merci de le présenter le jour de l'événement.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 – Reçu -->
+      <div *ngIf="currentStep === 3" class="sr__receipt">
+        <div class="sr__receipt-icon">✓</div>
+        <h3>Inscription confirmée !</h3>
+        <p>Vous êtes inscrit à <strong>{{ event.title }}</strong>.</p>
+        <p class="sr__receipt-email">Confirmation envoyée à <strong>{{ email }}</strong>.</p>
+        <p class="sr__receipt-note">Conservez cet email pour l'accueil le jour J.</p>
+      </div>
+      </div>
+
+      <!-- Footer actions -->
+      <div class="sr__actions">
+        <hr class="sr__divider" />
+        <div class="sr__actions-row">
+          <button *ngIf="currentStep > 1" class="sr__btn sr__btn--back" (click)="prevStep()">Retour</button>
+          <button *ngIf="currentStep === 1 && !submitting" class="sr__btn sr__btn--next" (click)="nextStep()">Suivant</button>
+          <button *ngIf="currentStep === 2 && !submitting" class="sr__btn sr__btn--next" (click)="submit()">Confirmer l'inscription</button>
+          <button *ngIf="currentStep === 3" class="sr__btn sr__btn--next" (click)="goToEvent()">Voir l'événement</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <section class="sr__error" *ngIf="!loadingEvent && !event" role="alert">
+    <a class="sr__brand" routerLink="/" aria-label="Mountains Tech - accueil">
+      <img class="sr__logo" src="/logoMountainsTech/logo.png" alt="Mountains Tech" />
+    </a>
+    <h1>Événement indisponible</h1>
+    <p>{{ eventLoadError }}</p>
+    <button class="sr__btn sr__btn--next" (click)="goToEvents()">Voir les événements</button>
+  </section>
+
+  <div *ngIf="loadingEvent" class="sr__loading">Chargement de l'événement...</div>
+</div>
