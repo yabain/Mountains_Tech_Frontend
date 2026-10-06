@@ -14,6 +14,12 @@ export interface Hackathon {
   maxTeams?: number;
   registrationRequired?: boolean;
   status?: string;
+  rulesHtml?: string;
+  themes?: string[];
+  prizes?: string[];
+  minTeamSize?: number;
+  maxTeamSize?: number;
+  registrationDeadline?: string;
 }
 
 export interface HackathonListData {

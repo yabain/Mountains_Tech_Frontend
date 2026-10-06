@@ -55,7 +55,7 @@
 
         <section class="detail-section" *ngIf="member?.employees">
           <h2>Effectif</h2>
-          <p>{{ member!.employees }} employé{{ member!.employees > 1 ? 's' : '' }}</p>
+          <p>{{ member!.employees }} employé{{ (member!.employees ?? 0) > 1 ? 's' : '' }}</p>
         </section>
 
         <section class="detail-section" *ngIf="member?.representativeName">

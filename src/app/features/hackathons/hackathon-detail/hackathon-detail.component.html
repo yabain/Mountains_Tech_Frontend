@@ -1,4 +1,143 @@
-<section>
-  <h2>Détail hackathon</h2>
-  <p>Un défi intense de 48h autour de l'innovation, des prototypes et des présentations.</p>
+<section class="detail-page" *ngIf="!isLoading && !hasError; else loadingOrError">
+  <header class="detail-hero" [style.background-image]="hackathon?.coverUrl ? 'url(' + hackathon!.coverUrl + ')' : ''">
+    <div class="detail-hero__overlay">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane">
+          <a routerLink="/">Accueil</a>
+          <span aria-hidden="true">›</span>
+          <a routerLink="/hackathons">Hackathons</a>
+          <span aria-hidden="true">›</span>
+          <span>{{ hackathon?.title }}</span>
+        </nav>
+        <span class="status-badge" [class]="statusClass(hackathon?.status)">{{ statusLabel(hackathon?.status) }}</span>
+        <h1>{{ hackathon?.title }}</h1>
+        <p class="detail-meta">
+          <i class="bi bi-calendar3" aria-hidden="true"></i>
+          {{ formatDates() }}
+        </p>
+        <p class="detail-meta" *ngIf="hackathon?.location">
+          <i class="bi bi-geo-alt" aria-hidden="true"></i>
+          {{ hackathon!.location }}
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div class="container detail-content">
+    <div class="detail-grid">
+      <article class="detail-main">
+        <section class="detail-section" *ngIf="hackathon?.excerpt">
+          <h2>Résumé</h2>
+          <p>{{ hackathon!.excerpt }}</p>
+        </section>
+
+        <section class="detail-section" *ngIf="hackathon?.description">
+          <h2>Description</h2>
+          <div class="prose">{{ hackathon!.description }}</div>
+        </section>
+
+        <section class="detail-section" *ngIf="hackathon?.rulesHtml">
+          <h2>Règlement</h2>
+          <div class="prose" [innerHTML]="hackathon!.rulesHtml"></div>
+        </section>
+
+        <section class="detail-section" *ngIf="hackathon?.themes?.length">
+          <h2>Thèmes</h2>
+          <div class="tags">
+            <span class="tag" *ngFor="let theme of hackathon!.themes">{{ theme }}</span>
+          </div>
+        </section>
+
+        <section class="detail-section" *ngIf="hackathon?.prizes?.length">
+          <h2>Prix</h2>
+          <div class="tags">
+            <span class="tag" *ngFor="let prize of hackathon!.prizes">{{ prize }}</span>
+          </div>
+        </section>
+
+        <section class="detail-section" *ngIf="hackathon?.minTeamSize || hackathon?.maxTeamSize">
+          <h2>Taille des équipes</h2>
+          <dl class="info-list inline">
+            <div *ngIf="hackathon?.minTeamSize">
+              <dt>Minimum</dt>
+              <dd>{{ hackathon!.minTeamSize }} membre{{ (hackathon!.minTeamSize ?? 0) > 1 ? 's' : '' }}</dd>
+            </div>
+            <div *ngIf="hackathon?.maxTeamSize">
+              <dt>Maximum</dt>
+              <dd>{{ hackathon!.maxTeamSize }} membre{{ (hackathon!.maxTeamSize ?? 0) > 1 ? 's' : '' }}</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="detail-section" *ngIf="hackathon?.registrationDeadline">
+          <h2>Date limite d'inscription</h2>
+          <p>{{ formatDate(hackathon!.registrationDeadline) }}</p>
+        </section>
+      </article>
+
+      <aside class="detail-sidebar">
+        <div class="sidebar-card" *ngIf="needsRegistration()">
+          <h3>Inscription</h3>
+          <p>Les inscriptions sont ouvertes pour former votre équipe.</p>
+          <a [routerLink]="['/hackathons', hackathon?.slug, 'inscription']" class="btn-primary btn-block">
+            <i class="bi bi-people" aria-hidden="true"></i>
+            Inscrire mon équipe
+          </a>
+        </div>
+
+        <div class="sidebar-card" *ngIf="!needsRegistration()">
+          <h3>Inscriptions fermées</h3>
+          <p>Les inscriptions ne sont pas encore ouvertes ou sont closes.</p>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Informations</h3>
+          <dl class="info-list">
+            <div *ngIf="hackathon?.startDate || hackathon?.startAt">
+              <dt>Début</dt>
+              <dd>{{ formatDate(hackathon!.startAt || hackathon!.startDate) }}</dd>
+            </div>
+            <div *ngIf="hackathon?.endDate || hackathon?.endAt">
+              <dt>Fin</dt>
+              <dd>{{ formatDate(hackathon!.endAt || hackathon!.endDate) }}</dd>
+            </div>
+            <div *ngIf="hackathon?.location">
+              <dt>Lieu</dt>
+              <dd>{{ hackathon!.location }}</dd>
+            </div>
+            <div *ngIf="hackathon?.category">
+              <dt>Catégorie</dt>
+              <dd>{{ hackathon!.category }}</dd>
+            </div>
+            <div *ngIf="hackathon?.registrationDeadline">
+              <dt>Limite inscription</dt>
+              <dd>{{ formatDate(hackathon!.registrationDeadline) }}</dd>
+            </div>
+            <div *ngIf="hackathon?.minTeamSize && hackathon?.maxTeamSize">
+              <dt>Taille équipe</dt>
+              <dd>{{ hackathon!.minTeamSize }} - {{ hackathon!.maxTeamSize }} personnes</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="sidebar-card">
+          <a routerLink="/hackathons" class="btn-back">
+            ← Retour aux hackathons
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
 </section>
+
+<ng-template #loadingOrError>
+  <div class="detail-page">
+    <div class="container">
+      <div class="state-message" *ngIf="isLoading">Chargement du hackathon…</div>
+      <div class="state-message state-message--error" *ngIf="hasError">
+        Hackathon introuvable.
+        <a routerLink="/hackathons" class="link">← Retour aux hackathons</a>
+      </div>
+    </div>
+  </div>
+</ng-template>

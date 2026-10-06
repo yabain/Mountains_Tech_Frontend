@@ -6,4 +6,9 @@ export interface Activity {
   date: string;
   location?: string;
   imageUrl?: string;
+  category?: string;
+  status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED' | string;
+  excerpt?: string;
+  contentHtml?: string;
+  coverUrl?: string;
 }

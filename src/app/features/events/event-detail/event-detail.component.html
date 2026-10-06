@@ -1,4 +1,126 @@
-<section>
-  <h2>Détail événement</h2>
-  <p>Meetup MountainTech : rencontres, échanges et ateliers autour du numérique.</p>
+<section class="detail-page" *ngIf="!isLoading && !hasError; else loadingOrError">
+  <header class="detail-hero" [style.background-image]="event?.coverUrl ? 'url(' + event!.coverUrl + ')' : ''">
+    <div class="detail-hero__overlay">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane">
+          <a routerLink="/">Accueil</a>
+          <span aria-hidden="true">›</span>
+          <a routerLink="/evenements">Événements</a>
+          <span aria-hidden="true">›</span>
+          <span>{{ event?.title }}</span>
+        </nav>
+        <span class="status-badge" [class]="statusClass(event?.status || '')">{{ statusLabel(event?.status || '') }}</span>
+        <h1>{{ event?.title }}</h1>
+        <div class="event-meta-grid">
+          <div class="detail-meta" *ngIf="event?.startAt">
+            <i class="bi bi-calendar3" aria-hidden="true"></i>
+            <span>{{ formatDate(event!.startAt) }}</span>
+          </div>
+          <div class="detail-meta" *ngIf="event?.startAt">
+            <i class="bi bi-clock" aria-hidden="true"></i>
+            <span>{{ formatTime(event!.startAt) }}</span>
+          </div>
+          <div class="detail-meta" *ngIf="event?.location">
+            <i class="bi bi-geo-alt" aria-hidden="true"></i>
+            <span>{{ event!.location }}</span>
+          </div>
+          <div class="detail-meta" *ngIf="event?.category">
+            <i class="bi bi-tag" aria-hidden="true"></i>
+            <span>{{ event!.category }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container detail-content">
+    <div class="detail-grid">
+      <article class="detail-main">
+        <section class="detail-section" *ngIf="event?.excerpt">
+          <h2>Résumé</h2>
+          <p>{{ event!.excerpt }}</p>
+        </section>
+
+        <section class="detail-section" *ngIf="event?.contentHtml">
+          <h2>Détails</h2>
+          <div class="prose" [innerHTML]="event!.contentHtml"></div>
+        </section>
+
+        <section class="detail-section" *ngIf="event?.partner">
+          <h2>Partenaire</h2>
+          <div class="partner-info">
+            <img *ngIf="event!.partner?.logoUrl" [src]="event!.partner!.logoUrl" [alt]="event!.partner!.name" class="partner-logo" />
+            <div>
+              <h3>{{ event!.partner?.name }}</h3>
+              <a *ngIf="event!.partner?.website" [href]="event!.partner!.website" target="_blank" rel="noopener">{{ event!.partner!.website }}</a>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <aside class="detail-sidebar">
+        <div class="sidebar-card" *ngIf="needsRegistration()">
+          <h3>Inscription</h3>
+          <p>Cet événement nécessite une inscription préalable.</p>
+          <a [routerLink]="['/evenements', event?.slug, 'inscription']" class="btn-primary btn-block">
+            <i class="bi bi-pencil-square" aria-hidden="true"></i>
+            M'inscrire
+          </a>
+        </div>
+
+        <div class="sidebar-card" *ngIf="!needsRegistration()">
+          <h3>Accès libre</h3>
+          <p>Cet événement est accessible sans inscription.</p>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Informations</h3>
+          <dl class="info-list">
+            <div *ngIf="event?.startAt">
+              <dt>Date</dt>
+              <dd>{{ formatDate(event!.startAt) }}</dd>
+            </div>
+            <div *ngIf="event?.startAt">
+              <dt>Heure</dt>
+              <dd>{{ formatTime(event!.startAt) }}</dd>
+            </div>
+            <div *ngIf="event?.endAt">
+              <dt>Fin</dt>
+              <dd>{{ formatTime(event!.endAt) }}</dd>
+            </div>
+            <div *ngIf="event?.location">
+              <dt>Lieu</dt>
+              <dd>{{ event!.location }}</dd>
+            </div>
+            <div *ngIf="event?.category">
+              <dt>Catégorie</dt>
+              <dd>{{ event!.category }}</dd>
+            </div>
+            <div *ngIf="event?.capacity">
+              <dt>Capacité</dt>
+              <dd>{{ event!.capacity }} places</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="sidebar-card">
+          <a routerLink="/evenements" class="btn-back">
+            ← Retour aux événements
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
 </section>
+
+<ng-template #loadingOrError>
+  <div class="detail-page">
+    <div class="container">
+      <div class="state-message" *ngIf="isLoading">Chargement de l'événement…</div>
+      <div class="state-message state-message--error" *ngIf="hasError">
+        Événement introuvable.
+        <a routerLink="/evenements" class="link">← Retour aux événements</a>
+      </div>
+    </div>
+  </div>
+</ng-template>

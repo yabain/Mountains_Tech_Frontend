@@ -11,6 +11,10 @@ export interface Project {
   owner?: string;
   ownerName?: string;
   createdAt?: string;
+  startDate?: string;
+  endDate?: string;
+  tags?: string[];
+  partners?: string[];
 }
 
 export interface ProjectListData {

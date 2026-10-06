@@ -1,4 +1,79 @@
-<section>
-  <h2>Détail activité</h2>
-  <p>Atelier de développement web avec démonstration live.</p>
+<section class="detail-page" *ngIf="!isLoading && !hasError; else loadingOrError">
+  <header class="detail-hero" [style.background-image]="activity?.imageUrl ? 'url(' + activity!.imageUrl + ')' : ''">
+    <div class="detail-hero__overlay">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane">
+          <a routerLink="/">Accueil</a>
+          <span aria-hidden="true">›</span>
+          <a routerLink="/activites">Activités</a>
+          <span aria-hidden="true">›</span>
+          <span>{{ activity?.title }}</span>
+        </nav>
+        <span class="status-badge" [class]="statusClass(activity?.status)">{{ statusLabel(activity?.status) }}</span>
+        <h1>{{ activity?.title }}</h1>
+        <p class="detail-meta" *ngIf="activity?.date">
+          <i class="bi bi-calendar3" aria-hidden="true"></i>
+          {{ formatDate(activity!.date) }}
+        </p>
+        <p class="detail-meta" *ngIf="activity?.location">
+          <i class="bi bi-geo-alt" aria-hidden="true"></i>
+          {{ activity!.location }}
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div class="container detail-content">
+    <div class="detail-grid">
+      <article class="detail-main">
+        <section class="detail-section" *ngIf="activity?.description">
+          <h2>Description</h2>
+          <div class="prose">{{ activity!.description }}</div>
+        </section>
+
+        <section class="detail-section" *ngIf="activity?.category">
+          <h2>Catégorie</h2>
+          <p>{{ activity!.category }}</p>
+        </section>
+      </article>
+
+      <aside class="detail-sidebar">
+        <div class="sidebar-card">
+          <h3>Informations</h3>
+          <dl class="info-list">
+            <div *ngIf="activity?.date">
+              <dt>Date</dt>
+              <dd>{{ formatDate(activity!.date) }}</dd>
+            </div>
+            <div *ngIf="activity?.location">
+              <dt>Lieu</dt>
+              <dd>{{ activity!.location }}</dd>
+            </div>
+            <div *ngIf="activity?.category">
+              <dt>Catégorie</dt>
+              <dd>{{ activity!.category }}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="sidebar-card">
+          <a routerLink="/activites" class="btn-back">
+            ← Retour aux activités
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
 </section>
+
+<ng-template #loadingOrError>
+  <div class="detail-page">
+    <div class="container">
+      <div class="state-message" *ngIf="isLoading">Chargement de l'activité…</div>
+      <div class="state-message state-message--error" *ngIf="hasError">
+        Activité introuvable.
+        <a routerLink="/activites" class="link">← Retour aux activités</a>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -11,6 +11,16 @@ export interface Member {
   phone?: string;
   joinedAt?: string;
   createdAt?: string;
+  // Champs détaillés
+  logoUrl?: string;
+  description?: string;
+  website?: string;
+  address?: string;
+  sectors?: string[];
+  employees?: number;
+  representativeName?: string;
+  representativeEmail?: string;
+  legalForm?: string;
 }
 
 export interface MemberListData {

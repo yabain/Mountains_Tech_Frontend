@@ -1,4 +1,104 @@
-<section>
-  <h2>Détail projet</h2>
-  <p>Plateforme communautaire pour centraliser les projets et les ressources de la structure.</p>
+<section class="detail-page" *ngIf="!isLoading && !hasError; else loadingOrError">
+  <header class="detail-hero" [style.background-image]="project?.coverUrl ? 'url(' + project!.coverUrl + ')' : ''">
+    <div class="detail-hero__overlay">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane">
+          <a routerLink="/">Accueil</a>
+          <span aria-hidden="true">›</span>
+          <a routerLink="/projets">Projets</a>
+          <span aria-hidden="true">›</span>
+          <span>{{ projectTitle() }}</span>
+        </nav>
+        <span class="status-badge" [class]="statusClass(project?.status || '')">{{ statusLabel(project?.status || '') }}</span>
+        <h1>{{ projectTitle() }}</h1>
+        <p class="detail-meta" *ngIf="project?.category">{{ project!.category }}</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="container detail-content">
+    <div class="detail-grid">
+      <article class="detail-main">
+        <section class="detail-section" *ngIf="project?.excerpt">
+          <h2>Résumé</h2>
+          <p>{{ project!.excerpt }}</p>
+        </section>
+
+        <section class="detail-section" *ngIf="project?.description">
+          <h2>Description</h2>
+          <div class="prose">{{ project!.description }}</div>
+        </section>
+
+        <section class="detail-section" *ngIf="project?.startDate || project?.endDate">
+          <h2>Période</h2>
+          <dl class="info-list inline">
+            <div *ngIf="project?.startDate">
+              <dt>Début</dt>
+              <dd>{{ formatDate(project!.startDate) }}</dd>
+            </div>
+            <div *ngIf="project?.endDate">
+              <dt>Fin</dt>
+              <dd>{{ formatDate(project!.endDate) }}</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="detail-section" *ngIf="project?.tags?.length">
+          <h2>Tags</h2>
+          <div class="tags">
+            <span class="tag" *ngFor="let tag of project!.tags">{{ tag }}</span>
+          </div>
+        </section>
+
+        <section class="detail-section" *ngIf="project?.partners?.length">
+          <h2>Partenaires</h2>
+          <ul class="partner-list">
+            <li *ngFor="let partner of project!.partners">{{ partner }}</li>
+          </ul>
+        </section>
+      </article>
+
+      <aside class="detail-sidebar">
+        <div class="sidebar-card">
+          <h3>Informations</h3>
+          <dl class="info-list">
+            <div *ngIf="project?.startDate">
+              <dt>Début</dt>
+              <dd>{{ formatDate(project!.startDate) }}</dd>
+            </div>
+            <div *ngIf="project?.endDate">
+              <dt>Fin</dt>
+              <dd>{{ formatDate(project!.endDate) }}</dd>
+            </div>
+            <div *ngIf="project?.category">
+              <dt>Catégorie</dt>
+              <dd>{{ project!.category }}</dd>
+            </div>
+            <div *ngIf="project?.ownerName">
+              <dt>Porteur</dt>
+              <dd>{{ project!.ownerName }}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="sidebar-card">
+          <a routerLink="/projets" class="btn-back">
+            ← Retour aux projets
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
 </section>
+
+<ng-template #loadingOrError>
+  <div class="detail-page">
+    <div class="container">
+      <div class="state-message" *ngIf="isLoading">Chargement du projet…</div>
+      <div class="state-message state-message--error" *ngIf="hasError">
+        Projet introuvable.
+        <a routerLink="/projets" class="link">← Retour aux projets</a>
+      </div>
+    </div>
+  </div>
+</ng-template>
