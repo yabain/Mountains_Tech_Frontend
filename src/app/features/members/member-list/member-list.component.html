@@ -37,7 +37,7 @@
           <span class="status-badge" [class.status-badge--pending]="member.status.toLowerCase() === 'pending'"
             [class.status-badge--inactive]="member.status.toLowerCase() === 'inactive'">{{ statusLabel(member.status) }}</span>
         </div>
-        <a class="member-link" [routerLink]="['/members', member.id]" [attr.aria-label]="'Voir le profil de ' + memberName(member)">→</a>
+        <a class="member-link" [routerLink]="['/membres', member.slug]" [attr.aria-label]="'Voir le profil de ' + memberName(member)">→</a>
       </article>
     </div>
   </div>

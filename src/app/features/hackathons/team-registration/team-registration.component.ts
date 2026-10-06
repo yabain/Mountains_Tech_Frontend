@@ -8,6 +8,7 @@ import { NotificationService } from '../../../core/services/notification.service
 
 interface HackathonData {
   id: string;
+  slug: string;
   title: string;
   startDate?: string;
   endDate?: string;
@@ -32,7 +33,7 @@ interface TeamMember {
   templateUrl: './team-registration.component.html',
 })
 export class TeamRegistrationComponent implements OnInit {
-  hackathonId = '';
+  hackathonSlug = '';
   hackathon: HackathonData | null = null;
   loadingHackathon = true;
   hackathonLoadError = '';
@@ -81,8 +82,8 @@ export class TeamRegistrationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.hackathonId = this.route.snapshot.paramMap.get('id') || '';
-    if (!this.hackathonId) {
+    this.hackathonSlug = this.route.snapshot.paramMap.get('slug') || '';
+    if (!this.hackathonSlug) {
       this.notification.error('Hackathon introuvable');
       this.router.navigate(['/hackathons']);
       return;
@@ -91,7 +92,7 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   loadHackathon(): void {
-    this.api.get<{success: boolean, data: HackathonData}>(`${API_ROUTES.public.hackathons}/${this.hackathonId}`).subscribe({
+    this.api.get<{success: boolean, data: HackathonData}>(`${API_ROUTES.public.hackathons}/${this.hackathonSlug}`).subscribe({
       next: (res) => {
         this.hackathon = res.data;
         this.loadingHackathon = false;
@@ -189,7 +190,7 @@ export class TeamRegistrationComponent implements OnInit {
     };
 
     this.api.post<{success: boolean, data: {teamId: string, status: string}}>(
-      adminDynamicRoutes.publicHackathonTeams(this.hackathonId),
+      adminDynamicRoutes.publicHackathonTeams(this.hackathon?.id || this.hackathonSlug),
       payload
     ).subscribe({
       next: () => { this.submitting = false; this.notification.success('Équipe enregistrée !'); this.currentStep = 6; },
@@ -197,7 +198,7 @@ export class TeamRegistrationComponent implements OnInit {
     });
   }
 
-  goToHackathon(): void { this.router.navigate(['/hackathons', this.hackathonId]); }
+  goToHackathon(): void { this.router.navigate(['/hackathons', this.hackathonSlug]); }
   goToHackathons(): void { this.router.navigate(['/hackathons']); }
 
   formatDate(dateStr?: string): string {

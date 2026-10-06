@@ -1,7 +1,7 @@
 export interface Hackathon {
   id: string;
+  slug: string;
   title: string;
-  slug?: string;
   description?: string;
   excerpt?: string;
   coverUrl?: string;

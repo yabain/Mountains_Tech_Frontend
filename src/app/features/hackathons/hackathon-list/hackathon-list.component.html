@@ -30,7 +30,11 @@
           <strong>{{ featured.title }}</strong>
         </ng-container>
       </div>
-      <div class="featured-program__footer"><strong>{{ featured.title }}</strong><small>{{ formatDates(featured) }} · {{ featured.location || 'En ligne' }}</small></div>
+      <div class="featured-program__footer">
+        <strong>{{ featured.title }}</strong>
+        <small>{{ formatDates(featured) }} · {{ featured.location || 'En ligne' }}</small>
+        <a class="program-link" [routerLink]="['/hackathons', featured.slug]">Voir le détail <span aria-hidden="true">→</span></a>
+      </div>
     </article>
   </header>
 
@@ -59,7 +63,11 @@
           <h2>{{ program.title }}</h2>
           <p *ngIf="program.category">◈ {{ program.category }}</p>
           <p>⌖ {{ program.location || 'En ligne' }}</p>
-          <div class="program-card__footer"><span>♧ Participants</span><button type="button">Register Now</button></div>
+          <div class="program-card__footer">
+            <span>♧ Participants</span>
+            <a class="btn-register" [routerLink]="['/hackathons', program.slug, 'inscription']">S'inscrire</a>
+            <a class="btn-detail" [routerLink]="['/hackathons', program.slug]">Détail</a>
+          </div>
         </div>
       </article>
     </div>

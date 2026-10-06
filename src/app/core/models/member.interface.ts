@@ -1,5 +1,6 @@
 export interface Member {
   id: string;
+  slug: string;
   firstName?: string;
   lastName?: string;
   name?: string;

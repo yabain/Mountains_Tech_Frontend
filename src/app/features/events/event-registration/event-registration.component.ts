@@ -8,6 +8,7 @@ import { NotificationService } from '../../../core/services/notification.service
 
 interface EventData {
   id: string;
+  slug: string;
   title: string;
   startAt: string;
   endAt?: string;
@@ -24,7 +25,7 @@ interface EventData {
   templateUrl: './event-registration.component.html',
 })
 export class EventRegistrationComponent implements OnInit {
-  eventId = '';
+  eventSlug = '';
   event: EventData | null = null;
   loadingEvent = true;
   eventLoadError = '';
@@ -55,22 +56,22 @@ export class EventRegistrationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.eventId = this.route.snapshot.paramMap.get('id') || '';
-    if (!this.eventId) {
+    this.eventSlug = this.route.snapshot.paramMap.get('slug') || '';
+    if (!this.eventSlug) {
       this.notification.error('Événement introuvable');
-      this.router.navigate(['/events']);
+      this.router.navigate(['/evenements']);
       return;
     }
     this.loadEvent();
   }
 
   loadEvent(): void {
-    this.api.get<{success: boolean, data: EventData}>(`${API_ROUTES.public.events}/${this.eventId}`).subscribe({
+    this.api.get<{success: boolean, data: EventData}>(`${API_ROUTES.public.events}/${this.eventSlug}`).subscribe({
       next: (res) => {
         this.event = res.data;
         if (!this.event?.registrationRequired) {
           this.notification.error("Cet événement ne nécessite pas d'inscription");
-          this.router.navigate(['/events', this.eventId]);
+          this.router.navigate(['/evenements', this.eventSlug]);
         }
         this.loadingEvent = false;
       },
@@ -115,7 +116,7 @@ export class EventRegistrationComponent implements OnInit {
     };
 
     this.api.post<{success: boolean, data: {registrationId: string, status: string}}>(
-      adminDynamicRoutes.publicEventRegistrations(this.eventId),
+      adminDynamicRoutes.publicEventRegistrations(this.event?.id || this.eventSlug),
       payload
     ).subscribe({
       next: (res) => {
@@ -132,11 +133,11 @@ export class EventRegistrationComponent implements OnInit {
   }
 
   goToEvent(): void {
-    this.router.navigate(['/events', this.eventId]);
+    this.router.navigate(['/evenements', this.eventSlug]);
   }
 
   goToEvents(): void {
-    this.router.navigate(['/events']);
+    this.router.navigate(['/evenements']);
   }
 
   formatDate(dateStr: string): string {

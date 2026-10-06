@@ -39,7 +39,7 @@
           <p class="card-category" *ngIf="project.category">{{ project.category }}</p>
           <h3>{{ projectTitle(project) }}</h3>
           <p>{{ projectDescription(project) }}</p>
-          <a class="card-link" [routerLink]="['/projects', project.id]">Découvrir le projet <span aria-hidden="true">→</span></a>
+          <a class="card-link" [routerLink]="['/projets', project.slug]">Découvrir le projet <span aria-hidden="true">→</span></a>
         </div>
       </article>
     </div>

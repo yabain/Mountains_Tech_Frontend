@@ -1,5 +1,103 @@
-<section>
-  <h2>Fiche membre</h2>
-  <p>Nom : Alexandre</p>
-  <p>Rôle : Développeur Full Stack</p>
+<section class="detail-page" *ngIf="!isLoading && !hasError; else loadingOrError">
+  <header class="detail-hero" [style.background-image]="member?.logoUrl ? 'url(' + member!.logoUrl + ')' : ''">
+    <div class="detail-hero__overlay">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane">
+          <a routerLink="/">Accueil</a>
+          <span aria-hidden="true">›</span>
+          <a routerLink="/membres">Membres</a>
+          <span aria-hidden="true">›</span>
+          <span>{{ memberName() }}</span>
+        </nav>
+        <h1>{{ memberName() }}</h1>
+        <p class="detail-meta" *ngIf="member?.role">{{ member!.role }}</p>
+        <span class="status-badge" [class]="statusClass(member?.status || '')">{{ statusLabel(member?.status || '') }}</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="container detail-content">
+    <div class="detail-grid">
+      <article class="detail-main">
+        <section class="detail-section" *ngIf="member?.description">
+          <h2>Présentation</h2>
+          <div class="prose">{{ member!.description }}</div>
+        </section>
+
+        <section class="detail-section" *ngIf="member?.website || member?.email || member?.phone || member?.address">
+          <h2>Coordonnées</h2>
+          <dl class="contact-list">
+            <div *ngIf="member?.website">
+              <dt>Site web</dt>
+              <dd><a [href]="member!.website" target="_blank" rel="noopener">{{ member!.website }}</a></dd>
+            </div>
+            <div *ngIf="member?.email">
+              <dt>Email</dt>
+              <dd><a [href]="'mailto:' + member!.email">{{ member!.email }}</a></dd>
+            </div>
+            <div *ngIf="member?.phone">
+              <dt>Téléphone</dt>
+              <dd><a [href]="'tel:' + member!.phone">{{ member!.phone }}</a></dd>
+            </div>
+            <div *ngIf="member?.address">
+              <dt>Adresse</dt>
+              <dd>{{ member!.address }}</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="detail-section" *ngIf="member?.sectors?.length">
+          <h2>Secteurs d'activité</h2>
+          <div class="tags">
+            <span class="tag" *ngFor="let sector of member!.sectors">{{ sector }}</span>
+          </div>
+        </section>
+
+        <section class="detail-section" *ngIf="member?.employees">
+          <h2>Effectif</h2>
+          <p>{{ member!.employees }} employé{{ member!.employees > 1 ? 's' : '' }}</p>
+        </section>
+
+        <section class="detail-section" *ngIf="member?.representativeName">
+          <h2>Représentant légal</h2>
+          <p>{{ member!.representativeName }}</p>
+          <p *ngIf="member?.representativeEmail"><a [href]="'mailto:' + member!.representativeEmail">{{ member!.representativeEmail }}</a></p>
+        </section>
+      </article>
+
+      <aside class="detail-sidebar">
+        <div class="sidebar-card">
+          <h3>Informations</h3>
+          <dl class="info-list">
+            <div *ngIf="member?.createdAt">
+              <dt>Membre depuis</dt>
+              <dd>{{ formatDate(member!.createdAt) }}</dd>
+            </div>
+            <div *ngIf="member?.legalForm">
+              <dt>Forme juridique</dt>
+              <dd>{{ member!.legalForm }}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="sidebar-card">
+          <a routerLink="/membres" class="btn-back">
+            ← Retour à la liste des membres
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
 </section>
+
+<ng-template #loadingOrError>
+  <div class="detail-page">
+    <div class="container">
+      <div class="state-message" *ngIf="isLoading">Chargement du membre…</div>
+      <div class="state-message state-message--error" *ngIf="hasError">
+        Membre introuvable.
+        <a routerLink="/membres" class="link">← Retour aux membres</a>
+      </div>
+    </div>
+  </div>
+</ng-template>

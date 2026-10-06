@@ -1,8 +1,8 @@
 export interface Project {
   id: string;
+  slug: string;
   name: string;
   title?: string;
-  slug?: string;
   description?: string;
   excerpt?: string;
   coverUrl?: string;
