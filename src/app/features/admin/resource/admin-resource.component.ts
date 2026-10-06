@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../core/http/api.service';
@@ -19,6 +19,7 @@ type Row = Record<string, any>;
 export class AdminResourceComponent {
   private readonly api = inject(ApiService);
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly notification = inject(NotificationService);
 
   readonly config = ADMIN_RESOURCE_CONFIG[this.route.snapshot.data['endpoint'] as string] ?? {
@@ -87,7 +88,7 @@ export class AdminResourceComponent {
   }
 
   hasCreate(): boolean {
-    return (this.config.creatable ?? false) && this.config.fields.length > 0;
+    return (this.config.creatable ?? false) && (this.config.fields.length > 0 || !!this.config.createRoute);
   }
 
   hasEdit(): boolean {
@@ -159,6 +160,10 @@ export class AdminResourceComponent {
   }
 
   openCreate(): void {
+    if (this.config.createRoute) {
+      this.router.navigate([this.config.createRoute]);
+      return;
+    }
     const initial: Row = {};
     for (const field of this.config.fields) {
       if (field.type === 'tags') {

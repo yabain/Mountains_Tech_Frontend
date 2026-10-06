@@ -43,6 +43,7 @@ export interface AdminResourceConfig {
   deletable?: boolean;
   createEndpoint?: string;
   createDefaults?: Record<string, unknown>;
+  createRoute?: string;
 }
 
 const STATUSES_CONTENT: ResourceField = {
@@ -336,7 +337,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
       { key: 'order', label: 'Ordre', type: 'number' }
     ]
   },
-  newsletter: {
+newsletter: {
     title: 'Newsletter',
     endpoint: API_ROUTES.admin.newsletter,
     shape: 'items',
@@ -362,6 +363,10 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
       { key: 'recipientCount', label: 'Destinataires' },
       { key: 'createdAt', label: 'Créée le', type: 'date' }
     ],
-    fields: []
+    fields: [],
+    creatable: true,
+    editable: false,
+    deletable: false,
+    createRoute: '/dashboard/announcements/new'
   }
 };

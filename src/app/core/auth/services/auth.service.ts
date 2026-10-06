@@ -23,13 +23,17 @@ export class AuthService {
 
   login(email: string, password: string): Observable<AuthUser> {
     return this.api.post<unknown>(API_ROUTES.auth.login, { email, password }).pipe(
-      tap((response) => this.storeToken(this.extractToken(response))),
+      tap((response) => {
+        console.log('[AUTH] login response:', JSON.stringify(response));
+        this.storeToken(this.extractToken(response));
+      }),
       switchMap(() => this.loadProfile())
     );
   }
 
   loadProfile(): Observable<AuthUser> {
     return this.api.get<unknown>(API_ROUTES.auth.me).pipe(
+      tap((response) => console.log('[AUTH] me response:', JSON.stringify(response))),
       map((response) => this.extractUser(response)),
       tap((user) => {
         this.currentUser$.next(user);
@@ -73,7 +77,7 @@ export class AuthService {
   }
 
   hasDashboardAccess(): boolean {
-    return ['super_admin', 'admin', 'editor', 'communication'].includes(this.currentUser$.value?.role.toLowerCase() ?? '');
+    return ['SUPER_ADMIN', 'ADMIN', 'EDITOR', 'COMMUNICATION'].includes(this.currentUser$.value?.role ?? '');
   }
 
   getToken(): string | null {
@@ -97,12 +101,12 @@ export class AuthService {
   private extractToken(response: unknown): string | undefined {
     const root = this.asRecord(response);
     const data = this.asRecord(root?.['data']);
-    return this.asString(root?.['access_token'])
-      ?? this.asString(root?.['accessToken'])
-      ?? this.asString(root?.['token'])
+    return this.asString(data?.['accessToken'])
       ?? this.asString(data?.['access_token'])
-      ?? this.asString(data?.['accessToken'])
-      ?? this.asString(data?.['token']);
+      ?? this.asString(data?.['token'])
+      ?? this.asString(root?.['accessToken'])
+      ?? this.asString(root?.['access_token'])
+      ?? this.asString(root?.['token']);
   }
 
   private extractUser(response: unknown): AuthUser {
@@ -111,7 +115,8 @@ export class AuthService {
     const user = this.asRecord(data['user']) ?? data;
     const id = this.asString(user['id']) ?? this.asString(user['_id']);
     const email = this.asString(user['email']);
-    const role = this.asString(user['role']);
+    const rawRole = this.asString(user['role']) ?? '';
+    const role = rawRole.replace(/-/g, '_');
     const name = this.asString(user['name'])
       ?? [this.asString(user['firstName']), this.asString(user['lastName'])].filter(Boolean).join(' ');
 

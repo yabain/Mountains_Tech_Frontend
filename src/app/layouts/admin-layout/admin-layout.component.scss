@@ -9,12 +9,12 @@
   color: var(--admin-ink);
 }
 
-.admin-sidebar { width: 248px; display: flex; flex-direction: column; flex-shrink: 0; gap: .25rem; padding: 1rem .9rem; background: #102b41; color: #fff; transition: width .2s ease; overflow: hidden; }
+.admin-sidebar { position: sticky; top: 0; height: 100vh; width: 248px; display: flex; flex-direction: column; flex-shrink: 0; gap: .25rem; padding: 1rem .9rem; background: #102b41; color: #fff; transition: width .2s ease; overflow-y: auto; overflow-x: hidden; }
 .admin-brand-row { display: flex; align-items: center; gap: .5rem; margin: .5rem 0 .75rem; }
 .admin-brand { display: block; flex: 1; height: 48px; padding: .35rem .75rem; background: #fff; border-radius: 10px 10px 0 10px; text-align: center; }
 .admin-brand img { max-width: 100%; height: 100%; object-fit: contain; }
-.admin-collapse { display: grid; place-items: center; flex-shrink: 0; width: 30px; height: 30px; border: 0; border-radius: 7px; background: transparent; color: #b9cbd7; font-size: .95rem; cursor: pointer; transition: background .2s, color .2s; }
-.admin-collapse:hover { background: #1d5a85; color: #fff; }
+.admin-collapse { display: grid; place-items: center; flex-shrink: 0; width: 46px; height: 46px; border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 14px; background: rgba(255, 255, 255, 0.08); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); color: #fff; font-size: 1.3rem; cursor: pointer; transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
+.admin-collapse:hover { background: rgba(255, 255, 255, 0.18); box-shadow: 0 10px 24px rgba(0, 68, 126, 0.3); transform: translateY(-1px); }
 .admin-nav { display: grid; gap: .35rem; margin-top: .5rem; }
 .admin-nav-group { padding: .4rem .85rem; color: #7f9db3; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; }
 .admin-nav a, .admin-logout { display: flex; align-items: center; gap: .75rem; padding: .75rem .85rem; border: 0; border-radius: 7px; background: transparent; color: #b9cbd7; font: inherit; font-size: .88rem; text-decoration: none; cursor: pointer; white-space: nowrap; }

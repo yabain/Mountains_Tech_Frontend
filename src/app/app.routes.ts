@@ -63,7 +63,10 @@ export const routes: Routes = [
         canActivate: [AdminPermissionGuard],
         loadComponent: () => import('./features/admin/resource/admin-resource.component').then((m) => m.AdminResourceComponent)
       },
-      ...[
+      // Announcements - custom editor routes
+      { path: 'announcements/new', data: { permission: 'announcements' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/announcements/announcement-editor.component').then((m) => m.AnnouncementEditorComponent) },
+      { path: 'announcements/:id/edit', data: { permission: 'announcements' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/announcements/announcement-editor.component').then((m) => m.AnnouncementEditorComponent) },
+...[
         ['settings', 'Parametres', 'settings'], ['media', 'Medias', 'media'], ['contacts', 'Contacts', 'contacts'],
         ['members', 'Membres', 'members'], ['projects', 'Projets', 'projects'], ['activities', 'Activites', 'activities'],
         ['events', 'Evenements', 'events'], ['hackathons', 'Hackathons', 'hackathons'], ['partners', 'Partenaires', 'partners'],
