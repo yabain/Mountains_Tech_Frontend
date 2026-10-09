@@ -217,14 +217,14 @@
       width: 72px;
       height: 72px;
       border-radius: 50%;
-      background: rgba(0, 68, 126, 0.08);
-      border: 2px solid $accent;
+      background: $success-light;
+      border: 2px solid $success;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 1.25rem;
 
-      svg { width: 28px; height: 28px; color: $accent; }
+      svg { width: 28px; height: 28px; color: $success; }
     }
 
     h4 { font-size: 1.25rem; font-weight: 800; color: $primary; margin-bottom: .5rem; }

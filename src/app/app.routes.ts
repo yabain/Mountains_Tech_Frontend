@@ -19,8 +19,8 @@ export const routes: Routes = [
     component: PublicLayoutComponent,
     children: [
       { path: '', loadComponent: () => import('./features/home/home.component').then((m) => m.HomeComponent) },
-      { path: 'a-propos', loadComponent: () => import('./features/about/about.component').then((m) => m.AboutComponent) },
-      { path: 'about', redirectTo: 'a-propos' },
+      { path: 'about', loadComponent: () => import('./features/about/about.component').then((m) => m.AboutComponent) },
+      { path: 'a-propos', redirectTo: 'about' },
       { path: 'membres', loadComponent: () => import('./features/members/member-list/member-list.component').then((m) => m.MemberListComponent) },
       { path: 'members', redirectTo: 'membres' },
       { path: 'membres/:slug', loadComponent: () => import('./features/members/member-detail/member-detail.component').then((m) => m.MemberDetailComponent) },

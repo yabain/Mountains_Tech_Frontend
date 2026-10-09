@@ -11,8 +11,9 @@
 
   padding: 3.5rem clamp(1.25rem, 5vw, 5rem) 1.25rem;
   background:
-    radial-gradient(ellipse at 10% 0%, rgba(0, 139, 207, .18), transparent 36rem),
-    linear-gradient(145deg, #0b1d2c, #102a3d);
+    radial-gradient(ellipse at 50% 100%, rgba(0, 139, 207, .12), transparent 42rem),
+    linear-gradient(120deg, rgba(3, 12, 20, .9), rgba(5, 18, 30, .86)),
+    url('/footerBg.jpg') center 58% / cover;
   color: var(--footer-text);
 }
 
