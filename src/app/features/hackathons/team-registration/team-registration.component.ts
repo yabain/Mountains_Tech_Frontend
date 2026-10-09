@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 import { ApiService } from '../../../core/http/api.service';
-import { API_ROUTES, adminDynamicRoutes } from '../../../core/constants/api-routes';
+import { adminDynamicRoutes } from '../../../core/constants/api-routes';
 import { NotificationService } from '../../../core/services/notification.service';
 
 interface HackathonData {
@@ -78,7 +79,8 @@ export class TeamRegistrationComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private api: ApiService,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -92,17 +94,21 @@ export class TeamRegistrationComponent implements OnInit {
   }
 
   loadHackathon(): void {
-    this.api.get<{success: boolean, data: HackathonData}>(`${API_ROUTES.public.hackathons}/${this.hackathonSlug}`).subscribe({
-      next: (res) => {
-        this.hackathon = res.data;
+    this.api.get<{success: boolean, data: HackathonData}>(adminDynamicRoutes.publicHackathonSlug(this.hackathonSlug))
+      .pipe(finalize(() => {
         this.loadingHackathon = false;
-      },
-      error: () => {
-        this.hackathonLoadError = 'Ce hackathon est introuvable ou ne peut pas être chargé pour le moment.';
-        this.loadingHackathon = false;
-        this.notification.error('Impossible de charger le hackathon');
-      }
-    });
+        this.changeDetectorRef.markForCheck();
+      }))
+      .subscribe({
+        next: (res) => {
+          this.hackathon = res.data;
+          this.changeDetectorRef.markForCheck();
+        },
+        error: () => {
+          this.hackathonLoadError = 'Ce hackathon est introuvable ou ne peut pas être chargé pour le moment.';
+          this.notification.error('Impossible de charger le hackathon');
+        }
+      });
   }
 
   // --- Navigation ---

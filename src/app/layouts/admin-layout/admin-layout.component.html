@@ -7,8 +7,7 @@
     aria-label="Navigation administration">
     <div class="admin-brand-row">
       <a class="admin-brand-mark" routerLink="/dashboard" (click)="closeSidebar()" aria-label="Mountains Tech — Tableau de bord">
-        <i class="bi bi-mountain admin-brand-icon" aria-hidden="true"></i>
-        <span class="admin-brand-type">MOUNTAINS<span>TECH CONSORTIUM</span></span>
+        <img class="admin-brand-logo" src="/logoMountainsTech/logoNavBar.png" alt="" />
       </a>
       <button class="admin-collapse" type="button"
         [attr.aria-label]="sidebarOpen() ? 'Fermer le menu' : sidebarCollapsed() ? 'Développer la navigation' : 'Réduire la navigation'"

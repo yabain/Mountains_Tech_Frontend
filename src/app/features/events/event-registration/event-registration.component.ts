@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 import { ApiService } from '../../../core/http/api.service';
-import { API_ROUTES, adminDynamicRoutes } from '../../../core/constants/api-routes';
+import { adminDynamicRoutes } from '../../../core/constants/api-routes';
 import { NotificationService } from '../../../core/services/notification.service';
 
 interface EventData {
@@ -52,7 +53,8 @@ export class EventRegistrationComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private api: ApiService,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -66,24 +68,25 @@ export class EventRegistrationComponent implements OnInit {
   }
 
   loadEvent(): void {
-    console.log('[REG-INSTR] loadEvent', this.eventSlug);
-    this.api.get<{success: boolean, data: EventData}>(`${API_ROUTES.public.events}/${this.eventSlug}`).subscribe({
-      next: (res) => {
-        console.log('[REG-INSTR] NEXT zone=', (window as unknown as { Zone?: { current: { name: string } } }).Zone?.current?.name);
-        this.event = res.data;
-        if (!this.event?.registrationRequired) {
-          this.notification.error("Cet événement ne nécessite pas d'inscription");
-          this.router.navigate(['/evenements', this.eventSlug]);
+    this.api.get<{success: boolean, data: EventData}>(adminDynamicRoutes.publicEventSlug(this.eventSlug))
+      .pipe(finalize(() => {
+        this.loadingEvent = false;
+        this.changeDetectorRef.markForCheck();
+      }))
+      .subscribe({
+        next: (res) => {
+          this.event = res.data;
+          if (!this.event?.registrationRequired) {
+            this.notification.error("Cet événement ne nécessite pas d'inscription");
+            this.router.navigate(['/evenements', this.eventSlug]);
+          }
+          this.changeDetectorRef.markForCheck();
+        },
+        error: () => {
+          this.eventLoadError = 'Cet événement est introuvable ou ne peut pas être chargé pour le moment.';
+          this.notification.error('Impossible de charger l\'événement');
         }
-        this.loadingEvent = false;
-      },
-      error: (err) => {
-        console.log('[REG-INSTR] ERROR', err);
-        this.eventLoadError = 'Cet événement est introuvable ou ne peut pas être chargé pour le moment.';
-        this.loadingEvent = false;
-        this.notification.error('Impossible de charger l\'événement');
-      }
-    });
+      });
   }
 
   nextStep(): void {

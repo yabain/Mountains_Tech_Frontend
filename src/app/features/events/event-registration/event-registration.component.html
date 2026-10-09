@@ -1,4 +1,11 @@
 <div class="sr-page">
+  <img *ngIf="!loadingEvent && event?.coverUrl" class="sr-page__background" [src]="event?.coverUrl" alt="" aria-hidden="true" />
+  <a class="sr-page__back" routerLink="/evenements" aria-label="Retour aux événements">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
+    </svg>
+    <span>Retour</span>
+  </a>
   <div class="sr" *ngIf="!loadingEvent && event">
 
     <!-- Left: Stepper + Event Info -->
