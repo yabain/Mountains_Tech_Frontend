@@ -4,16 +4,146 @@
 @import 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css';
 
 :root {
-  --primary: #00447e;
-  --secondary: #ffe721;
-  --accent: #ff0047;
-  --blue-1: #2272c0;
-  --blue-2: #347ccf;
-  --blue-3: #18cbff;
-  --green: #00c61a;
-  --white: #ffffff;
-  --black: #000000;
+  --color-primary: #00447e;
+  --color-primary-50: #e5f3fb;
+  --color-primary-100: #cce8f7;
+  --color-primary-200: #99d1ef;
+  --color-primary-300: #66bae7;
+  --color-primary-400: #33a3df;
+  --color-primary-500: #008ccf;
+  --color-primary-600: #00447e;
+  --color-primary-700: #003866;
+  --color-primary-800: #002b4d;
+  --color-primary-900: #001d35;
+  --color-primary-light: #e5f3fb;
+  --color-primary-hover: #0052cc;
+
+  --color-secondary: #ffe721;
+  --color-secondary-50: #fffef0;
+  --color-secondary-100: #fffdd1;
+  --color-secondary-200: #fffba3;
+  --color-secondary-300: #fff975;
+  --color-secondary-400: #fff747;
+  --color-secondary-500: #ffe721;
+  --color-secondary-600: #ccb81a;
+  --color-secondary-700: #998a14;
+  --color-secondary-800: #665c0e;
+  --color-secondary-900: #332e07;
+  --color-secondary-hover: #ffd900;
+
+  --color-accent: #ff0047;
+  --color-brand-accent: #f97316;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-gray-50: #f8f9fa;
+  --color-gray-100: #e9ecef;
+  --color-gray-200: #dee2e6;
+  --color-gray-300: #ced4da;
+  --color-gray-400: #adb5bd;
+  --color-gray-500: #6c757d;
+  --color-gray-600: #495057;
+  --color-gray-700: #343a40;
+  --color-gray-800: #212529;
+  --color-gray-900: #1a1d20;
+
+  --color-blue-1: #2272c0;
+  --color-blue-2: #347ccf;
+  --color-blue-3: #18cbff;
+
+  --color-green: #00c61a;
+  --color-red: #dc3545;
+  --color-orange: #fd7e14;
+  --color-yellow: #ffc107;
+  --color-purple: #6f42c1;
+
+  --color-success: #00c61a;
+  --color-success-50: #e5f7ef;
+  --color-success-100: #cbf3de;
+  --color-success-500: #00c61a;
+  --color-success-600: #009f14;
+  --color-success-700: #007a10;
+  --color-success-800: #00550b;
+  --color-success-light: #e5f7ef;
+
+  --color-warning: #ffc107;
+  --color-warning-50: #fffef0;
+  --color-warning-100: #fffdd1;
+  --color-warning-500: #ffc107;
+  --color-warning-600: #cc9a06;
+  --color-warning-light: #fff5d9;
+
+  --color-danger: #dc3545;
+  --color-danger-50: #fdf0f1;
+  --color-danger-100: #fce1e3;
+  --color-danger-500: #dc3545;
+  --color-danger-600: #b02a37;
+  --color-danger-700: #921e2c;
+  --color-danger-800: #6d131e;
+  --color-danger-light: #fdebea;
+
+  --color-info: #18cbff;
+  --color-info-50: #e3f8fb.
+  --color-info-100: #c7f1fb.
+  --color-info-light: #e3f8fb.
+
+  --color-focus-ring: 2px solid #00447e offset 2px.
+
   --bs-body-font-family: 'Roboto';
+}
+
+.dark {
+  --color-primary: #0052cc;
+  --color-primary-50: #001a33;
+  --color-primary-100: #003366;
+  --color-primary-200: #004c99;
+  --color-primary-300: #0066cc;
+  --color-primary-400: #0080cc;
+  --color-primary-500: #0099cc;
+  --color-primary-600: #00accc;
+  --color-primary-700: #00cccc;
+  --color-primary-800: #00e6cc;
+  --color-primary-900: #00ffff;
+  --color-primary-light: #003366;
+  --color-primary-hover: #0066ee;
+
+  --color-secondary: #ffe721;
+  --color-secondary-50: #1a1800.
+  --color-secondary-100: #333000.
+  --color-secondary-200: #666000.
+  --color-secondary-300: #999000.
+  --color-secondary-400: #cccc00.
+  --color-secondary-500: #ffe721.
+  --color-secondary-600: #ffeb4d.
+  --color-secondary-700: #ffff7a.
+  --color-secondary-800: #ffffa8.
+  --color-secondary-900: #ffffd6.
+
+  --color-accent: #ff0047.
+  --color-brand-accent: #f97316.
+
+  --color-white: #ffffff.
+  --color-black: #000000.
+
+  --color-gray-50: #1a1d20.
+  --color-gray-100: #212529.
+  --color-gray-200: #343a40.
+  --color-gray-300: #495057.
+  --color-gray-400: #6c757d.
+  --color-gray-500: #adb5bd.
+  --color-gray-600: #ced4da.
+  --color-gray-700: #dee2e6.
+  --color-gray-800: #e9ecef.
+  --color-gray-900: #f8f9fa.
+
+  --color-primary-light: #003366.
+  --color-surface: #1a1d20.
+  --color-surface-hover: #212529.
+  --color-border: #343a40.
+  --color-text: #f8f9fa.
+  --color-text-muted: #adb5bd.
+  --color-focus-ring: 2px solid #0052cc offset 2px.
 }
 
 html {
@@ -23,8 +153,8 @@ html {
 html, body {
   margin: 0;
   font-family: 'Roboto';
-  background: var(--white);
-  color: var(--black);
+  background: var(--color-white);
+  color: var(--color-black);
   min-height: 100%;
 }
 
@@ -38,6 +168,27 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-gray-200);
+    letter-spacing: 0;
+  }
+  body {
+    margin: 0;
+    background: var(--color-white);
+    color: var(--color-black);
+    font-family: var(--bs-body-font-family);
+    font-size: 14px;
+  }
+  button, a, input, select {
+    -webkit-tap-highlight-color: transparent;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
 }
 
 .events-hero {

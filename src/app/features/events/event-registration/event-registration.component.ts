@@ -66,8 +66,10 @@ export class EventRegistrationComponent implements OnInit {
   }
 
   loadEvent(): void {
+    console.log('[REG-INSTR] loadEvent', this.eventSlug);
     this.api.get<{success: boolean, data: EventData}>(`${API_ROUTES.public.events}/${this.eventSlug}`).subscribe({
       next: (res) => {
+        console.log('[REG-INSTR] NEXT zone=', (window as unknown as { Zone?: { current: { name: string } } }).Zone?.current?.name);
         this.event = res.data;
         if (!this.event?.registrationRequired) {
           this.notification.error("Cet événement ne nécessite pas d'inscription");
@@ -75,7 +77,8 @@ export class EventRegistrationComponent implements OnInit {
         }
         this.loadingEvent = false;
       },
-      error: () => {
+      error: (err) => {
+        console.log('[REG-INSTR] ERROR', err);
         this.eventLoadError = 'Cet événement est introuvable ou ne peut pas être chargé pour le moment.';
         this.loadingEvent = false;
         this.notification.error('Impossible de charger l\'événement');

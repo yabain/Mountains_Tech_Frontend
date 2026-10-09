@@ -1,394 +1,129 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { forkJoin } from 'rxjs';
-import { ApiService } from '../../../core/http/api.service';
-import { API_ROUTES, adminDynamicRoutes } from '../../../core/constants/api-routes';
 import { AuthService } from '../../../core/auth/services/auth.service';
-import { permissionsForUser, ADMIN_NAV_ITEMS } from '../admin-navigation';
+import { DashboardDataService, ActivitySection } from './dashboard-data.service';
 
-interface DashboardMetric {
-  label: string;
-  value: unknown;
-  icon: string;
-  tone: 'blue' | 'green' | 'yellow' | 'cyan';
+interface BarDatum {
+  day: number;
+  current: number;
+  prev: number;
+  currentHeight: number;
+  prevHeight: number;
+  isYellow: boolean;
 }
 
-interface PreviewItem {
-  title: string;
-  subtitle: string;
-  status?: string;
-  createdAt?: string;
-}
-
-interface PreviewSection {
-  id: string;
-  title: string;
-  icon: string;
-  tone: 'blue' | 'green' | 'yellow' | 'cyan' | 'purple';
-  link: string;
-  items: PreviewItem[];
-  count: number;
-  kind: 'request' | 'content';
-}
-
-const REQUEST_PREVIEWS = [
-  {
-    id: 'memberApplications',
-    title: 'Demandes d’adhésion',
-    icon: 'bi-person-badge',
-    tone: 'purple' as const,
-    link: '/dashboard/members/applications',
-    endpoint: API_ROUTES.admin.memberApplications,
-    params: { status: 'PENDING', limit: 5 }
-  },
-  {
-    id: 'contacts',
-    title: 'Nouveaux contacts',
-    icon: 'bi-envelope-open',
-    tone: 'green' as const,
-    link: '/dashboard/contacts',
-    endpoint: API_ROUTES.admin.contacts,
-    params: { status: 'NEW', limit: 5 }
-  },
-  {
-    id: 'hackathonTeams',
-    title: 'Équipes de hackathon en attente',
-    icon: 'bi-people',
-    tone: 'yellow' as const,
-    link: '/dashboard/hackathons',
-    endpoint: '',
-    params: {}
-  }
-];
-
-const CONTENT_PREVIEWS = [
-  {
-    id: 'events',
-    title: 'Événements récents',
-    icon: 'bi-calendar-event',
-    tone: 'blue' as const,
-    link: '/dashboard/events',
-    endpoint: API_ROUTES.admin.events,
-    params: { status: 'PUBLISHED', limit: 5 }
-  },
-  {
-    id: 'activities',
-    title: 'Activités récentes',
-    icon: 'bi-lightning-charge',
-    tone: 'cyan' as const,
-    link: '/dashboard/activities',
-    endpoint: API_ROUTES.admin.activities,
-    params: { status: 'PUBLISHED', limit: 5 }
-  },
-  {
-    id: 'projects',
-    title: 'Projets récents',
-    icon: 'bi-kanban',
-    tone: 'purple' as const,
-    link: '/dashboard/projects',
-    endpoint: API_ROUTES.admin.projects,
-    params: { status: 'PUBLISHED', limit: 5 }
-  },
-  {
-    id: 'partners',
-    title: 'Partenaires',
-    icon: 'bi-building',
-    tone: 'green' as const,
-    link: '/dashboard/partners',
-    endpoint: API_ROUTES.admin.partners,
-    params: {}
-  }
-];
+const CURRENT_SERIES = [230, 310, 280, 360, 295, 330, 280, 370, 440, 380, 425, 320, 430, 510, 440, 560, 405, 490, 530, 620, 470, 580, 680, 570, 620, 780, 650, 740, 640, 720];
+const PREVIOUS_SERIES = [180, 225, 210, 240, 200, 250, 220, 290, 260, 230, 270, 240, 310, 280, 320, 260, 350, 310, 360, 290, 370, 340, 320, 390, 350, 400, 370, 420, 380, 430];
+const PERIOD_LABELS: Record<string, string> = {
+  '7': '24 – 30 septembre 2026',
+  '30': '1 – 30 septembre 2026',
+  '90': '1 juillet – 30 septembre 2026'
+};
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [RouterLink, DatePipe],
-  providers: [DatePipe],
+  imports: [AsyncPipe, RouterLink],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminDashboardComponent {
-  private readonly api = inject(ApiService);
+  private readonly dataService = inject(DashboardDataService);
   private readonly authService = inject(AuthService);
 
-  readonly dashboard = signal<Record<string, unknown> | null>(null);
-  readonly loading = signal(true);
-  readonly refreshing = signal(false);
-  readonly error = signal('');
-  readonly requestPreviews = signal<PreviewSection[]>([]);
-  readonly contentPreviews = signal<PreviewSection[]>([]);
+  readonly currentUser$ = this.authService.currentUser$;
+  readonly loading = this.dataService.loading;
+  readonly error = this.dataService.error;
+  readonly sections = this.dataService.sections;
+
+  readonly period = signal<'7' | '30' | '90'>('30');
+  readonly categoryFilter = signal('all');
 
   constructor() {
-    this.load();
+    this.dataService.load();
   }
 
-  refresh(): void {
-    this.refreshing.set(true);
-    this.load();
-  }
+  readonly chart = computed(() => {
+    const count = Number(this.period());
+    const current = CURRENT_SERIES.slice(-count);
+    const previous = PREVIOUS_SERIES.slice(-count);
+    const max = Math.max(...current, ...previous);
+    const yellowIndex = count === 30 ? 18 : -1;
 
-  load(): void {
-    this.api.get<unknown>(API_ROUTES.admin.dashboard).subscribe({
-      next: (response) => {
-        this.dashboard.set(this.toRecord(response));
-        this.loading.set(false);
-        this.refreshing.set(false);
-        this.loadPreviews();
-      },
-      error: () => {
-        this.error.set('Les données du dashboard sont indisponibles.');
-        this.loading.set(false);
-        this.refreshing.set(false);
-      }
-    });
-  }
+    return {
+      rangeLabel: PERIOD_LABELS[this.period()],
+      total: current.reduce((sum, value) => sum + value, 0),
+      prevTotal: previous.reduce((sum, value) => sum + value, 0),
+      bars: current.map((value, index) => ({
+        day: index + 1,
+        current: value,
+        prev: previous[index] ?? 0,
+        currentHeight: Math.max(2, Math.round((value / max) * 100)),
+        prevHeight: Math.max(2, Math.round(((previous[index] ?? 0) / max) * 100)),
+        isYellow: index === yellowIndex
+      }))
+    };
+  });
 
-  isRecord(value: unknown): value is Record<string, unknown> {
-    return typeof value === 'object' && value !== null && !Array.isArray(value);
-  }
-
-  displayValue(value: unknown): string {
-    if (value === null || value === undefined) {
-      return '-';
+  readonly trend = computed(() => {
+    const { total, prevTotal } = this.chart();
+    if (!prevTotal) {
+      return '+0 %';
     }
+    const ratio = ((total - prevTotal) / prevTotal) * 100;
+    const rounded = Math.round(Math.abs(ratio) * 10) / 10;
+    return `${ratio >= 0 ? '+' : '−'}${rounded.toFixed(1).replace('-', '')} %`;
+  });
 
-    return typeof value === 'object' ? JSON.stringify(value) : String(value);
-  }
-
-  roleLabel(): string {
-    const role = this.authService.currentUser$.value?.role ?? '';
-    const normalized = role.toUpperCase();
-    if (normalized.includes('SUPER')) {
-      return 'Super administrateur';
+  readonly filteredSections = computed<ActivitySection[]>(() => {
+    const key = this.categoryFilter();
+    if (key === 'all') {
+      return this.sections();
     }
-    if (normalized.includes('ADMIN')) {
-      return 'Administrateur';
+    return this.sections().filter((section) => section.key === key);
+  });
+
+  categories(): { key: string; label: string }[] {
+    return this.dataService.categories().map(({ key, label }) => ({ key, label }));
+  }
+
+  firstName(user: { name?: string } | null): string {
+    const name = user?.name ? user.name.trim().split(/\s+/)[0] : '';
+    return name || 'Lionel';
+  }
+
+  setPeriod(period: string): void {
+    if (period === '7' || period === '30' || period === '90') {
+      this.period.set(period);
     }
-    if (normalized.includes('EDITOR')) {
-      return 'Éditeur';
-    }
-    return 'Communication';
   }
 
-  metrics(): DashboardMetric[] {
-    const source = this.firstRecord(['stats', 'kpis', 'metrics']) ?? this.dashboard() ?? {};
-    const values = Object.entries(source).filter(([, value]) => this.isPrimitive(value)).slice(0, 4);
-    const defaults: DashboardMetric[] = [
-      { label: 'Utilisateurs', value: '-', icon: 'bi-people', tone: 'blue' },
-      { label: 'Membres', value: '-', icon: 'bi-person-badge', tone: 'green' },
-      { label: 'Événements', value: '-', icon: 'bi-calendar-event', tone: 'yellow' },
-      { label: 'Projets', value: '-', icon: 'bi-kanban', tone: 'cyan' }
-    ];
-    return values.length
-      ? values.map(([label, value], index) => ({ ...defaults[index % defaults.length], label: this.humanize(label), value }))
-      : defaults;
+  setCategoryFilter(category: string): void {
+    this.categoryFilter.set(category);
   }
 
-  quickActions(): { label: string; route: string; icon: string }[] {
-    const permissions = permissionsForUser(this.authService.currentUser$.value);
-    return ADMIN_NAV_ITEMS
-      .filter((item) => ['members', 'events', 'projects', 'activities', 'hackathons', 'partners', 'announcements', 'media'].includes(item.permission))
-      .filter((item) => permissions.includes(item.permission))
-      .map((item) => ({ label: 'Gérer ' + item.label.toLowerCase(), route: item.route, icon: item.icon }));
-  }
-
-  statusClass(status: unknown): string {
-    const label = String(status ?? '').toLowerCase();
-    if (['approved', 'published', 'active', 'resolved', 'subscribed'].includes(label)) {
-      return 'dash-badge dash-badge--success';
-    }
-    if (['pending', 'new'].includes(label)) {
-      return 'dash-badge dash-badge--pending';
-    }
-    if (['rejected', 'spam', 'archived', 'inactive', 'unsubscribed'].includes(label)) {
-      return 'dash-badge dash-badge--danger';
-    }
-    return 'dash-badge dash-badge--neutral';
-  }
-
-  private loadPreviews(): void {
-    const requestObs = REQUEST_PREVIEWS
-      .filter((section) => section.endpoint)
-      .map((section) => this.api.get<unknown>(section.endpoint, section.params));
-
-    forkJoin(requestObs).subscribe({
-      next: ([applications, contacts]) => {
-        const previews: PreviewSection[] = [];
-        const appRows = this.extractItems(applications);
-        previews.push({
-          id: 'memberApplications',
-          title: REQUEST_PREVIEWS[0].title,
-          icon: REQUEST_PREVIEWS[0].icon,
-          tone: REQUEST_PREVIEWS[0].tone,
-          link: REQUEST_PREVIEWS[0].link,
-          items: this.mapItems('memberApplications', appRows),
-          count: appRows.length,
-          kind: 'request'
-        });
-
-        const contactRows = this.extractItems(contacts);
-        previews.push({
-          id: 'contacts',
-          title: REQUEST_PREVIEWS[1].title,
-          icon: REQUEST_PREVIEWS[1].icon,
-          tone: REQUEST_PREVIEWS[1].tone,
-          link: REQUEST_PREVIEWS[1].link,
-          items: this.mapItems('contacts', contactRows),
-          count: contactRows.length,
-          kind: 'request'
-        });
-        this.requestPreviews.set(previews);
-      },
-      error: () => {
-        /* les aperçus restent vides en cas d’erreur */
-      }
-    });
-
-    const contentObs = CONTENT_PREVIEWS.map((section) => this.api.get<unknown>(section.endpoint, section.params));
-    forkJoin(contentObs).subscribe({
-      next: ([events, activities, projects, partners]) => {
-        const sections: PreviewSection[] = [];
-        for (let i = 0; i < CONTENT_PREVIEWS.length; i++) {
-          const def = CONTENT_PREVIEWS[i];
-          const responses = [events, activities, projects, partners];
-          const rows = this.extractItems(responses[i]);
-          sections.push({
-            id: def.id,
-            title: def.title,
-            icon: def.icon,
-            tone: def.tone,
-            link: def.link,
-            items: this.mapItems(def.id, rows),
-            count: rows.length,
-            kind: 'content'
-          });
-        }
-        this.contentPreviews.set(sections);
-        this.loadTeamsPreview();
-      },
-      error: () => {
-        /* les aperçus restent vides en cas d’erreur */
-      }
-    });
-  }
-
-  private loadTeamsPreview(): void {
-    this.api.get<unknown>(API_ROUTES.admin.hackathons, { status: 'PUBLISHED', limit: 1 }).subscribe({
-      next: (hackathons) => {
-        const rows = this.extractItems(hackathons);
-        const latest = rows[0];
-        if (!latest) {
-          this.pushTeamPreview([]);
-          return;
-        }
-        const id = String(latest['id'] ?? latest['_id'] ?? '');
-        if (!id) {
-          this.pushTeamPreview([]);
-          return;
-        }
-        this.api.get<unknown>(adminDynamicRoutes.hackathonTeams(id), { status: 'PENDING', limit: 5 }).subscribe({
-          next: (teams) => this.pushTeamPreview(this.extractItems(teams)),
-          error: () => this.pushTeamPreview([])
-        });
-      },
-      error: () => this.pushTeamPreview([])
-    });
-  }
-
-  private pushTeamPreview(rows: Record<string, unknown>[]): void {
-    const current = this.requestPreviews();
-    const others = current.filter((section) => section.id !== 'hackathonTeams');
-    others.push({
-      id: 'hackathonTeams',
-      title: REQUEST_PREVIEWS[2].title,
-      icon: REQUEST_PREVIEWS[2].icon,
-      tone: REQUEST_PREVIEWS[2].tone,
-      link: REQUEST_PREVIEWS[2].link,
-      items: this.mapItems('hackathonTeams', rows),
-      count: rows.length,
-      kind: 'request'
-    });
-    this.requestPreviews.set(others);
-  }
-
-  private mapItems(key: string, rows: Record<string, unknown>[]): PreviewItem[] {
-    return rows.slice(0, 5).map((row) => {
-      const value = (field: string): string => {
-        const v = row[field];
-        return v === null || v === undefined ? '' : String(v);
-      };
-      switch (key) {
-        case 'memberApplications':
-          return {
-            title: value('companyName') || 'Entreprise', subtitle: value('representativeName') || value('representativeEmail'), status: value('status'), createdAt: value('createdAt')
-          };
-        case 'contacts':
-          return {
-            title: value('name'), subtitle: value('subject'), status: value('status'), createdAt: value('createdAt')
-          };
-        case 'hackathonTeams':
-          return {
-            title: value('teamName') || value('name'), subtitle: value('hackathonId'), status: value('status'), createdAt: value('createdAt')
-          };
-        case 'partners':
-          return {
-            title: value('name'), subtitle: value('type'), status: value('status'), createdAt: value('createdAt')
-          };
-        default:
-          return {
-            title: value('title') || value('name'),
-            subtitle: value('category') || value('location') || value('excerpt') || value('description') || '',
-            status: value('status'),
-            createdAt: value('createdAt') || value('startAt') || value('startDate')
-          };
-      }
-    });
-  }
-
-  private extractItems(response: unknown): Record<string, unknown>[] {
-    if (Array.isArray(response)) {
-      return response.filter((item) => this.isRecord(item));
-    }
-    if (this.isRecord(response)) {
-      const data = response['data'];
-      if (Array.isArray(data)) {
-        return data.filter((item) => this.isRecord(item));
-      }
-      if (this.isRecord(data) && Array.isArray(data['items'])) {
-        return data['items'].filter((item) => this.isRecord(item));
-      }
-    }
-    return [];
-  }
-
-  private toRecord(response: unknown): Record<string, unknown> {
-    if (this.isRecord(response) && this.isRecord(response['data'])) {
-      return response['data'];
-    }
-
-    return this.isRecord(response) ? response : {};
-  }
-
-  private firstRecord(names: string[]): Record<string, unknown> | null {
-    const source = this.dashboard();
-    for (const name of names) {
-      const candidate = source ? source[name] : undefined;
-      if (this.isRecord(candidate)) {
-        return candidate;
-      }
-    }
-
-    return null;
-  }
-
-  private isPrimitive(value: unknown): boolean {
-    return ['string', 'number', 'boolean'].includes(typeof value);
-  }
-
-  private humanize(value: string): string {
-    return value.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/[_-]/g, ' ').replace(/^./, (letter) => letter.toUpperCase());
+  exportReport(): void {
+    const header = ['Catégorie', 'Nom', 'Détail', 'Statut', 'Humain'];
+    const rows: string[][] = this.sections().flatMap((section) =>
+      section.entries.map((entry) => [
+        section.label,
+        entry.name,
+        entry.detail,
+        entry.status ?? '',
+        entry.time
+      ])
+    );
+    const csv = [header, ...rows]
+      .map((cells) => cells.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(';'))
+      .join('\n');
+    const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = 'rapport-activites.csv';
+    anchor.click();
+    URL.revokeObjectURL(url);
   }
 }

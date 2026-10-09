@@ -1,139 +1,125 @@
-<section class="dashboard">
-  <div class="dashboard-toolbar">
-    <h1>Dashboard</h1>
-    <div class="toolbar-actions">
-      <a routerLink="/" class="dash-btn dash-btn--primary">
-        <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
-        Voir le site
-      </a>
-      <button type="button" class="dash-btn dash-btn--outline" (click)="refresh()" [disabled]="refreshing()">
-        <i class="bi bi-arrow-clockwise" [class.dash-spin]="refreshing()" aria-hidden="true"></i>
-        Actualiser
-      </button>
+<section class="dashboard page-enter">
+  <span class="demo-label">DÉMONSTRATION</span>
+
+  <div class="dashboard-heading">
+    <div>
+      <h1 class="page-title">Aperçu global</h1>
+      <p class="subtitle">Bienvenue {{ firstName(currentUser$ | async) }}, voici les dernières nouvelles de Mountains Tech.</p>
     </div>
+    <button type="button" class="dash-btn dash-btn--outline" (click)="exportReport()">
+      <i class="bi bi-arrow-down-to-line" aria-hidden="true"></i>
+      Exporter le rapport
+    </button>
   </div>
 
-  @if (loading()) {
-    <div class="admin-state">Chargement des données...</div>
-  } @else if (error()) {
-    <div class="admin-state admin-state--error" role="alert">{{ error() }}</div>
-  } @else {
-    <section class="kpi-grid" aria-label="Indicateurs clés">
-      @for (metric of metrics(); track metric.label) {
-        <article class="kpi-card">
-          <div class="kpi-icon" [class]="'kpi-icon--' + metric.tone">
-            <i [class]="'bi ' + metric.icon" aria-hidden="true"></i>
-          </div>
-          <div class="kpi-content">
-            <span class="kpi-label">{{ metric.label }}</span>
-            <strong class="kpi-value">{{ displayValue(metric.value) }}</strong>
-            <span class="kpi-period">Données backend</span>
-          </div>
-        </article>
-      }
-    </section>
+  @if (loading() && sections().length === 0) {
+    <div class="charts-card">
+      <div class="admin-state">Chargement des données...</div>
+    </div>
+  } @else if (error() && sections().length === 0) {
+    <div class="charts-card">
+      <div class="admin-state admin-state--error" role="alert">{{ error() }}</div>
+    </div>
+  }
 
-    <div class="dashboard-content">
-      <div class="dashboard-primary">
-        <div class="preview-heading">
-          <h2><i class="bi bi-inbox" aria-hidden="true"></i> Nouvelles demandes à traiter</h2>
+  @if (sections().length > 0 || !loading()) {
+    <section class="charts-card" aria-label="Graphique des visiteurs">
+      <div class="charts-card-body">
+        <div class="chart-head">
+          <div>
+            <h2 class="chart-title">Visiteurs du site</h2>
+            <p class="chart-period">{{ chart().rangeLabel }}</p>
+          </div>
+          <div class="chart-summary">
+            <strong>{{ chart().total.toLocaleString('fr-FR') }}</strong>
+            <span>visiteurs</span>
+            <span class="dash-badge dash-badge--success">{{ trend() }}</span>
+          </div>
         </div>
-        <div class="preview-grid">
-          @for (preview of requestPreviews(); track preview.id) {
-            <article class="section-card preview-card">
-              <div class="card-header">
-                <div class="preview-title">
-                  <span class="preview-icon" [class]="'preview-icon--' + preview.tone">
-                    <i [class]="'bi ' + preview.icon" aria-hidden="true"></i>
-                  </span>
-                  <div>
-                    <h2>{{ preview.title }}</h2>
-                    <p>{{ preview.count }} en attente</p>
-                  </div>
-                </div>
-                <a class="preview-link" [routerLink]="preview.link">Tout voir <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
-              </div>
-              <div class="preview-list">
-                @for (item of preview.items; track $index) {
-                  <div class="preview-item">
-                    <div class="preview-item__text">
-                      <strong>{{ item.title }}</strong>
-                      <small>{{ item.subtitle }}</small>
-                    </div>
-                    <div class="preview-item__meta">
-                      @if (item.createdAt) {
-                        <span class="preview-date">{{ item.createdAt | date: 'd MMM.' }}</span>
-                      }
-                      @if (item.status) {
-                        <span [class]="statusClass(item.status)">{{ item.status }}</span>
-                      }
-                    </div>
-                  </div>
-                } @empty {
-                  <p class="empty-state">Aucune demande en attente.</p>
-                }
-              </div>
-            </article>
+
+        <div class="segmented" role="group" aria-label="Période du graphique">
+          @for (option of ['7', '30', '90']; track option) {
+            <button type="button" [class.is-active]="period() === option" (click)="setPeriod(option)">
+              {{ option }} jours
+            </button>
           }
         </div>
 
-        <div class="preview-heading preview-heading--content">
-          <h2><i class="bi bi-collection" aria-hidden="true"></i> Derniers contenus</h2>
-        </div>
-        <div class="preview-grid">
-          @for (preview of contentPreviews(); track preview.id) {
-            <article class="section-card preview-card">
-              <div class="card-header">
-                <div class="preview-title">
-                  <span class="preview-icon" [class]="'preview-icon--' + preview.tone">
-                    <i [class]="'bi ' + preview.icon" aria-hidden="true"></i>
-                  </span>
-                  <div>
-                    <h2>{{ preview.title }}</h2>
-                    <p>{{ preview.count }} élément(s)</p>
-                  </div>
+        <div class="chart-area">
+          <div class="chart-bars">
+            @for (bar of chart().bars; track $index) {
+              <div class="chart-bar-group" [class.chart-bar-group--yellow]="bar.isYellow">
+                <div class="chart-bar-tooltip">
+                  <strong>{{ bar.current }}</strong>
+                  <span>Visiteurs</span>
+                  <span>Précédente : {{ bar.prev }}</span>
                 </div>
-                <a class="preview-link" [routerLink]="preview.link">Tout voir <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+                <div class="chart-bar chart-bar--prev" [style.height.%]="bar.prevHeight"></div>
+                <div class="chart-bar chart-bar--current" [style.height.%]="bar.currentHeight"></div>
               </div>
-              <div class="preview-list">
-                @for (item of preview.items; track $index) {
-                  <div class="preview-item">
-                    <div class="preview-item__text">
-                      <strong>{{ item.title }}</strong>
-                      <small>{{ item.subtitle }}</small>
-                    </div>
-                    <div class="preview-item__meta">
-                      @if (item.createdAt) {
-                        <span class="preview-date">{{ item.createdAt | date: 'd MMM.' }}</span>
-                      }
-                      @if (item.status) {
-                        <span [class]="statusClass(item.status)">{{ item.status }}</span>
-                      }
-                    </div>
-                  </div>
-                } @empty {
-                  <p class="empty-state">Aucun contenu publié pour l’instant.</p>
-                }
-              </div>
-            </article>
-          }
+            }
+          </div>
+        </div>
+
+        <div class="chart-footer">
+          <div class="chart-legend">
+            <span class="chart-legend-item"><i class="chart-legend-dot chart-legend-dot--current"></i>Visiteurs</span>
+            <span class="chart-legend-item"><i class="chart-legend-dot chart-legend-dot--prev"></i>Période précédente</span>
+          </div>
+          <div class="chart-note"><i class="bi bi-info-circle" aria-hidden="true"></i>Données d'exemple · suivi du site non connecté</div>
         </div>
       </div>
+    </section>
 
-      <aside class="dashboard-sidebar">
-        <article class="section-card">
-          <div class="card-header">
-            <h2>Actions rapides</h2>
-          </div>
-          @for (action of quickActions(); track action.route) {
-            <a [routerLink]="action.route" class="quick-action">
-              <i class="bi" [class]="action.icon" aria-hidden="true"></i>
-              <span>{{ action.label }}</span>
-              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-            </a>
+    <section class="actions-section" aria-label="Dernières actions">
+      <div class="actions-heading">
+        <div>
+          <h2 class="section-title">Dernières actions</h2>
+          <p class="section-subtitle">Les 2 dernières actions de chaque catégorie.</p>
+        </div>
+        <select class="actions-filter" [value]="categoryFilter()" (change)="setCategoryFilter($any($event.target).value)" aria-label="Filtrer par catégorie">
+          <option value="all">Toutes les catégories</option>
+          @for (category of categories(); track category.key) {
+            <option [value]="category.key">{{ category.label }}</option>
           }
-        </article>
-      </aside>
-    </div>
+        </select>
+      </div>
+
+      <div class="actions-grid">
+        @for (section of filteredSections(); track section.key) {
+          <article class="activity-card">
+            <div class="activity-card-header">
+              <div class="flex items-center gap-2">
+                <i [class]="'bi ' + section.icon" aria-hidden="true"></i>
+                <h3>{{ section.label }}</h3>
+              </div>
+              <a [routerLink]="section.link" class="activity-card-link">Voir tout <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+            </div>
+            @for (entry of section.entries; track $index) {
+              <div class="activity-entry">
+                <span class="activity-avatar">{{ entry.initials }}</span>
+                <div class="activity-entry-content">
+                  <strong class="activity-name">{{ entry.name }}</strong>
+                  <p class="activity-detail">{{ entry.detail }}</p>
+                  <div class="activity-time"><i class="bi bi-clock" aria-hidden="true"></i>{{ entry.time }}</div>
+                </div>
+                @if (entry.status) {
+                  <span class="status-badge status-badge--{{ entry.statusTone }}">{{ entry.status }}</span>
+                }
+              </div>
+            } @empty {
+              <p class="activity-empty">Aucune donnée récente.</p>
+            }
+          </article>
+        } @empty {
+          <p class="activity-empty">Aucune catégorie disponible pour le moment.</p>
+        }
+      </div>
+    </section>
+
+    <footer class="admin-footer">
+      <span>© 2026 Mountains Tech · Bangangté, Cameroun</span>
+      <span><i class="bi bi-geo-alt" aria-hidden="true"></i>Administration</span>
+    </footer>
   }
 </section>

@@ -1,0 +1,48 @@
+<section class="notification-pane" id="admin-notification-pane" role="dialog" aria-label="Notifications" tabindex="-1">
+  <header class="notification-heading">
+    <div class="notification-heading-title">
+      <i class="bi bi-bell" aria-hidden="true"></i>
+      <h2>Notifications</h2>
+    </div>
+    <button class="notification-close" type="button" aria-label="Fermer les notifications" (click)="close.emit()">
+      <i class="bi bi-x" aria-hidden="true"></i>
+    </button>
+  </header>
+
+  <div class="notification-summary">
+    <span class="demo-label">DÉMONSTRATION</span>
+    <h3>Dernières actions</h3>
+    <p>Les 2 dernières actions de chaque catégorie.</p>
+  </div>
+
+  <div class="notification-feed">
+    @for (section of sections(); track section.key) {
+      <section class="notification-category">
+        <a class="notification-category-heading" [routerLink]="section.link" (click)="close.emit()" [attr.aria-label]="'Voir toutes les actions : ' + section.label">
+          <div class="notification-category-name">
+            <i [class]="'bi ' + section.icon" aria-hidden="true"></i>
+            <h3>{{ section.label }}</h3>
+          </div>
+          <i class="bi bi-arrow-right" aria-hidden="true"></i>
+        </a>
+        @for (entry of section.entries; track $index) {
+          <div class="notification-entry">
+            <span class="activity-avatar">{{ entry.initials }}</span>
+            <div class="notification-entry-content">
+              <div class="activity-name">{{ entry.name }}</div>
+              <p class="activity-detail">{{ entry.detail }}</p>
+              <div class="activity-time"><i class="bi bi-clock" aria-hidden="true"></i>{{ entry.time }}</div>
+              @if (entry.status) {
+                <span class="status-badge status-badge--{{ entry.statusTone }}">{{ entry.status }}</span>
+              }
+            </div>
+          </div>
+        } @empty {
+          <p class="notification-empty">Aucune donnée récente.</p>
+        }
+      </section>
+    } @empty {
+      <p class="notification-empty">Aucune notification pour le moment.</p>
+    }
+  </div>
+</section>

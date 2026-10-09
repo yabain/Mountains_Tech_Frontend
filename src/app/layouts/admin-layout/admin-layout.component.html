@@ -1,53 +1,132 @@
 <div class="admin-shell" [class.admin-shell--sidebar-open]="sidebarOpen()">
   <button class="admin-overlay" type="button" aria-label="Fermer le menu" (click)="closeSidebar()"></button>
 
-  <aside class="admin-sidebar" [class.admin-sidebar--collapsed]="sidebarCollapsed()">
+  <aside class="admin-sidebar"
+    [class.admin-sidebar--collapsed]="sidebarCollapsed()"
+    [class.admin-sidebar--open]="sidebarOpen()"
+    aria-label="Navigation administration">
     <div class="admin-brand-row">
-      <a class="admin-brand" routerLink="/dashboard" (click)="closeSidebar()">
-        <img src="/logoMountainsTech/logoNavBar.png" alt="Mountains Tech">
+      <a class="admin-brand-mark" routerLink="/dashboard" (click)="closeSidebar()" aria-label="Mountains Tech — Tableau de bord">
+        <i class="bi bi-mountain admin-brand-icon" aria-hidden="true"></i>
+        <span class="admin-brand-type">MOUNTAINS<span>TECH CONSORTIUM</span></span>
       </a>
       <button class="admin-collapse" type="button"
-        [attr.aria-label]="sidebarCollapsed() ? 'Developper la barre laterale' : 'Reduire la barre laterale'"
-        [attr.aria-expanded]="!sidebarCollapsed()"
+        [attr.aria-label]="sidebarOpen() ? 'Fermer le menu' : sidebarCollapsed() ? 'Développer la navigation' : 'Réduire la navigation'"
+        [attr.aria-expanded]="sidebarOpen() || !sidebarCollapsed()"
+        [attr.title]="sidebarCollapsed() ? 'Développer la navigation' : 'Réduire la navigation'"
         (click)="toggleCollapsed()">
         <i class="bi bi-list" aria-hidden="true"></i>
       </button>
     </div>
 
-    <nav class="admin-nav" aria-label="Navigation administrateur">
-      @if (currentUser$ | async; as user) {
+    <div class="admin-nav-wrap" [class.admin-nav-wrap--more]="navHasMore()">
+      <nav #adminNav class="admin-nav" aria-label="Catégories administration" (scroll)="onNavScroll()">
         @for (group of navGroups; track group) {
-          @if (navigationForGroup(user, group).length) {
-            <span class="admin-nav-group">{{ groupLabel(group) }}</span>
-            @for (item of navigationForGroup(user, group); track item.permission) {
-              <a [routerLink]="item.route" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: item.permission === 'dashboard' }" [attr.title]="sidebarCollapsed() ? item.label : null" (click)="closeSidebar()">
-                <i [class]="'bi ' + item.icon" aria-hidden="true"></i><span>{{ item.label }}</span>
-              </a>
-            }
+          @if (navForGroup(group).length) {
+            <div class="admin-nav-group">
+              <div class="admin-nav-group-label">{{ groupLabel(group) }}</div>
+              @for (item of navForGroup(group); track item.permission) {
+                <a [routerLink]="item.route"
+                  routerLinkActive="is-active"
+                  [routerLinkActiveOptions]="{ exact: item.permission === 'dashboard' }"
+                  [attr.title]="sidebarCollapsed() ? item.label : null"
+                  (click)="closeSidebar()">
+                  <i [class]="'bi ' + item.icon" aria-hidden="true"></i>
+                  <span class="admin-nav-label">{{ item.label }}</span>
+                  @if (navCount(item.permission)) {
+                    <span class="admin-nav-count">{{ navCount(item.permission) }}</span>
+                  }
+                </a>
+              }
+            </div>
           }
         }
-      }
-    </nav>
+      </nav>
+      <div class="admin-nav-fade" aria-hidden="true"></div>
+    </div>
 
-    <button class="admin-logout" type="button" (click)="logout()" [attr.title]="sidebarCollapsed() ? 'Se déconnecter' : null">
-      <i class="bi bi-box-arrow-right" aria-hidden="true"></i><span>Se déconnecter</span>
-    </button>
+    <div class="admin-sidebar-footer">
+      <div class="admin-profile">
+        @if (currentUser$ | async; as user) {
+          <span class="admin-profile-avatar">{{ userInitials(user) }}</span>
+          <span class="admin-profile-info">
+            <span class="admin-profile-name">{{ user.name }}</span>
+            <span class="admin-profile-role">{{ roleLabel(user) }}</span>
+          </span>
+        }
+      </div>
+      <button class="admin-logout" type="button" (click)="logout()" title="Déconnexion">
+        <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+        <span class="admin-nav-label">Déconnexion</span>
+      </button>
+    </div>
   </aside>
 
   <div class="admin-main">
-    <header class="admin-topbar">
-      <button class="admin-menu-button" type="button" aria-label="Ouvrir le menu" (click)="toggleSidebar()">
-        <i class="bi bi-list" aria-hidden="true"></i>
-      </button>
-      <div>
-        <span class="admin-kicker">Espace sécurisé</span>
-        <strong>Administration Mountains Tech</strong>
-      </div>
-      <a class="admin-site-link" routerLink="/">Voir le site <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
-    </header>
+    <main class="admin-page">
+      <div class="admin-utilities">
+        <div class="admin-utilities-left">
+          <button class="admin-menu-button" type="button" aria-label="Ouvrir le menu" aria-expanded="false" (click)="toggleSidebar()">
+            <i class="bi bi-list" aria-hidden="true"></i>
+          </button>
+          <nav class="admin-breadcrumb" aria-label="Fil d’Ariane">
+            <a routerLink="/dashboard" aria-label="Tableau de bord"><i class="bi bi-grid-1x2" aria-hidden="true"></i></a>
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+            @if (currentCategory(); as label) {
+              <a class="admin-breadcrumb-link" routerLink="/dashboard">Tableau de bord</a>
+              <i class="bi bi-chevron-right" aria-hidden="true"></i>
+              <span class="admin-breadcrumb-current">{{ label }}</span>
+            } @else {
+              <span class="admin-breadcrumb-current">Tableau de bord</span>
+            }
+          </nav>
+        </div>
 
-    <main class="admin-content">
+        <div class="admin-utilities-right">
+          <a class="admin-util-button" routerLink="/" aria-label="Ouvrir le site public" title="Ouvrir le site public">
+            <i class="bi bi-globe" aria-hidden="true"></i>
+          </a>
+          <button class="admin-util-button" type="button" aria-label="Actualiser la page" title="Actualiser la page" (click)="refresh()">
+            <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+          </button>
+          <button class="admin-util-button admin-util-button--ghost" type="button" aria-label="Notifications" title="Notifications" aria-expanded="notificationsOpen()" aria-controls="admin-notification-pane" (click)="toggleNotifications()">
+            <i class="bi bi-bell" aria-hidden="true"></i>
+            <span class="admin-notif-dot" aria-hidden="true"></span>
+          </button>
+
+          <div class="admin-account">
+            <button class="admin-account-trigger" type="button" aria-label="Menu du compte" aria-expanded="profileOpen()" (click)="toggleProfile()">
+              @if (currentUser$ | async; as user) {
+                <span class="admin-account-avatar">{{ userInitials(user) }}</span>
+              }
+              <i class="bi bi-chevron-down" aria-hidden="true"></i>
+            </button>
+            @if (profileOpen()) {
+              <div class="admin-account-menu">
+                @if (currentUser$ | async; as user) {
+                  <div class="admin-account-name">{{ user.name }}</div>
+                }
+                <p class="admin-account-note">Aperçu des permissions · démonstration</p>
+                <label class="admin-account-label" for="admin-role-preview">Afficher la navigation du rôle</label>
+                <select id="admin-role-preview" class="admin-role-select" [value]="previewRole()" (change)="onRoleChange($event)">
+                  @for (role of roles; track role) {
+                    <option [value]="role">{{ roleLabels[role] }}</option>
+                  }
+                </select>
+                <button class="admin-account-close" type="button" (click)="toggleProfile()">
+                  <i class="bi bi-x" aria-hidden="true"></i>Fermer
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
       <router-outlet></router-outlet>
     </main>
   </div>
+
+  @if (notificationsOpen()) {
+    <app-admin-notifications (close)="toggleNotifications()"></app-admin-notifications>
+  }
 </div>
