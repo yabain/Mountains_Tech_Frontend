@@ -3,20 +3,20 @@
    ============================================================ */
 
 .dashboard {
-  --dash-primary: oklch(0.383 0.114 251.5);
-  --dash-secondary: oklch(0.921 0.188 102);
-  --dash-card: oklch(1 0 0);
-  --dash-muted: oklch(0.96 0.009 239);
-  --dash-muted-fg: oklch(0.55 0.019 243);
-  --dash-border: oklch(0.92 0.012 240);
-  --dash-fg: oklch(0.25 0.022 246);
-  --dash-success: oklch(0.53 0.115 162);
-  --dash-success-light: oklch(0.965 0.025 159);
+  --dash-primary: #00447e;
+  --dash-secondary: #d9f0dc;
+  --dash-card: #ffffff;
+  --dash-muted: #f6f8fa;
+  --dash-muted-fg: #64748b;
+  --dash-border: #e5eaf0;
+  --dash-fg: #182230;
+  --dash-success: #008000;
+  --dash-success-light: #e4f6e7;
   --dash-warning: oklch(0.67 0.13 79);
   --dash-warning-light: oklch(0.97 0.036 91);
   --dash-danger: oklch(0.59 0.2 24);
   --dash-danger-light: oklch(0.963 0.026 19);
-  --dash-shadow-sm: 0 4px 20px -4px oklch(0.28 0.052 244 / 0.1);
+  --dash-shadow-sm: 0 4px 20px -4px rgb(22 34 51 / 10%);
 
   color: var(--dash-fg);
   font-size: 14px;
@@ -70,10 +70,18 @@
 }
 
 .page-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 32px;
   font-weight: 700;
   line-height: 1.3;
   margin: 0;
+
+  i {
+    color: var(--dash-primary);
+    font-size: 0.8em;
+  }
 }
 
 .subtitle {

@@ -55,28 +55,22 @@ export const routes: Routes = [
     canActivate: [AuthGuard, AdminGuard],
     children: [
       { path: '', data: { permission: 'dashboard' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/dashboard/admin-dashboard.component').then((m) => m.AdminDashboardComponent) },
-      { path: 'users', data: { title: 'Utilisateurs', endpoint: 'users', permission: 'users' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/resource/admin-resource.component').then((m) => m.AdminResourceComponent) },
-      { path: 'audit-logs', data: { title: 'Journaux audit', endpoint: 'auditLogs', permission: 'audit-logs' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/resource/admin-resource.component').then((m) => m.AdminResourceComponent) },
-      {
-        path: 'members/applications',
-        data: { title: 'Demandes d’adhésion', endpoint: 'memberApplications', permission: 'members' },
-        canActivate: [AdminPermissionGuard],
-        loadComponent: () => import('./features/admin/resource/admin-resource.component').then((m) => m.AdminResourceComponent)
-      },
-      // Announcements - custom editor routes
+      { path: 'users', data: { title: 'Utilisateurs', endpoint: 'users', permission: 'users' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/users/admin-users.component').then((m) => m.AdminUsersComponent) },
+      { path: 'audit-logs', data: { title: "Journaux d'audit", endpoint: 'auditLogs', permission: 'audit-logs' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/audit-logs/admin-audit-logs.component').then((m) => m.AdminAuditLogsComponent) },
+      { path: 'members/applications', data: { title: "Demandes d'adhesion", endpoint: 'memberApplications', permission: 'members' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/members/admin-member-applications.component').then((m) => m.AdminMemberApplicationsComponent) },
+      { path: 'members', data: { title: 'Membres', endpoint: 'members', permission: 'members' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/members/admin-members.component').then((m) => m.AdminMembersComponent) },
+      { path: 'contacts', data: { title: 'Contacts', endpoint: 'contacts', permission: 'contacts' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/contacts/admin-contacts.component').then((m) => m.AdminContactsComponent) },
+      { path: 'events', data: { title: 'Evenements', endpoint: 'events', permission: 'events' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/events/admin-events.component').then((m) => m.AdminEventsComponent) },
+      { path: 'activities', data: { title: 'Activites', endpoint: 'activities', permission: 'activities' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/activities/admin-activities.component').then((m) => m.AdminActivitiesComponent) },
+      { path: 'projects', data: { title: 'Projets', endpoint: 'projects', permission: 'projects' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/projects/admin-projects.component').then((m) => m.AdminProjectsComponent) },
+      { path: 'hackathons', data: { title: 'Hackathons', endpoint: 'hackathons', permission: 'hackathons' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/hackathons/admin-hackathons.component').then((m) => m.AdminHackathonsComponent) },
+      { path: 'partners', data: { title: 'Partenaires', endpoint: 'partners', permission: 'partners' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/partners/admin-partners.component').then((m) => m.AdminPartnersComponent) },
+      { path: 'media', data: { title: 'Medias', endpoint: 'media', permission: 'media' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/media/admin-media.component').then((m) => m.AdminMediaComponent) },
+      { path: 'newsletter', data: { title: 'Newsletter', endpoint: 'newsletter', permission: 'newsletter' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/newsletter/admin-newsletter.component').then((m) => m.AdminNewsletterComponent) },
       { path: 'announcements/new', data: { permission: 'announcements' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/announcements/announcement-editor.component').then((m) => m.AnnouncementEditorComponent) },
       { path: 'announcements/:id/edit', data: { permission: 'announcements' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/announcements/announcement-editor.component').then((m) => m.AnnouncementEditorComponent) },
-...[
-        ['settings', 'Parametres', 'settings'], ['media', 'Medias', 'media'], ['contacts', 'Contacts', 'contacts'],
-        ['members', 'Membres', 'members'], ['projects', 'Projets', 'projects'], ['activities', 'Activites', 'activities'],
-        ['events', 'Evenements', 'events'], ['hackathons', 'Hackathons', 'hackathons'], ['partners', 'Partenaires', 'partners'],
-        ['newsletter', 'Newsletter', 'newsletter'], ['announcements', 'Annonces', 'announcements']
-      ].map(([path, title, permission]) => ({
-        path,
-        data: { title, endpoint: permission === 'newsletter' ? 'newsletter' : permission, permission },
-        canActivate: [AdminPermissionGuard],
-        loadComponent: () => import('./features/admin/resource/admin-resource.component').then((m) => m.AdminResourceComponent)
-      }))
+      { path: 'announcements', data: { title: 'Annonces', endpoint: 'announcements', permission: 'announcements' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/resource/admin-resource.component').then((m) => m.AdminResourceComponent) },
+      { path: 'settings', data: { title: 'Parametres', endpoint: 'settings', permission: 'settings' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/settings/admin-settings.component').then((m) => m.AdminSettingsComponent) }
     ]
   },
   { path: 'admin', redirectTo: 'dashboard', pathMatch: 'full' },

@@ -5,6 +5,7 @@ import { filter } from 'rxjs';
 import { AuthService, AuthUser } from '../../core/auth/services/auth.service';
 import { AdminNotificationsComponent } from '../../features/admin/notifications/admin-notifications.component';
 import { ADMIN_NAV_ITEMS, AdminNavItem, AdminRole, ROLE_PERMISSIONS, normalizeRole } from '../../features/admin/admin-navigation';
+import { TopBarComponent } from '../../shared/components/top-bar/top-bar.component';
 
 const ROLE_LABELS: Record<AdminRole, string> = {
   SUPER_ADMIN: 'Super administrateur',
@@ -21,7 +22,7 @@ const NAV_COUNTS: Readonly<Record<string, number>> = {
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [AsyncPipe, RouterLink, RouterLinkActive, RouterOutlet, AdminNotificationsComponent],
+  imports: [AsyncPipe, RouterLink, RouterLinkActive, RouterOutlet, AdminNotificationsComponent, TopBarComponent],
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -38,10 +39,7 @@ export class AdminLayoutComponent implements AfterViewInit {
   readonly sidebarCollapsed = signal(this.loadCollapsed());
   readonly currentUser$ = this.authService.currentUser$;
   readonly navGroups = ['principal', 'contenu', 'système'] as const;
-  readonly roles = Object.keys(ROLE_PERMISSIONS) as AdminRole[];
-  readonly roleLabels = ROLE_LABELS;
   readonly previewRole = signal<AdminRole>(this.initialRole());
-  readonly profileOpen = signal(false);
   readonly notificationsOpen = signal(false);
   readonly currentCategory = signal<string | null>(null);
   readonly navHasMore = signal(false);
@@ -56,7 +54,9 @@ export class AdminLayoutComponent implements AfterViewInit {
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe(() => {
         const url = this.router.url;
-        const match = ADMIN_NAV_ITEMS.find((item) => url === item.route || url.startsWith(`${item.route}/`));
+        const match = ADMIN_NAV_ITEMS
+          .filter((item) => url === item.route || url.startsWith(`${item.route}/`))
+          .sort((a, b) => b.route.length - a.route.length)[0];
         this.currentCategory.set(match?.label ?? null);
         this.notificationsOpen.set(false);
       });
@@ -97,7 +97,6 @@ export class AdminLayoutComponent implements AfterViewInit {
 
   closeSidebar(): void {
     this.sidebarOpen.set(false);
-    this.profileOpen.set(false);
   }
 
   toggleCollapsed(): void {
@@ -112,28 +111,12 @@ export class AdminLayoutComponent implements AfterViewInit {
     });
   }
 
-  toggleProfile(): void {
-    this.profileOpen.update((open) => !open);
-  }
-
   toggleNotifications(): void {
     this.notificationsOpen.update((open) => !open);
   }
 
-  onRoleChange(event: Event): void {
-    this.previewRole.set((event.target as HTMLSelectElement).value as AdminRole);
-  }
-
-  refresh(): void {
-    window.location.reload();
-  }
-
   logout(): void {
     this.authService.logout().subscribe(() => void this.router.navigate(['/login']));
-  }
-
-  private initialRole(): AdminRole {
-    return normalizeRole(this.authService.currentUser$.value?.role ?? '') ?? 'SUPER_ADMIN';
   }
 
   ngAfterViewInit(): void {
@@ -151,5 +134,9 @@ export class AdminLayoutComponent implements AfterViewInit {
 
   private loadCollapsed(): boolean {
     return localStorage.getItem(AdminLayoutComponent.COLLAPSE_KEY) === '1';
+  }
+
+  private initialRole(): AdminRole {
+    return normalizeRole(this.authService.currentUser$.value?.role ?? '') ?? 'SUPER_ADMIN';
   }
 }

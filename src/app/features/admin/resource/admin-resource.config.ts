@@ -1,4 +1,7 @@
+import { InjectionToken } from '@angular/core';
 import { API_ROUTES } from '../../../core/constants/api-routes';
+
+export const RESOURCE_CONFIG = new InjectionToken<AdminResourceConfig>('RESOURCE_CONFIG');
 
 export type ResourceFieldType =
   | 'text'
@@ -29,6 +32,7 @@ export interface ResourceListColumn {
 
 export interface AdminResourceConfig {
   title: string;
+  icon: string;
   endpoint: string;
   shape: 'items' | 'array';
   columns: ResourceListColumn[];
@@ -56,6 +60,7 @@ const STATUSES_CONTENT: ResourceField = {
 export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
   users: {
     title: 'Utilisateurs',
+    icon: 'bi-people-fill',
     endpoint: API_ROUTES.admin.users,
     shape: 'items',
     searchable: true,
@@ -84,6 +89,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
   },
   auditLogs: {
     title: "Journaux d'audit",
+    icon: 'bi-journal-text',
     endpoint: API_ROUTES.admin.auditLogs,
     shape: 'items',
     columns: [
@@ -96,6 +102,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
   },
   settings: {
     title: 'Paramètres',
+    icon: 'bi-gear-fill',
     endpoint: API_ROUTES.admin.settings,
     shape: 'array',
     columns: [
@@ -107,6 +114,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
   },
   media: {
     title: 'Médias',
+    icon: 'bi-images',
     endpoint: API_ROUTES.admin.media,
     shape: 'items',
     columns: [
@@ -120,6 +128,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
   },
   contacts: {
     title: 'Contacts',
+    icon: 'bi-envelope-fill',
     endpoint: API_ROUTES.admin.contacts,
     shape: 'items',
     searchable: true,
@@ -138,6 +147,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
   },
   members: {
     title: 'Membres',
+    icon: 'bi-person-badge-fill',
     endpoint: API_ROUTES.admin.members,
     shape: 'items',
     searchable: true,
@@ -157,6 +167,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
   },
   memberApplications: {
     title: "Demandes d'adhésion",
+    icon: 'bi-person-vcard-fill',
     endpoint: API_ROUTES.admin.memberApplications,
     createEndpoint: API_ROUTES.public.memberApplications,
     createDefaults: { consent: true },
@@ -191,6 +202,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
   },
   projects: {
     title: 'Projets',
+    icon: 'bi-kanban-fill',
     endpoint: API_ROUTES.admin.projects,
     shape: 'items',
     searchable: true,
@@ -219,6 +231,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
   },
   activities: {
     title: 'Activités',
+    icon: 'bi-lightning-charge-fill',
     endpoint: API_ROUTES.admin.activities,
     shape: 'items',
     searchable: true,
@@ -246,6 +259,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
   },
   events: {
     title: 'Événements',
+    icon: 'bi-calendar-event-fill',
     endpoint: API_ROUTES.admin.events,
     shape: 'items',
     searchable: true,
@@ -279,6 +293,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
   },
   hackathons: {
     title: 'Hackathons',
+    icon: 'bi-trophy-fill',
     endpoint: API_ROUTES.admin.hackathons,
     shape: 'items',
     searchable: true,
@@ -312,6 +327,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
   },
   partners: {
     title: 'Partenaires',
+    icon: 'bi-building-fill',
     endpoint: API_ROUTES.admin.partners,
     shape: 'array',
     statusField: 'status',
@@ -339,6 +355,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
   },
 newsletter: {
     title: 'Newsletter',
+    icon: 'bi-envelope-paper-fill',
     endpoint: API_ROUTES.admin.newsletter,
     shape: 'items',
     statusParam: 'status',
@@ -355,6 +372,7 @@ newsletter: {
   },
   announcements: {
     title: 'Annonces',
+    icon: 'bi-megaphone-fill',
     endpoint: API_ROUTES.admin.announcements,
     shape: 'items',
     columns: [

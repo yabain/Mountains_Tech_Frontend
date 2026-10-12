@@ -1,232 +1,374 @@
-<section class="admin-page-heading">
-  <div>
-    <span class="admin-eyebrow">Administration</span>
-    <h1>{{ config.title }}</h1>
-    <p>Gérez les {{ config.title.toLowerCase() }} depuis cette interface.</p>
-  </div>
-  @if (hasCreate()) {
-    <button class="res-btn res-btn--primary" (click)="openCreate()">
-      <i class="bi bi-plus-lg" aria-hidden="true"></i>
-      Nouveau
-    </button>
-  }
-</section>
+<section class="res-page">
+  @if (isUsers) {
+    <section class="admin-page-heading user-page-heading">
+      <div>
+        <h1><i class="bi bi-person-gear" aria-hidden="true"></i>Gestion des comptes</h1>
+        <p>
+          Gérez les comptes et leurs rôles : utilisateur, consultant, administrateur, super admin.
+          Les comptes ayant « Notifier contact » actif reçoivent les messages du formulaire de contact.
+        </p>
+      </div>
+    </section>
 
-@if (loading()) {
-  <div class="admin-state">Chargement des données...</div>
-} @else if (error()) {
-  <div class="admin-state admin-state--error" role="alert">{{ error() }}</div>
-} @else {
-  @if (searchable() || showStatusFilter) {
-    <div class="res-toolbar">
-      @if (searchable()) {
-        <div class="res-search">
+    @if (loading()) {
+      <div class="admin-state">Chargement des comptes...</div>
+    } @else if (error()) {
+      <div class="admin-state admin-state--error" role="alert">{{ error() }}</div>
+    } @else {
+      <div class="user-stats" role="group" aria-label="Filtres de comptes">
+        <button type="button" class="user-stat-card" [class.user-stat-card--selected]="userFilter() === 'all'" (click)="setUserFilter('all')">
+          <i class="bi bi-people-fill" aria-hidden="true"></i>
+          <span class="user-stat-value">{{ userStats().total }}</span>
+          <span class="user-stat-label">Total</span>
+        </button>
+        <button type="button" class="user-stat-card" [class.user-stat-card--selected]="userFilter() === 'active'" (click)="setUserFilter('active')">
+          <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+          <span class="user-stat-value">{{ userStats().active }}</span>
+          <span class="user-stat-label">Actifs</span>
+        </button>
+        <button type="button" class="user-stat-card" [class.user-stat-card--selected]="userFilter() === 'inactive'" (click)="setUserFilter('inactive')">
+          <i class="bi bi-ban" aria-hidden="true"></i>
+          <span class="user-stat-value">{{ userStats().inactive }}</span>
+          <span class="user-stat-label">Désactivés</span>
+        </button>
+        <button type="button" class="user-stat-card" [class.user-stat-card--selected]="userFilter() === 'admin'" (click)="setUserFilter('admin')">
+          <i class="bi bi-shield-fill" aria-hidden="true"></i>
+          <span class="user-stat-value">{{ userStats().admin }}</span>
+          <span class="user-stat-label">Admins</span>
+        </button>
+        <button type="button" class="user-stat-card" [class.user-stat-card--selected]="userFilter() === 'consultant'" (click)="setUserFilter('consultant')">
+          <i class="bi bi-briefcase-fill" aria-hidden="true"></i>
+          <span class="user-stat-value">{{ userStats().consultant }}</span>
+          <span class="user-stat-label">Consultants</span>
+        </button>
+        <button type="button" class="user-stat-card" [class.user-stat-card--selected]="userFilter() === 'user'" (click)="setUserFilter('user')">
+          <i class="bi bi-person-fill" aria-hidden="true"></i>
+          <span class="user-stat-value">{{ userStats().user }}</span>
+          <span class="user-stat-label">Utilisateurs</span>
+        </button>
+      </div>
+
+      <div class="user-toolbar" [class.res-toolbar--reloading]="reloading()">
+        <label class="res-search user-search">
           <i class="bi bi-search" aria-hidden="true"></i>
           <input
             type="search"
             [value]="search()"
             (input)="onSearchChange($any($event.target).value)"
-            placeholder="Rechercher..."
-            aria-label="Rechercher"
+            placeholder="Rechercher par nom ou e-mail..."
+            aria-label="Rechercher un compte par nom ou e-mail"
           />
-        </div>
-      }
-      @if (showStatusFilter) {
-        <select
-          class="res-select"
-          [value]="selectedStatus()"
-          (change)="onStatusFilterChange($any($event.target).value)"
-          aria-label="Filtrer par statut"
-        >
-          <option value="">Tous les statuts</option>
-          @for (status of statusOptions; track status) {
-            <option [value]="status">{{ status }}</option>
-          }
-        </select>
-      }
-      <span class="res-count">{{ total() }} élément(s)</span>
-    </div>
-  }
-
-  @if (!rows().length) {
-    <div class="admin-state">Aucune donnée correspondante.</div>
-  } @else {
-    <div class="admin-table-wrap">
-      <table class="admin-table">
-        <thead>
-          <tr>
-            @for (column of config.columns; track column.key) {
-              <th>{{ column.label }}</th>
-            }
-            @if (showActionsColumn()) {
-              <th class="res-th-actions">Actions</th>
-            }
-          </tr>
-        </thead>
-        <tbody>
-          @for (row of rows(); track rowId(row)) {
-            <tr>
-              @for (column of config.columns; track column.key) {
-                <td>
-                  @if (column.type === 'status') {
-                    <span [class]="statusClass(row[column.key])">{{ cellValue(row, column) }}</span>
-                  } @else {
-                    {{ cellValue(row, column) }}
-                  }
-                </td>
-              }
-              @if (showActionsColumn()) {
-                <td class="res-actions">
-                  @if (hasEdit()) {
-                    <button class="res-icon-btn" title="Modifier" aria-label="Modifier" (click)="openEdit(row)">
-                      <i class="bi bi-pencil" aria-hidden="true"></i>
-                    </button>
-                  }
-                  @if (hasStatusControl) {
-                    <select
-                      class="res-status-select"
-                      [value]="rowStatus(row)"
-                      [disabled]="statusBusyId() === rowId(row)"
-                      (change)="changeStatus(row, $any($event.target).value)"
-                      aria-label="Changer le statut"
-                    >
-                      @for (status of statusOptions; track status) {
-                        <option [value]="status">{{ status === rowStatus(row) ? 'Statut : ' + status : status }}</option>
-                      }
-                    </select>
-                  }
-                  @if (config.deletable) {
-                    <button
-                      class="res-icon-btn res-icon-btn--danger"
-                      title="Supprimer"
-                      aria-label="Supprimer"
-                      (click)="openDelete(row)"
-                    >
-                      <i class="bi bi-trash" aria-hidden="true"></i>
-                    </button>
-                  }
-                </td>
-              }
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-
-    @if (isPaginated && pages() > 1) {
-      <div class="res-pagination">
-        <button class="res-btn res-btn--outline" (click)="prevPage()" [disabled]="page() <= 1">
-          <i class="bi bi-chevron-left" aria-hidden="true"></i>
-          Précédent
-        </button>
-        <span>Page {{ page() }} / {{ pages() }}</span>
-        <button class="res-btn res-btn--outline" (click)="nextPage()" [disabled]="page() >= pages()">
-          Suivant
-          <i class="bi bi-chevron-right" aria-hidden="true"></i>
+        </label>
+        <button class="user-create-button" type="button" (click)="openCreate()">
+          <i class="bi bi-plus-lg" aria-hidden="true"></i>
+          Nouveau compte
         </button>
       </div>
+
+      @if (!visibleUsers().length) {
+        <div class="admin-state">Aucun compte ne correspond à cette recherche.</div>
+      } @else {
+        <div class="admin-table-wrap user-table-wrap">
+          <table class="admin-table user-table">
+            <thead>
+              <tr>
+                <th>Utilisateur</th>
+                <th>Rôle</th>
+                <th>Notifications</th>
+                <th>Statut</th>
+                <th>Dernière connexion</th>
+                <th class="res-th-actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of visibleUsers(); track rowId(row)) {
+                <tr>
+                  <td>
+                    <div class="user-identity">
+                      <span class="user-avatar">{{ userInitials(row) }}</span>
+                      <span class="user-identity-info">
+                        <strong>{{ userName(row) }}</strong>
+                        <span>{{ row['email'] ?? '—' }}</span>
+                      </span>
+                    </div>
+                  </td>
+                  <td><span class="user-role-badge user-role-badge--{{ userRoleGroup(row) }}">{{ userRole(row) }}</span></td>
+                  <td><span class="user-notification-badge" [class.user-notification-badge--enabled]="userNotifications(row) === true">{{ userNotifications(row) === null ? '—' : (userNotifications(row) ? 'Oui' : 'Non') }}</span></td>
+                  <td><span class="user-status-badge" [class.user-status-badge--inactive]="!userIsActive(row)">{{ userIsActive(row) ? 'Actif' : 'Inactif' }}</span></td>
+                  <td>{{ userLastLogin(row) }}</td>
+                  <td class="res-actions user-actions">
+                    <button
+                      class="user-status-action"
+                      type="button"
+                      [disabled]="statusBusyId() === rowId(row)"
+                      (click)="toggleUserStatus(row)"
+                    >
+                      <i [class]="userIsActive(row) ? 'bi bi-ban' : 'bi bi-check-circle'" aria-hidden="true"></i>
+                      {{ userIsActive(row) ? 'Désactiver' : 'Activer' }}
+                    </button>
+                    <button class="user-edit-action" type="button" (click)="openEdit(row)">Modifier</button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        @if (isPaginated && pages() > 1) {
+          <div class="res-pagination user-pagination">
+            <label class="user-page-size">
+              Par page
+              <select [value]="limit" disabled aria-label="Nombre d'éléments par page">
+                <option [value]="limit">{{ limit }}</option>
+              </select>
+            </label>
+            <div class="user-page-controls">
+              <button class="res-btn res-btn--outline" type="button" (click)="prevPage()" [disabled]="page() <= 1">
+                <i class="bi bi-arrow-left" aria-hidden="true"></i>
+                Précédent
+              </button>
+              <span>Page {{ page() }} / {{ pages() }} · {{ total() }} comptes</span>
+              <button class="res-btn res-btn--outline" type="button" (click)="nextPage()" [disabled]="page() >= pages()">
+                Suivant
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        }
+      }
+    }
+  } @else {
+  <section class="admin-page-heading">
+    <div>
+      <h1><i [class]="'bi ' + config.icon" aria-hidden="true"></i>{{ config.title }}</h1>
+      <p>Gérez les {{ config.title.toLowerCase() }} depuis cette interface.</p>
+    </div>
+    @if (hasCreate()) {
+      <button class="res-btn res-btn--primary" type="button" (click)="openCreate()">
+        <i class="bi bi-plus-lg" aria-hidden="true"></i>
+        Nouveau
+      </button>
+    }
+  </section>
+
+  @if (loading()) {
+    <div class="admin-state">Chargement des données...</div>
+  } @else if (error()) {
+    <div class="admin-state admin-state--error" role="alert">{{ error() }}</div>
+  } @else {
+    @if (searchable() || showStatusFilter) {
+      <div class="res-toolbar" [class.res-toolbar--reloading]="reloading()">
+        @if (searchable()) {
+          <div class="res-search">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <input
+              type="search"
+              [value]="search()"
+              (input)="onSearchChange($any($event.target).value)"
+              placeholder="Rechercher..."
+              aria-label="Rechercher"
+            />
+          </div>
+        }
+        @if (showStatusFilter) {
+          <select
+            class="res-select"
+            [value]="selectedStatus()"
+            (change)="onStatusFilterChange($any($event.target).value)"
+            aria-label="Filtrer par statut"
+          >
+            <option value="">Tous les statuts</option>
+            @for (status of statusOptions; track status) {
+              <option [value]="status">{{ status }}</option>
+            }
+          </select>
+        }
+        <span class="res-count">{{ total() }} élément(s)</span>
+      </div>
+    }
+
+    @if (!rows().length) {
+      <div class="admin-state">Aucune donnée correspondante.</div>
+    } @else {
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              @for (column of config.columns; track column.key) {
+                <th>{{ column.label }}</th>
+              }
+              @if (showActionsColumn()) {
+                <th class="res-th-actions">Actions</th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of rows(); track rowId(row)) {
+              <tr>
+                @for (column of config.columns; track column.key) {
+                  <td>
+                    @if (column.type === 'status') {
+                      <span [class]="statusClass(row[column.key])">{{ cellValue(row, column) }}</span>
+                    } @else {
+                      {{ cellValue(row, column) }}
+                    }
+                  </td>
+                }
+                @if (showActionsColumn()) {
+                  <td class="res-actions">
+                    @if (hasEdit()) {
+                      <button class="res-icon-btn" type="button" title="Modifier" aria-label="Modifier" (click)="openEdit(row)">
+                        <i class="bi bi-pencil" aria-hidden="true"></i>
+                      </button>
+                    }
+                    @if (hasStatusControl) {
+                      <select
+                        class="res-status-select"
+                        [value]="rowStatus(row)"
+                        [disabled]="statusBusyId() === rowId(row)"
+                        (change)="changeStatus(row, $any($event.target).value)"
+                        aria-label="Changer le statut"
+                      >
+                        @for (status of statusOptions; track status) {
+                          <option [value]="status">{{ status === rowStatus(row) ? 'Statut : ' + status : status }}</option>
+                        }
+                      </select>
+                    }
+                    @if (config.deletable) {
+                      <button
+                        class="res-icon-btn res-icon-btn--danger"
+                        type="button"
+                        title="Supprimer"
+                        aria-label="Supprimer"
+                        (click)="openDelete(row)"
+                      >
+                        <i class="bi bi-trash" aria-hidden="true"></i>
+                      </button>
+                    }
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      @if (isPaginated && pages() > 1) {
+        <div class="res-pagination">
+          <button class="res-btn res-btn--outline" type="button" (click)="prevPage()" [disabled]="page() <= 1">
+            <i class="bi bi-chevron-left" aria-hidden="true"></i>
+            Précédent
+          </button>
+          <span>Page {{ page() }} / {{ pages() }}</span>
+          <button class="res-btn res-btn--outline" type="button" (click)="nextPage()" [disabled]="page() >= pages()">
+            Suivant
+            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      }
     }
   }
-}
+  }
 
-@if (modalMode() !== 'none') {
-  <div class="res-overlay" (click)="closeModal()">
-    <div class="res-modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="res-modal-title">
-      <header class="res-modal__header">
-        <h2 id="res-modal-title">{{ modalTitle() }}</h2>
-        <button class="res-icon-btn" type="button" (click)="closeModal()" aria-label="Fermer">
-          <i class="bi bi-x-lg" aria-hidden="true"></i>
-        </button>
-      </header>
+  @if (modalMode() !== 'none') {
+    <div class="res-overlay" (click)="closeModal()">
+      <div class="res-modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="res-modal-title">
+        <header class="res-modal__header">
+          <h2 id="res-modal-title">{{ modalTitle() }}</h2>
+          <button class="res-icon-btn" type="button" (click)="closeModal()" aria-label="Fermer">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+          </button>
+        </header>
 
-      @if (modalMode() === 'delete') {
-        <p class="res-modal__text">
-          Voulez-vous vraiment supprimer cet élément ? Cette action est irréversible.
-        </p>
-      } @else {
-        <form (ngSubmit)="submitForm()">
-          <div class="res-modal__grid">
-            @for (field of fieldsForForm(); track field.key) {
-              <div class="res-field" [class.res-field--full]="field.type === 'textarea' || field.type === 'tags'">
-                <label class="res-field__label" [for]="'f-' + field.key">
-                  {{ field.label }}{{ field.required ? ' *' : '' }}
-                </label>
+        @if (modalMode() === 'delete') {
+          <p class="res-modal__text">
+            Voulez-vous vraiment supprimer cet élément ? Cette action est irréversible.
+          </p>
+        } @else {
+          <form (ngSubmit)="submitForm()">
+            <div class="res-modal__grid">
+              @for (field of fieldsForForm(); track field.key) {
+                <div class="res-field" [class.res-field--full]="field.type === 'textarea' || field.type === 'tags'">
+                  <label class="res-field__label" [for]="'f-' + field.key">
+                    {{ field.label }}{{ field.required ? ' *' : '' }}
+                  </label>
 
-                @switch (field.type) {
-                  @case ('textarea') {
-                    <textarea
-                      id="f-{{ field.key }}"
-                      class="res-field__input res-field__input--textarea"
-                      [(ngModel)]="form()[field.key]"
-                      name="{{ field.key }}"
-                      [placeholder]="field.placeholder ?? ''"
-                      rows="4"
-                    ></textarea>
+                  @switch (field.type) {
+                    @case ('textarea') {
+                      <textarea
+                        id="f-{{ field.key }}"
+                        class="res-field__input res-field__input--textarea"
+                        [(ngModel)]="form()[field.key]"
+                        name="{{ field.key }}"
+                        [placeholder]="field.placeholder ?? ''"
+                        rows="4"
+                      ></textarea>
+                    }
+                    @case ('select') {
+                      <select id="f-{{ field.key }}" class="res-field__input" [(ngModel)]="form()[field.key]" name="{{ field.key }}">
+                        <option value="">—</option>
+                        @for (option of field.options ?? []; track option) {
+                          <option [value]="option">{{ option }}</option>
+                        }
+                      </select>
+                    }
+                    @case ('tags') {
+                      <input
+                        id="f-{{ field.key }}"
+                        class="res-field__input"
+                        type="text"
+                        [(ngModel)]="form()[field.key]"
+                        name="{{ field.key }}"
+                        placeholder="{{ field.placeholder ?? 'Séparés par des virgules' }}"
+                      />
+                    }
+                    @default {
+                      <input
+                        id="f-{{ field.key }}"
+                        class="res-field__input"
+                        [type]="field.type === 'datetime' ? 'datetime-local' : field.type"
+                        [(ngModel)]="form()[field.key]"
+                        name="{{ field.key }}"
+                        [placeholder]="field.placeholder ?? ''"
+                        [required]="field.required || false"
+                      />
+                    }
                   }
-                  @case ('select') {
-                    <select id="f-{{ field.key }}" class="res-field__input" [(ngModel)]="form()[field.key]" name="{{ field.key }}">
-                      <option value="">—</option>
-                      @for (option of field.options ?? []; track option) {
-                        <option [value]="option">{{ option }}</option>
-                      }
-                    </select>
-                  }
-                  @case ('tags') {
-                    <input
-                      id="f-{{ field.key }}"
-                      class="res-field__input"
-                      type="text"
-                      [(ngModel)]="form()[field.key]"
-                      name="{{ field.key }}"
-                      placeholder="{{ field.placeholder ?? 'Séparés par des virgules' }}"
-                    />
-                  }
-                  @default {
-                    <input
-                      id="f-{{ field.key }}"
-                      class="res-field__input"
-                      [type]="field.type === 'datetime' ? 'datetime-local' : field.type"
-                      [(ngModel)]="form()[field.key]"
-                      name="{{ field.key }}"
-                      [placeholder]="field.placeholder ?? ''"
-                      [required]="field.required || false"
-                    />
-                  }
-                }
-              </div>
+                </div>
+              }
+            </div>
+
+            @if (error()) {
+              <p class="res-error" role="alert">{{ error() }}</p>
             }
-          </div>
 
+            <footer class="res-modal__footer">
+              <button type="button" class="res-btn res-btn--outline" (click)="closeModal()">Annuler</button>
+              <button type="submit" class="res-btn res-btn--primary" [disabled]="saving()">
+                @if (saving()) {
+                  <span class="res-spinner" aria-hidden="true"></span>
+                }
+                {{ modalMode() === 'edit' ? 'Enregistrer' : 'Créer' }}
+              </button>
+            </footer>
+          </form>
+        }
+
+        @if (modalMode() === 'delete') {
           @if (error()) {
             <p class="res-error" role="alert">{{ error() }}</p>
           }
-
           <footer class="res-modal__footer">
             <button type="button" class="res-btn res-btn--outline" (click)="closeModal()">Annuler</button>
-            <button type="submit" class="res-btn res-btn--primary" [disabled]="saving()">
+            <button type="button" class="res-btn res-btn--danger" (click)="confirmDelete()" [disabled]="saving()">
               @if (saving()) {
                 <span class="res-spinner" aria-hidden="true"></span>
               }
-              {{ modalMode() === 'edit' ? 'Enregistrer' : 'Créer' }}
+              Supprimer
             </button>
           </footer>
-        </form>
-      }
-
-      @if (modalMode() === 'delete') {
-        @if (error()) {
-          <p class="res-error" role="alert">{{ error() }}</p>
         }
-        <footer class="res-modal__footer">
-          <button type="button" class="res-btn res-btn--outline" (click)="closeModal()">Annuler</button>
-          <button type="button" class="res-btn res-btn--danger" (click)="confirmDelete()" [disabled]="saving()">
-            @if (saving()) {
-              <span class="res-spinner" aria-hidden="true"></span>
-            }
-            Supprimer
-          </button>
-        </footer>
-      }
+      </div>
     </div>
-  </div>
-}
+  }
+</section>

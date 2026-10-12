@@ -5,6 +5,7 @@ export type AdminPermission =
   | 'dashboard'
   | 'users'
   | 'audit-logs'
+  | 'member-applications'
   | 'settings'
   | 'media'
   | 'contacts'
@@ -26,10 +27,10 @@ export interface AdminNavItem {
 }
 
 export const ROLE_PERMISSIONS: Record<AdminRole, readonly AdminPermission[]> = {
-  SUPER_ADMIN: ['dashboard', 'users', 'audit-logs', 'settings', 'media', 'members', 'contacts', 'events', 'activities', 'projects', 'hackathons', 'partners', 'newsletter', 'announcements'],
-  ADMIN: ['dashboard', 'users', 'settings', 'media', 'members', 'contacts', 'events', 'activities', 'projects', 'hackathons', 'partners', 'newsletter', 'announcements'],
-  EDITOR: ['dashboard', 'activities', 'events', 'projects', 'hackathons', 'media', 'settings'],
-  COMMUNICATION: ['dashboard', 'announcements', 'newsletter', 'contacts', 'media', 'settings']
+  SUPER_ADMIN: ['dashboard', 'users', 'audit-logs', 'member-applications', 'settings', 'media', 'members', 'contacts', 'events', 'activities', 'projects', 'hackathons', 'partners', 'newsletter', 'announcements'],
+  ADMIN: ['dashboard', 'users', 'member-applications', 'settings', 'media', 'members', 'contacts', 'events', 'activities', 'projects', 'hackathons', 'partners', 'newsletter', 'announcements'],
+  EDITOR: ['activities', 'events', 'projects', 'hackathons', 'media', 'settings'],
+  COMMUNICATION: ['announcements', 'newsletter', 'contacts', 'media', 'settings']
 };
 
 export const ADMIN_NAV_ITEMS: readonly AdminNavItem[] = [
@@ -37,6 +38,7 @@ export const ADMIN_NAV_ITEMS: readonly AdminNavItem[] = [
   { permission: 'users', label: 'Utilisateurs', route: '/dashboard/users', icon: 'bi-people-fill', group: 'principal' },
   { permission: 'audit-logs', label: 'Journaux d’audit', route: '/dashboard/audit-logs', icon: 'bi-journal-text', group: 'système' },
   { permission: 'members', label: 'Membres', route: '/dashboard/members', icon: 'bi-person-badge-fill', group: 'contenu' },
+  { permission: 'member-applications', label: 'Demandes d’adhésion', route: '/dashboard/members/applications', icon: 'bi-person-vcard-fill', group: 'contenu' },
   { permission: 'contacts', label: 'Contacts', route: '/dashboard/contacts', icon: 'bi-person-lines-fill', group: 'contenu' },
   { permission: 'events', label: 'Événements', route: '/dashboard/events', icon: 'bi-calendar-event-fill', group: 'contenu' },
   { permission: 'activities', label: 'Activités', route: '/dashboard/activities', icon: 'bi-lightning-charge-fill', group: 'contenu' },

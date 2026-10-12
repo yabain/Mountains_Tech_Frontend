@@ -27,7 +27,7 @@
               @for (item of navForGroup(group); track item.permission) {
                 <a [routerLink]="item.route"
                   routerLinkActive="is-active"
-                  [routerLinkActiveOptions]="{ exact: item.permission === 'dashboard' }"
+                  [routerLinkActiveOptions]="{ exact: item.permission === 'dashboard' || item.route === '/dashboard/members' }"
                   [attr.title]="sidebarCollapsed() ? item.label : null"
                   (click)="closeSidebar()">
                   <i [class]="'bi ' + item.icon" aria-hidden="true"></i>
@@ -63,63 +63,12 @@
 
   <div class="admin-main">
     <main class="admin-page">
-      <div class="admin-utilities">
-        <div class="admin-utilities-left">
-          <button class="admin-menu-button" type="button" aria-label="Ouvrir le menu" aria-expanded="false" (click)="toggleSidebar()">
-            <i class="bi bi-list" aria-hidden="true"></i>
-          </button>
-          <nav class="admin-breadcrumb" aria-label="Fil d’Ariane">
-            <a routerLink="/dashboard" aria-label="Tableau de bord"><i class="bi bi-grid-1x2" aria-hidden="true"></i></a>
-            <i class="bi bi-chevron-right" aria-hidden="true"></i>
-            @if (currentCategory(); as label) {
-              <a class="admin-breadcrumb-link" routerLink="/dashboard">Tableau de bord</a>
-              <i class="bi bi-chevron-right" aria-hidden="true"></i>
-              <span class="admin-breadcrumb-current">{{ label }}</span>
-            } @else {
-              <span class="admin-breadcrumb-current">Tableau de bord</span>
-            }
-          </nav>
-        </div>
-
-        <div class="admin-utilities-right">
-          <a class="admin-util-button" routerLink="/" aria-label="Ouvrir le site public" title="Ouvrir le site public">
-            <i class="bi bi-globe" aria-hidden="true"></i>
-          </a>
-          <button class="admin-util-button" type="button" aria-label="Actualiser la page" title="Actualiser la page" (click)="refresh()">
-            <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
-          </button>
-          <button class="admin-util-button admin-util-button--ghost" type="button" aria-label="Notifications" title="Notifications" aria-expanded="notificationsOpen()" aria-controls="admin-notification-pane" (click)="toggleNotifications()">
-            <i class="bi bi-bell" aria-hidden="true"></i>
-            <span class="admin-notif-dot" aria-hidden="true"></span>
-          </button>
-
-          <div class="admin-account">
-            <button class="admin-account-trigger" type="button" aria-label="Menu du compte" aria-expanded="profileOpen()" (click)="toggleProfile()">
-              @if (currentUser$ | async; as user) {
-                <span class="admin-account-avatar">{{ userInitials(user) }}</span>
-              }
-              <i class="bi bi-chevron-down" aria-hidden="true"></i>
-            </button>
-            @if (profileOpen()) {
-              <div class="admin-account-menu">
-                @if (currentUser$ | async; as user) {
-                  <div class="admin-account-name">{{ user.name }}</div>
-                }
-                <p class="admin-account-note">Aperçu des permissions · démonstration</p>
-                <label class="admin-account-label" for="admin-role-preview">Afficher la navigation du rôle</label>
-                <select id="admin-role-preview" class="admin-role-select" [value]="previewRole()" (change)="onRoleChange($event)">
-                  @for (role of roles; track role) {
-                    <option [value]="role">{{ roleLabels[role] }}</option>
-                  }
-                </select>
-                <button class="admin-account-close" type="button" (click)="toggleProfile()">
-                  <i class="bi bi-x" aria-hidden="true"></i>Fermer
-                </button>
-              </div>
-            }
-          </div>
-        </div>
-      </div>
+      <app-top-bar
+        [currentCategory]="currentCategory()"
+        [notificationsOpen]="notificationsOpen()"
+        (toggleSidebar)="toggleSidebar()"
+        (toggleNotifications)="toggleNotifications()"
+      ></app-top-bar>
 
       <router-outlet></router-outlet>
     </main>

@@ -1,0 +1,101 @@
+<header class="admin-utilities">
+  <div class="admin-utilities-left">
+    <button class="admin-menu-button" type="button" aria-label="Ouvrir le menu" (click)="toggleSidebar.emit()">
+      <i class="bi bi-list" aria-hidden="true"></i>
+    </button>
+    <nav class="admin-breadcrumb" aria-label="Fil d’Ariane">
+      <a routerLink="/dashboard" aria-label="Tableau de bord">
+        <i class="bi bi-grid-1x2" aria-hidden="true"></i>
+      </a>
+      <i class="bi bi-chevron-right" aria-hidden="true"></i>
+      @if (currentCategory(); as label) {
+        <a class="admin-breadcrumb-link" routerLink="/dashboard">Tableau de bord</a>
+        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+        <span class="admin-breadcrumb-current">{{ label }}</span>
+      } @else {
+        <span class="admin-breadcrumb-current">Tableau de bord</span>
+      }
+    </nav>
+  </div>
+
+  <div class="admin-utilities-right">
+    <a class="admin-util-button" routerLink="/" aria-label="Ouvrir le site public" title="Ouvrir le site public">
+      <i class="bi bi-globe" aria-hidden="true"></i>
+    </a>
+    <button class="admin-util-button" type="button" aria-label="Reconstruire le site" title="Reconstruire le site" (click)="rebuildSite()">
+      <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+    </button>
+    <button
+      class="admin-util-button admin-util-button--notifications"
+      type="button"
+      aria-label="Notifications"
+      title="Notifications"
+      [attr.aria-expanded]="notificationsOpen()"
+      aria-controls="admin-notification-pane"
+      (click)="toggleNotifications.emit()"
+    >
+      <i class="bi bi-bell" aria-hidden="true"></i>
+      <span class="admin-notif-dot" aria-hidden="true"></span>
+    </button>
+
+    <div class="admin-account">
+      <button
+        class="admin-account-trigger"
+        type="button"
+        aria-label="Ouvrir le menu du compte"
+        [attr.aria-expanded]="accountMenuOpen()"
+        (click)="toggleAccountMenu()"
+      >
+        @if (currentUser$ | async; as user) {
+          <span class="admin-account-avatar">{{ userInitials(user) }}</span>
+        } @else {
+          <span class="admin-account-avatar"><i class="bi bi-person" aria-hidden="true"></i></span>
+        }
+        <i class="bi bi-chevron-down" aria-hidden="true"></i>
+      </button>
+
+      @if (accountMenuOpen()) {
+        <div class="admin-account-menu">
+          @if (currentUser$ | async; as user) {
+            @if (profileDetailsOpen()) {
+              <button class="admin-account-back" type="button" (click)="showAccountActions()">
+                <i class="bi bi-arrow-left" aria-hidden="true"></i>
+                Retour
+              </button>
+              <div class="admin-account-identity">
+                <strong>{{ user.name }}</strong>
+                <span>{{ user.email }}</span>
+              </div>
+              <dl class="admin-account-details">
+                <div>
+                  <dt>Rôle</dt>
+                  <dd>{{ roleLabel(user) }}</dd>
+                </div>
+              </dl>
+            } @else {
+              <div class="admin-account-identity">
+                <strong>{{ user.name }}</strong>
+                <span>{{ user.email }}</span>
+                <span class="admin-account-role">{{ roleLabel(user) }}</span>
+              </div>
+              <div class="admin-account-actions">
+                <button type="button" (click)="showProfileDetails()">
+                  <i class="bi bi-person-gear" aria-hidden="true"></i>
+                  Mon profil
+                </button>
+                <a routerLink="/" (click)="closeAccountMenu()">
+                  <i class="bi bi-globe" aria-hidden="true"></i>
+                  Voir le site public
+                </a>
+                <button type="button" class="admin-account-logout" (click)="logout()">
+                  <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+                  Se déconnecter
+                </button>
+              </div>
+            }
+          }
+        </div>
+      }
+    </div>
+  </div>
+</header>

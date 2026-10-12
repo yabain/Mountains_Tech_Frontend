@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../core/http/api.service';
 import { NotificationService } from '../../../core/services/notification.service';
-import { ADMIN_RESOURCE_CONFIG, ResourceField, ResourceListColumn } from './admin-resource.config';
+import { ADMIN_RESOURCE_CONFIG, RESOURCE_CONFIG, ResourceField, ResourceListColumn } from './admin-resource.config';
 
 type Row = Record<string, any>;
+type UserFilter = 'all' | 'active' | 'inactive' | 'admin' | 'consultant' | 'user';
 
 @Component({
   selector: 'app-admin-resource',
@@ -22,8 +23,11 @@ export class AdminResourceComponent {
   private readonly router = inject(Router);
   private readonly notification = inject(NotificationService);
 
-  readonly config = ADMIN_RESOURCE_CONFIG[this.route.snapshot.data['endpoint'] as string] ?? {
+  readonly config = inject(RESOURCE_CONFIG, { optional: true })
+    ?? ADMIN_RESOURCE_CONFIG[this.route.snapshot.data['endpoint'] as string]
+    ?? {
     title: 'Ressource',
+    icon: 'bi-grid-1x2',
     endpoint: '',
     shape: 'items' as const,
     columns: [] as ResourceListColumn[],
@@ -40,6 +44,7 @@ export class AdminResourceComponent {
 
   readonly rows = signal<Row[]>([]);
   readonly loading = signal(true);
+  readonly reloading = signal(false);
   readonly saving = signal(false);
   readonly error = signal('');
 
@@ -58,6 +63,32 @@ export class AdminResourceComponent {
   readonly statusBusyId = signal('');
 
   readonly modalTitle = signal('');
+  readonly userFilter = signal<UserFilter>('all');
+  readonly isUsers = this.config.endpoint === '/admin/users';
+  readonly visibleUsers = computed(() => this.rows().filter((row) => {
+    const filter = this.userFilter();
+    if (filter === 'all') {
+      return true;
+    }
+    if (filter === 'active') {
+      return this.isUserActive(row);
+    }
+    if (filter === 'inactive') {
+      return !this.isUserActive(row);
+    }
+    return this.userRoleGroup(row) === filter;
+  }));
+  readonly userStats = computed(() => {
+    const users = this.rows();
+    return {
+      total: this.total(),
+      active: users.filter((row) => this.isUserActive(row)).length,
+      inactive: users.filter((row) => !this.isUserActive(row)).length,
+      admin: users.filter((row) => this.userRoleGroup(row) === 'admin').length,
+      consultant: users.filter((row) => this.userRoleGroup(row) === 'consultant').length,
+      user: users.filter((row) => this.userRoleGroup(row) === 'user').length
+    };
+  });
 
   constructor() {
     this.load();
@@ -109,6 +140,63 @@ export class AdminResourceComponent {
     return statusField ? String(row?.[statusField] ?? '') : '';
   }
 
+  setUserFilter(filter: UserFilter): void {
+    this.userFilter.set(filter);
+  }
+
+  userName(row: Row): string {
+    const name = row?.['name'] ?? [row?.['firstName'], row?.['lastName']].filter(Boolean).join(' ');
+    return String(name || row?.['email'] || 'Compte');
+  }
+
+  userInitials(row: Row): string {
+    const name = this.userName(row).trim();
+    const words = name.split(/\s+/).filter(Boolean);
+    return words.slice(0, 2).map((word) => word.charAt(0)).join('').toUpperCase() || '?';
+  }
+
+  userRole(row: Row): string {
+    const role = String(row?.['role'] ?? '').toUpperCase().replace(/[-\s]/g, '_');
+    const labels: Record<string, string> = {
+      SUPER_ADMIN: 'Super-admin',
+      ADMIN: 'Administrateur',
+      EDITOR: 'Éditeur',
+      COMMUNICATION: 'Communication',
+      CONSULTANT: 'Consultant',
+      USER: 'Utilisateur'
+    };
+    return labels[role] ?? this.displayText(row?.['role']);
+  }
+
+  userRoleGroup(row: Row): 'admin' | 'consultant' | 'user' {
+    const role = String(row?.['role'] ?? '').toUpperCase();
+    if (role.includes('CONSULTANT')) {
+      return 'consultant';
+    }
+    if (['USER', 'UTILISATEUR'].includes(role)) {
+      return 'user';
+    }
+    return 'admin';
+  }
+
+  userIsActive(row: Row): boolean {
+    return this.isUserActive(row);
+  }
+
+  userNotifications(row: Row): boolean | null {
+    const value = row?.['notificationContact'] ?? row?.['notifyContact'] ?? row?.['contactNotifications'];
+    return typeof value === 'boolean' ? value : null;
+  }
+
+  userLastLogin(row: Row): string {
+    const lastLogin = row?.['lastLoginAt'] ?? row?.['lastLogin'] ?? row?.['lastSeenAt'];
+    return lastLogin ? this.formatDate(lastLogin) : '—';
+  }
+
+  toggleUserStatus(row: Row): void {
+    this.changeStatus(row, this.isUserActive(row) ? 'INACTIVE' : 'ACTIVE');
+  }
+
   cellValue(row: Row, column: ResourceListColumn): string {
     if (!row) {
       return '-';
@@ -136,26 +224,26 @@ export class AdminResourceComponent {
   onSearchChange(value: string): void {
     this.search.set(value);
     this.page.set(1);
-    this.load();
+    this.load(true);
   }
 
   onStatusFilterChange(value: string): void {
     this.selectedStatus.set(value);
     this.page.set(1);
-    this.load();
+    this.load(true);
   }
 
   prevPage(): void {
     if (this.page() > 1) {
       this.page.update((page) => page - 1);
-      this.load();
+      this.load(true);
     }
   }
 
   nextPage(): void {
     if (this.page() < this.pages()) {
       this.page.update((page) => page + 1);
-      this.load();
+      this.load(true);
     }
   }
 
@@ -316,8 +404,16 @@ export class AdminResourceComponent {
     return payload;
   }
 
-  private load(): void {
-    this.loading.set(true);
+  private isUserActive(row: Row): boolean {
+    return ['ACTIVE', 'ACTIF', 'TRUE'].includes(String(row?.['status'] ?? '').toUpperCase());
+  }
+
+  private load(soft = false): void {
+    if (soft) {
+      this.reloading.set(true);
+    } else {
+      this.loading.set(true);
+    }
     this.error.set('');
 
     const params: Record<string, unknown> = { page: this.page(), limit: this.limit };
@@ -335,10 +431,12 @@ export class AdminResourceComponent {
         this.total.set(extracted.pagination.total);
         this.pages.set(extracted.pagination.pages > 0 ? extracted.pagination.pages : 1);
         this.loading.set(false);
+        this.reloading.set(false);
       },
       error: () => {
         this.error.set(`Impossible de charger ${this.config.title.toLowerCase()}.`);
         this.loading.set(false);
+        this.reloading.set(false);
       }
     });
   }
