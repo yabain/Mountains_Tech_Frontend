@@ -1,0 +1,96 @@
+.admin-user-form-page {
+  --user-primary: #00447e;
+  --user-primary-light: #eaf3fb;
+  --user-border: #dce4eb;
+  --user-text: #1e2b38;
+  --user-muted: #667482;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 8px 0 34px;
+  color: var(--user-text);
+}
+
+.admin-user-form-heading { margin: 0 0 22px; }
+.admin-user-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--user-primary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.admin-user-title { display: flex; align-items: center; gap: 15px; }
+.admin-user-title-icon, .admin-user-section-icon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  color: var(--user-primary);
+  background: var(--user-primary-light);
+}
+.admin-user-title-icon { width: 54px; height: 54px; border-radius: 15px; font-size: 23px; }
+.admin-user-eyebrow { margin: 0 0 4px; color: var(--user-primary); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.admin-user-title h1 { margin: 0; font-size: clamp(24px, 3vw, 31px); line-height: 1.2; }
+.admin-user-title > div > p:last-child { margin: 5px 0 0; color: var(--user-muted); font-size: 14px; }
+.admin-user-form-card { overflow: hidden; border: 1px solid var(--user-border); border-radius: 14px; background: #fff; box-shadow: 0 8px 28px rgba(18, 49, 76, .06); }
+.admin-user-form-section { padding: 25px 28px; }
+.admin-user-form-section + .admin-user-form-section { border-top: 1px solid var(--user-border); }
+.admin-user-section-heading { display: flex; align-items: center; gap: 13px; margin-bottom: 22px; }
+.admin-user-section-icon { width: 42px; height: 42px; border-radius: 12px; font-size: 18px; }
+.admin-user-section-heading h2 { margin: 0; font-size: 17px; }
+.admin-user-section-heading p, .admin-user-option-row p { margin: 4px 0 0; color: var(--user-muted); font-size: 13px; line-height: 1.5; }
+.admin-user-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 19px 22px; }
+.admin-user-field { display: grid; align-content: start; gap: 8px; min-width: 0; font-size: 13px; font-weight: 700; }
+.admin-user-field > span b { color: var(--user-primary); }
+.admin-user-field input, .admin-user-field select {
+  width: 100%;
+  min-height: 43px;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid #cfd9e2;
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  color: var(--user-text);
+  font: inherit;
+  font-weight: 400;
+}
+.admin-user-field input:focus, .admin-user-field select:focus { border-color: var(--user-primary); box-shadow: 0 0 0 3px rgba(0, 68, 126, .12); }
+.admin-user-field input:disabled { background: #f3f6f8; color: var(--user-muted); cursor: not-allowed; }
+.admin-user-field small { color: var(--user-muted); font-size: 12px; font-weight: 400; }
+.admin-user-option-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 17px 0; }
+.admin-user-option-row + .admin-user-option-row { border-top: 1px solid #edf1f4; }
+.admin-user-option-row strong { font-size: 14px; }
+.admin-user-status-choice { display: inline-flex; flex: 0 0 auto; gap: 5px; padding: 4px; border: 1px solid var(--user-border); border-radius: 9px; background: #f7f9fb; }
+.admin-user-status-choice button { display: inline-flex; align-items: center; gap: 7px; padding: 8px 12px; border: 0; border-radius: 6px; background: transparent; color: var(--user-muted); font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+.admin-user-status-choice button.is-selected { background: var(--user-primary); color: #fff; box-shadow: 0 2px 5px rgba(0, 68, 126, .18); }
+.admin-user-switch { position: relative; display: inline-flex; flex: 0 0 auto; width: 42px; height: 24px; }
+.admin-user-switch input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.admin-user-switch > span { width: 100%; border-radius: 20px; background: #bdc7d0; transition: background .18s ease; cursor: pointer; }
+.admin-user-switch > span::after { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px #0003; content: ''; transition: transform .18s ease; }
+.admin-user-switch input:checked + span { background: var(--user-primary); }
+.admin-user-switch input:checked + span::after { transform: translateX(18px); }
+.admin-user-switch input:focus-visible + span { outline: 3px solid rgba(0, 68, 126, .2); outline-offset: 2px; }
+.admin-user-form-error { margin: 0 28px; padding: 12px 14px; border: 1px solid #e5b9b9; border-radius: 8px; background: #fff6f6; color: #8c2727; font-size: 13px; }
+.admin-user-loading, .admin-user-load-error { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 150px; padding: 26px; color: var(--user-muted); }
+.admin-user-loading > i, .admin-user-load-error > i { color: var(--user-primary); font-size: 21px; }
+.admin-user-load-error { flex-direction: column; text-align: center; }
+.admin-user-load-error p { margin: 0; }
+.admin-user-form-actions { display: flex; justify-content: flex-end; gap: 10px; padding: 20px 28px; border-top: 1px solid var(--user-border); background: #fbfcfd; }
+.admin-user-form-actions button { min-height: 42px; padding: 10px 17px; border-radius: 8px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+.admin-user-cancel { border: 1px solid #cfd9e2; background: #fff; color: var(--user-text); }
+.admin-user-submit { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--user-primary); background: var(--user-primary); color: #fff; }
+.admin-user-submit:disabled { opacity: .55; cursor: not-allowed; }
+
+@media (max-width: 650px) {
+  .admin-user-form-page { padding-top: 0; }
+  .admin-user-form-section { padding: 21px 18px; }
+  .admin-user-fields { grid-template-columns: 1fr; gap: 16px; }
+  .admin-user-option-row { align-items: flex-start; }
+  .admin-user-status-choice { flex-wrap: wrap; justify-content: flex-end; }
+  .admin-user-form-actions { padding: 17px 18px; }
+}

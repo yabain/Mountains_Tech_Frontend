@@ -1,0 +1,98 @@
+<section class="admin-user-form-page">
+  <header class="admin-user-form-heading">
+    <button class="admin-user-back" type="button" (click)="backToUsers()">
+      <i class="bi bi-arrow-left" aria-hidden="true"></i>
+      Retour aux comptes
+    </button>
+    <div class="admin-user-title">
+      <span class="admin-user-title-icon"><i class="bi bi-person-gear" aria-hidden="true"></i></span>
+      <div>
+        <p class="admin-user-eyebrow">Gestion des comptes</p>
+        <h1>Modifier un compte</h1>
+        <p>Mettez à jour les informations et les accès de l’utilisateur.</p>
+      </div>
+    </div>
+  </header>
+
+  @if (loading()) {
+    <div class="admin-user-form-card admin-user-loading" role="status">
+      <i class="bi bi-arrow-repeat" aria-hidden="true"></i> Chargement du compte…
+    </div>
+  } @else if (error() && !form.email) {
+    <div class="admin-user-form-card admin-user-load-error" role="alert">
+      <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+      <p>{{ error() }}</p>
+      <button class="admin-user-cancel" type="button" (click)="backToUsers()">Retour aux comptes</button>
+    </div>
+  } @else {
+    <form #accountForm="ngForm" class="admin-user-form-card" (ngSubmit)="submit()">
+      <section class="admin-user-form-section">
+        <div class="admin-user-section-heading">
+          <span class="admin-user-section-icon"><i class="bi bi-person-vcard" aria-hidden="true"></i></span>
+          <div><h2>Informations du compte</h2><p>Modifiez les informations personnelles de l’utilisateur.</p></div>
+        </div>
+
+        <div class="admin-user-fields">
+          <label class="admin-user-field">
+            <span>Prénom <b>*</b></span>
+            <input name="firstName" [(ngModel)]="form.firstName" required autocomplete="given-name" />
+          </label>
+          <label class="admin-user-field">
+            <span>Nom <b>*</b></span>
+            <input name="lastName" [(ngModel)]="form.lastName" required autocomplete="family-name" />
+          </label>
+          <label class="admin-user-field">
+            <span>Adresse e-mail</span>
+            <input name="email" [ngModel]="form.email" type="email" disabled autocomplete="email" />
+            <small>L’adresse e-mail ne peut pas être modifiée.</small>
+          </label>
+          <label class="admin-user-field">
+            <span>Téléphone</span>
+            <input name="phone" [(ngModel)]="form.phone" type="tel" autocomplete="tel" />
+          </label>
+          <label class="admin-user-field">
+            <span>Type de compte <b>*</b></span>
+            <select name="role" [(ngModel)]="form.role" required>
+              @for (role of roles; track role.value) { <option [value]="role.value">{{ role.label }}</option> }
+            </select>
+          </label>
+          <label class="admin-user-field">
+            <span>Nouveau mot de passe</span>
+            <input name="password" [(ngModel)]="form.password" type="password" minlength="8" autocomplete="new-password" placeholder="Laisser vide pour conserver" />
+            <small>Laissez ce champ vide pour conserver le mot de passe actuel.</small>
+          </label>
+        </div>
+      </section>
+
+      <section class="admin-user-form-section admin-user-options">
+        <div class="admin-user-section-heading">
+          <span class="admin-user-section-icon"><i class="bi bi-sliders" aria-hidden="true"></i></span>
+          <div><h2>Préférences et statut</h2><p>Gérez l’accès et les notifications du compte.</p></div>
+        </div>
+        <div class="admin-user-option-row">
+          <div><strong>Statut du compte</strong><p>Un compte actif peut se connecter à l’administration.</p></div>
+          <div class="admin-user-status-choice" role="group" aria-label="Statut du compte">
+            <button type="button" [class.is-selected]="form.status === 'ACTIVE'" (click)="form.status = 'ACTIVE'"><i class="bi bi-check-circle" aria-hidden="true"></i> Actif</button>
+            <button type="button" [class.is-selected]="form.status === 'INACTIVE'" (click)="form.status = 'INACTIVE'"><i class="bi bi-slash-circle" aria-hidden="true"></i> Inactif</button>
+          </div>
+        </div>
+        <label class="admin-user-option-row admin-user-notification">
+          <span class="admin-user-option-copy"><strong>Notification contact</strong><p>Recevoir les messages envoyés depuis le formulaire de contact.</p></span>
+          <span class="admin-user-switch">
+            <input type="checkbox" name="notificationContact" [(ngModel)]="form.notificationContact" />
+            <span aria-hidden="true"></span>
+          </span>
+        </label>
+      </section>
+
+      @if (error()) { <p class="admin-user-form-error" role="alert">{{ error() }}</p> }
+      <footer class="admin-user-form-actions">
+        <button class="admin-user-cancel" type="button" (click)="backToUsers()">Annuler</button>
+        <button class="admin-user-submit" type="submit" [disabled]="accountForm.invalid || saving()">
+          <i class="bi bi-check2" aria-hidden="true"></i>
+          {{ saving() ? 'Enregistrement…' : 'Enregistrer les modifications' }}
+        </button>
+      </footer>
+    </form>
+  }
+</section>

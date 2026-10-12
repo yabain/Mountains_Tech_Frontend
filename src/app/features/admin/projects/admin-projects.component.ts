@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RESOURCE_CONFIG, AdminResourceConfig } from '../resource/admin-resource.config';
-import { AdminResourceComponent } from '../resource/admin-resource.component';
+import { AdminResourceBase } from '../resource/admin-resource.base';
 import { API_ROUTES } from '../../../core/constants/api-routes';
 
 const config: AdminResourceConfig = {
@@ -39,9 +39,9 @@ const config: AdminResourceConfig = {
   selector: 'app-admin-projects',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: '../resource/admin-resource.component.html',
-  styleUrl: '../resource/admin-resource.component.scss',
+  templateUrl: './admin-projects.component.html',
+  styleUrl: './admin-projects.component.scss',
   providers: [{ provide: RESOURCE_CONFIG, useValue: config }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminProjectsComponent extends AdminResourceComponent {}
+export class AdminProjectsComponent extends AdminResourceBase {}

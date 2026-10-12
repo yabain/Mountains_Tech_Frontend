@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RESOURCE_CONFIG, AdminResourceConfig } from '../resource/admin-resource.config';
-import { AdminResourceComponent } from '../resource/admin-resource.component';
+import { AdminResourceBase } from '../resource/admin-resource.base';
 import { API_ROUTES } from '../../../core/constants/api-routes';
 
 const config: AdminResourceConfig = {
@@ -24,9 +24,9 @@ const config: AdminResourceConfig = {
   selector: 'app-admin-media',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: '../resource/admin-resource.component.html',
-  styleUrl: '../resource/admin-resource.component.scss',
+  templateUrl: './admin-media.component.html',
+  styleUrl: './admin-media.component.scss',
   providers: [{ provide: RESOURCE_CONFIG, useValue: config }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminMediaComponent extends AdminResourceComponent {}
+export class AdminMediaComponent extends AdminResourceBase {}

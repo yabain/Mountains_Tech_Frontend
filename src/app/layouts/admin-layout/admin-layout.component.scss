@@ -7,7 +7,7 @@
   --adm-foreground: oklch(0.25 0.022 246);
   --adm-card: oklch(1 0 0);
   --adm-primary: oklch(0.383 0.114 251.5);
-  --adm-secondary: oklch(0.921 0.188 102);
+  --adm-secondary: #e8f1f8;
   --adm-muted: oklch(0.96 0.009 239);
   --adm-muted-foreground: oklch(0.55 0.019 243);
   --adm-border: oklch(0.92 0.012 240);
@@ -16,7 +16,7 @@
   --adm-sidebar-foreground: oklch(0.825 0.025 238);
   --adm-sidebar-muted: oklch(0.672 0.044 239);
   --adm-inverse: oklch(1 0 0);
-  --adm-brand-accent: oklch(0.633 0.254 16);
+  --adm-brand-accent: #00447e;
   --adm-navigation-fade: linear-gradient(to bottom, transparent, oklch(0.28 0.052 244) 88%);
   --adm-panel-shadow: 0 4px 12px oklch(0.28 0.052 244 / 0.12);
   --adm-shadow-sm: 0 4px 20px -4px oklch(0.28 0.052 244 / 0.1);
@@ -325,10 +325,10 @@
 /* ===== Main content ===== */
 .admin-main {
   --adm-primary: #00447e;
-  --adm-secondary: #d9f0dc;
-  --adm-brand-accent: #008000;
-  --adm-success: #008000;
-  --adm-success-light: #e4f6e7;
+  --adm-secondary: #e8f1f8;
+  --adm-brand-accent: #00447e;
+  --adm-success: #00447e;
+  --adm-success-light: #e8f1ff;
   --adm-fg: #182230;
   --adm-muted-fg: #64748b;
   --adm-border: #e5eaf0;

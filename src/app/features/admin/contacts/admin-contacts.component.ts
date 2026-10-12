@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RESOURCE_CONFIG, AdminResourceConfig } from '../resource/admin-resource.config';
-import { AdminResourceComponent } from '../resource/admin-resource.component';
+import { AdminResourceBase } from '../resource/admin-resource.base';
 import { API_ROUTES } from '../../../core/constants/api-routes';
 
 const config: AdminResourceConfig = {
@@ -34,4 +34,4 @@ const config: AdminResourceConfig = {
   providers: [{ provide: RESOURCE_CONFIG, useValue: config }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminContactsComponent extends AdminResourceComponent {}
+export class AdminContactsComponent extends AdminResourceBase {}

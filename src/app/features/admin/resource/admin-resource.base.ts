@@ -1,46 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Directive, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from '../../../core/http/api.service';
 import { NotificationService } from '../../../core/services/notification.service';
-import { ADMIN_RESOURCE_CONFIG, RESOURCE_CONFIG, ResourceField, ResourceListColumn } from './admin-resource.config';
+import { RESOURCE_CONFIG, ResourceField, ResourceListColumn } from './admin-resource.config';
 
 type Row = Record<string, any>;
-type UserFilter = 'all' | 'active' | 'inactive' | 'admin' | 'consultant' | 'user';
 
-@Component({
-  selector: 'app-admin-resource',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './admin-resource.component.html',
-  styleUrl: './admin-resource.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class AdminResourceComponent {
+@Directive()
+export abstract class AdminResourceBase {
   private readonly api = inject(ApiService);
-  private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly notification = inject(NotificationService);
 
-  readonly config = inject(RESOURCE_CONFIG, { optional: true })
-    ?? ADMIN_RESOURCE_CONFIG[this.route.snapshot.data['endpoint'] as string]
-    ?? {
-    title: 'Ressource',
-    icon: 'bi-grid-1x2',
-    endpoint: '',
-    shape: 'items' as const,
-    columns: [] as ResourceListColumn[],
-    fields: [] as ResourceField[],
-    searchable: true,
-    statusParam: '',
-    statusField: '',
-    statusOptions: [] as string[],
-    statusEndpoint: '',
-    creatable: false,
-    editable: false,
-    deletable: false
-  };
+  readonly config = inject(RESOURCE_CONFIG);
 
   readonly rows = signal<Row[]>([]);
   readonly loading = signal(true);
@@ -52,7 +24,8 @@ export class AdminResourceComponent {
   readonly selectedStatus = signal('');
 
   readonly page = signal(1);
-  readonly limit = 10;
+  readonly limit = signal(10);
+  readonly pageSizeOptions = [10, 25, 50, 100];
   readonly total = signal(0);
   readonly pages = signal(1);
 
@@ -63,32 +36,6 @@ export class AdminResourceComponent {
   readonly statusBusyId = signal('');
 
   readonly modalTitle = signal('');
-  readonly userFilter = signal<UserFilter>('all');
-  readonly isUsers = this.config.endpoint === '/admin/users';
-  readonly visibleUsers = computed(() => this.rows().filter((row) => {
-    const filter = this.userFilter();
-    if (filter === 'all') {
-      return true;
-    }
-    if (filter === 'active') {
-      return this.isUserActive(row);
-    }
-    if (filter === 'inactive') {
-      return !this.isUserActive(row);
-    }
-    return this.userRoleGroup(row) === filter;
-  }));
-  readonly userStats = computed(() => {
-    const users = this.rows();
-    return {
-      total: this.total(),
-      active: users.filter((row) => this.isUserActive(row)).length,
-      inactive: users.filter((row) => !this.isUserActive(row)).length,
-      admin: users.filter((row) => this.userRoleGroup(row) === 'admin').length,
-      consultant: users.filter((row) => this.userRoleGroup(row) === 'consultant').length,
-      user: users.filter((row) => this.userRoleGroup(row) === 'user').length
-    };
-  });
 
   constructor() {
     this.load();
@@ -140,63 +87,6 @@ export class AdminResourceComponent {
     return statusField ? String(row?.[statusField] ?? '') : '';
   }
 
-  setUserFilter(filter: UserFilter): void {
-    this.userFilter.set(filter);
-  }
-
-  userName(row: Row): string {
-    const name = row?.['name'] ?? [row?.['firstName'], row?.['lastName']].filter(Boolean).join(' ');
-    return String(name || row?.['email'] || 'Compte');
-  }
-
-  userInitials(row: Row): string {
-    const name = this.userName(row).trim();
-    const words = name.split(/\s+/).filter(Boolean);
-    return words.slice(0, 2).map((word) => word.charAt(0)).join('').toUpperCase() || '?';
-  }
-
-  userRole(row: Row): string {
-    const role = String(row?.['role'] ?? '').toUpperCase().replace(/[-\s]/g, '_');
-    const labels: Record<string, string> = {
-      SUPER_ADMIN: 'Super-admin',
-      ADMIN: 'Administrateur',
-      EDITOR: 'Éditeur',
-      COMMUNICATION: 'Communication',
-      CONSULTANT: 'Consultant',
-      USER: 'Utilisateur'
-    };
-    return labels[role] ?? this.displayText(row?.['role']);
-  }
-
-  userRoleGroup(row: Row): 'admin' | 'consultant' | 'user' {
-    const role = String(row?.['role'] ?? '').toUpperCase();
-    if (role.includes('CONSULTANT')) {
-      return 'consultant';
-    }
-    if (['USER', 'UTILISATEUR'].includes(role)) {
-      return 'user';
-    }
-    return 'admin';
-  }
-
-  userIsActive(row: Row): boolean {
-    return this.isUserActive(row);
-  }
-
-  userNotifications(row: Row): boolean | null {
-    const value = row?.['notificationContact'] ?? row?.['notifyContact'] ?? row?.['contactNotifications'];
-    return typeof value === 'boolean' ? value : null;
-  }
-
-  userLastLogin(row: Row): string {
-    const lastLogin = row?.['lastLoginAt'] ?? row?.['lastLogin'] ?? row?.['lastSeenAt'];
-    return lastLogin ? this.formatDate(lastLogin) : '—';
-  }
-
-  toggleUserStatus(row: Row): void {
-    this.changeStatus(row, this.isUserActive(row) ? 'INACTIVE' : 'ACTIVE');
-  }
-
   cellValue(row: Row, column: ResourceListColumn): string {
     if (!row) {
       return '-';
@@ -229,6 +119,16 @@ export class AdminResourceComponent {
 
   onStatusFilterChange(value: string): void {
     this.selectedStatus.set(value);
+    this.page.set(1);
+    this.load(true);
+  }
+
+  onPageSizeChange(value: string): void {
+    const limit = Number(value);
+    if (!this.pageSizeOptions.includes(limit)) {
+      return;
+    }
+    this.limit.set(limit);
     this.page.set(1);
     this.load(true);
   }
@@ -404,10 +304,6 @@ export class AdminResourceComponent {
     return payload;
   }
 
-  private isUserActive(row: Row): boolean {
-    return ['ACTIVE', 'ACTIF', 'TRUE'].includes(String(row?.['status'] ?? '').toUpperCase());
-  }
-
   private load(soft = false): void {
     if (soft) {
       this.reloading.set(true);
@@ -416,7 +312,7 @@ export class AdminResourceComponent {
     }
     this.error.set('');
 
-    const params: Record<string, unknown> = { page: this.page(), limit: this.limit };
+    const params: Record<string, unknown> = { page: this.page(), limit: this.limit() };
     if (this.searchable() && this.search()) {
       params['search'] = this.search();
     }
