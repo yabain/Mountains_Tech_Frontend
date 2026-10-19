@@ -41,6 +41,7 @@ export interface AdminResourceConfig {
   statusParam?: string;
   statusField?: string;
   statusOptions?: string[];
+  defaultStatus?: string;
   statusEndpoint?: string;
   creatable?: boolean;
   editable?: boolean;

@@ -1,0 +1,252 @@
+.admin-editor {
+  --editor-accent: #172c5b;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px;
+  color: #1e293b;
+}
+
+.editor-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.editor-heading h1 {
+  margin: 0;
+  color: var(--editor-accent);
+  font-size: 25px;
+  font-weight: 750;
+}
+
+.editor-heading p {
+  margin: 6px 0 0;
+  color: #64748b;
+}
+
+.editor-back,
+.editor-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid #dbe2ec;
+  border-radius: 9px;
+  background: #fff;
+  color: #263b68;
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.editor-btn--primary {
+  border-color: #172c5b;
+  background: #172c5b;
+  color: #fff;
+}
+
+.editor-btn--danger {
+  border-color: #f0c6c3;
+  color: #a5271b;
+}
+
+.editor-btn:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+.editor-card {
+  margin-bottom: 18px;
+  padding: 24px;
+  border: 1px solid #e5eaf1;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 22px rgb(25 44 83 / 5%);
+}
+
+.editor-card h2 {
+  margin: 0 0 20px;
+  color: #203762;
+  font-size: 17px;
+}
+
+.editor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 20px;
+}
+
+.editor-field {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.editor-field--full {
+  grid-column: 1 / -1;
+}
+
+.editor-field label {
+  color: #34445e;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.editor-field input,
+.editor-field textarea,
+.editor-field select {
+  width: 100%;
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid #d8e0eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #1e293b;
+  font: inherit;
+}
+
+.editor-field textarea {
+  min-height: 115px;
+  resize: vertical;
+}
+
+.editor-help {
+  color: #748198;
+  font-size: 12px;
+}
+
+.editor-image {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.editor-image img {
+  width: 150px;
+  height: 100px;
+  border-radius: 9px;
+  object-fit: cover;
+  background: #f1f4f8;
+}
+
+.editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.editor-error {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #fff1f0;
+  color: #a5271b;
+}
+
+.editor-loading {
+  padding: 42px;
+  color: #64748b;
+  text-align: center;
+}
+
+.editor-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #34445e;
+}
+
+.contact-detail__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.contact-detail__top h2 {
+  margin-bottom: 8px;
+  font-size: 21px;
+}
+
+.contact-detail__top p {
+  margin: 0;
+  color: #748198;
+  font-size: 13px;
+}
+
+.contact-badge {
+  padding: 6px 11px;
+  border-radius: 30px;
+  background: #e9eef7;
+  color: #35496e;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.contact-badge--unread {
+  background: #fff2d7;
+  color: #95600a;
+}
+
+.contact-sender {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 25px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #e9edf3;
+}
+
+.contact-avatar {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  place-items: center;
+  border-radius: 50%;
+  background: #e9eef7;
+  color: #172c5b;
+  font-size: 18px;
+  font-weight: 750;
+}
+
+.contact-sender > div:last-child {
+  display: grid;
+  gap: 5px;
+}
+
+.contact-sender a {
+  color: #315b9b;
+  text-decoration: none;
+}
+
+.contact-message {
+  padding-top: 20px;
+}
+
+.contact-message h3 {
+  margin: 0 0 12px;
+  color: #203762;
+  font-size: 15px;
+}
+
+.contact-message p {
+  margin: 0;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 700px) {
+  .admin-editor { padding: 18px 14px; }
+  .editor-heading { align-items: flex-start; flex-wrap: wrap; }
+  .editor-grid { grid-template-columns: 1fr; }
+  .editor-field--full { grid-column: auto; }
+  .editor-card { padding: 18px; }
+  .editor-image { align-items: flex-start; flex-direction: column; }
+}

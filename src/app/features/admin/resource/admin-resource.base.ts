@@ -1,4 +1,4 @@
-import { Directive, inject, signal } from '@angular/core';
+import { Directive, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../core/http/api.service';
 import { NotificationService } from '../../../core/services/notification.service';
@@ -21,7 +21,16 @@ export abstract class AdminResourceBase {
   readonly error = signal('');
 
   readonly search = signal('');
-  readonly selectedStatus = signal('');
+  readonly selectedStatus = signal(this.config.defaultStatus ?? '');
+  readonly resourceStatusFilter = signal('');
+
+  readonly resourceRows = computed(() => {
+    const status = this.resourceStatusFilter();
+    const field = this.config.statusField;
+    return !status || !field
+      ? this.rows()
+      : this.rows().filter((row) => String(row[field] ?? '').toUpperCase() === status);
+  });
 
   readonly page = signal(1);
   readonly limit = signal(10);
@@ -47,6 +56,41 @@ export abstract class AdminResourceBase {
 
   get statusOptions(): string[] {
     return this.config.statusOptions ?? [];
+  }
+
+  resourceStatusCount(status: string): number {
+    const field = this.config.statusField;
+    return field
+      ? this.rows().filter((row) => String(row[field] ?? '').toUpperCase() === status).length
+      : 0;
+  }
+
+  setResourceStatusFilter(status: string): void {
+    this.resourceStatusFilter.set(status);
+  }
+
+  resourceStatusLabel(status: string): string {
+    const labels: Record<string, string> = {
+      ACTIVE: 'Actifs',
+      ARCHIVED: 'Archivés',
+      DRAFT: 'Brouillons',
+      INACTIVE: 'Inactifs',
+      PUBLISHED: 'Publiés',
+      SUSPENDED: 'Suspendus'
+    };
+    return labels[status] ?? status.replace(/_/g, ' ').toLowerCase();
+  }
+
+  resourceStatusIcon(status: string): string {
+    const icons: Record<string, string> = {
+      ACTIVE: 'bi-check-circle-fill',
+      ARCHIVED: 'bi-archive-fill',
+      DRAFT: 'bi-file-earmark-text',
+      INACTIVE: 'bi-ban',
+      PUBLISHED: 'bi-globe2',
+      SUSPENDED: 'bi-pause-circle-fill'
+    };
+    return icons[status] ?? 'bi-circle';
   }
 
   get showStatusFilter(): boolean {

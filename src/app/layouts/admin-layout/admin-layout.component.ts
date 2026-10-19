@@ -1,7 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
+import { AlertComponent } from '../../shared/components/alert/alert.component';
 import { AuthService, AuthUser } from '../../core/auth/services/auth.service';
 import { AdminNotificationsComponent } from '../../features/admin/notifications/admin-notifications.component';
 import { ADMIN_NAV_ITEMS, AdminNavItem, AdminRole, ROLE_PERMISSIONS, normalizeRole } from '../../features/admin/admin-navigation';
@@ -22,7 +23,7 @@ const NAV_COUNTS: Readonly<Record<string, number>> = {
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [AsyncPipe, RouterLink, RouterLinkActive, RouterOutlet, AdminNotificationsComponent, TopBarComponent],
+  imports: [AsyncPipe, RouterLink, RouterLinkActive, RouterOutlet, AlertComponent, AdminNotificationsComponent, TopBarComponent],
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -43,6 +44,7 @@ export class AdminLayoutComponent implements AfterViewInit {
   readonly notificationsOpen = signal(false);
   readonly currentCategory = signal<string | null>(null);
   readonly navHasMore = signal(false);
+  readonly welcomeShown = signal(false);
 
   readonly navItems = computed(() => {
     const role = this.previewRole();
@@ -117,6 +119,10 @@ export class AdminLayoutComponent implements AfterViewInit {
 
   logout(): void {
     this.authService.logout().subscribe(() => void this.router.navigate(['/login']));
+  }
+
+  onWelcomeAutoClosed(): void {
+    this.welcomeShown.set(true);
   }
 
   ngAfterViewInit(): void {

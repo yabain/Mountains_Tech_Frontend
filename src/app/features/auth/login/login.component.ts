@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../../core/auth/services/auth.service';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ import { AuthService } from '../../../core/auth/services/auth.service';
 export class LoginComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly authService = inject(AuthService);
+  private readonly notificationService = inject(NotificationService);
   private readonly router = inject(Router);
   private readonly cdr = inject(ChangeDetectorRef);
 
@@ -42,6 +44,7 @@ export class LoginComponent {
 
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
+      this.notificationService.error('Vérifiez les champs du formulaire avant de continuer.');
       return;
     }
 
@@ -49,9 +52,13 @@ export class LoginComponent {
     const { email, password } = this.loginForm.getRawValue();
 
     this.authService.login(email.trim(), password).subscribe({
-      next: () => this.router.navigateByUrl(this.authService.hasDashboardAccess() ? '/dashboard' : '/'),
+      next: () => {
+        this.notificationService.success('Connexion réussie.');
+        void this.router.navigateByUrl(this.authService.hasDashboardAccess() ? '/dashboard' : '/');
+      },
       error: (error: HttpErrorResponse) => {
         this.errorMessage = error.error?.message ?? 'Impossible de vous connecter. Vérifiez vos identifiants.';
+        this.notificationService.error(this.errorMessage);
         this.isSubmitting = false;
         this.cdr.markForCheck();
       }

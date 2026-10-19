@@ -41,7 +41,7 @@ export const ADMIN_NAV_ITEMS: readonly AdminNavItem[] = [
   { permission: 'member-applications', label: 'Demandes d’adhésion', route: '/dashboard/members/applications', icon: 'bi-person-vcard-fill', group: 'contenu' },
   { permission: 'contacts', label: 'Contacts', route: '/dashboard/contacts', icon: 'bi-person-lines-fill', group: 'contenu' },
   { permission: 'events', label: 'Événements', route: '/dashboard/events', icon: 'bi-calendar-event-fill', group: 'contenu' },
-  { permission: 'activities', label: 'Activités', route: '/dashboard/activities', icon: 'bi-lightning-charge-fill', group: 'contenu' },
+  { permission: 'activities', label: 'Actualités', route: '/dashboard/activities', icon: 'bi-newspaper', group: 'contenu' },
   { permission: 'projects', label: 'Projets', route: '/dashboard/projects', icon: 'bi-kanban-fill', group: 'contenu' },
   { permission: 'hackathons', label: 'Hackathons', route: '/dashboard/hackathons', icon: 'bi-trophy-fill', group: 'contenu' },
   { permission: 'partners', label: 'Partenaires', route: '/dashboard/partners', icon: 'bi-building-fill', group: 'contenu' },

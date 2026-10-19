@@ -75,21 +75,23 @@
   </div>
 
   <!-- Welcome alert at bottom right of page -->
-  @if (currentUser$ | async; as user && !welcomeShown()) {
-    <app-alert
-      variant="success"
-      [autoHide]="5000"
-      (autoClosed)="onWelcomeAutoClosed()"
-      style="position: fixed; bottom: 24px; right: 24px; z-index: 1000;"
-    >
-      <div style="background: var(--adm-card); border: 1px solid var(--adm-border); border-radius: 8px; padding: 12px 16px; min-width: 280px;">
-        <i class="bi bi-hand-thumbs-up" style="width: 24px; height: 24px; flex-shrink: 0; margin-right: 12px; color: var(--adm-success);" aria-hidden="true"></i>
-        <div>
-          <strong style="margin: 0; font-size: 1rem; font-weight: 500; color: var(--adm-success);">Bienvenue, {{ user.name }} !</strong>
-          <span style="margin: 0; font-size: 0.875rem; color: var(--adm-muted-foreground);">Vous êtes connecté à Mountains Tech</span>
+  @if (currentUser$ | async; as currentUser) {
+    @if (currentUser && !welcomeShown()) {
+      <app-alert
+        variant="success"
+        [autoHide]="5000"
+        (autoClosed)="onWelcomeAutoClosed()"
+        style="position: fixed; bottom: 24px; right: 24px; z-index: 1000;"
+      >
+        <div style="background: var(--adm-card); border: 1px solid var(--adm-border); border-radius: 8px; padding: 12px 16px; min-width: 280px;">
+          <i class="bi bi-hand-thumbs-up" style="width: 24px; height: 24px; flex-shrink: 0; margin-right: 12px; color: var(--adm-success);" aria-hidden="true"></i>
+          <div>
+            <strong style="margin: 0; font-size: 1rem; font-weight: 500; color: var(--adm-success);">Bienvenue, {{ currentUser.name }} !</strong>
+            <span style="margin: 0; font-size: 0.875rem; color: var(--adm-muted-foreground);">Vous êtes connecté à Mountains Tech</span>
+          </div>
         </div>
-      </div>
-    </app-alert>
+      </app-alert>
+    }
   }
 
   @if (notificationsOpen()) {

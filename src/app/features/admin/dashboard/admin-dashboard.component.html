@@ -4,10 +4,16 @@
       <h1 class="page-title"><i class="bi bi-speedometer2" aria-hidden="true"></i>Tableau de bord</h1>
       <p class="subtitle">Vue d’ensemble de l’activité et du contenu de la plateforme.</p>
     </div>
-    <button type="button" class="dash-btn dash-btn--outline" (click)="exportReport()">
-      <i class="bi bi-arrow-down-to-line" aria-hidden="true"></i>
-      Exporter le rapport
-    </button>
+    <div class="dashboard-heading-actions">
+      <time class="dashboard-clock" [attr.datetime]="currentDateTime().toISOString()">
+        <strong>{{ currentTimeLabel() }}</strong>
+        <span>{{ currentDateLabel() }}</span>
+      </time>
+      <button type="button" class="dash-btn dash-btn--outline" (click)="exportReport()">
+        <i class="bi bi-arrow-down-to-line" aria-hidden="true"></i>
+        Exporter le rapport
+      </button>
+    </div>
   </div>
 
   <section class="dashboard-welcome" aria-label="Bienvenue">

@@ -216,6 +216,7 @@ export class AnnouncementEditorComponent implements OnInit {
   private submit(targetStatus: 'DRAFT' | 'SCHEDULED' | 'SENDING'): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.notification.error('Vérifiez les champs obligatoires avant de continuer.');
       return;
     }
 

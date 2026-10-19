@@ -1,0 +1,139 @@
+<main class="admin-editor">
+  <header class="editor-heading">
+    <button class="editor-back" type="button" (click)="cancel()" aria-label="Retour aux événements">
+      <i class="bi bi-arrow-left" aria-hidden="true"></i>
+    </button>
+    <div>
+      <h1>{{ eventId ? 'Modifier un événement' : 'Nouvel événement' }}</h1>
+      <p>Créez et configurez les informations de votre événement.</p>
+    </div>
+  </header>
+
+  @if (loading()) {
+    <div class="editor-loading">Chargement de l’événement…</div>
+  } @else {
+    @if (error()) { <div class="editor-error" role="alert">{{ error() }}</div> }
+    <form (ngSubmit)="submit()">
+      <section class="editor-card">
+        <h2>Informations de l’événement</h2>
+        <div class="editor-grid">
+          <div class="editor-field editor-field--full">
+            <label for="event-title">Titre *</label>
+            <input id="event-title" name="title" [(ngModel)]="form.title" required placeholder="Nom de l’événement" />
+          </div>
+          <div class="editor-field">
+            <label for="event-category">Catégorie</label>
+            <input id="event-category" name="category" [(ngModel)]="form.category" placeholder="Conférence, atelier…" />
+          </div>
+          <div class="editor-field">
+            <label for="event-location">Lieu *</label>
+            <input id="event-location" name="location" [(ngModel)]="form.location" required placeholder="Adresse ou lieu de l’événement" />
+          </div>
+          <div class="editor-field">
+            <label for="event-start">Date et heure de début *</label>
+            <input id="event-start" name="startAt" type="datetime-local" [(ngModel)]="form.startAt" required />
+          </div>
+          <div class="editor-field">
+            <label for="event-end">Date et heure de fin</label>
+            <input id="event-end" name="endAt" type="datetime-local" [(ngModel)]="form.endAt" />
+          </div>
+          <div class="editor-field editor-field--full">
+            <label for="event-excerpt">Description courte</label>
+            <textarea id="event-excerpt" name="excerpt" [(ngModel)]="form.excerpt" rows="3" placeholder="Présentez brièvement l’événement"></textarea>
+          </div>
+          <div class="editor-field editor-field--full">
+            <label for="event-program">Programme</label>
+            <textarea id="event-program" name="program" [(ngModel)]="form.program" rows="6" placeholder="Déroulé et temps forts de l’événement"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="editor-card">
+        <h2>Image de couverture</h2>
+        <div class="editor-field">
+          <label for="event-cover">Ajouter une image</label>
+          <div class="editor-image">
+            @if (form.coverUrl) { <img [src]="form.coverUrl" alt="Aperçu de la couverture" /> }
+            <div>
+              <input id="event-cover" name="cover" type="file" accept="image/*" (change)="onCoverSelected($event)" [disabled]="uploading()" />
+              <span class="editor-help">JPG, PNG ou WebP, 5 Mo maximum. {{ uploading() ? 'Téléversement…' : '' }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="editor-card">
+        <h2>Contact et réseaux sociaux</h2>
+        <div class="editor-grid">
+          <div class="editor-field">
+            <label for="event-phone">Téléphone de contact</label>
+            <input id="event-phone" name="contactPhone" type="tel" [(ngModel)]="form.contactPhone" placeholder="+33…" />
+          </div>
+          <div class="editor-field">
+            <label for="event-email">E-mail de contact</label>
+            <input id="event-email" name="contactEmail" type="email" [(ngModel)]="form.contactEmail" placeholder="contact@exemple.fr" />
+          </div>
+          <div class="editor-field">
+            <label for="event-facebook">Facebook</label>
+            <input id="event-facebook" name="facebook" type="url" [(ngModel)]="form.facebook" placeholder="https://facebook.com/…" />
+          </div>
+          <div class="editor-field">
+            <label for="event-instagram">Instagram</label>
+            <input id="event-instagram" name="instagram" type="url" [(ngModel)]="form.instagram" placeholder="https://instagram.com/…" />
+          </div>
+          <div class="editor-field">
+            <label for="event-linkedin">LinkedIn</label>
+            <input id="event-linkedin" name="linkedin" type="url" [(ngModel)]="form.linkedin" placeholder="https://linkedin.com/…" />
+          </div>
+          <div class="editor-field">
+            <label for="event-registration-url">Lien d’inscription</label>
+            <input id="event-registration-url" name="registrationUrl" type="url" [(ngModel)]="form.registrationUrl" placeholder="https://…" />
+          </div>
+        </div>
+      </section>
+
+      <section class="editor-card">
+        <h2>Partenaires et publication</h2>
+        <div class="editor-grid">
+          <div class="editor-field editor-field--full">
+            <label for="event-sponsors">Partenaires / sponsors</label>
+            <input id="event-sponsors" name="sponsors" [(ngModel)]="form.sponsors" placeholder="Noms des partenaires…" />
+            <span class="editor-help">Ajoutez plusieurs noms en les séparant par des virgules.</span>
+          </div>
+          <div class="editor-field">
+            <label for="event-capacity">Capacité</label>
+            <input id="event-capacity" name="capacity" type="number" min="0" [(ngModel)]="form.capacity" />
+          </div>
+          <div class="editor-field">
+            <label for="event-status">Statut</label>
+            <select id="event-status" name="status" [(ngModel)]="form.status">
+              <option value="DRAFT">Brouillon</option>
+              <option value="PUBLISHED">Publié</option>
+              <option value="ARCHIVED">Archivé</option>
+            </select>
+          </div>
+          <label class="editor-check">
+            <input name="registrationRequired" type="checkbox" [(ngModel)]="form.registrationRequired" />
+            Inscription requise
+          </label>
+          <label class="editor-check">
+            <input name="showOnHome" type="checkbox" [(ngModel)]="form.showOnHome" />
+            Mettre en avant sur la page d’accueil
+          </label>
+          <div class="editor-field">
+            <label for="event-slug">Slug</label>
+            <input id="event-slug" name="slug" [(ngModel)]="form.slug" placeholder="Généré automatiquement si vide" />
+          </div>
+        </div>
+      </section>
+
+      <footer class="editor-actions">
+        <button class="editor-btn" type="button" (click)="cancel()">Annuler</button>
+        <button class="editor-btn editor-btn--primary" type="submit" [disabled]="saving() || uploading()">
+          <i class="bi bi-check2" aria-hidden="true"></i>
+          {{ saving() ? 'Enregistrement…' : 'Enregistrer' }}
+        </button>
+      </footer>
+    </form>
+  }
+</main>

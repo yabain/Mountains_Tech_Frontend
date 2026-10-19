@@ -1,1 +1,13 @@
 <router-outlet />
+
+<aside class="app-notifications" aria-label="Notifications">
+  @for (notification of notificationService.notifications(); track notification.id) {
+    <app-alert
+      [variant]="notification.variant"
+      [message]="notification.message"
+      [autoHide]="notification.duration"
+      (dismissed)="dismissNotification(notification.id)"
+      (autoClosed)="dismissNotification(notification.id)"
+    ></app-alert>
+  }
+</aside>

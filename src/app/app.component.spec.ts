@@ -20,10 +20,11 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('MountainsTech');
   });
 
-  it('should render title', () => {
+  it('should display notifications emitted by the notification service', () => {
     const fixture = TestBed.createComponent(AppComponent);
+    fixture.componentInstance.notificationService.error('Une erreur est survenue.');
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, MountainsTech');
+    expect(compiled.querySelector('[role="alert"]')?.textContent).toContain('Une erreur est survenue.');
   });
 });

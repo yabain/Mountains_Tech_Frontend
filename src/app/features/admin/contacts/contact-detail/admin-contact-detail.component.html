@@ -1,0 +1,62 @@
+<main class="admin-editor">
+  <header class="editor-heading">
+    <button class="editor-back" type="button" (click)="back()" aria-label="Retour aux messages">
+      <i class="bi bi-arrow-left" aria-hidden="true"></i>
+    </button>
+    <div>
+      <h1>Détail du message reçu</h1>
+      <p>Consultez le message et les coordonnées de son expéditeur.</p>
+    </div>
+  </header>
+
+  @if (loading()) {
+    <div class="editor-loading">Chargement du message…</div>
+  } @else if (error() && !contact()) {
+    <div class="editor-error" role="alert">{{ error() }}</div>
+  } @else {
+    @if (contact(); as message) {
+      @if (error()) { <div class="editor-error" role="alert">{{ error() }}</div> }
+      <section class="editor-card contact-detail">
+        <div class="contact-detail__top">
+          <div>
+            <h2>{{ message['subject'] || 'Sans sujet' }}</h2>
+            <p>Reçu le {{ formatDate(message['createdAt'] ?? message['date']) }}</p>
+          </div>
+          <span class="contact-badge" [class.contact-badge--unread]="isUnread">
+            {{ isUnread ? 'Non lu' : 'Lu' }}
+          </span>
+        </div>
+
+        <div class="contact-sender">
+          <div class="contact-avatar" aria-hidden="true">
+            {{ initials(message['name']) }}
+          </div>
+          <div>
+            <strong>{{ message['name'] || 'Expéditeur inconnu' }}</strong>
+            <a [href]="'mailto:' + (message['email'] || '')">{{ message['email'] || 'E-mail non renseigné' }}</a>
+            @if (message['phone'] || message['phoneNumber']) {
+              <a [href]="'tel:' + (message['phone'] || message['phoneNumber'])">{{ message['phone'] || message['phoneNumber'] }}</a>
+            }
+          </div>
+        </div>
+
+        <div class="contact-message">
+          <h3>Message</h3>
+          <p>{{ message['message'] || 'Aucun contenu.' }}</p>
+        </div>
+      </section>
+
+      <footer class="editor-actions">
+        <button class="editor-btn" type="button" (click)="back()">Retour</button>
+        <button class="editor-btn" type="button" (click)="markReadState()" [disabled]="busy()">
+          <i class="bi" [class.bi-envelope-open]="isUnread" [class.bi-envelope]="!isUnread" aria-hidden="true"></i>
+          {{ isUnread ? 'Marquer comme lu' : 'Marquer comme non lu' }}
+        </button>
+        <button class="editor-btn editor-btn--danger" type="button" (click)="deleteContact()" [disabled]="busy()">
+          <i class="bi bi-trash" aria-hidden="true"></i>
+          Supprimer
+        </button>
+      </footer>
+    }
+  }
+</main>

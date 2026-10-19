@@ -77,7 +77,8 @@ export class AuthService {
   }
 
   hasDashboardAccess(): boolean {
-    return ['SUPER_ADMIN', 'ADMIN', 'EDITOR', 'COMMUNICATION'].includes(this.currentUser$.value?.role ?? '');
+    const role = this.currentUser$.value?.role.toUpperCase().replace(/-/g, '_');
+    return ['SUPER_ADMIN', 'ADMIN', 'EDITOR', 'COMMUNICATION'].includes(role ?? '');
   }
 
   getToken(): string | null {

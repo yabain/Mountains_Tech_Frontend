@@ -1,15 +1,9 @@
-<section class="res-page">
-  <section class="admin-page-heading">
+<section class="res-page content-admin-page">
+  <section class="admin-page-heading user-page-heading">
     <div>
       <h1><i [class]="'bi ' + config.icon" aria-hidden="true"></i>{{ config.title }}</h1>
       <p>Gérez les {{ config.title.toLowerCase() }} depuis cette interface.</p>
     </div>
-    @if (hasCreate()) {
-      <button class="res-btn res-btn--primary" type="button" (click)="openCreate()">
-        <i class="bi bi-plus-lg" aria-hidden="true"></i>
-        Nouveau
-      </button>
-    }
   </section>
 
   @if (loading()) {
@@ -17,10 +11,24 @@
   } @else if (error()) {
     <div class="admin-state admin-state--error" role="alert">{{ error() }}</div>
   } @else {
-    @if (searchable() || showStatusFilter) {
-      <div class="res-toolbar" [class.res-toolbar--reloading]="reloading()">
+    @if (statusOptions.length) {
+      <div class="user-stats" role="group" aria-label="Filtrer par statut">
+        <button type="button" class="user-stat-card" [class.user-stat-card--selected]="!resourceStatusFilter()" (click)="setResourceStatusFilter('')">
+          <i class="bi bi-grid-fill" aria-hidden="true"></i>
+          <span class="user-stat-copy"><strong>{{ total() }}</strong><span>Total</span></span>
+        </button>
+        @for (status of statusOptions; track status) {
+          <button type="button" class="user-stat-card" [class.user-stat-card--selected]="resourceStatusFilter() === status" (click)="setResourceStatusFilter(status)">
+            <i [class]="'bi ' + resourceStatusIcon(status)" aria-hidden="true"></i>
+            <span class="user-stat-copy"><strong>{{ resourceStatusCount(status) }}</strong><span>{{ resourceStatusLabel(status) }}</span></span>
+          </button>
+        }
+      </div>
+    }
+    @if (searchable() || hasCreate()) {
+      <div class="res-toolbar user-toolbar content-resource-toolbar" [class.res-toolbar--reloading]="reloading()">
         @if (searchable()) {
-          <div class="res-search">
+          <label class="res-search user-search">
             <i class="bi bi-search" aria-hidden="true"></i>
             <input
               type="search"
@@ -29,30 +37,23 @@
               placeholder="Rechercher..."
               aria-label="Rechercher"
             />
-          </div>
-        }
-        @if (showStatusFilter) {
-          <select
-            class="res-select"
-            [value]="selectedStatus()"
-            (change)="onStatusFilterChange($any($event.target).value)"
-            aria-label="Filtrer par statut"
-          >
-            <option value="">Tous les statuts</option>
-            @for (status of statusOptions; track status) {
-              <option [value]="status">{{ status }}</option>
-            }
-          </select>
+          </label>
         }
         <span class="res-count">{{ total() }} élément(s)</span>
+        @if (hasCreate()) {
+          <button class="user-create-button" type="button" (click)="openCreate()">
+            <i class="bi bi-plus-lg" aria-hidden="true"></i>
+            Nouveau hackathon
+          </button>
+        }
       </div>
     }
 
-    @if (!rows().length) {
+    @if (!resourceRows().length) {
       <div class="admin-state">Aucune donnée correspondante.</div>
     } @else {
-      <div class="admin-table-wrap">
-        <table class="admin-table">
+      <div class="admin-table-wrap user-table-wrap content-resource-table-wrap">
+        <table class="admin-table user-table">
           <thead>
             <tr>
               @for (column of config.columns; track column.key) {
@@ -64,7 +65,7 @@
             </tr>
           </thead>
           <tbody>
-            @for (row of rows(); track rowId(row)) {
+            @for (row of resourceRows(); track rowId(row)) {
               <tr>
                 @for (column of config.columns; track column.key) {
                   <td>
@@ -114,21 +115,19 @@
         </table>
       </div>
 
-      @if (isPaginated && pages() > 1) {
-        <div class="res-pagination">
-          <button class="res-nav-btn" type="button" (click)="prevPage()" [disabled]="page() <= 1">
-            <span class="res-nav-btn__icon res-nav-btn__icon--left">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M7.828 11l5.364-5.364-1.414-1.414L4 12l7.778 7.778 1.414-1.414L7.828 13H20v-2z"></path></svg>
-            </span>
-            <span class="res-nav-btn__label">Précédent</span>
-          </button>
-          <span>Page {{ page() }} / {{ pages() }}</span>
-          <button class="res-nav-btn" type="button" (click)="nextPage()" [disabled]="page() >= pages()">
-            <span class="res-nav-btn__label">Suivant</span>
-            <span class="res-nav-btn__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
-            </span>
-          </button>
+      @if (isPaginated) {
+        <div class="res-pagination user-pagination">
+          <label class="user-page-size">
+            Par page
+            <select [value]="limit()" (change)="onPageSizeChange($any($event.target).value)" aria-label="Nombre de hackathons par page">
+              @for (option of pageSizeOptions; track option) { <option [value]="option">{{ option }}</option> }
+            </select>
+          </label>
+          <div class="user-page-controls">
+            <button class="res-btn res-btn--outline" type="button" (click)="prevPage()" [disabled]="page() <= 1"><i class="bi bi-arrow-left" aria-hidden="true"></i> Précédent</button>
+            <span>Page {{ page() }} / {{ pages() }} · {{ total() }} hackathon(s)</span>
+            <button class="res-btn res-btn--outline" type="button" (click)="nextPage()" [disabled]="page() >= pages()">Suivant <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+          </div>
         </div>
       }
     }

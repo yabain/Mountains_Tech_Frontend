@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+import { interval } from 'rxjs';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { DashboardActivityPoint, DashboardDataService, ActivitySection } from './dashboard-data.service';
 
@@ -32,6 +34,18 @@ export class AdminDashboardComponent {
   readonly metrics = this.dataService.metrics;
 
   readonly period = signal<ChartPeriod>('24h');
+  readonly currentDateTime = signal(new Date());
+  readonly currentTimeLabel = computed(() => new Intl.DateTimeFormat('fr-FR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  }).format(this.currentDateTime()));
+  readonly currentDateLabel = computed(() => new Intl.DateTimeFormat('fr-FR', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(this.currentDateTime()));
   readonly categoryFilter = signal('all');
   readonly chart = computed(() => {
     const selectedPeriod = this.period();
@@ -56,6 +70,7 @@ export class AdminDashboardComponent {
 
   constructor() {
     this.dataService.load();
+    interval(1_000).pipe(takeUntilDestroyed()).subscribe(() => this.currentDateTime.set(new Date()));
   }
 
   categories(): { key: string; label: string }[] {

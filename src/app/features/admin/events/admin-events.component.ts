@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RESOURCE_CONFIG, AdminResourceConfig } from '../resource/admin-resource.config';
 import { AdminResourceBase } from '../resource/admin-resource.base';
 import { API_ROUTES } from '../../../core/constants/api-routes';
 
 const config: AdminResourceConfig = {
-  title: 'Evenements',
+  title: 'Événements',
   icon: 'bi-calendar-event-fill',
   endpoint: API_ROUTES.admin.events,
   shape: 'items',
@@ -49,4 +50,14 @@ const config: AdminResourceConfig = {
   providers: [{ provide: RESOURCE_CONFIG, useValue: config }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminEventsComponent extends AdminResourceBase {}
+export class AdminEventsComponent extends AdminResourceBase {
+  private readonly eventsRouter = inject(Router);
+
+  override openCreate(): void {
+    void this.eventsRouter.navigate(['/dashboard/events/new']);
+  }
+
+  override openEdit(row: Record<string, any>): void {
+    void this.eventsRouter.navigate(['/dashboard/events', this.rowId(row), 'edit']);
+  }
+}

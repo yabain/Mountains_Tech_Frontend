@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, output } from '@angular/core';
 
 export type AlertVariant = 'info' | 'success' | 'warning' | 'error';
 export type AlertSize = 'small' | 'medium' | 'large';
@@ -37,7 +37,23 @@ export class AlertComponent {
   /** Emitted when the alert is auto-hidden */
   autoClosed = output<void>();
 
-  private hideTimeout: any;
+  private hideTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  constructor() {
+    effect((onCleanup) => {
+      const duration = this.autoHide();
+      if (duration === null || duration <= 0) {
+        return;
+      }
+
+      this.hideTimeout = setTimeout(() => {
+        this.autoClosed.emit();
+        this.hideTimeout = null;
+      }, duration);
+
+      onCleanup(() => this.clearHideTimeout());
+    });
+  }
 
   /** Dismiss the alert */
   dismiss(): void {
@@ -45,28 +61,12 @@ export class AlertComponent {
     this.clearHideTimeout();
   }
 
-  /** Auto-hide after duration */
-  private startAutoHide(): void {
-    this.clearHideTimeout();
-    const duration = this.autoHide();
-    if (duration && duration > 0) {
-      this.hideTimeout = setTimeout(() => {
-        this.autoClosed.emit();
-        this.hideTimeout = null;
-      }, duration);
-    }
-  }
-
   /** Clear any pending auto-hide timeout */
   private clearHideTimeout(): void {
-    if (this.hideTimeout) {
+    if (this.hideTimeout !== null) {
       clearTimeout(this.hideTimeout);
       this.hideTimeout = null;
     }
   }
-
-  /** Track changes for auto-hide */
-  protected onVariantChange(): void {
-    this.startAutoHide();
-  }
 }
+

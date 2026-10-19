@@ -58,9 +58,7 @@
               @for (column of config.columns; track column.key) {
                 <th>{{ column.label }}</th>
               }
-              @if (showActionsColumn()) {
-                <th class="res-th-actions">Actions</th>
-              }
+              <th class="res-th-actions">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -75,8 +73,10 @@
                     }
                   </td>
                 }
-                @if (showActionsColumn()) {
-                  <td class="res-actions">
+                <td class="res-actions">
+                  <button class="res-icon-btn" type="button" title="Voir le message" aria-label="Voir le message" (click)="openContact(row)">
+                    <i class="bi bi-eye" aria-hidden="true"></i>
+                  </button>
                     @if (hasEdit()) {
                       <button class="res-icon-btn" type="button" title="Modifier" aria-label="Modifier" (click)="openEdit(row)">
                         <i class="bi bi-pencil" aria-hidden="true"></i>
@@ -106,8 +106,7 @@
                         <i class="bi bi-trash" aria-hidden="true"></i>
                       </button>
                     }
-                  </td>
-                }
+                </td>
               </tr>
             }
           </tbody>
