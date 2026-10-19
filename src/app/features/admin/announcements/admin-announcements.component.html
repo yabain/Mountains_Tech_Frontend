@@ -1,233 +1,109 @@
-<section class="res-page">
-  <section class="admin-page-heading">
+<section class="res-page announcements-page">
+  <header class="admin-page-heading announcements-heading">
     <div>
-      <h1><i [class]="'bi ' + config.icon" aria-hidden="true"></i>{{ config.title }}</h1>
-      <p>Gérez les {{ config.title.toLowerCase() }} depuis cette interface.</p>
+      <h1><i class="bi bi-megaphone-fill" aria-hidden="true"></i>Annonces</h1>
+      <p>Envoyez des annonces par e-mail ou WhatsApp à vos comptes et prospects.</p>
     </div>
-    @if (hasCreate()) {
-      <button class="res-btn res-btn--primary" type="button" (click)="openCreate()">
-        <i class="bi bi-plus-lg" aria-hidden="true"></i>
-        Nouveau
+    <div class="announcements-actions">
+      <button class="announcement-button announcement-button--outline" type="button" (click)="goToEmailSettings()">
+        <i class="bi bi-gear" aria-hidden="true"></i>Réglages e-mail
       </button>
-    }
-  </section>
+      <button class="announcement-button announcement-button--outline" type="button" disabled title="Le canal WhatsApp n’est pas encore configuré.">
+        <i class="bi bi-whatsapp" aria-hidden="true"></i>Annonce WhatsApp
+      </button>
+      <button class="announcement-button announcement-button--primary" type="button" (click)="openCreate()">
+        <i class="bi bi-envelope-fill" aria-hidden="true"></i>Annonce e-mail
+      </button>
+    </div>
+  </header>
+
+  <div class="announcement-stats" role="group" aria-label="Filtrer les annonces par statut">
+    <button class="announcement-stat announcement-stat--total" type="button" [class.is-selected]="!selectedStatus()" (click)="setStatusFilter('')">
+      <strong>{{ announcementStats().total }}</strong><span>Total</span>
+    </button>
+    <button class="announcement-stat announcement-stat--draft" type="button" [class.is-selected]="selectedStatus() === 'DRAFT'" (click)="setStatusFilter('DRAFT')">
+      <strong>{{ announcementStats().drafts }}</strong><span>Brouillons</span>
+    </button>
+    <button class="announcement-stat announcement-stat--scheduled" type="button" [class.is-selected]="selectedStatus() === 'SCHEDULED'" (click)="setStatusFilter('SCHEDULED')">
+      <strong>{{ announcementStats().scheduled }}</strong><span>Programmées</span>
+    </button>
+    <button class="announcement-stat announcement-stat--sending" type="button" [class.is-selected]="selectedStatus() === 'SENDING'" (click)="setStatusFilter('SENDING')">
+      <strong>{{ announcementStats().sending }}</strong><span>En cours</span>
+    </button>
+    <button class="announcement-stat announcement-stat--sent" type="button" [class.is-selected]="selectedStatus() === 'SENT'" (click)="setStatusFilter('SENT')">
+      <strong>{{ announcementStats().sent }}</strong><span>Envoyées</span>
+    </button>
+    <button class="announcement-stat announcement-stat--failed" type="button" [class.is-selected]="selectedStatus() === 'FAILED'" (click)="setStatusFilter('FAILED')">
+      <strong>{{ announcementStats().failed }}</strong><span>Échecs</span>
+    </button>
+  </div>
 
   @if (loading()) {
-    <div class="admin-state">Chargement des données...</div>
+    <div class="admin-state">Chargement des annonces...</div>
   } @else if (error()) {
     <div class="admin-state admin-state--error" role="alert">{{ error() }}</div>
   } @else {
-    @if (searchable() || showStatusFilter) {
-      <div class="res-toolbar" [class.res-toolbar--reloading]="reloading()">
-        @if (searchable()) {
-          <div class="res-search">
-            <i class="bi bi-search" aria-hidden="true"></i>
-            <input
-              type="search"
-              [value]="search()"
-              (input)="onSearchChange($any($event.target).value)"
-              placeholder="Rechercher..."
-              aria-label="Rechercher"
-            />
-          </div>
-        }
-        @if (showStatusFilter) {
-          <select
-            class="res-select"
-            [value]="selectedStatus()"
-            (change)="onStatusFilterChange($any($event.target).value)"
-            aria-label="Filtrer par statut"
-          >
-            <option value="">Tous les statuts</option>
-            @for (status of statusOptions; track status) {
-              <option [value]="status">{{ status }}</option>
-            }
-          </select>
-        }
-        <span class="res-count">{{ total() }} élément(s)</span>
-      </div>
-    }
+    <div class="announcements-toolbar" [class.is-reloading]="reloading()">
+      <label class="announcement-search">
+        <i class="bi bi-search" aria-hidden="true"></i>
+        <input type="search" [value]="search()" (input)="onSearchChange($any($event.target).value)" placeholder="Rechercher par sujet..." aria-label="Rechercher une annonce" />
+      </label>
+      <select class="announcement-filter" [value]="selectedStatus()" (change)="onStatusFilterChange($any($event.target).value)" aria-label="Filtrer par statut">
+        <option value="">Tous les statuts</option>
+        @for (status of statusOptions; track status) { <option [value]="status">{{ status }}</option> }
+      </select>
+      <select class="announcement-filter" [value]="audienceFilter()" (change)="audienceFilter.set($any($event.target).value)" aria-label="Filtrer par destinataires">
+        <option value="">Tous les destinataires</option>
+        <option value="ALL">Tous</option>
+        <option value="MEMBERS">Membres</option>
+        <option value="NEWSLETTER">Newsletter</option>
+        <option value="EVENT_PARTICIPANTS">Participants aux événements</option>
+        <option value="HACKATHON_TEAMS">Équipes hackathon</option>
+        <option value="CUSTOM">Personnalisé</option>
+      </select>
+    </div>
 
-    @if (!rows().length) {
-      <div class="admin-state">Aucune donnée correspondante.</div>
-    } @else {
+    <div class="announcements-table-card">
       <div class="admin-table-wrap">
-        <table class="admin-table">
+        <table class="admin-table announcements-table">
           <thead>
-            <tr>
-              @for (column of config.columns; track column.key) {
-                <th>{{ column.label }}</th>
-              }
-              @if (showActionsColumn()) {
-                <th class="res-th-actions">Actions</th>
-              }
-            </tr>
+            <tr><th>Sujet</th><th>Canal</th><th>Destinataires</th><th>Statut</th><th>Progression</th><th>Date</th><th class="res-th-actions">Actions</th></tr>
           </thead>
           <tbody>
-            @for (row of rows(); track rowId(row)) {
+            @for (row of visibleAnnouncements(); track rowId(row)) {
               <tr>
-                @for (column of config.columns; track column.key) {
-                  <td>
-                    @if (column.type === 'status') {
-                      <span [class]="statusClass(row[column.key])">{{ cellValue(row, column) }}</span>
-                    } @else {
-                      {{ cellValue(row, column) }}
-                    }
-                  </td>
-                }
-                @if (showActionsColumn()) {
-                  <td class="res-actions">
-                    @if (hasEdit()) {
-                      <button class="res-icon-btn" type="button" title="Modifier" aria-label="Modifier" (click)="openEdit(row)">
-                        <i class="bi bi-pencil" aria-hidden="true"></i>
-                      </button>
-                    }
-                    @if (hasStatusControl) {
-                      <select
-                        class="res-status-select"
-                        [value]="rowStatus(row)"
-                        [disabled]="statusBusyId() === rowId(row)"
-                        (change)="changeStatus(row, $any($event.target).value)"
-                        aria-label="Changer le statut"
-                      >
-                        @for (status of statusOptions; track status) {
-                          <option [value]="status">{{ status === rowStatus(row) ? 'Statut : ' + status : status }}</option>
-                        }
-                      </select>
-                    }
-                    @if (config.deletable) {
-                      <button
-                        class="res-icon-btn res-icon-btn--danger"
-                        type="button"
-                        title="Supprimer"
-                        aria-label="Supprimer"
-                        (click)="openDelete(row)"
-                      >
-                        <i class="bi bi-trash" aria-hidden="true"></i>
-                      </button>
-                    }
-                  </td>
-                }
+                <td class="announcement-subject">{{ row['subject'] ?? 'Sans sujet' }}</td>
+                <td><span class="announcement-channel"><i class="bi bi-envelope" aria-hidden="true"></i>E-mail</span></td>
+                <td>{{ audienceLabel(row) }} <span class="announcement-recipient-count">({{ row['recipientCount'] ?? 0 }})</span></td>
+                <td><span [class]="announcementStatusClass(row)">{{ announcementStatus(row) }}</span></td>
+                <td>{{ announcementProgress(row) }}</td>
+                <td>{{ announcementDate(row) }}</td>
+                <td class="res-actions">
+                  <button class="res-icon-btn" type="button" title="Modifier l’annonce" aria-label="Modifier l’annonce" [disabled]="row['status'] !== 'DRAFT'" (click)="editAnnouncement(row)">
+                    <i class="bi bi-pencil" aria-hidden="true"></i>
+                  </button>
+                </td>
               </tr>
+            } @empty {
+              <tr><td class="announcements-empty" colspan="7">Aucune annonce pour le moment.</td></tr>
             }
           </tbody>
         </table>
       </div>
-
-      @if (isPaginated && pages() > 1) {
-        <div class="res-pagination">
-          <button class="res-btn res-btn--outline" type="button" (click)="prevPage()" [disabled]="page() <= 1">
-            <i class="bi bi-chevron-left" aria-hidden="true"></i>
-            Précédent
-          </button>
-          <span>Page {{ page() }} / {{ pages() }}</span>
-          <button class="res-btn res-btn--outline" type="button" (click)="nextPage()" [disabled]="page() >= pages()">
-            Suivant
-            <i class="bi bi-chevron-right" aria-hidden="true"></i>
-          </button>
-        </div>
-      }
-    }
-  }
-  @if (modalMode() !== 'none') {
-    <div class="res-overlay" (click)="closeModal()">
-      <div class="res-modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="res-modal-title">
-        <header class="res-modal__header">
-          <h2 id="res-modal-title">{{ modalTitle() }}</h2>
-          <button class="res-icon-btn" type="button" (click)="closeModal()" aria-label="Fermer">
-            <i class="bi bi-x-lg" aria-hidden="true"></i>
-          </button>
-        </header>
-
-        @if (modalMode() === 'delete') {
-          <p class="res-modal__text">
-            Voulez-vous vraiment supprimer cet élément ? Cette action est irréversible.
-          </p>
-        } @else {
-          <form (ngSubmit)="submitForm()">
-            <div class="res-modal__grid">
-              @for (field of fieldsForForm(); track field.key) {
-                <div class="res-field" [class.res-field--full]="field.type === 'textarea' || field.type === 'tags'">
-                  <label class="res-field__label" [for]="'f-' + field.key">
-                    {{ field.label }}{{ field.required ? ' *' : '' }}
-                  </label>
-
-                  @switch (field.type) {
-                    @case ('textarea') {
-                      <textarea
-                        id="f-{{ field.key }}"
-                        class="res-field__input res-field__input--textarea"
-                        [(ngModel)]="form()[field.key]"
-                        name="{{ field.key }}"
-                        [placeholder]="field.placeholder ?? ''"
-                        rows="4"
-                      ></textarea>
-                    }
-                    @case ('select') {
-                      <select id="f-{{ field.key }}" class="res-field__input" [(ngModel)]="form()[field.key]" name="{{ field.key }}">
-                        <option value="">—</option>
-                        @for (option of field.options ?? []; track option) {
-                          <option [value]="option">{{ option }}</option>
-                        }
-                      </select>
-                    }
-                    @case ('tags') {
-                      <input
-                        id="f-{{ field.key }}"
-                        class="res-field__input"
-                        type="text"
-                        [(ngModel)]="form()[field.key]"
-                        name="{{ field.key }}"
-                        placeholder="{{ field.placeholder ?? 'Séparés par des virgules' }}"
-                      />
-                    }
-                    @default {
-                      <input
-                        id="f-{{ field.key }}"
-                        class="res-field__input"
-                        [type]="field.type === 'datetime' ? 'datetime-local' : field.type"
-                        [(ngModel)]="form()[field.key]"
-                        name="{{ field.key }}"
-                        [placeholder]="field.placeholder ?? ''"
-                        [required]="field.required || false"
-                      />
-                    }
-                  }
-                </div>
-              }
-            </div>
-
-            @if (error()) {
-              <p class="res-error" role="alert">{{ error() }}</p>
-            }
-
-            <footer class="res-modal__footer">
-              <button type="button" class="res-btn res-btn--outline" (click)="closeModal()">Annuler</button>
-              <button type="submit" class="res-btn res-btn--primary" [disabled]="saving()">
-                @if (saving()) {
-                  <span class="res-spinner" aria-hidden="true"></span>
-                }
-                {{ modalMode() === 'edit' ? 'Enregistrer' : 'Créer' }}
-              </button>
-            </footer>
-          </form>
-        }
-
-        @if (modalMode() === 'delete') {
-          @if (error()) {
-            <p class="res-error" role="alert">{{ error() }}</p>
-          }
-          <footer class="res-modal__footer">
-            <button type="button" class="res-btn res-btn--outline" (click)="closeModal()">Annuler</button>
-            <button type="button" class="res-btn res-btn--danger" (click)="confirmDelete()" [disabled]="saving()">
-              @if (saving()) {
-                <span class="res-spinner" aria-hidden="true"></span>
-              }
-              Supprimer
-            </button>
-          </footer>
-        }
-      </div>
     </div>
+
+    <footer class="announcements-pagination">
+      <label>Par page
+        <select [value]="limit()" (change)="onPageSizeChange($any($event.target).value)" aria-label="Nombre d’annonces par page">
+          @for (option of pageSizeOptions; track option) { <option [value]="option">{{ option }}</option> }
+        </select>
+      </label>
+      <div class="announcements-page-controls">
+        <button class="res-btn res-btn--outline" type="button" (click)="prevPage()" [disabled]="page() <= 1"><i class="bi bi-arrow-left" aria-hidden="true"></i> Précédent</button>
+        <span>Page {{ page() }} / {{ pages() }} · {{ total() }} annonce(s)</span>
+        <button class="res-btn res-btn--outline" type="button" (click)="nextPage()" [disabled]="page() >= pages()">Suivant <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </footer>
+    <p class="announcements-note">Les envois sont traités par vagues afin d’éviter tout blocage par les serveurs de messagerie ou WhatsApp.</p>
   }
 </section>

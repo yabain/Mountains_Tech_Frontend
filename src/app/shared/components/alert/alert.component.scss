@@ -1,0 +1,124 @@
+.alert-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--adm-border);
+  background: var(--adm-card);
+  color: var(--adm-foreground);
+  font-size: 0.95rem;
+  transition: background 150ms, border-color 150ms, color 150ms;
+}
+
+.alert-wrapper--dismissible {
+  padding-right: 40px;
+}
+
+.alert-wrapper--auto-hide {
+  animation: alertSlideIn 300ms ease-out;
+}
+
+/* Variants */
+.alert-wrapper--info {
+  border-color: var(--adm-muted);
+  background: var(--adm-card);
+  color: var(--adm-foreground);
+}
+
+.alert-wrapper--success {
+  border-color: var(--adm-success);
+  background: var(--adm-success-light);
+  color: var(--adm-success);
+}
+
+.alert-wrapper--warning {
+  border-color: var(--adm-primary);
+  background: #fffbf0;
+  color: var(--adm-primary);
+}
+
+.alert-wrapper--error {
+  border-color: var(--adm-brand-accent);
+  background: #fef2f2;
+  color: var(--adm-brand-accent);
+}
+
+/* Icon */
+.alert-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: currentColor;
+}
+
+/* Content */
+.alert-content {
+  flex: 1;
+  min-width: 0;
+
+  .alert-title {
+    margin: 0 0 4px;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .alert-message {
+    margin: 0;
+    line-height: 1.5;
+    font-size: 0.875rem;
+  }
+}
+
+/* Actions */
+.alert-actions {
+  flex-shrink: 0;
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .alert-close-btn {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--adm-muted-foreground);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 150ms;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--adm-foreground);
+    }
+  }
+}
+
+/* Animations */
+@keyframes alertSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .alert-wrapper {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .alert-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

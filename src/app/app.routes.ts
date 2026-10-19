@@ -69,12 +69,14 @@ export const routes: Routes = [
       { path: 'partners', data: { permission: 'partners' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/partners/admin-partners.component').then((m) => m.AdminPartnersComponent) },
       { path: 'media', data: { permission: 'media' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/media/admin-media.component').then((m) => m.AdminMediaComponent) },
       { path: 'newsletter', data: { permission: 'newsletter' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/newsletter/admin-newsletter.component').then((m) => m.AdminNewsletterComponent) },
+      { path: 'email-settings', data: { permission: 'newsletter' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/email-settings/admin-email-settings.component').then((m) => m.AdminEmailSettingsComponent) },
       { path: 'announcements/new', data: { permission: 'announcements' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/announcements/announcement-editor.component').then((m) => m.AnnouncementEditorComponent) },
       { path: 'announcements/:id/edit', data: { permission: 'announcements' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/announcements/announcement-editor.component').then((m) => m.AnnouncementEditorComponent) },
       { path: 'announcements', data: { permission: 'announcements' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/announcements/admin-announcements.component').then((m) => m.AdminAnnouncementsComponent) },
       { path: 'settings', data: { permission: 'settings' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/settings/admin-settings.component').then((m) => m.AdminSettingsComponent) }
     ]
   },
+  { path: 'admin/dashboard', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'admin', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: '' }
 ];

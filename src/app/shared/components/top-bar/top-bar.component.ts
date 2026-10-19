@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, input, output, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService, AuthUser } from '../../../core/auth/services/auth.service';
@@ -32,6 +32,7 @@ export class TopBarComponent {
   readonly currentUser$ = this.authService.currentUser$;
   readonly accountMenuOpen = signal(false);
   readonly profileDetailsOpen = signal(false);
+  readonly welcomeShown = signal(false);
 
   userInitials(user: AuthUser | null): string {
     if (!user) {
@@ -86,5 +87,9 @@ export class TopBarComponent {
   @HostListener('document:keydown.escape')
   closeOnEscape(): void {
     this.closeAccountMenu();
+  }
+
+  onWelcomeAutoClosed(): void {
+    this.welcomeShown.set(true);
   }
 }

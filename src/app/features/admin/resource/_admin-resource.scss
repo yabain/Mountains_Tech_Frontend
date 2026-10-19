@@ -5,6 +5,8 @@
 /* ===== Page heading ===== */
 .res-page {
   min-width: 0;
+  color: #172838;
+  font-size: 15px;
 }
 
 .admin-page-heading {
@@ -34,8 +36,8 @@
 
 .admin-page-heading p {
   margin: 5px 0 0;
-  color: var(--adm-muted-fg, #6c757d);
-  font-size: 13px;
+  color: var(--adm-muted-fg, #4f6070);
+  font-size: 14px;
 }
 
 /* ===== Toolbar ===== */
@@ -793,6 +795,17 @@
   white-space: nowrap;
 }
 
+.admin-table { font-size: 14px; }
+.admin-table th { font-size: 12px; }
+.admin-table td { font-size: 13px; }
+.res-btn { min-height: 40px; }
+.res-icon-btn { width: 36px; height: 36px; font-size: 15px; }
+.user-avatar { flex-basis: 46px; width: 46px; height: 46px; font-size: 13px; }
+.user-identity-info strong { font-size: 14px; }
+.user-identity-info > span { font-size: 13px; }
+.user-role-badge, .user-notification-badge, .user-status-badge { min-height: 26px; font-size: 12px; }
+.user-status-action, .user-edit-action { min-height: 36px; padding: 6px 10px; font-size: 13px; }
+
 .user-pagination {
   flex-wrap: wrap;
   padding: 18px 0 10px;
@@ -851,43 +864,48 @@
     padding: 12px;
   }
 
-  .admin-table thead {
-    display: none;
+  .admin-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .admin-table tbody,
-  .admin-table tr {
-    display: block;
-    width: 100%;
+  .admin-table {
+    display: table;
+    min-width: 620px;
   }
 
-  .admin-table tr {
-    position: relative;
-    padding: 14px 12px;
-    border-bottom: 1px solid var(--adm-border, #dee2e6);
-  }
-
+  .admin-table thead { display: table-header-group; }
+  .admin-table tbody { display: table-row-group; }
+  .admin-table tr { display: table-row; padding: 0; }
+  .admin-table th,
   .admin-table td {
-    display: block;
-    border: 0;
-    min-width: 0;
-    padding: 5px 0;
-    max-width: none;
-  }
-
-  .admin-table td:first-child {
-    padding-right: 0;
-    width: 100%;
-    font-weight: 500;
-  }
-
-  .admin-table td:last-child {
-    position: static;
-    padding-top: 10px;
+    display: table-cell;
+    max-width: 280px;
+    padding: 11px 10px;
+    white-space: normal;
   }
 
   .res-actions {
-    justify-content: flex-start;
+    justify-content: flex-end;
+  }
+
+  .res-icon-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+
+  .user-status-action,
+  .user-edit-action {
+    min-height: 38px;
+    padding: 7px 10px;
+    font-size: 13px;
+  }
+
+  .user-avatar {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
   }
 
   .user-stats {

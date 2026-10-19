@@ -23,6 +23,20 @@ export interface ActivitySection {
   total: number;
 }
 
+export interface DashboardMetrics {
+  unreadMessages: number | null;
+  announcements: number | null;
+  resources: number | null;
+  programs: number | null;
+}
+
+export interface DashboardActivityPoint {
+  label: string;
+  value: number;
+  x: number;
+  y: number;
+}
+
 interface CategoryDef {
   key: string;
   label: string;
@@ -86,6 +100,13 @@ const STATUS_TONE: Record<string, ActivitySlotTone> = {
 @Injectable({ providedIn: 'root' })
 export class DashboardDataService {
   readonly sections = signal<ActivitySection[]>([]);
+  readonly metrics = signal<DashboardMetrics>({
+    unreadMessages: null,
+    announcements: null,
+    resources: null,
+    programs: null
+  });
+  readonly activityRows = signal<Record<string, unknown>[]>([]);
   readonly loading = signal(false);
   readonly error = signal('');
 
@@ -109,7 +130,14 @@ export class DashboardDataService {
 
     forkJoin(requests).subscribe({
       next: (results) => {
-        this.sections.set(CATEGORIES.map((category, index) => this.buildSection(category, results[index])));
+        this.sections.set(CATEGORIES.map((category, index) => this.buildSection(category, results[index].items, results[index].total)));
+        this.activityRows.set(results.flatMap((result) => result.items));
+        this.metrics.set({
+          unreadMessages: this.countStatus(results[CATEGORIES.findIndex(({ key }) => key === 'contacts')], 'NEW'),
+          announcements: results[CATEGORIES.findIndex(({ key }) => key === 'announcements')].total,
+          resources: results[CATEGORIES.findIndex(({ key }) => key === 'media')].total,
+          programs: results[CATEGORIES.findIndex(({ key }) => key === 'events')].total
+        });
         this.loading.set(false);
       },
       error: () => {
@@ -128,14 +156,68 @@ export class DashboardDataService {
     return STATUS_TONE[String(status ?? '').toUpperCase()] ?? 'neutral';
   }
 
-  private fetchRows(endpoint: string): Observable<Record<string, unknown>[]> {
-    return this.api.get<unknown>(endpoint, { limit: 5 }).pipe(
-      map((response) => this.extractItems(response)),
-      catchError(() => of([] as Record<string, unknown>[]))
+  activityFor(period: '24h' | '7d' | '30d' | '12m'): DashboardActivityPoint[] {
+    const now = new Date();
+    const values: { label: string; start: Date; end: Date }[] = [];
+
+    if (period === '24h') {
+      for (let index = 23; index >= 0; index -= 1) {
+        const start = new Date(now);
+        start.setMinutes(0, 0, 0);
+        start.setHours(start.getHours() - index);
+        const end = new Date(start);
+        end.setHours(end.getHours() + 1);
+        values.push({ label: start.toLocaleTimeString('fr-FR', { hour: '2-digit' }), start, end });
+      }
+    } else if (period === '12m') {
+      for (let index = 11; index >= 0; index -= 1) {
+        const start = new Date(now.getFullYear(), now.getMonth() - index, 1);
+        const end = new Date(now.getFullYear(), now.getMonth() - index + 1, 1);
+        values.push({ label: start.toLocaleDateString('fr-FR', { month: 'short' }), start, end });
+      }
+    } else {
+      const days = period === '7d' ? 7 : 30;
+      for (let index = days - 1; index >= 0; index -= 1) {
+        const start = new Date(now);
+        start.setHours(0, 0, 0, 0);
+        start.setDate(start.getDate() - index);
+        const end = new Date(start);
+        end.setDate(end.getDate() + 1);
+        values.push({
+          label: period === '7d'
+            ? start.toLocaleDateString('fr-FR', { weekday: 'short' })
+            : start.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' }),
+          start,
+          end
+        });
+      }
+    }
+
+    const rows = this.activityRows();
+    const counts = values.map(({ start, end }) => rows.filter((row) => {
+      const time = new Date(this.dateOf(row)).getTime();
+      return Number.isFinite(time) && time >= start.getTime() && time < end.getTime();
+    }).length);
+    const max = Math.max(...counts, 1);
+    const chartHeight = 190;
+    const chartWidth = 1000;
+
+    return values.map((bucket, index) => ({
+      label: bucket.label,
+      value: counts[index],
+      x: values.length === 1 ? chartWidth / 2 : 36 + (index / (values.length - 1)) * (chartWidth - 50),
+      y: chartHeight - (counts[index] / max) * chartHeight
+    }));
+  }
+
+  private fetchRows(endpoint: string): Observable<{ items: Record<string, unknown>[]; total: number }> {
+    return this.api.get<unknown>(endpoint, { limit: 100 }).pipe(
+      map((response) => this.extractPage(response)),
+      catchError(() => of({ items: [] as Record<string, unknown>[], total: 0 }))
     );
   }
 
-  private buildSection(category: CategoryDef, rows: Record<string, unknown>[]): ActivitySection {
+  private buildSection(category: CategoryDef, rows: Record<string, unknown>[], total: number): ActivitySection {
     const sorted = [...rows]
       .map((row) => ({ row, at: new Date(this.dateOf(row)).getTime() }))
       .sort((a, b) => b.at - a.at)
@@ -147,8 +229,12 @@ export class DashboardDataService {
       icon: category.icon,
       link: category.link,
       entries: sorted.slice(0, 2).map((row) => this.mapEntry(category, row)),
-      total: sorted.length
+      total
     };
+  }
+
+  private countStatus(result: { items: Record<string, unknown>[]; total: number }, status: string): number {
+    return result.items.filter((row) => String(row['status'] ?? '').toUpperCase() === status).length;
   }
 
   private mapEntry(category: CategoryDef, row: Record<string, unknown>): ActivityEntry {
@@ -269,20 +355,25 @@ export class DashboardDataService {
     return `Il y a ${days} j`;
   }
 
-  private extractItems(response: unknown): Record<string, unknown>[] {
+  private extractPage(response: unknown): { items: Record<string, unknown>[]; total: number } {
     if (Array.isArray(response)) {
-      return response.filter((item) => this.isRecord(item));
+      const items = response.filter((item) => this.isRecord(item));
+      return { items, total: items.length };
     }
     if (this.isRecord(response)) {
       const data = response['data'];
       if (Array.isArray(data)) {
-        return data.filter((item) => this.isRecord(item));
+        const items = data.filter((item) => this.isRecord(item));
+        return { items, total: items.length };
       }
       if (this.isRecord(data) && Array.isArray(data['items'])) {
-        return data['items'].filter((item) => this.isRecord(item));
+        const items = data['items'].filter((item) => this.isRecord(item));
+        const pagination = this.isRecord(data['pagination']) ? data['pagination'] : null;
+        const rawTotal = pagination?.['total'] ?? data['total'];
+        return { items, total: typeof rawTotal === 'number' ? rawTotal : items.length };
       }
     }
-    return [];
+    return { items: [], total: 0 };
   }
 
   private isRecord(value: unknown): value is Record<string, unknown> {

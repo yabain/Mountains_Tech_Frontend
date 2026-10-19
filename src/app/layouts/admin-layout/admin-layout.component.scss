@@ -4,29 +4,29 @@
 
 .admin-shell {
   --adm-background: oklch(0.9754 0.0045 236.5);
-  --adm-foreground: oklch(0.25 0.022 246);
+  --adm-foreground: #172838;
   --adm-card: oklch(1 0 0);
-  --adm-primary: oklch(0.383 0.114 251.5);
-  --adm-secondary: #e8f1f8;
+  --adm-primary: #00447e;
+  --adm-secondary: #dcecf8;
   --adm-muted: oklch(0.96 0.009 239);
-  --adm-muted-foreground: oklch(0.55 0.019 243);
+  --adm-muted-foreground: #4f6070;
   --adm-border: oklch(0.92 0.012 240);
-  --adm-sidebar: oklch(0.28 0.052 244);
-  --adm-sidebar-active: oklch(0.45 0.092 245);
-  --adm-sidebar-foreground: oklch(0.825 0.025 238);
-  --adm-sidebar-muted: oklch(0.672 0.044 239);
+  --adm-sidebar: #102c43;
+  --adm-sidebar-active: #174f7b;
+  --adm-sidebar-foreground: #eaf2f8;
+  --adm-sidebar-muted: #c1d0dc;
   --adm-inverse: oklch(1 0 0);
   --adm-brand-accent: #00447e;
-  --adm-navigation-fade: linear-gradient(to bottom, transparent, oklch(0.28 0.052 244) 88%);
-  --adm-panel-shadow: 0 4px 12px oklch(0.28 0.052 244 / 0.12);
-  --adm-shadow-sm: 0 4px 20px -4px oklch(0.28 0.052 244 / 0.1);
+  --adm-navigation-fade: linear-gradient(to bottom, transparent, #102c43 88%);
+  --adm-panel-shadow: 0 4px 12px rgb(16 44 67 / 18%);
+  --adm-shadow-sm: 0 4px 20px -4px rgb(16 44 67 / 14%);
 
   display: flex;
   min-height: 100vh;
   background: var(--adm-background);
   color: var(--adm-foreground);
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: 0;
 }
 
@@ -435,7 +435,7 @@
   }
 
   .admin-overlay {
-    display: block;
+    display: none;
     position: fixed;
     inset: 0;
     z-index: 30;
@@ -446,8 +446,33 @@
     height: 100%;
   }
 
+  .admin-shell--sidebar-open .admin-overlay {
+    display: block;
+  }
+
+  .admin-main {
+    width: 100%;
+    min-width: 0;
+  }
+
   .admin-page {
     padding: 20px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-page {
+    padding: 16px 12px 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-sidebar,
+  .admin-nav a,
+  .admin-collapse,
+  .admin-logout,
+  .admin-util-button {
+    transition: none !important;
   }
 }
 

@@ -1,0 +1,82 @@
+<section class="email-settings-page">
+  <header class="email-page-heading">
+    <h1><i class="bi bi-send" aria-hidden="true"></i>Paramètres e-mail</h1>
+    <p>Configurez le serveur SMTP, envoyez des e-mails de test et consultez les statistiques.</p>
+  </header>
+
+  <div class="email-overview">
+    <main class="email-main-column">
+      <section class="email-panel smtp-panel">
+        <button class="smtp-toggle" type="button" [attr.aria-expanded]="smtpExpanded()" (click)="toggleSmtp()">
+          <span><i class="bi bi-chevron-right" [class.is-open]="smtpExpanded()" aria-hidden="true"></i></span>
+          <strong>Configuration SMTP</strong>
+          <small>Paramètres de connexion au serveur de messagerie</small>
+        </button>
+        @if (smtpExpanded()) {
+          <div class="smtp-details">
+            <i class="bi bi-shield-lock" aria-hidden="true"></i>
+            <p>La configuration SMTP est fournie par l’environnement serveur afin de protéger les identifiants de messagerie.</p>
+          </div>
+        }
+      </section>
+
+      <section class="email-panel email-test-panel">
+        <h2>Envoyer un e-mail test</h2>
+        <form class="email-test-form">
+          <label>
+            <span>Destinataire</span>
+            <input type="email" name="recipient" [(ngModel)]="testEmail" placeholder="nom@organisation.com" required />
+          </label>
+          <label>
+            <span>Sujet</span>
+            <input type="text" name="subject" [(ngModel)]="testSubject" required />
+          </label>
+          <label class="email-test-message">
+            <span>Message</span>
+            <textarea name="message" [(ngModel)]="testMessage" rows="4" required></textarea>
+          </label>
+          <button type="button" class="email-action-button" disabled title="L’API d’envoi d’e-mail test n’est pas disponible.">
+            <i class="bi bi-send" aria-hidden="true"></i>Envoyer le test
+          </button>
+          <small class="email-api-note">L’envoi de test sera activé lorsque l’API correspondante sera disponible.</small>
+        </form>
+      </section>
+    </main>
+
+    <aside class="email-panel email-statistics">
+      <h2>Statistiques</h2>
+      <div class="email-stat-cards">
+        <div class="email-stat email-stat--sent"><strong>—</strong><span>Envoyés</span></div>
+        <div class="email-stat email-stat--failed"><strong>—</strong><span>Échecs</span></div>
+        <div class="email-stat email-stat--month"><strong>—</strong><span>Mois</span></div>
+      </div>
+      <div class="email-chart-placeholder" role="img" aria-label="Les statistiques de messagerie ne sont pas disponibles">
+        <i class="bi bi-bar-chart-line" aria-hidden="true"></i>
+        <span>Les statistiques apparaîtront ici lorsque l’API de messagerie sera disponible.</span>
+      </div>
+      <div class="email-chart-legend"><span></span>Envoyés <span></span>Échecs</div>
+    </aside>
+  </div>
+
+  <section class="email-panel outgoing-panel">
+    <h2>E-mails sortants</h2>
+    <label class="outgoing-search">
+      <i class="bi bi-search" aria-hidden="true"></i>
+      <input type="search" [ngModel]="emailSearch()" (ngModelChange)="emailSearch.set($event)" name="outgoingSearch" placeholder="Rechercher par destinataire ou sujet..." aria-label="Rechercher dans les e-mails sortants" />
+    </label>
+    <div class="outgoing-table-wrap">
+      <table class="outgoing-table">
+        <thead><tr><th>Type</th><th>Destinataire</th><th>Sujet</th><th>Date</th><th>Statut</th></tr></thead>
+        <tbody><tr><td class="outgoing-empty" colspan="5">Aucun e-mail sortant à afficher.</td></tr></tbody>
+      </table>
+    </div>
+    <footer class="outgoing-pagination">
+      <label>Par page <select aria-label="Nombre d’e-mails par page" disabled><option>10</option></select></label>
+      <div>
+        <button type="button" disabled><i class="bi bi-arrow-left" aria-hidden="true"></i> Précédent</button>
+        <span>Journal indisponible</span>
+        <button type="button" disabled>Suivant <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </footer>
+  </section>
+</section>

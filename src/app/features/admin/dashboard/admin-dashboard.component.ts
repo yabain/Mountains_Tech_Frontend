@@ -2,23 +2,15 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/auth/services/auth.service';
-import { DashboardDataService, ActivitySection } from './dashboard-data.service';
+import { DashboardActivityPoint, DashboardDataService, ActivitySection } from './dashboard-data.service';
 
-interface BarDatum {
-  day: number;
-  current: number;
-  prev: number;
-  currentHeight: number;
-  prevHeight: number;
-  isYellow: boolean;
-}
+type ChartPeriod = '24h' | '7d' | '30d' | '12m';
 
-const CURRENT_SERIES = [230, 310, 280, 360, 295, 330, 280, 370, 440, 380, 425, 320, 430, 510, 440, 560, 405, 490, 530, 620, 470, 580, 680, 570, 620, 780, 650, 740, 640, 720];
-const PREVIOUS_SERIES = [180, 225, 210, 240, 200, 250, 220, 290, 260, 230, 270, 240, 310, 280, 320, 260, 350, 310, 360, 290, 370, 340, 320, 390, 350, 400, 370, 420, 380, 430];
-const PERIOD_LABELS: Record<string, string> = {
-  '7': '24 – 30 septembre 2026',
-  '30': '1 – 30 septembre 2026',
-  '90': '1 juillet – 30 septembre 2026'
+const PERIOD_LABELS: Record<ChartPeriod, string> = {
+  '24h': 'Fréquentation · dernières 24 heures',
+  '7d': 'Activité · 7 derniers jours',
+  '30d': 'Activité · 30 derniers jours',
+  '12m': 'Activité · 12 derniers mois'
 };
 
 @Component({
@@ -37,65 +29,50 @@ export class AdminDashboardComponent {
   readonly loading = this.dataService.loading;
   readonly error = this.dataService.error;
   readonly sections = this.dataService.sections;
+  readonly metrics = this.dataService.metrics;
 
-  readonly period = signal<'7' | '30' | '90'>('30');
+  readonly period = signal<ChartPeriod>('24h');
   readonly categoryFilter = signal('all');
+  readonly chart = computed(() => {
+    const selectedPeriod = this.period();
+    const points = this.dataService.activityFor(selectedPeriod);
+    const max = Math.max(...points.map(({ value }) => value), 1);
+    const total = points.reduce((sum, point) => sum + point.value, 0);
+    const linePath = this.smoothPath(points);
+
+    return {
+      points,
+      linePath,
+      total,
+      max,
+      rangeLabel: PERIOD_LABELS[selectedPeriod],
+      labelEvery: selectedPeriod === '24h' ? 2 : selectedPeriod === '7d' ? 1 : selectedPeriod === '30d' ? 5 : 1
+    };
+  });
+  readonly filteredSections = computed<ActivitySection[]>(() => {
+    const key = this.categoryFilter();
+    return key === 'all' ? this.sections() : this.sections().filter((section) => section.key === key);
+  });
 
   constructor() {
     this.dataService.load();
   }
 
-  readonly chart = computed(() => {
-    const count = Number(this.period());
-    const current = CURRENT_SERIES.slice(-count);
-    const previous = PREVIOUS_SERIES.slice(-count);
-    const max = Math.max(...current, ...previous);
-    const yellowIndex = count === 30 ? 18 : -1;
-
-    return {
-      rangeLabel: PERIOD_LABELS[this.period()],
-      total: current.reduce((sum, value) => sum + value, 0),
-      prevTotal: previous.reduce((sum, value) => sum + value, 0),
-      bars: current.map((value, index) => ({
-        day: index + 1,
-        current: value,
-        prev: previous[index] ?? 0,
-        currentHeight: Math.max(2, Math.round((value / max) * 100)),
-        prevHeight: Math.max(2, Math.round(((previous[index] ?? 0) / max) * 100)),
-        isYellow: index === yellowIndex
-      }))
-    };
-  });
-
-  readonly trend = computed(() => {
-    const { total, prevTotal } = this.chart();
-    if (!prevTotal) {
-      return '+0 %';
-    }
-    const ratio = ((total - prevTotal) / prevTotal) * 100;
-    const rounded = Math.round(Math.abs(ratio) * 10) / 10;
-    return `${ratio >= 0 ? '+' : '−'}${rounded.toFixed(1).replace('-', '')} %`;
-  });
-
-  readonly filteredSections = computed<ActivitySection[]>(() => {
-    const key = this.categoryFilter();
-    if (key === 'all') {
-      return this.sections();
-    }
-    return this.sections().filter((section) => section.key === key);
-  });
-
   categories(): { key: string; label: string }[] {
     return this.dataService.categories().map(({ key, label }) => ({ key, label }));
   }
 
+  sectionTotal(key: string): number {
+    return this.sections().find((section) => section.key === key)?.total ?? 0;
+  }
+
   firstName(user: { name?: string } | null): string {
     const name = user?.name ? user.name.trim().split(/\s+/)[0] : '';
-    return name || 'Lionel';
+    return name || 'votre espace';
   }
 
   setPeriod(period: string): void {
-    if (period === '7' || period === '30' || period === '90') {
+    if (period === '24h' || period === '7d' || period === '30d' || period === '12m') {
       this.period.set(period);
     }
   }
@@ -105,15 +82,9 @@ export class AdminDashboardComponent {
   }
 
   exportReport(): void {
-    const header = ['Catégorie', 'Nom', 'Détail', 'Statut', 'Humain'];
+    const header = ['Catégorie', 'Nom', 'Détail', 'Statut', 'Date'];
     const rows: string[][] = this.sections().flatMap((section) =>
-      section.entries.map((entry) => [
-        section.label,
-        entry.name,
-        entry.detail,
-        entry.status ?? '',
-        entry.time
-      ])
+      section.entries.map((entry) => [section.label, entry.name, entry.detail, entry.status ?? '', entry.time])
     );
     const csv = [header, ...rows]
       .map((cells) => cells.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(';'))
@@ -125,5 +96,17 @@ export class AdminDashboardComponent {
     anchor.download = 'rapport-activites.csv';
     anchor.click();
     URL.revokeObjectURL(url);
+  }
+
+  private smoothPath(points: DashboardActivityPoint[]): string {
+    if (!points.length) {
+      return '';
+    }
+    const [first, ...rest] = points;
+    return rest.reduce((path, point, index) => {
+      const previous = points[index];
+      const middleX = (previous.x + point.x) / 2;
+      return `${path} Q ${middleX} ${previous.y + 20}, ${point.x} ${point.y + 20}`;
+    }, `M ${first.x} ${first.y + 20}`);
   }
 }

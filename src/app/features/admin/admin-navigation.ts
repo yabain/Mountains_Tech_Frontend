@@ -46,7 +46,8 @@ export const ADMIN_NAV_ITEMS: readonly AdminNavItem[] = [
   { permission: 'hackathons', label: 'Hackathons', route: '/dashboard/hackathons', icon: 'bi-trophy-fill', group: 'contenu' },
   { permission: 'partners', label: 'Partenaires', route: '/dashboard/partners', icon: 'bi-building-fill', group: 'contenu' },
   { permission: 'media', label: 'Médias', route: '/dashboard/media', icon: 'bi-images', group: 'contenu' },
-  { permission: 'newsletter', label: 'Newsletter', route: '/dashboard/newsletter', icon: 'bi-envelope-paper-fill', group: 'contenu' },
+  { permission: 'newsletter', label: 'Prospects', route: '/dashboard/newsletter', icon: 'bi-person-lines-fill', group: 'contenu' },
+  { permission: 'newsletter', label: 'E-mails', route: '/dashboard/email-settings', icon: 'bi-envelope-at-fill', group: 'contenu' },
   { permission: 'announcements', label: 'Annonces', route: '/dashboard/announcements', icon: 'bi-megaphone-fill', group: 'contenu' },
   { permission: 'settings', label: 'Paramètres', route: '/dashboard/settings', icon: 'bi-sliders', group: 'système' }
 ];

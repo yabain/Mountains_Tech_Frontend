@@ -1,10 +1,8 @@
 <section class="dashboard page-enter">
-  <span class="demo-label">DÉMONSTRATION</span>
-
   <div class="dashboard-heading">
     <div>
-      <h1 class="page-title"><i class="bi bi-speedometer2" aria-hidden="true"></i>Aperçu global</h1>
-      <p class="subtitle">Bienvenue {{ firstName(currentUser$ | async) }}, voici les dernières nouvelles de Mountains Tech.</p>
+      <h1 class="page-title"><i class="bi bi-speedometer2" aria-hidden="true"></i>Tableau de bord</h1>
+      <p class="subtitle">Vue d’ensemble de l’activité et du contenu de la plateforme.</p>
     </div>
     <button type="button" class="dash-btn dash-btn--outline" (click)="exportReport()">
       <i class="bi bi-arrow-down-to-line" aria-hidden="true"></i>
@@ -12,114 +10,145 @@
     </button>
   </div>
 
+  <section class="dashboard-welcome" aria-label="Bienvenue">
+    <div>
+      <h2>Bienvenue {{ firstName(currentUser$ | async) }} !</h2>
+      <p>Voici un aperçu de l’activité et du contenu de votre plateforme aujourd’hui.</p>
+    </div>
+    <div class="welcome-illustration" aria-hidden="true">
+      <i class="bi bi-graph-up-arrow"></i>
+      <i class="bi bi-stars"></i>
+    </div>
+  </section>
+
+  <section class="dashboard-metrics" aria-label="Statistiques de la plateforme">
+    <a class="dashboard-metric" routerLink="/dashboard/users">
+      <span class="metric-icon metric-icon--blue"><i class="bi bi-people-fill" aria-hidden="true"></i></span>
+      <span class="metric-copy"><strong>{{ loading() && !sections().length ? '—' : sectionTotal('users') }}</strong><span>Comptes</span></span>
+    </a>
+    <a class="dashboard-metric" routerLink="/dashboard/contacts">
+      <span class="metric-icon metric-icon--red"><i class="bi bi-envelope-fill" aria-hidden="true"></i></span>
+      <span class="metric-copy"><strong>{{ metrics().unreadMessages ?? '—' }}</strong><span>Messages non lus</span></span>
+    </a>
+    <a class="dashboard-metric" routerLink="/dashboard/announcements">
+      <span class="metric-icon metric-icon--blue"><i class="bi bi-megaphone-fill" aria-hidden="true"></i></span>
+      <span class="metric-copy"><strong>{{ metrics().announcements ?? '—' }}</strong><span>Annonces</span></span>
+    </a>
+    <a class="dashboard-metric" routerLink="/dashboard/media">
+      <span class="metric-icon metric-icon--blue"><i class="bi bi-images" aria-hidden="true"></i></span>
+      <span class="metric-copy"><strong>{{ metrics().resources ?? '—' }}</strong><span>Ressources</span></span>
+    </a>
+    <a class="dashboard-metric" routerLink="/dashboard/events">
+      <span class="metric-icon metric-icon--blue"><i class="bi bi-calendar-event-fill" aria-hidden="true"></i></span>
+      <span class="metric-copy"><strong>{{ metrics().programs ?? '—' }}</strong><span>Programmes</span></span>
+    </a>
+  </section>
+
   @if (loading() && sections().length === 0) {
-    <div class="charts-card">
-      <div class="admin-state">Chargement des données...</div>
-    </div>
+    <div class="charts-card"><div class="admin-state">Chargement des données...</div></div>
   } @else if (error() && sections().length === 0) {
-    <div class="charts-card">
-      <div class="admin-state admin-state--error" role="alert">{{ error() }}</div>
-    </div>
+    <div class="charts-card"><div class="admin-state admin-state--error" role="alert">{{ error() }}</div></div>
   }
 
-  @if (sections().length > 0 || !loading()) {
-    <section class="charts-card" aria-label="Graphique des visiteurs">
-      <div class="charts-card-body">
-        <div class="chart-head">
-          <div>
-            <h2 class="chart-title">Visiteurs du site</h2>
-            <p class="chart-period">{{ chart().rangeLabel }}</p>
-          </div>
-          <div class="chart-summary">
-            <strong>{{ chart().total.toLocaleString('fr-FR') }}</strong>
-            <span>visiteurs</span>
-            <span class="dash-badge dash-badge--success">{{ trend() }}</span>
-          </div>
-        </div>
-
-        <div class="segmented" role="group" aria-label="Période du graphique">
-          @for (option of ['7', '30', '90']; track option) {
-            <button type="button" [class.is-active]="period() === option" (click)="setPeriod(option)">
-              {{ option }} jours
-            </button>
-          }
-        </div>
-
-        <div class="chart-area">
-          <div class="chart-bars">
-            @for (bar of chart().bars; track $index) {
-              <div class="chart-bar-group" [class.chart-bar-group--yellow]="bar.isYellow">
-                <div class="chart-bar-tooltip">
-                  <strong>{{ bar.current }}</strong>
-                  <span>Visiteurs</span>
-                  <span>Précédente : {{ bar.prev }}</span>
-                </div>
-                <div class="chart-bar chart-bar--prev" [style.height.%]="bar.prevHeight"></div>
-                <div class="chart-bar chart-bar--current" [style.height.%]="bar.currentHeight"></div>
-              </div>
-            }
-          </div>
-        </div>
-
-        <div class="chart-footer">
-          <div class="chart-legend">
-            <span class="chart-legend-item"><i class="chart-legend-dot chart-legend-dot--current"></i>Visiteurs</span>
-            <span class="chart-legend-item"><i class="chart-legend-dot chart-legend-dot--prev"></i>Période précédente</span>
-          </div>
-          <div class="chart-note"><i class="bi bi-info-circle" aria-hidden="true"></i>Données d'exemple · suivi du site non connecté</div>
-        </div>
+  <section class="charts-card" aria-label="Graphique de l’activité de la plateforme">
+    <div class="chart-head">
+      <div>
+        <h2 class="chart-title">Activité de la plateforme</h2>
+        <p class="chart-period">{{ chart().rangeLabel }}</p>
       </div>
-    </section>
-
-    <section class="actions-section" aria-label="Dernières actions">
-      <div class="actions-heading">
-        <div>
-          <h2 class="section-title">Dernières actions</h2>
-          <p class="section-subtitle">Les 2 dernières actions de chaque catégorie.</p>
-        </div>
-        <select class="actions-filter" [value]="categoryFilter()" (change)="setCategoryFilter($any($event.target).value)" aria-label="Filtrer par catégorie">
-          <option value="all">Toutes les catégories</option>
-          @for (category of categories(); track category.key) {
-            <option [value]="category.key">{{ category.label }}</option>
-          }
-        </select>
-      </div>
-
-      <div class="actions-grid">
-        @for (section of filteredSections(); track section.key) {
-          <article class="activity-card">
-            <div class="activity-card-header">
-              <div class="flex items-center gap-2">
-                <i [class]="'bi ' + section.icon" aria-hidden="true"></i>
-                <h3>{{ section.label }}</h3>
-              </div>
-              <a [routerLink]="section.link" class="activity-card-link">Voir tout <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-            </div>
-            @for (entry of section.entries; track $index) {
-              <div class="activity-entry">
-                <span class="activity-avatar">{{ entry.initials }}</span>
-                <div class="activity-entry-content">
-                  <strong class="activity-name">{{ entry.name }}</strong>
-                  <p class="activity-detail">{{ entry.detail }}</p>
-                  <div class="activity-time"><i class="bi bi-clock" aria-hidden="true"></i>{{ entry.time }}</div>
-                </div>
-                @if (entry.status) {
-                  <span class="status-badge status-badge--{{ entry.statusTone }}">{{ entry.status }}</span>
-                }
-              </div>
-            } @empty {
-              <p class="activity-empty">Aucune donnée récente.</p>
-            }
-          </article>
-        } @empty {
-          <p class="activity-empty">Aucune catégorie disponible pour le moment.</p>
+      <div class="segmented" role="group" aria-label="Période du graphique">
+        @for (option of [
+          { value: '24h', label: '24 h' },
+          { value: '7d', label: '7 jours' },
+          { value: '30d', label: '30 jours' },
+          { value: '12m', label: '12 mois' }
+        ]; track option.value) {
+          <button type="button" [class.is-active]="period() === option.value" [attr.aria-pressed]="period() === option.value" (click)="setPeriod(option.value)">
+            {{ option.label }}
+          </button>
         }
       </div>
-    </section>
+    </div>
+    <div class="chart-summary">
+      <strong>{{ chart().total.toLocaleString('fr-FR') }}</strong>
+      <span>éléments enregistrés sur la période</span>
+    </div>
+    <div class="chart-area">
+      <svg class="activity-chart" viewBox="0 0 1000 250" preserveAspectRatio="none" role="img" [attr.aria-label]="'Activité agrégée : ' + chart().total + ' éléments sur la période sélectionnée'">
+        @for (fraction of [0, 0.25, 0.5, 0.75, 1]; track fraction) {
+          <line x1="0" [attr.y1]="20 + fraction * 190" x2="1000" [attr.y2]="20 + fraction * 190" class="chart-grid-line" />
+          <text x="0" [attr.y]="17 + fraction * 190" class="chart-axis-value">{{ (chart().max * (1 - fraction)).toFixed(0) }}</text>
+        }
+        <path [attr.d]="chart().linePath" class="chart-line" />
+        @for (point of chart().points; track $index) {
+          <circle [attr.cx]="point.x" [attr.cy]="20 + point.y" r="3.5" class="chart-point">
+            <title>{{ point.label }} : {{ point.value }} élément(s)</title>
+          </circle>
+        }
+      </svg>
+      <div class="chart-labels">
+        @for (point of chart().points; track $index) {
+          @if ($index % chart().labelEvery === 0 || $last) {
+            <span [style.left.%]="point.x / 10">{{ point.label }}</span>
+          }
+        }
+      </div>
+    </div>
+    <div class="chart-footer">
+      <div class="chart-legend">
+        <span class="chart-legend-item"><i class="chart-legend-dot chart-legend-dot--current"></i>Activité enregistrée</span>
+      </div>
+      <div class="chart-note"><i class="bi bi-info-circle" aria-hidden="true"></i>Événements créés dans la plateforme, actualisés selon les données chargées.</div>
+    </div>
+  </section>
 
-    <footer class="admin-footer">
-      <span>© 2026 Mountains Tech · Bangangté, Cameroun</span>
-      <span><i class="bi bi-geo-alt" aria-hidden="true"></i>Administration</span>
-    </footer>
-  }
+  <section class="actions-section" aria-label="Dernières actions">
+    <div class="actions-heading">
+      <div>
+        <h2 class="section-title">Dernières actions</h2>
+        <p class="section-subtitle">Les dernières entrées de chaque catégorie.</p>
+      </div>
+      <select class="actions-filter" [value]="categoryFilter()" (change)="setCategoryFilter($any($event.target).value)" aria-label="Filtrer par catégorie">
+        <option value="all">Toutes les catégories</option>
+        @for (category of categories(); track category.key) {
+          <option [value]="category.key">{{ category.label }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="actions-grid">
+      @for (section of filteredSections(); track section.key) {
+        <article class="activity-card">
+          <div class="activity-card-header">
+            <div class="flex items-center gap-2">
+              <i [class]="'bi ' + section.icon" aria-hidden="true"></i>
+              <h3>{{ section.label }}</h3>
+              <span class="activity-total">{{ section.total }}</span>
+            </div>
+            <a [routerLink]="section.link" class="activity-card-link">Voir tout <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+          </div>
+          @for (entry of section.entries; track $index) {
+            <div class="activity-entry">
+              <span class="activity-avatar">{{ entry.initials }}</span>
+              <div class="activity-entry-content">
+                <strong class="activity-name">{{ entry.name }}</strong>
+                <p class="activity-detail">{{ entry.detail }}</p>
+                <div class="activity-time"><i class="bi bi-clock" aria-hidden="true"></i>{{ entry.time }}</div>
+              </div>
+              @if (entry.status) { <span class="status-badge status-badge--{{ entry.statusTone }}">{{ entry.status }}</span> }
+            </div>
+          } @empty {
+            <p class="activity-empty">Aucune donnée récente.</p>
+          }
+        </article>
+      } @empty {
+        <p class="activity-empty">Aucune catégorie disponible pour le moment.</p>
+      }
+    </div>
+  </section>
+
+  <footer class="admin-footer">
+    <span>© 2026 Mountains Tech · Bangangté, Cameroun</span>
+    <span><i class="bi bi-geo-alt" aria-hidden="true"></i>Administration</span>
+  </footer>
 </section>

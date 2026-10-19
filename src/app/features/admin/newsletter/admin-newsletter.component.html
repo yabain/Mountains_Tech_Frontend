@@ -1,133 +1,82 @@
-<section class="res-page">
-  <section class="admin-page-heading">
+<section class="res-page prospects-page">
+  <header class="admin-page-heading prospects-heading">
     <div>
-      <h1><i [class]="'bi ' + config.icon" aria-hidden="true"></i>{{ config.title }}</h1>
-      <p>Gérez les {{ config.title.toLowerCase() }} depuis cette interface.</p>
+      <h1><i class="bi bi-people-fill" aria-hidden="true"></i>Prospects &amp; Newsletter</h1>
+      <p>Gérez les inscriptions à la lettre d’information.</p>
     </div>
-    @if (hasCreate()) {
-      <button class="res-btn res-btn--primary" type="button" (click)="openCreate()">
-        <i class="bi bi-plus-lg" aria-hidden="true"></i>
-        Nouveau
+    <div class="prospects-actions">
+      <button class="prospects-button prospects-button--outline" type="button" (click)="openCreate()">
+        <i class="bi bi-plus-lg" aria-hidden="true"></i>Ajouter
       </button>
-    }
-  </section>
+      <button class="prospects-button prospects-button--outline" type="button" (click)="downloadTemplate()">
+        <i class="bi bi-file-earmark-spreadsheet" aria-hidden="true"></i>Modèle
+      </button>
+      <button class="prospects-button prospects-button--outline" type="button" (click)="exportSubscribers()">
+        <i class="bi bi-download" aria-hidden="true"></i>Exporter
+      </button>
+      <button class="prospects-button prospects-button--primary" type="button" (click)="csvInput.click()" [disabled]="saving()">
+        <i class="bi bi-upload" aria-hidden="true"></i>Importer
+      </button>
+      <input #csvInput class="prospects-file-input" type="file" accept=".csv,text/csv" (change)="importSubscribers($event)" />
+    </div>
+  </header>
 
   @if (loading()) {
-    <div class="admin-state">Chargement des données...</div>
+    <div class="admin-state">Chargement des prospects...</div>
   } @else if (error()) {
     <div class="admin-state admin-state--error" role="alert">{{ error() }}</div>
   } @else {
-    @if (searchable() || showStatusFilter) {
-      <div class="res-toolbar" [class.res-toolbar--reloading]="reloading()">
-        @if (searchable()) {
-          <div class="res-search">
-            <i class="bi bi-search" aria-hidden="true"></i>
-            <input
-              type="search"
-              [value]="search()"
-              (input)="onSearchChange($any($event.target).value)"
-              placeholder="Rechercher..."
-              aria-label="Rechercher"
-            />
-          </div>
-        }
-        @if (showStatusFilter) {
-          <select
-            class="res-select"
-            [value]="selectedStatus()"
-            (change)="onStatusFilterChange($any($event.target).value)"
-            aria-label="Filtrer par statut"
-          >
-            <option value="">Tous les statuts</option>
-            @for (status of statusOptions; track status) {
-              <option [value]="status">{{ status }}</option>
-            }
-          </select>
-        }
-        <span class="res-count">{{ total() }} élément(s)</span>
-      </div>
-    }
+    <div class="prospects-toolbar" [class.is-reloading]="reloading()">
+      <label class="prospects-search">
+        <i class="bi bi-search" aria-hidden="true"></i>
+        <input
+          type="search"
+          [value]="search()"
+          (input)="onSearchChange($any($event.target).value)"
+          placeholder="Rechercher par nom, e-mail ou téléphone..."
+          aria-label="Rechercher un prospect"
+        />
+      </label>
+      <span class="prospects-count">{{ total() }} prospect(s)</span>
+    </div>
 
-    @if (!rows().length) {
-      <div class="admin-state">Aucune donnée correspondante.</div>
-    } @else {
+    <div class="prospects-table-card">
       <div class="admin-table-wrap">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              @for (column of config.columns; track column.key) {
-                <th>{{ column.label }}</th>
-              }
-              @if (showActionsColumn()) {
-                <th class="res-th-actions">Actions</th>
-              }
-            </tr>
-          </thead>
+        <table class="admin-table prospects-table">
+          <thead><tr><th>Nom</th><th>E-mail</th><th>Téléphone</th><th>Date d’inscription</th><th class="res-th-actions">Actions</th></tr></thead>
           <tbody>
             @for (row of rows(); track rowId(row)) {
               <tr>
-                @for (column of config.columns; track column.key) {
-                  <td>
-                    @if (column.type === 'status') {
-                      <span [class]="statusClass(row[column.key])">{{ cellValue(row, column) }}</span>
-                    } @else {
-                      {{ cellValue(row, column) }}
-                    }
-                  </td>
-                }
-                @if (showActionsColumn()) {
-                  <td class="res-actions">
-                    @if (hasEdit()) {
-                      <button class="res-icon-btn" type="button" title="Modifier" aria-label="Modifier" (click)="openEdit(row)">
-                        <i class="bi bi-pencil" aria-hidden="true"></i>
-                      </button>
-                    }
-                    @if (hasStatusControl) {
-                      <select
-                        class="res-status-select"
-                        [value]="rowStatus(row)"
-                        [disabled]="statusBusyId() === rowId(row)"
-                        (change)="changeStatus(row, $any($event.target).value)"
-                        aria-label="Changer le statut"
-                      >
-                        @for (status of statusOptions; track status) {
-                          <option [value]="status">{{ status === rowStatus(row) ? 'Statut : ' + status : status }}</option>
-                        }
-                      </select>
-                    }
-                    @if (config.deletable) {
-                      <button
-                        class="res-icon-btn res-icon-btn--danger"
-                        type="button"
-                        title="Supprimer"
-                        aria-label="Supprimer"
-                        (click)="openDelete(row)"
-                      >
-                        <i class="bi bi-trash" aria-hidden="true"></i>
-                      </button>
-                    }
-                  </td>
-                }
+                <td>{{ displayName(row) }}</td>
+                <td>{{ row['email'] ?? '—' }}</td>
+                <td>{{ row['phone'] ?? '—' }}</td>
+                <td>{{ cellValue(row, config.columns[3]) }}</td>
+                <td class="res-actions">
+                  <button class="res-icon-btn res-icon-btn--danger" type="button" title="Supprimer" aria-label="Supprimer le prospect" (click)="openDelete(row)">
+                    <i class="bi bi-trash" aria-hidden="true"></i>
+                  </button>
+                </td>
               </tr>
+            } @empty {
+              <tr><td class="prospects-empty" colspan="5">Aucun prospect.</td></tr>
             }
           </tbody>
         </table>
       </div>
+    </div>
 
-      @if (isPaginated && pages() > 1) {
-        <div class="res-pagination">
-          <button class="res-btn res-btn--outline" type="button" (click)="prevPage()" [disabled]="page() <= 1">
-            <i class="bi bi-chevron-left" aria-hidden="true"></i>
-            Précédent
-          </button>
-          <span>Page {{ page() }} / {{ pages() }}</span>
-          <button class="res-btn res-btn--outline" type="button" (click)="nextPage()" [disabled]="page() >= pages()">
-            Suivant
-            <i class="bi bi-chevron-right" aria-hidden="true"></i>
-          </button>
-        </div>
-      }
-    }
+    <footer class="prospects-pagination">
+      <label>Par page
+        <select [value]="limit()" (change)="onPageSizeChange($any($event.target).value)" aria-label="Nombre de prospects par page">
+          @for (option of pageSizeOptions; track option) { <option [value]="option">{{ option }}</option> }
+        </select>
+      </label>
+      <div class="prospects-page-controls">
+        <button class="res-btn res-btn--outline" type="button" (click)="prevPage()" [disabled]="page() <= 1"><i class="bi bi-arrow-left" aria-hidden="true"></i> Précédent</button>
+        <span>Page {{ page() }} / {{ pages() }} · {{ total() }} prospect(s)</span>
+        <button class="res-btn res-btn--outline" type="button" (click)="nextPage()" [disabled]="page() >= pages()">Suivant <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+      </div>
+    </footer>
   }
   @if (modalMode() !== 'none') {
     <div class="res-overlay" (click)="closeModal()">
