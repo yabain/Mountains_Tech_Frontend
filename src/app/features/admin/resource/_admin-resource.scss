@@ -167,12 +167,99 @@
   text-align: right;
 }
 
+.res-actions-cell {
+  text-align: right;
+}
+
 .res-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 4px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: right;
+  width: auto;
+  min-width: 0;
   white-space: nowrap;
+}
+
+.admin-table td.res-actions > * + * {
+  margin-left: 6px;
+}
+
+.res-audit-details {
+  max-width: 420px;
+
+  summary {
+    color: var(--adm-primary, #00447e);
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  pre {
+    max-width: min(70vw, 620px);
+    max-height: 280px;
+    overflow: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font: inherit;
+    font-size: 12px;
+  }
+}
+
+.res-media-preview {
+  display: block;
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+  background: var(--adm-muted, #f1f3f5);
+  object-fit: contain;
+}
+
+video.res-media-preview {
+  object-fit: cover;
+}
+
+.res-action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 9px;
+  border: 1px solid var(--adm-border, #dee2e6);
+  border-radius: 6px;
+  background: var(--adm-card, #fff);
+  color: var(--adm-fg, #212529);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 150ms, border-color 150ms, color 150ms;
+
+  &:hover:not(:disabled) {
+    background: var(--adm-muted, #f1f3f5);
+    border-color: var(--adm-primary, #00447e);
+    color: var(--adm-primary, #00447e);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--adm-primary, #00447e);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: .55;
+    cursor: wait;
+  }
+
+  &--success {
+    border-color: #b8d8c5;
+    color: #24613f;
+  }
+
+  &--danger {
+    border-color: #efc5c2;
+    color: #a5271b;
+  }
 }
 
 .res-icon-btn {
@@ -228,13 +315,18 @@
   }
 
   &--pending {
-    background: var(--adm-warning-light, #fff5d9);
-    color: var(--adm-warning, #ffc107);
+    background: #fff1d6;
+    color: #805400;
   }
 
   &--danger {
     background: oklch(0.97 0.026 15);
     color: var(--adm-destructive, #dc3545);
+  }
+
+  &--cancelled {
+    background: #fff0f0;
+    color: #923838;
   }
 
   &--info {

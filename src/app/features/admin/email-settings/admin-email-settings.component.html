@@ -46,15 +46,11 @@
     <aside class="email-panel email-statistics">
       <h2>Statistiques</h2>
       <div class="email-stat-cards">
-        <div class="email-stat email-stat--sent"><strong>—</strong><span>Envoyés</span></div>
-        <div class="email-stat email-stat--failed"><strong>—</strong><span>Échecs</span></div>
-        <div class="email-stat email-stat--month"><strong>—</strong><span>Mois</span></div>
+        <div class="email-stat email-stat--sent"><strong>{{ emailStats().sent }}</strong><span>Envoyés</span></div>
+        <div class="email-stat email-stat--failed"><strong>{{ emailStats().failed }}</strong><span>Échecs</span></div>
+        <div class="email-stat email-stat--month"><strong>{{ emailStats().month }}</strong><span>Ce mois</span></div>
       </div>
-      <div class="email-chart-placeholder" role="img" aria-label="Les statistiques de messagerie ne sont pas disponibles">
-        <i class="bi bi-bar-chart-line" aria-hidden="true"></i>
-        <span>Les statistiques apparaîtront ici lorsque l’API de messagerie sera disponible.</span>
-      </div>
-      <div class="email-chart-legend"><span></span>Envoyés <span></span>Échecs</div>
+      <p class="email-api-note">Statistiques calculées à partir des envois enregistrés.</p>
     </aside>
   </div>
 
@@ -62,20 +58,38 @@
     <h2>E-mails sortants</h2>
     <label class="outgoing-search">
       <i class="bi bi-search" aria-hidden="true"></i>
-      <input type="search" [ngModel]="emailSearch()" (ngModelChange)="emailSearch.set($event)" name="outgoingSearch" placeholder="Rechercher par destinataire ou sujet..." aria-label="Rechercher dans les e-mails sortants" />
+      <input type="search" [ngModel]="emailSearch()" (ngModelChange)="onEmailSearch($event)" name="outgoingSearch" placeholder="Rechercher par destinataire ou sujet..." aria-label="Rechercher dans les e-mails sortants" />
     </label>
     <div class="outgoing-table-wrap">
       <table class="outgoing-table">
         <thead><tr><th>Type</th><th>Destinataire</th><th>Sujet</th><th>Date</th><th>Statut</th></tr></thead>
-        <tbody><tr><td class="outgoing-empty" colspan="5">Aucun e-mail sortant à afficher.</td></tr></tbody>
+        <tbody>
+          @if (loadingEmails()) {
+            <tr><td class="outgoing-empty" colspan="5">Chargement de l’historique…</td></tr>
+          } @else if (emailError()) {
+            <tr><td class="outgoing-empty" colspan="5" role="alert">{{ emailError() }}</td></tr>
+          } @else {
+            @for (email of emails(); track email['id'] ?? email['_id']) {
+              <tr>
+                <td>{{ emailType(email) }}</td>
+                <td>{{ emailRecipients(email) }}</td>
+                <td>{{ email['subject'] ?? 'Sans sujet' }}</td>
+                <td>{{ emailDate(email) }}</td>
+                <td><span class="res-status" [class.res-status--success]="email['status'] === 'SENT'" [class.res-status--danger]="email['status'] === 'FAILED'">{{ emailStatus(email) }}</span></td>
+              </tr>
+            } @empty {
+              <tr><td class="outgoing-empty" colspan="5">Aucun e-mail sortant à afficher.</td></tr>
+            }
+          }
+        </tbody>
       </table>
     </div>
     <footer class="outgoing-pagination">
       <label>Par page <select aria-label="Nombre d’e-mails par page" disabled><option>10</option></select></label>
       <div>
-        <button type="button" disabled><i class="bi bi-arrow-left" aria-hidden="true"></i> Précédent</button>
-        <span>Journal indisponible</span>
-        <button type="button" disabled>Suivant <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+        <button type="button" (click)="previousEmailPage()" [disabled]="emailPage() <= 1 || loadingEmails()"><i class="bi bi-arrow-left" aria-hidden="true"></i> Précédent</button>
+        <span>Page {{ emailPage() }} / {{ emailPages() }} · {{ emailTotal() }} e-mail(s)</span>
+        <button type="button" (click)="nextEmailPage()" [disabled]="emailPage() >= emailPages() || loadingEmails()">Suivant <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
       </div>
     </footer>
   </section>

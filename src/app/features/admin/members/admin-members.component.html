@@ -40,7 +40,7 @@
           >
             <option value="">Tous les statuts</option>
             @for (status of statusOptions; track status) {
-              <option [value]="status">{{ status }}</option>
+              <option [value]="status">{{ resourceStatusLabel(status) }}</option>
             }
           </select>
         }
@@ -68,8 +68,12 @@
               <tr>
                 @for (column of config.columns; track column.key) {
                   <td>
-                    @if (column.type === 'status') {
+                    @if (column.type === 'image') {
+                      @if (row[column.key]) { <img class="res-media-preview" [src]="mediaUrl(row[column.key])" [alt]="'Logo de ' + (row['companyName'] ?? 'membre')" /> }
+                    } @else if (column.type === 'status') {
                       <span [class]="statusClass(row[column.key])">{{ cellValue(row, column) }}</span>
+                    } @else if (column.type === 'json') {
+                      <details class="res-audit-details"><summary>Consulter</summary><pre>{{ jsonValue(row[column.key]) }}</pre></details>
                     } @else {
                       {{ cellValue(row, column) }}
                     }
@@ -77,33 +81,17 @@
                 }
                 @if (showActionsColumn()) {
                   <td class="res-actions">
-                    @if (hasEdit()) {
-                      <button class="res-icon-btn" type="button" title="Modifier" aria-label="Modifier" (click)="openEdit(row)">
-                        <i class="bi bi-pencil" aria-hidden="true"></i>
-                      </button>
-                    }
-                    @if (hasStatusControl) {
-                      <select
-                        class="res-status-select"
-                        [value]="rowStatus(row)"
-                        [disabled]="statusBusyId() === rowId(row)"
-                        (change)="changeStatus(row, $any($event.target).value)"
-                        aria-label="Changer le statut"
-                      >
-                        @for (status of statusOptions; track status) {
-                          <option [value]="status">{{ status === rowStatus(row) ? 'Statut : ' + status : status }}</option>
-                        }
-                      </select>
-                    }
-                    @if (config.deletable) {
+                    @for (action of rowActionsFor(row); track action.kind + action.label) {
                       <button
-                        class="res-icon-btn res-icon-btn--danger"
+                        class="res-action-button"
+                        [class.res-action-button--success]="action.tone === 'success'"
+                        [class.res-action-button--danger]="action.tone === 'danger'"
                         type="button"
-                        title="Supprimer"
-                        aria-label="Supprimer"
-                        (click)="openDelete(row)"
+                        [disabled]="statusBusyId() === rowId(row) || (action.kind === 'edit' && !hasEdit())"
+                        (click)="runRowAction(action, row)"
                       >
-                        <i class="bi bi-trash" aria-hidden="true"></i>
+                        <i [class]="'bi ' + action.icon" aria-hidden="true"></i>
+                        {{ rowActionLabel(action, row) }}
                       </button>
                     }
                   </td>
@@ -114,7 +102,7 @@
         </table>
       </div>
 
-      @if (isPaginated && pages() > 1) {
+      @if (isPaginated) {
         <div class="res-pagination">
           <button class="res-nav-btn" type="button" (click)="prevPage()" [disabled]="page() <= 1">
             <span class="res-nav-btn__icon res-nav-btn__icon--left">
@@ -171,7 +159,7 @@
                       <select id="f-{{ field.key }}" class="res-field__input" [(ngModel)]="form()[field.key]" name="{{ field.key }}">
                         <option value="">—</option>
                         @for (option of field.options ?? []; track option) {
-                          <option [value]="option">{{ option }}</option>
+                          <option [value]="option">{{ resourceOptionLabel(option) }}</option>
                         }
                       </select>
                     }

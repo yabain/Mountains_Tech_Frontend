@@ -3,26 +3,32 @@
    ============================================================ */
 
 .admin-shell {
-  --adm-background: oklch(0.9754 0.0045 236.5);
+  --adm-background: #f3f6f8;
   --adm-foreground: #172838;
   --adm-card: oklch(1 0 0);
   --adm-primary: #00447e;
-  --adm-secondary: #dcecf8;
-  --adm-muted: oklch(0.96 0.009 239);
-  --adm-muted-foreground: #4f6070;
-  --adm-border: oklch(0.92 0.012 240);
-  --adm-sidebar: #102c43;
-  --adm-sidebar-active: #174f7b;
-  --adm-sidebar-foreground: #eaf2f8;
-  --adm-sidebar-muted: #c1d0dc;
+  --adm-secondary: #e8f1f8;
+  --adm-muted: #f3f6f8;
+  --adm-muted-foreground: #536575;
+  --adm-border: #e1e8ee;
+  --adm-sidebar: #f8fafb;
+  --adm-sidebar-active: #e8eef3;
+  --adm-sidebar-foreground: #263b4d;
+  --adm-sidebar-muted: #617384;
   --adm-inverse: oklch(1 0 0);
   --adm-brand-accent: #00447e;
-  --adm-navigation-fade: linear-gradient(to bottom, transparent, #102c43 88%);
-  --adm-panel-shadow: 0 4px 12px rgb(16 44 67 / 18%);
-  --adm-shadow-sm: 0 4px 20px -4px rgb(16 44 67 / 14%);
+  --adm-navigation-fade: linear-gradient(to bottom, transparent, #f8fafb 88%);
+  --adm-panel-shadow: none;
+  --adm-shadow-sm: 0 8px 24px rgb(23 40 56 / 12%);
+  --adm-danger: #b42318;
+  --adm-success: #247b50;
+  --adm-success-light: #e8f5ed;
 
   display: flex;
-  min-height: 100vh;
+  width: 100%;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
   background: var(--adm-background);
   color: var(--adm-foreground);
   font-family: 'Roboto', sans-serif;
@@ -41,7 +47,7 @@
   height: calc(100dvh - 16px);
   margin: 8px 0 8px 8px;
   border-radius: 8px;
-  box-shadow: var(--adm-panel-shadow);
+  border: 1px solid var(--adm-border);
   display: flex;
   flex-direction: column;
   transition: width 220ms ease;
@@ -88,9 +94,9 @@
 
 /* ===== Collapse toggle ===== */
 .admin-collapse {
-  color: var(--adm-inverse);
-  background: color-mix(in oklab, var(--adm-inverse) 8%, transparent);
-  border: 1px solid color-mix(in oklab, var(--adm-inverse) 16%, transparent);
+  color: var(--adm-muted-foreground);
+  background: var(--adm-card);
+  border: 1px solid var(--adm-border);
   border-radius: 6px;
   width: 32px;
   height: 32px;
@@ -101,7 +107,8 @@
   transition: background 150ms;
 
   &:hover {
-    background: color-mix(in oklab, var(--adm-inverse) 16%, transparent);
+    background: var(--adm-muted);
+    color: var(--adm-primary);
   }
 }
 
@@ -145,10 +152,9 @@
 }
 
 .admin-nav-group-label {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--adm-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--adm-muted-foreground);
   padding: 0 13px;
   margin-bottom: 10px;
 }
@@ -181,16 +187,15 @@
 
   &:hover {
     background: var(--adm-sidebar-active);
-    color: var(--adm-inverse);
+    color: var(--adm-foreground);
   }
 
   &.is-active {
-    background: var(--adm-primary);
-    color: var(--adm-inverse);
-    box-shadow: inset 3px 0 var(--adm-secondary);
+    background: var(--adm-sidebar-active);
+    color: var(--adm-primary);
 
     i {
-      color: var(--adm-secondary);
+      color: var(--adm-primary);
     }
   }
 }
@@ -205,11 +210,16 @@
   border-radius: 4px;
 }
 
+.admin-nav-count--unavailable {
+  background: var(--adm-danger);
+  color: var(--adm-inverse);
+}
+
 /* ===== Sidebar footer / profile ===== */
 .admin-sidebar-footer {
   margin-top: auto;
   padding-top: 20px;
-  border-top: 1px solid color-mix(in oklab, var(--adm-inverse) 10%, transparent);
+  border-top: 1px solid var(--adm-border);
 }
 
 .admin-profile {
@@ -227,8 +237,8 @@
   place-items: center;
   flex-shrink: 0;
   border-radius: 50%;
-  background: var(--adm-sidebar-active);
-  color: var(--adm-inverse);
+  background: var(--adm-secondary);
+  color: var(--adm-primary);
   font-size: 11px;
   font-weight: 700;
 }
@@ -242,7 +252,7 @@
   display: block;
   font-size: 14px;
   font-weight: 500;
-  color: var(--adm-inverse);
+  color: var(--adm-foreground);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -267,7 +277,7 @@
   border: 0;
   border-radius: 7px;
   background: transparent;
-  color: oklch(0.84 0.089 9);
+  color: var(--adm-danger);
   font: inherit;
   font-size: 14px;
   white-space: nowrap;
@@ -283,7 +293,7 @@
   }
 
   &:hover {
-    background: color-mix(in oklab, var(--adm-inverse) 8%, transparent);
+    background: #fcebea;
   }
 }
 
@@ -295,7 +305,6 @@
   .admin-brand-mark,
   .admin-nav-group-label,
   .admin-nav-label,
-  .admin-nav-count,
   .admin-profile-info {
     display: none;
   }
@@ -309,6 +318,21 @@
     justify-content: center;
     gap: 0;
     padding: 12px;
+  }
+
+  .admin-nav a {
+    position: relative;
+  }
+
+  .admin-nav-count {
+    display: block;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    min-width: 17px;
+    padding: 1px 4px;
+    text-align: center;
+    line-height: 15px;
   }
 
   .admin-nav a i,
@@ -327,8 +351,8 @@
   --adm-primary: #00447e;
   --adm-secondary: #e8f1f8;
   --adm-brand-accent: #00447e;
-  --adm-success: #00447e;
-  --adm-success-light: #e8f1ff;
+  --adm-success: #247b50;
+  --adm-success-light: #e8f5ed;
   --adm-fg: #182230;
   --adm-muted-fg: #64748b;
   --adm-border: #e5eaf0;
@@ -336,15 +360,44 @@
   --adm-card: #ffffff;
 
   flex: 1;
+  height: 100dvh;
   min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--adm-background);
 }
 
 .admin-page {
   max-width: 1600px;
-  margin: 0 auto;
+  width: calc(100% - 16px);
+  height: calc(100dvh - 16px);
+  margin: 8px auto;
   padding: 24px 32px 40px;
-  min-height: 100vh;
-  background: var(--adm-card);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  border: 1px solid var(--adm-border);
+  border-radius: 12px;
+  background: #ffffff;
+  scrollbar-width: thin;
+  scrollbar-color: #2878b8 transparent;
+
+  &::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: #2878b8;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #155b93;
+  }
 }
 
 /* ===== Overlay ===== */

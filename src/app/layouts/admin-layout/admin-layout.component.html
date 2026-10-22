@@ -29,11 +29,17 @@
                   routerLinkActive="is-active"
                   [routerLinkActiveOptions]="{ exact: item.permission === 'dashboard' || item.route === '/dashboard/members' }"
                   [attr.title]="sidebarCollapsed() ? item.label : null"
-                  (click)="closeSidebar()">
+                  (click)="onNavItemClick(item.route)">
                   <i [class]="'bi ' + item.icon" aria-hidden="true"></i>
                   <span class="admin-nav-label">{{ item.label }}</span>
-                  @if (navCount(item.permission)) {
-                    <span class="admin-nav-count">{{ navCount(item.permission) }}</span>
+                  @if (hasNavCount(item.route)) {
+                    <span class="admin-nav-count" [attr.title]="navCountLabel(item.route)">
+                      {{ navCount(item.route) }}
+                    </span>
+                  } @else if (navCountUnavailable(item.route)) {
+                    <span class="admin-nav-count admin-nav-count--unavailable"
+                      [attr.title]="'Compteur indisponible : ' + navCountLabel(item.route)"
+                      [attr.aria-label]="'Compteur indisponible : ' + navCountLabel(item.route)">!</span>
                   }
                 </a>
               }

@@ -40,7 +40,7 @@
           >
             <option value="">Tous les statuts</option>
             @for (status of statusOptions; track status) {
-              <option [value]="status">{{ status }}</option>
+              <option [value]="status">{{ resourceStatusLabel(status) }}</option>
             }
           </select>
         }
@@ -91,7 +91,7 @@
                         aria-label="Changer le statut"
                       >
                         @for (status of statusOptions; track status) {
-                          <option [value]="status">{{ status === rowStatus(row) ? 'Statut : ' + status : status }}</option>
+                          <option [value]="status">{{ status === rowStatus(row) ? 'Statut : ' + resourceStatusLabel(status) : resourceStatusLabel(status) }}</option>
                         }
                       </select>
                     }
@@ -167,7 +167,7 @@
                       <select id="f-{{ field.key }}" class="res-field__input" [(ngModel)]="form()[field.key]" name="{{ field.key }}">
                         <option value="">—</option>
                         @for (option of field.options ?? []; track option) {
-                          <option [value]="option">{{ option }}</option>
+                          <option [value]="option">{{ resourceOptionLabel(option) }}</option>
                         }
                       </select>
                     }

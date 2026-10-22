@@ -7,14 +7,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { API_ROUTES } from '../../../../core/constants/api-routes';
 import { ApiService } from '../../../../core/http/api.service';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { environment } from '../../../../../environments/environment';
 
 interface ActivityForm {
   title: string;
   slug: string;
-  author: string;
-  date: string;
-  categories: string;
-  tags: string;
+  category: string;
   excerpt: string;
   contentHtml: string;
   coverUrl: string;
@@ -41,13 +39,11 @@ export class AdminActivityEditorComponent {
   readonly uploading = signal(false);
   readonly error = signal('');
   readonly activityId = this.route.snapshot.paramMap.get('id') ?? '';
+  coverSource: 'url' | 'upload' = 'url';
   readonly form: ActivityForm = {
     title: '',
     slug: '',
-    author: '',
-    date: new Date().toISOString().slice(0, 10),
-    categories: '',
-    tags: '',
+    category: '',
     excerpt: '',
     contentHtml: '',
     coverUrl: '',
@@ -67,10 +63,7 @@ export class AdminActivityEditorComponent {
             } else {
               this.form.title = String(item['title'] ?? '');
               this.form.slug = String(item['slug'] ?? '');
-              this.form.author = String(item['author'] ?? '');
-              this.form.date = this.dateInput(item['date'] ?? item['createdAt']);
-              this.form.categories = this.stringList(item['categories'] ?? item['category']);
-              this.form.tags = this.stringList(item['tags']);
+              this.form.category = String(item['category'] ?? '');
               this.form.excerpt = String(item['excerpt'] ?? item['description'] ?? '');
               this.form.contentHtml = String(item['contentHtml'] ?? '');
               this.form.coverUrl = String(item['coverUrl'] ?? item['imageUrl'] ?? '');
@@ -94,24 +87,18 @@ export class AdminActivityEditorComponent {
     }
     this.saving.set(true);
     this.error.set('');
-    const categories = this.listValues(this.form.categories);
+    const coverUrl = this.form.coverUrl.trim();
     const payload = {
       title: this.form.title.trim(),
-      slug: this.form.slug.trim(),
-      author: this.form.author.trim(),
-      date: this.form.date,
-      category: categories[0] ?? '',
-      categories,
-      tags: this.listValues(this.form.tags),
-      excerpt: this.form.excerpt.trim(),
-      description: this.form.excerpt.trim(),
+      ...(this.form.slug.trim() ? { slug: this.form.slug.trim() } : {}),
+      ...(this.form.category.trim() ? { category: this.form.category.trim() } : {}),
+      ...(this.form.excerpt.trim() ? { excerpt: this.form.excerpt.trim() } : {}),
       contentHtml: this.form.contentHtml,
-      coverUrl: this.form.coverUrl.trim(),
-      imageUrl: this.form.coverUrl.trim(),
+      ...(coverUrl ? { coverUrl: this.mediaUrl(coverUrl) } : {}),
       status: this.form.status
     };
     const request = this.activityId
-      ? this.api.put<unknown>(`${API_ROUTES.admin.activities}/${encodeURIComponent(this.activityId)}`, payload)
+      ? this.api.patch<unknown>(`${API_ROUTES.admin.activities}/${encodeURIComponent(this.activityId)}`, payload)
       : this.api.post<unknown>(API_ROUTES.admin.activities, payload);
     request.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
@@ -119,9 +106,10 @@ export class AdminActivityEditorComponent {
         this.notification.success(this.activityId ? 'L’actualité a été mise à jour.' : 'L’actualité a été créée.');
         void this.router.navigate(['/dashboard/activities']);
       },
-      error: (error: { error?: { message?: string } }) => {
+      error: (error: { error?: { message?: string | string[] } }) => {
         this.saving.set(false);
-        this.error.set(error.error?.message ?? 'Impossible d’enregistrer cette actualité.');
+        const message = error.error?.message;
+        this.error.set(Array.isArray(message) ? message.join(' · ') : message ?? 'Impossible d’enregistrer cette actualité.');
       }
     });
   }
@@ -135,8 +123,8 @@ export class AdminActivityEditorComponent {
       input.value = '';
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
-      this.error.set('L’image ne doit pas dépasser 5 Mo.');
+    if (file.size > 10 * 1024 * 1024) {
+      this.error.set('L’image ne doit pas dépasser 10 Mo.');
       input.value = '';
       return;
     }
@@ -153,7 +141,7 @@ export class AdminActivityEditorComponent {
           if (typeof url !== 'string' || !url) {
             this.error.set('Le téléversement a réussi, mais aucune URL d’image n’a été renvoyée.');
           } else {
-            this.form.coverUrl = url;
+            this.form.coverUrl = this.mediaUrl(url);
           }
           this.uploading.set(false);
         },
@@ -168,6 +156,14 @@ export class AdminActivityEditorComponent {
     void this.router.navigate(['/dashboard/activities']);
   }
 
+  setCoverSource(source: 'url' | 'upload'): void {
+    this.coverSource = source;
+  }
+
+  previewUrl(): string {
+    return this.mediaUrl(this.form.coverUrl);
+  }
+
   private unwrap(response: unknown): Record<string, unknown> | null {
     if (!response || typeof response !== 'object') return null;
     const outer = response as Record<string, unknown>;
@@ -180,17 +176,10 @@ export class AdminActivityEditorComponent {
     return item;
   }
 
-  private dateInput(value: unknown): string {
-    if (!value) return '';
-    const date = new Date(String(value));
-    return Number.isNaN(date.getTime()) ? '' : date.toISOString().slice(0, 10);
-  }
-
-  private stringList(value: unknown): string {
-    return Array.isArray(value) ? value.map(String).join(', ') : String(value ?? '');
-  }
-
-  private listValues(value: string): string[] {
-    return value.split(',').map((item) => item.trim()).filter(Boolean);
+  private mediaUrl(value: unknown): string {
+    const path = String(value ?? '').trim();
+    if (!path) return '';
+    if (/^https?:\/\//i.test(path)) return path;
+    return new URL(path.startsWith('/') ? path : `/${path}`, environment.apiUrl).toString();
   }
 }

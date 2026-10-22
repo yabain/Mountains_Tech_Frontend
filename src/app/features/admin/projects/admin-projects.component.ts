@@ -17,6 +17,8 @@ const config: AdminResourceConfig = {
   creatable: true,
   editable: true,
   deletable: true,
+  createRoute: '/dashboard/projects/new',
+  editorRoute: '/dashboard/projects',
   columns: [
     { key: 'title', label: 'Titre' },
     { key: 'status', label: 'Statut', type: 'status' },

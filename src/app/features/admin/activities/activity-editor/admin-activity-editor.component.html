@@ -22,22 +22,8 @@
             <input id="activity-title" name="title" [(ngModel)]="form.title" required placeholder="Titre de l’actualité" />
           </div>
           <div class="editor-field">
-            <label for="activity-author">Auteur</label>
-            <input id="activity-author" name="author" [(ngModel)]="form.author" placeholder="Nom de l’auteur" />
-          </div>
-          <div class="editor-field">
-            <label for="activity-date">Date de publication</label>
-            <input id="activity-date" name="date" type="date" [(ngModel)]="form.date" />
-          </div>
-          <div class="editor-field">
-            <label for="activity-categories">Catégories</label>
-            <input id="activity-categories" name="categories" [(ngModel)]="form.categories" placeholder="Technologie, Communauté…" />
-            <span class="editor-help">Plusieurs catégories, séparées par des virgules.</span>
-          </div>
-          <div class="editor-field">
-            <label for="activity-tags">Tags</label>
-            <input id="activity-tags" name="tags" [(ngModel)]="form.tags" placeholder="innovation, IA, startup…" />
-            <span class="editor-help">Séparez les tags par des virgules.</span>
+            <label for="activity-category">Catégorie</label>
+            <input id="activity-category" name="category" [(ngModel)]="form.category" placeholder="Technologie, communauté…" />
           </div>
           <div class="editor-field editor-field--full">
             <label for="activity-excerpt">Résumé</label>
@@ -56,10 +42,19 @@
           <div class="editor-field editor-field--full">
             <label for="activity-cover">Image de couverture</label>
             <div class="editor-image">
-              @if (form.coverUrl) { <img [src]="form.coverUrl" alt="Aperçu de la couverture" /> }
+              @if (form.coverUrl) { <img [src]="previewUrl()" alt="Aperçu de la couverture" /> }
               <div>
-                <input id="activity-cover" name="cover" type="file" accept="image/*" (change)="onCoverSelected($event)" [disabled]="uploading()" />
-                <span class="editor-help">Image JPG, PNG ou WebP, 5 Mo maximum. {{ uploading() ? 'Téléversement…' : '' }}</span>
+                <div class="editor-image-source">
+                  <label><input type="radio" name="activity-cover-source" [checked]="coverSource === 'url'" (change)="setCoverSource('url')" /> Adresse URL</label>
+                  <label><input type="radio" name="activity-cover-source" [checked]="coverSource === 'upload'" (change)="setCoverSource('upload')" /> Importer un fichier</label>
+                </div>
+                @if (coverSource === 'url') {
+                  <input id="activity-cover" name="coverUrl" type="url" [(ngModel)]="form.coverUrl" placeholder="https://exemple.fr/image.webp" />
+                  <span class="editor-help">Saisissez une adresse d’image publique.</span>
+                } @else {
+                  <input id="activity-cover" name="cover" type="file" accept="image/*" (change)="onCoverSelected($event)" [disabled]="uploading()" />
+                  <span class="editor-help">JPG, PNG, WebP ou GIF, 10 Mo maximum. {{ uploading() ? 'Téléversement…' : '' }}</span>
+                }
               </div>
             </div>
           </div>

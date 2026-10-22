@@ -27,7 +27,24 @@ export interface ResourceField {
 export interface ResourceListColumn {
   key: string;
   label: string;
-  type?: 'text' | 'status' | 'date' | 'boolean' | 'tags';
+  type?: 'text' | 'status' | 'date' | 'boolean' | 'tags' | 'json' | 'image' | 'media';
+}
+
+export type ResourceRowActionKind = 'edit' | 'delete' | 'status' | 'view' | 'registrations';
+
+export interface ResourceRowAction {
+  kind: ResourceRowActionKind;
+  label: string;
+  icon: string;
+  tone?: 'default' | 'success' | 'danger';
+  status?: string;
+  labelByStatus?: Record<string, string>;
+  statusByCurrentStatus?: Record<string, string>;
+  hideForStatuses?: string[];
+  showWhenField?: string;
+  showWhenValue?: unknown;
+  confirmMessage?: string;
+  route?: string;
 }
 
 export interface AdminResourceConfig {
@@ -48,7 +65,10 @@ export interface AdminResourceConfig {
   deletable?: boolean;
   createEndpoint?: string;
   createDefaults?: Record<string, unknown>;
+  createLabel?: string;
   createRoute?: string;
+  editorRoute?: string;
+  rowActions?: ResourceRowAction[];
 }
 
 const STATUSES_CONTENT: ResourceField = {
@@ -94,9 +114,10 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
     endpoint: API_ROUTES.admin.auditLogs,
     shape: 'items',
     columns: [
-      { key: 'entity', label: 'Entité' },
+      { key: 'resource', label: 'Ressource' },
       { key: 'action', label: 'Action' },
       { key: 'userId', label: 'Utilisateur' },
+      { key: 'metadata', label: 'Requête et réponse', type: 'json' },
       { key: 'createdAt', label: 'Date', type: 'date' }
     ],
     fields: []
@@ -172,6 +193,8 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
     endpoint: API_ROUTES.admin.memberApplications,
     createEndpoint: API_ROUTES.public.memberApplications,
     createDefaults: { consent: true },
+    createRoute: '/dashboard/members/applications/new',
+    createLabel: 'Nouvelle demande',
     shape: 'items',
     searchable: true,
     statusParam: 'status',
@@ -191,7 +214,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
       { key: 'legalForm', label: 'Forme juridique', type: 'text', placeholder: 'Ex. SARL' },
       { key: 'description', label: 'Description', type: 'textarea', placeholder: 'Activité de l’entreprise' },
       { key: 'website', label: 'Site web', type: 'url' },
-      { key: 'email', label: 'Email de l’entreprise', type: 'email' },
+      { key: 'email', label: 'Email de l’entreprise', type: 'email', required: true },
       { key: 'phone', label: 'Téléphone', type: 'text' },
       { key: 'address', label: 'Adresse', type: 'text' },
       { key: 'representativeName', label: 'Représentant', type: 'text', required: true, placeholder: 'Nom Prénom' },
@@ -213,6 +236,9 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
     creatable: true,
     editable: true,
     deletable: true,
+    createRoute: '/dashboard/projects/new',
+    editorRoute: '/dashboard/projects',
+    createLabel: 'Nouveau projet',
     columns: [
       { key: 'title', label: 'Titre' },
       { key: 'status', label: 'Statut', type: 'status' },
@@ -304,6 +330,9 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
     creatable: true,
     editable: true,
     deletable: true,
+    createRoute: '/dashboard/hackathons/new',
+    editorRoute: '/dashboard/hackathons',
+    createLabel: 'Nouveau hackathon',
     columns: [
       { key: 'title', label: 'Titre' },
       { key: 'startDate', label: 'Début', type: 'date' },
@@ -337,6 +366,9 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
     creatable: true,
     editable: true,
     deletable: true,
+    createRoute: '/dashboard/partners/new',
+    editorRoute: '/dashboard/partners',
+    createLabel: 'Nouveau partenaire',
     columns: [
       { key: 'name', label: 'Nom' },
       { key: 'type', label: 'Type' },

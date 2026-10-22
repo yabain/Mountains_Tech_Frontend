@@ -18,6 +18,25 @@ const config: AdminResourceConfig = {
   creatable: true,
   editable: true,
   deletable: true,
+  rowActions: [
+    {
+      kind: 'registrations',
+      label: 'Inscriptions',
+      icon: 'bi-person-check',
+      route: '/dashboard/events/:id/registrations',
+      showWhenField: 'registrationRequired',
+      showWhenValue: true
+    },
+    { kind: 'edit', label: 'Modifier', icon: 'bi-pencil' },
+    {
+      kind: 'status',
+      label: 'Archiver',
+      icon: 'bi-archive',
+      status: 'ARCHIVED',
+      hideForStatuses: ['ARCHIVED']
+    },
+    { kind: 'delete', label: 'Supprimer', icon: 'bi-trash', tone: 'danger' }
+  ],
   columns: [
     { key: 'title', label: 'Titre' },
     { key: 'category', label: 'Categorie' },

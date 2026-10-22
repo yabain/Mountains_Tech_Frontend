@@ -1,0 +1,70 @@
+<main class="admin-editor registration-page">
+  <header class="editor-heading">
+    <button class="editor-back" type="button" (click)="back()" aria-label="Retour">
+      <i class="bi bi-arrow-left" aria-hidden="true"></i>
+    </button>
+    <div>
+      <h1>{{ title }}</h1>
+      <p>Consultez les inscriptions reçues et leurs informations.</p>
+    </div>
+  </header>
+
+  @if (loading()) {
+    <div class="editor-loading">Chargement des inscriptions…</div>
+  } @else if (error()) {
+    <div class="editor-error" role="alert">{{ error() }}</div>
+  } @else {
+    <section class="editor-card">
+      <div class="registration-toolbar" [class.registration-toolbar--loading]="reloading()">
+        <label class="registration-search">
+          <i class="bi bi-search" aria-hidden="true"></i>
+          <input
+            type="search"
+            [value]="search()"
+            (input)="searchChanged($any($event.target).value)"
+            placeholder="Rechercher une inscription…"
+            aria-label="Rechercher une inscription"
+          />
+        </label>
+        <span class="registration-total">{{ total() }} inscription(s)</span>
+      </div>
+
+      @if (!rows().length) {
+        <div class="registration-empty">Aucune inscription ne correspond à cette recherche.</div>
+      } @else {
+        <div class="registration-table-wrap">
+          <table class="registration-table">
+            <thead>
+              <tr>
+                @for (column of columns(); track column.key) {
+                  <th>{{ column.label }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of rows(); track row['id'] ?? row['_id'] ?? $index) {
+                <tr>
+                  @for (column of columns(); track column.key) {
+                    <td>{{ cell(row, column.key) }}</td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </section>
+
+    @if (pages() > 1) {
+      <footer class="registration-pagination">
+        <button class="editor-btn" type="button" (click)="previousPage()" [disabled]="page() <= 1">
+          <i class="bi bi-arrow-left" aria-hidden="true"></i> Précédent
+        </button>
+        <span>Page {{ page() }} / {{ pages() }} · {{ total() }} inscription(s)</span>
+        <button class="editor-btn" type="button" (click)="nextPage()" [disabled]="page() >= pages()">
+          Suivant <i class="bi bi-arrow-right" aria-hidden="true"></i>
+        </button>
+      </footer>
+    }
+  }
+</main>

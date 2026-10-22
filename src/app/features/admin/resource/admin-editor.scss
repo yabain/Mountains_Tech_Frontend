@@ -134,6 +134,38 @@
   background: #f1f4f8;
 }
 
+.editor-image-source {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 8px;
+
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #34445e;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  input {
+    width: auto;
+    min-height: 0;
+    accent-color: #00447e;
+  }
+}
+
+.editor-image-preview {
+  display: block;
+  width: min(220px, 100%);
+  max-height: 160px;
+  margin-top: 12px;
+  border-radius: 8px;
+  background: #f1f4f8;
+  object-fit: contain;
+}
+
 .editor-actions {
   display: flex;
   justify-content: flex-end;

@@ -1,11 +1,13 @@
 import { AsyncPipe, } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { filter } from 'rxjs';
+import { filter, interval } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AlertComponent } from '../../shared/components/alert/alert.component';
 import { AuthService, AuthUser } from '../../core/auth/services/auth.service';
 import { AdminNotificationsComponent } from '../../features/admin/notifications/admin-notifications.component';
 import { ADMIN_NAV_ITEMS, AdminNavItem, AdminRole, ROLE_PERMISSIONS, normalizeRole } from '../../features/admin/admin-navigation';
+import { AdminSidebarCountsService } from '../../features/admin/admin-sidebar-counts.service';
 import { TopBarComponent } from '../../shared/components/top-bar/top-bar.component';
 
 const ROLE_LABELS: Record<AdminRole, string> = {
@@ -13,11 +15,6 @@ const ROLE_LABELS: Record<AdminRole, string> = {
   ADMIN: 'Administrateur',
   EDITOR: 'Éditeur',
   COMMUNICATION: 'Communication'
-};
-
-const NAV_COUNTS: Readonly<Record<string, number>> = {
-  members: 3,
-  contacts: 5
 };
 
 @Component({
@@ -31,6 +28,7 @@ const NAV_COUNTS: Readonly<Record<string, number>> = {
 export class AdminLayoutComponent implements AfterViewInit {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  readonly sidebarCounts = inject(AdminSidebarCountsService);
 
   @ViewChild('adminNav', { read: ElementRef }) adminNav?: ElementRef<HTMLElement>;
 
@@ -52,8 +50,11 @@ export class AdminLayoutComponent implements AfterViewInit {
   });
 
   constructor() {
+    this.sidebarCounts.refresh();
+    interval(60_000).pipe(takeUntilDestroyed()).subscribe(() => this.sidebarCounts.refresh());
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .pipe(takeUntilDestroyed())
       .subscribe(() => {
         const url = this.router.url;
         const match = ADMIN_NAV_ITEMS
@@ -61,6 +62,7 @@ export class AdminLayoutComponent implements AfterViewInit {
           .sort((a, b) => b.route.length - a.route.length)[0];
         this.currentCategory.set(match?.label ?? null);
         this.notificationsOpen.set(false);
+        this.sidebarCounts.refresh();
       });
   }
 
@@ -68,8 +70,28 @@ export class AdminLayoutComponent implements AfterViewInit {
     return this.navItems().filter((item) => item.group === group);
   }
 
-  navCount(permission: AdminNavItem['permission']): number | undefined {
-    return NAV_COUNTS[permission];
+  navCount(route: string): number | null {
+    return this.sidebarCounts.countForRoute(route)?.value ?? null;
+  }
+
+  hasNavCount(route: string): boolean {
+    const count = this.navCount(route);
+    return count !== null && count > 0;
+  }
+
+  navCountUnavailable(route: string): boolean {
+    return this.sidebarCounts.countForRoute(route)?.unavailable ?? false;
+  }
+
+  navCountLabel(route: string): string {
+    return this.sidebarCounts.labelForRoute(route);
+  }
+
+  onNavItemClick(route: string): void {
+    if (this.sidebarCounts.countForRoute(route)) {
+      this.sidebarCounts.refresh();
+    }
+    this.closeSidebar();
   }
 
   groupLabel(group: AdminNavItem['group']): string {

@@ -1,0 +1,43 @@
+<section class="res-page">
+  <section class="admin-page-heading">
+    <div>
+      <h1><i class="bi bi-eye"></i>Visibilité des États</h1>
+      <p>Configurez la visibilité et l'état des différentes entités.</p>
+    </div>
+  </section>
+
+  <div class="admin-visibility-config">
+    @for (entity of entities; track entity.id) {
+      <div class="admin-visibility-item">
+        <div class="admin-visibility-item-header">
+          <span class="admin-visibility-item-icon">
+            <i [class]="'bi ' + entity.icon"></i>
+          </span>
+          <span class="admin-visibility-item-name">{{ entity.name }}</span>
+        </div>
+
+        <div class="admin-visibility-item-body">
+          <div class="admin-visibility-toggle">
+            <input type="checkbox" [checked]="entity.isVisible" (change)="toggleVisibility(entity.id)" />
+            <span>Visible</span>
+          </div>
+
+          <div class="admin-visibility-status">
+            <span [class]="entity.statusClass">{{ entity.statusLabel }}</span>
+          </div>
+
+          @if (entity.description) {
+            <p class="admin-visibility-description">{{ entity.description }}</p>
+          }
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (showGlobalToggle) {
+    <div class="admin-global-toggle">
+      <input type="checkbox" id="toggle-all-visibility" (change)="toggleAllVisibility()" />
+      <label for="toggle-all-visibility">Tout sélectionner/désélectionner</label>
+    </div>
+  }
+</section>

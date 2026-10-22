@@ -117,16 +117,6 @@
   }
 }
 
-.demo-label {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--notif-primary);
-  background: color-mix(in oklab, var(--notif-secondary) 30%, var(--notif-card));
-  padding: 4px 8px;
-  border-radius: 4px;
-}
-
 .notification-feed {
   min-height: 0;
   overflow-y: auto;

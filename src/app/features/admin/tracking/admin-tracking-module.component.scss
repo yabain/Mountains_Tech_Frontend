@@ -1,0 +1,60 @@
+/* Tracking module component styles */
+.res-page {
+  .admin-page-heading {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+
+    .admin-stat-card {
+      background: var(--adm-card);
+      border: 1px solid var(--adm-border);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-md);
+      text-align: center;
+
+      .admin-stat-value {
+        font-size: var(--font-size-xxl);
+        font-weight: var(--font-weight-bold);
+        color: var(--adm-primary);
+        margin-bottom: var(--spacing-xs);
+      }
+
+      .admin-stat-label {
+        color: var(--adm-muted-foreground);
+        font-size: var(--font-size-sm);
+        margin-bottom: var(--spacing-xxs);
+      }
+
+      .admin-stat-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto var(--spacing-sm);
+
+        i {
+          font-size: var(--font-size-lg);
+        }
+      }
+    }
+  }
+
+  .admin-chart-section {
+    background: var(--adm-card);
+    border: 1px solid var(--adm-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: var(--spacing-sm);
+      color: var(--adm-foreground);
+    }
+  }
+}

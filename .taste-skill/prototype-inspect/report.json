@@ -1,0 +1,2943 @@
+{
+ "url": ".taste-skill\\prototype\\index.html",
+ "at": "2026-10-19T16:18:29.101Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.69,
+    0.74,
+    0.25,
+    0.22,
+    0.13,
+    0.24,
+    0.74,
+    0.82,
+    0.32,
+    0.87,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 36,
+    "css": 5,
+    "transitions": 31,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 9959,
+     "screens": 11.1,
+     "words": 568,
+     "img": 19,
+     "video": 0,
+     "canvas": 0,
+     "svg": 6,
+     "sections": 9,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 10,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "event.jpg",
+      "atelier.jpg",
+      "event2.jpg",
+      "connexion.jpg",
+      "bangangte.jpg",
+      "atelier.jpg",
+      "event2.jpg",
+      "partenaires.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Bâtir depuis Bangangté",
+     "words": 3,
+     "chars": 22,
+     "lines": 2,
+     "size": 119.5,
+     "vw": 8.3,
+     "font": "Bodoni Moda",
+     "weight": 500,
+     "tracking": -0.05,
+     "leading": 0.9,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "right",
+     "widthRatio": 0.55,
+     "top": 524,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Bâtir depuis Bangangté",
+     "words": 3,
+     "lines": 2,
+     "size": 119.5,
+     "font": "Bodoni Moda"
+    },
+    "headings": [
+     {
+      "text": "2025",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 64.8,
+      "vw": 4.5,
+      "font": "Jost",
+      "weight": 500,
+      "tracking": -0.045,
+      "leading": 0.8,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.1,
+      "top": 406,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Bâtir depuis Bangangté",
+      "words": 3,
+      "chars": 22,
+      "lines": 2,
+      "size": 119.5,
+      "vw": 8.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.9,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.55,
+      "top": 524,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "2025",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 119.5,
+      "vw": 8.3,
+      "font": "Jost",
+      "weight": 400,
+      "tracking": -0.045,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.18,
+      "top": 1234,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Monter ensemble",
+      "words": 2,
+      "chars": 15,
+      "lines": 2,
+      "size": 119.5,
+      "vw": 8.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.33,
+      "top": 1473,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Le 11 janvier 2025, à Bangangté, un technopôle ouvre. 500 jeunes talents et 12 entreprises plus tard, la même ambition.",
+      "words": 20,
+      "chars": 119,
+      "lines": 3,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Jost",
+      "weight": 400,
+      "tracking": -0.015,
+      "leading": 1.16,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.55,
+      "top": 2217,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Ce que nous faisons",
+      "words": 4,
+      "chars": 19,
+      "lines": 1,
+      "size": 64.8,
+      "vw": 4.5,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.39,
+      "top": 2708,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Former",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.31,
+      "top": 2858,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Prototyper",
+      "words": 1,
+      "chars": 10,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.31,
+      "top": 3303,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Connecter",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.31,
+      "top": 3793,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Grandir",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.31,
+      "top": 4138,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Le réseau",
+      "words": 2,
+      "chars": 9,
+      "lines": 1,
+      "size": 64.8,
+      "vw": 4.5,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 4940,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Le journal",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 64.8,
+      "vw": 4.5,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.39,
+      "top": 6101,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "15",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 119.5,
+      "vw": 8.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.7,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.07,
+      "top": 6269,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "L’Intelligence Artificielle au Service de la Création Culinaire",
+      "words": 8,
+      "chars": 63,
+      "lines": 2,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.025,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.47,
+      "top": 6269,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Les projets",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 64.8,
+      "vw": 4.5,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.54,
+      "top": 6940,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Un lieu, des mentors.",
+      "words": 4,
+      "chars": 21,
+      "lines": 2,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.03,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.19,
+      "top": 7013,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Le premier projet s’écrit ici.",
+      "words": 5,
+      "chars": 30,
+      "lines": 2,
+      "size": 64.8,
+      "vw": 4.5,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.54,
+      "top": 7034,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Les partenaires",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 64.8,
+      "vw": 4.5,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.39,
+      "top": 7660,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Monter plus haut.",
+      "words": 3,
+      "chars": 17,
+      "lines": 2,
+      "size": 119.5,
+      "vw": 8.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 8377,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "MOUNTAINS TECH",
+      "words": 2,
+      "chars": 14,
+      "lines": 1,
+      "size": 119.5,
+      "vw": 8.3,
+      "font": "Jost",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.8,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 9808,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 20,
+     "maxLines": 3,
+     "over2Lines": 0,
+     "statements": 5,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Jost",
+       "share": 0.93,
+       "mono": false
+      },
+      {
+       "family": "Bodoni Moda",
+       "share": 0.07,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      14,
+      15,
+      16,
+      17,
+      20,
+      36,
+      65,
+      120
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Jost",
+      "size": 20,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 15.3
+     },
+     "measureChars": 74,
+     "max": {
+      "size": 119.5,
+      "vw": 8.3,
+      "font": "Bodoni Moda",
+      "text": "Bâtir depuis"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f3f5f2",
+     "bodyBgHsl": {
+      "h": 100,
+      "s": 0.13,
+      "l": 0.95
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#f3f5f2",
+       "top": 0,
+       "hsl": {
+        "h": 100,
+        "s": 0.13,
+        "l": 0.95
+       }
+      },
+      {
+       "color": "#0e1f2b",
+       "top": 1003,
+       "hsl": {
+        "h": 205,
+        "s": 0.51,
+        "l": 0.11
+       }
+      },
+      {
+       "color": "#d9e8f2",
+       "top": 5213,
+       "hsl": {
+        "h": 204,
+        "s": 0.49,
+        "l": 0.9
+       }
+      },
+      {
+       "color": "#00447e",
+       "top": 5972,
+       "hsl": {
+        "h": 208,
+        "s": 1,
+        "l": 0.25
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#0e1f2b",
+       "share": 0.66
+      },
+      {
+       "color": "#f3f5f2",
+       "share": 0.26
+      },
+      {
+       "color": "#4b5c66",
+       "share": 0.07
+      },
+      {
+       "color": "#00447e",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#ffe721",
+      "hsl": {
+       "h": 54,
+       "s": 1,
+       "l": 0.56
+      },
+      "fg": "#0e1f2b"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 4,
+     "radius": 0,
+     "height": 56,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Aller au contenu",
+      "Rejoindre",
+      "Découvrir le réseau"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 9,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.19
+     },
+     {
+      "type": "img",
+      "ratio": 0.1
+     }
+    ],
+    "nav": {
+     "links": 5,
+     "fixed": false,
+     "height": 84,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "bodoni moda",
+     "jost"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 9959,
+    "margins": {
+     "left": 32,
+     "right": 32
+    },
+    "sections": [
+     {
+      "sel": "section#top.hero",
+      "tag": "section",
+      "top": 0,
+      "height": 844,
+      "words": 38,
+      "media": 2,
+      "middle": 187,
+      "heading": {
+       "text": "Bâtir depuis",
+       "size": 120,
+       "tag": "h1"
+      },
+      "left": 32,
+      "right": 76,
+      "textLeft": 32,
+      "textRight": 76,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#technopole.manifesto",
+      "tag": "section",
+      "top": 844,
+      "height": 1104,
+      "words": 100,
+      "media": 2,
+      "middle": 0,
+      "heading": {
+       "text": "2025",
+       "size": 120,
+       "tag": "p"
+      },
+      "left": 32,
+      "right": 32,
+      "textLeft": 32,
+      "textRight": 85,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.stats",
+      "tag": "section",
+      "top": 1949,
+      "height": 662,
+      "words": 21,
+      "media": 1,
+      "middle": 146,
+      "heading": {
+       "text": "Le",
+       "size": 36,
+       "tag": "p"
+      },
+      "left": 32,
+      "right": 48,
+      "textLeft": 617,
+      "textRight": 48,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.wrap.features-intro",
+      "tag": "div",
+      "top": 2683,
+      "height": 175,
+      "words": 25,
+      "media": 0,
+      "middle": 259,
+      "heading": {
+       "text": "Ce que nous faisons",
+       "size": 65,
+       "tag": "h2"
+      },
+      "left": 32,
+      "right": 282,
+      "textLeft": 32,
+      "textRight": 282,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.wrap.feature-rows",
+      "tag": "div",
+      "top": 2858,
+      "height": 1765,
+      "words": 89,
+      "media": 4,
+      "middle": 266,
+      "heading": {
+       "text": "Prototyper",
+       "size": 36,
+       "tag": "h3"
+      },
+      "left": 32,
+      "right": 32,
+      "textLeft": 32,
+      "textRight": 97,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#reseau.network",
+      "tag": "section",
+      "top": 4781,
+      "height": 1190,
+      "words": 90,
+      "media": 2,
+      "middle": 16,
+      "heading": {
+       "text": "Le réseau",
+       "size": 65,
+       "tag": "h2"
+      },
+      "left": 32,
+      "right": 32,
+      "textLeft": 32,
+      "textRight": 151,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#journal.journal",
+      "tag": "section",
+      "top": 5972,
+      "height": 810,
+      "words": 65,
+      "media": 0,
+      "middle": 101,
+      "heading": {
+       "text": "15",
+       "size": 120,
+       "tag": "span"
+      },
+      "left": 32,
+      "right": 240,
+      "textLeft": 32,
+      "textRight": 240,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#projets.projects",
+      "tag": "section",
+      "top": 6782,
+      "height": 720,
+      "words": 58,
+      "media": 0,
+      "middle": 395,
+      "heading": {
+       "text": "Les projets",
+       "size": 65,
+       "tag": "h2"
+      },
+      "left": 32,
+      "right": 291,
+      "textLeft": 32,
+      "textRight": 291,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#partenaires.partners",
+      "tag": "section",
+      "top": 7502,
+      "height": 748,
+      "words": 32,
+      "media": 0,
+      "middle": 161,
+      "heading": {
+       "text": "Les partenaires",
+       "size": 65,
+       "tag": "h2"
+      },
+      "left": 32,
+      "right": 162,
+      "textLeft": 32,
+      "textRight": 237,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#rejoindre.cta",
+      "tag": "section",
+      "top": 8249,
+      "height": 810,
+      "words": 22,
+      "media": 1,
+      "middle": 409,
+      "heading": {
+       "text": "Monter",
+       "size": 120,
+       "tag": "h2"
+      },
+      "left": 32,
+      "right": 64,
+      "textLeft": 32,
+      "textRight": 64,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.footer",
+      "tag": "footer",
+      "top": 9059,
+      "height": 900,
+      "words": 37,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Adresse",
+       "size": 16,
+       "tag": "h3"
+      },
+      "left": 32,
+      "right": 32,
+      "textLeft": 32,
+      "textRight": 285,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 4624,
+      "height": 296
+     },
+     {
+      "top": 7264,
+      "height": 376
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Bâtir depuis Bangangté",
+      "size": 120,
+      "top": 524,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 32,
+      "n": 13
+     },
+     {
+      "x": 617,
+      "n": 12
+     },
+     {
+      "x": 52,
+      "n": 2
+     },
+     {
+      "x": 500,
+      "n": 2
+     },
+     {
+      "x": 644,
+      "n": 1
+     },
+     {
+      "x": 734,
+      "n": 1
+     },
+     {
+      "x": 896,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 32,
+    "bodySize": 20,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.13,
+    "voidBox": {
+     "x": 0,
+     "y": 780,
+     "w": 1440,
+     "h": 120
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.68,
+    0.81,
+    0.47,
+    0.81,
+    0.47,
+    0.72,
+    0.65,
+    0.63,
+    0.93,
+    0.54,
+    0.54,
+    1
+   ],
+   "motion": {
+    "elements": 35,
+    "css": 5,
+    "transitions": 30,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 12821,
+     "screens": 12.5,
+     "words": 546,
+     "img": 19,
+     "video": 0,
+     "canvas": 0,
+     "svg": 6,
+     "sections": 9,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 10,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "event.jpg",
+      "atelier.jpg",
+      "event2.jpg",
+      "connexion.jpg",
+      "bangangte.jpg",
+      "atelier.jpg",
+      "event2.jpg",
+      "partenaires.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Bâtir depuis Bangangté",
+     "words": 3,
+     "chars": 22,
+     "lines": 2,
+     "size": 64,
+     "vw": 8.3,
+     "font": "Bodoni Moda",
+     "weight": 500,
+     "tracking": -0.05,
+     "leading": 0.9,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "right",
+     "widthRatio": 0.55,
+     "top": 632,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Bâtir depuis Bangangté",
+     "words": 3,
+     "lines": 2,
+     "size": 64,
+     "font": "Bodoni Moda"
+    },
+    "headings": [
+     {
+      "text": "2025",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Jost",
+      "weight": 500,
+      "tracking": -0.045,
+      "leading": 0.8,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.12,
+      "top": 558,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Bâtir depuis Bangangté",
+      "words": 3,
+      "chars": 22,
+      "lines": 2,
+      "size": 64,
+      "vw": 8.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.9,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.55,
+      "top": 632,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "2025",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 64,
+      "vw": 8.3,
+      "font": "Jost",
+      "weight": 400,
+      "tracking": -0.045,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.18,
+      "top": 1436,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Monter ensemble",
+      "words": 2,
+      "chars": 15,
+      "lines": 2,
+      "size": 64,
+      "vw": 8.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.33,
+      "top": 1770,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ce que nous faisons",
+      "words": 4,
+      "chars": 19,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.47,
+      "top": 2952,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Le réseau",
+      "words": 2,
+      "chars": 9,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 6619,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Le journal",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 8347,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "15",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 64,
+      "vw": 8.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.7,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.07,
+      "top": 8584,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Les projets",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 9273,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Le premier projet s’écrit ici.",
+      "words": 5,
+      "chars": 30,
+      "lines": 2,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 9343,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Les partenaires",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 10097,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Monter plus haut.",
+      "words": 3,
+      "chars": 17,
+      "lines": 2,
+      "size": 64,
+      "vw": 8.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 10955,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "MOUNTAINS TECH",
+      "words": 2,
+      "chars": 14,
+      "lines": 1,
+      "size": 64,
+      "vw": 8.3,
+      "font": "Jost",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.8,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 12714,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 13,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 3,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Jost",
+       "share": 0.92,
+       "mono": false
+      },
+      {
+       "family": "Bodoni Moda",
+       "share": 0.08,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      14,
+      15,
+      16,
+      17,
+      20,
+      24,
+      40,
+      64
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Jost",
+      "size": 20,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 15.3
+     },
+     "measureChars": 42,
+     "max": {
+      "size": 64,
+      "vw": 8.3,
+      "font": "Bodoni Moda",
+      "text": "Bâtir depuis"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f3f5f2",
+     "bodyBgHsl": {
+      "h": 100,
+      "s": 0.13,
+      "l": 0.95
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#f3f5f2",
+       "top": 68,
+       "hsl": {
+        "h": 100,
+        "s": 0.13,
+        "l": 0.95
+       }
+      },
+      {
+       "color": "#0e1f2b",
+       "top": 1110,
+       "hsl": {
+        "h": 205,
+        "s": 0.51,
+        "l": 0.11
+       }
+      },
+      {
+       "color": "#d9e8f2",
+       "top": 3269,
+       "hsl": {
+        "h": 204,
+        "s": 0.49,
+        "l": 0.9
+       }
+      },
+      {
+       "color": "#00447e",
+       "top": 7553,
+       "hsl": {
+        "h": 208,
+        "s": 1,
+        "l": 0.25
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#0e1f2b",
+       "share": 0.69
+      },
+      {
+       "color": "#f3f5f2",
+       "share": 0.26
+      },
+      {
+       "color": "#4b5c66",
+       "share": 0.04
+      },
+      {
+       "color": "#00447e",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#ffe721",
+      "hsl": {
+       "h": 54,
+       "s": 1,
+       "l": 0.56
+      },
+      "fg": "#0e1f2b"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 4,
+     "radius": 0,
+     "height": 56,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Aller au contenu",
+      "Menu",
+      "Découvrir le réseau"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 7,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.19
+     },
+     {
+      "type": "img",
+      "ratio": 0.1
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": false,
+     "height": 68,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "bodoni moda",
+     "jost"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 12821,
+    "margins": {
+     "left": 17,
+     "right": 17
+    },
+    "sections": [
+     {
+      "sel": "section#top.hero",
+      "tag": "section",
+      "top": 68,
+      "height": 957,
+      "words": 38,
+      "media": 2,
+      "middle": 93,
+      "heading": {
+       "text": "2025",
+       "size": 40,
+       "tag": "p"
+      },
+      "left": 17,
+      "right": 20,
+      "textLeft": 17,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#technopole.manifesto",
+      "tag": "section",
+      "top": 1025,
+      "height": 1265,
+      "words": 100,
+      "media": 2,
+      "middle": 0,
+      "heading": {
+       "text": "2025",
+       "size": 64,
+       "tag": "p"
+      },
+      "left": 17,
+      "right": 17,
+      "textLeft": 17,
+      "textRight": 23,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.stats",
+      "tag": "section",
+      "top": 2290,
+      "height": 614,
+      "words": 21,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 17,
+      "right": 83,
+      "textLeft": 17,
+      "textRight": 83,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.wrap.features-intro",
+      "tag": "div",
+      "top": 2952,
+      "height": 172,
+      "words": 21,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 455,
+      "right": 21,
+      "textLeft": 455,
+      "textRight": 21,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.wrap.feature-rows",
+      "tag": "div",
+      "top": 3124,
+      "height": 3326,
+      "words": 73,
+      "media": 4,
+      "middle": 0,
+      "heading": {
+       "text": "Prototyper",
+       "size": 24,
+       "tag": "h3"
+      },
+      "left": 17,
+      "right": 17,
+      "textLeft": 17,
+      "textRight": 413,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#reseau.network",
+      "tag": "section",
+      "top": 6534,
+      "height": 1732,
+      "words": 90,
+      "media": 2,
+      "middle": 0,
+      "heading": {
+       "text": "Le réseau",
+       "size": 40,
+       "tag": "h2"
+      },
+      "left": 17,
+      "right": 17,
+      "textLeft": 17,
+      "textRight": 171,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#journal.journal",
+      "tag": "section",
+      "top": 8267,
+      "height": 922,
+      "words": 65,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "15",
+       "size": 64,
+       "tag": "span"
+      },
+      "left": 17,
+      "right": 113,
+      "textLeft": 17,
+      "textRight": 113,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#projets.projects",
+      "tag": "section",
+      "top": 9188,
+      "height": 824,
+      "words": 58,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Les projets",
+       "size": 40,
+       "tag": "h2"
+      },
+      "left": 17,
+      "right": 318,
+      "textLeft": 17,
+      "textRight": 318,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#partenaires.partners",
+      "tag": "section",
+      "top": 10013,
+      "height": 862,
+      "words": 18,
+      "media": 0,
+      "middle": 118,
+      "heading": {
+       "text": "Les partenaires",
+       "size": 40,
+       "tag": "h2"
+      },
+      "left": 17,
+      "right": 182,
+      "textLeft": 17,
+      "textRight": 264,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#rejoindre.cta",
+      "tag": "section",
+      "top": 10875,
+      "height": 922,
+      "words": 22,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Monter",
+       "size": 64,
+       "tag": "h2"
+      },
+      "left": 17,
+      "right": 39,
+      "textLeft": 17,
+      "textRight": 39,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.footer",
+      "tag": "footer",
+      "top": 11797,
+      "height": 1024,
+      "words": 37,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Adresse",
+       "size": 16,
+       "tag": "h3"
+      },
+      "left": 17,
+      "right": 17,
+      "textLeft": 17,
+      "textRight": 110,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Bâtir depuis Bangangté",
+      "size": 64,
+      "top": 632,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 17,
+      "n": 25
+     },
+     {
+      "x": 329,
+      "n": 3
+     },
+     {
+      "x": 37,
+      "n": 2
+     },
+     {
+      "x": 455,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 31,
+    "bodySize": 20,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.71,
+    0.74,
+    0.72,
+    0.68,
+    0.45,
+    0.56,
+    0.72,
+    0.69,
+    0.67,
+    0.68,
+    0.58,
+    1
+   ],
+   "motion": {
+    "elements": 36,
+    "css": 5,
+    "transitions": 31,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 10489,
+     "screens": 12.4,
+     "words": 546,
+     "img": 19,
+     "video": 0,
+     "canvas": 0,
+     "svg": 6,
+     "sections": 9,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 9,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "event.jpg",
+      "atelier.jpg",
+      "event2.jpg",
+      "bangangte.jpg",
+      "atelier.jpg",
+      "event2.jpg",
+      "partenaires.jpg",
+      "flambel.webp"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Bâtir depuis Bangangté",
+     "words": 3,
+     "chars": 22,
+     "lines": 2,
+     "size": 50.7,
+     "vw": 13,
+     "font": "Bodoni Moda",
+     "weight": 500,
+     "tracking": -0.05,
+     "leading": 0.92,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.92,
+     "top": 417,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Bâtir depuis Bangangté",
+     "words": 3,
+     "lines": 2,
+     "size": 50.7,
+     "font": "Bodoni Moda"
+    },
+    "headings": [
+     {
+      "text": "2025",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Jost",
+      "weight": 500,
+      "tracking": -0.045,
+      "leading": 0.8,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.23,
+      "top": 349,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Bâtir depuis Bangangté",
+      "words": 3,
+      "chars": 22,
+      "lines": 2,
+      "size": 50.7,
+      "vw": 13,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 417,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Monter ensemble",
+      "words": 2,
+      "chars": 15,
+      "lines": 2,
+      "size": 64,
+      "vw": 16.4,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.66,
+      "top": 1198,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "2025",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 64,
+      "vw": 16.4,
+      "font": "Jost",
+      "weight": 400,
+      "tracking": -0.045,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.35,
+      "top": 1440,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Le 11 janvier 2025, à Bangangté, un technopôle ouvre. 500 jeunes talents et 12 entreprises plus tard, la même ambition.",
+      "words": 20,
+      "chars": 119,
+      "lines": 4,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Jost",
+      "weight": 400,
+      "tracking": -0.015,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 2406,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Ce que nous faisons",
+      "words": 4,
+      "chars": 19,
+      "lines": 1,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 2650,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Former",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 2855,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Prototyper",
+      "words": 1,
+      "chars": 10,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 3511,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Connecter",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 3886,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Grandir",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.035,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 4292,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Le réseau",
+      "words": 2,
+      "chars": 9,
+      "lines": 1,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 5017,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Le journal",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 6411,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "15",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 64,
+      "vw": 16.4,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.7,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.14,
+      "top": 6575,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "L’Intelligence Artificielle au Service de la Création Culinaire",
+      "words": 8,
+      "chars": 63,
+      "lines": 2,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.025,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 6657,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Les projets",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 7250,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Le premier projet s’écrit ici.",
+      "words": 5,
+      "chars": 30,
+      "lines": 2,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 7320,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Un lieu, des mentors.",
+      "words": 4,
+      "chars": 21,
+      "lines": 2,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.03,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.47,
+      "top": 7689,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Les partenaires",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.04,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 8083,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Monter plus haut.",
+      "words": 3,
+      "chars": 17,
+      "lines": 2,
+      "size": 64,
+      "vw": 16.4,
+      "font": "Bodoni Moda",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 8965,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "MOUNTAINS TECH",
+      "words": 2,
+      "chars": 14,
+      "lines": 1,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Jost",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.8,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 10401,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 20,
+     "maxLines": 4,
+     "over2Lines": 0,
+     "statements": 5,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Jost",
+       "share": 0.92,
+       "mono": false
+      },
+      {
+       "family": "Bodoni Moda",
+       "share": 0.08,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      14,
+      15,
+      16,
+      17,
+      20,
+      24,
+      40,
+      51,
+      64
+     ],
+     "sizeCount": 9,
+     "notLoaded": [],
+     "body": {
+      "font": "Jost",
+      "size": 20,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 15.3
+     },
+     "measureChars": 36,
+     "max": {
+      "size": 64,
+      "vw": 16.4,
+      "font": "Bodoni Moda",
+      "text": "Monterensemble"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f3f5f2",
+     "bodyBgHsl": {
+      "h": 100,
+      "s": 0.13,
+      "l": 0.95
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#f3f5f2",
+       "top": 68,
+       "hsl": {
+        "h": 100,
+        "s": 0.13,
+        "l": 0.95
+       }
+      },
+      {
+       "color": "#0e1f2b",
+       "top": 932,
+       "hsl": {
+        "h": 205,
+        "s": 0.51,
+        "l": 0.11
+       }
+      },
+      {
+       "color": "#d9e8f2",
+       "top": 2999,
+       "hsl": {
+        "h": 204,
+        "s": 0.49,
+        "l": 0.9
+       }
+      },
+      {
+       "color": "#00447e",
+       "top": 5742,
+       "hsl": {
+        "h": 208,
+        "s": 1,
+        "l": 0.25
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#0e1f2b",
+       "share": 0.69
+      },
+      {
+       "color": "#f3f5f2",
+       "share": 0.26
+      },
+      {
+       "color": "#4b5c66",
+       "share": 0.04
+      },
+      {
+       "color": "#00447e",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#ffe721",
+      "hsl": {
+       "h": 54,
+       "s": 1,
+       "l": 0.56
+      },
+      "fg": "#0e1f2b"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 4,
+     "radius": 0,
+     "height": 56,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Aller au contenu",
+      "Menu",
+      "Découvrir le réseau"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 5,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.14
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": false,
+     "height": 68,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "bodoni moda",
+     "jost"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 10489,
+    "margins": {
+     "left": 16,
+     "right": 16
+    },
+    "sections": [
+     {
+      "sel": "section#top.hero",
+      "tag": "section",
+      "top": 68,
+      "height": 784,
+      "words": 38,
+      "media": 2,
+      "middle": 0,
+      "heading": {
+       "text": "Bâtir depuis",
+       "size": 51,
+       "tag": "h1"
+      },
+      "left": 0,
+      "right": 30,
+      "textLeft": 16,
+      "textRight": 30,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#technopole.manifesto",
+      "tag": "section",
+      "top": 852,
+      "height": 1161,
+      "words": 100,
+      "media": 2,
+      "middle": 0,
+      "heading": {
+       "text": "Monter",
+       "size": 64,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 24,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.stats",
+      "tag": "section",
+      "top": 2013,
+      "height": 588,
+      "words": 21,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 22,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.wrap.features-intro",
+      "tag": "div",
+      "top": 2650,
+      "height": 205,
+      "words": 21,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 16,
+      "right": 48,
+      "textLeft": 16,
+      "textRight": 48,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.wrap.feature-rows",
+      "tag": "div",
+      "top": 2855,
+      "height": 2003,
+      "words": 73,
+      "media": 4,
+      "middle": 0,
+      "heading": {
+       "text": "Prototyper",
+       "size": 24,
+       "tag": "h3"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 36,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#reseau.network",
+      "tag": "section",
+      "top": 4937,
+      "height": 1394,
+      "words": 90,
+      "media": 2,
+      "middle": 0,
+      "heading": {
+       "text": "Le réseau",
+       "size": 40,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 18,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#journal.journal",
+      "tag": "section",
+      "top": 6331,
+      "height": 839,
+      "words": 65,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "15",
+       "size": 64,
+       "tag": "span"
+      },
+      "left": 16,
+      "right": 26,
+      "textLeft": 16,
+      "textRight": 26,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#projets.projects",
+      "tag": "section",
+      "top": 7170,
+      "height": 833,
+      "words": 58,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Les projets",
+       "size": 40,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 51,
+      "textLeft": 16,
+      "textRight": 51,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#partenaires.partners",
+      "tag": "section",
+      "top": 8003,
+      "height": 883,
+      "words": 32,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Les partenaires",
+       "size": 40,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 75,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#rejoindre.cta",
+      "tag": "section",
+      "top": 8885,
+      "height": 760,
+      "words": 22,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Monter",
+       "size": 64,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 30,
+      "textLeft": 16,
+      "textRight": 30,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.footer",
+      "tag": "footer",
+      "top": 9645,
+      "height": 844,
+      "words": 37,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Adresse",
+       "size": 16,
+       "tag": "h3"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 39,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Bâtir depuis Bangangté",
+      "size": 51,
+      "top": 417,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 16,
+      "n": 30
+     },
+     {
+      "x": 32,
+      "n": 2
+     }
+    ],
+    "leftBlocks": 32,
+    "bodySize": 20,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\prototype-inspect\\desktop-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\prototype-inspect\\desktop-page-01.jpg",
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\prototype-inspect\\desktop-page-02.jpg",
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\prototype-inspect\\desktop-page-03.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\prototype-inspect\\tablet-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\prototype-inspect\\tablet-page-01.jpg",
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\prototype-inspect\\tablet-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\prototype-inspect\\mobile-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\prototype-inspect\\mobile-page-01.jpg",
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\prototype-inspect\\mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

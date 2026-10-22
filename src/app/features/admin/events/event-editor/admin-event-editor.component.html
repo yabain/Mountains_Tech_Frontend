@@ -42,8 +42,8 @@
             <textarea id="event-excerpt" name="excerpt" [(ngModel)]="form.excerpt" rows="3" placeholder="Présentez brièvement l’événement"></textarea>
           </div>
           <div class="editor-field editor-field--full">
-            <label for="event-program">Programme</label>
-            <textarea id="event-program" name="program" [(ngModel)]="form.program" rows="6" placeholder="Déroulé et temps forts de l’événement"></textarea>
+            <label for="event-program">Programme et contenu détaillé</label>
+            <textarea id="event-program" name="contentHtml" [(ngModel)]="form.contentHtml" rows="6" placeholder="Déroulé et informations détaillées de l’événement"></textarea>
           </div>
         </div>
       </section>
@@ -51,58 +51,32 @@
       <section class="editor-card">
         <h2>Image de couverture</h2>
         <div class="editor-field">
-          <label for="event-cover">Ajouter une image</label>
+          <label>Choisissez la source de l’image</label>
+          <div class="editor-image-source">
+            <label><input type="radio" name="event-cover-source" [checked]="coverSource === 'url'" (change)="setCoverSource('url')" /> Adresse URL</label>
+            <label><input type="radio" name="event-cover-source" [checked]="coverSource === 'upload'" (change)="setCoverSource('upload')" /> Importer un fichier</label>
+          </div>
           <div class="editor-image">
-            @if (form.coverUrl) { <img [src]="form.coverUrl" alt="Aperçu de la couverture" /> }
+            @if (form.coverUrl) { <img [src]="previewUrl()" alt="Aperçu de la couverture" /> }
             <div>
-              <input id="event-cover" name="cover" type="file" accept="image/*" (change)="onCoverSelected($event)" [disabled]="uploading()" />
-              <span class="editor-help">JPG, PNG ou WebP, 5 Mo maximum. {{ uploading() ? 'Téléversement…' : '' }}</span>
+              @if (coverSource === 'url') {
+                <input id="event-cover" name="coverUrl" type="url" [(ngModel)]="form.coverUrl" placeholder="https://exemple.fr/image.webp" />
+                <span class="editor-help">Saisissez une adresse d’image publique.</span>
+              } @else {
+                <input id="event-cover" name="cover" type="file" accept="image/*" (change)="onCoverSelected($event)" [disabled]="uploading()" />
+                <span class="editor-help">JPG, PNG, WebP ou GIF, 10 Mo maximum. {{ uploading() ? 'Téléversement…' : '' }}</span>
+              }
             </div>
           </div>
         </div>
       </section>
 
       <section class="editor-card">
-        <h2>Contact et réseaux sociaux</h2>
+        <h2>Publication</h2>
         <div class="editor-grid">
-          <div class="editor-field">
-            <label for="event-phone">Téléphone de contact</label>
-            <input id="event-phone" name="contactPhone" type="tel" [(ngModel)]="form.contactPhone" placeholder="+33…" />
-          </div>
-          <div class="editor-field">
-            <label for="event-email">E-mail de contact</label>
-            <input id="event-email" name="contactEmail" type="email" [(ngModel)]="form.contactEmail" placeholder="contact@exemple.fr" />
-          </div>
-          <div class="editor-field">
-            <label for="event-facebook">Facebook</label>
-            <input id="event-facebook" name="facebook" type="url" [(ngModel)]="form.facebook" placeholder="https://facebook.com/…" />
-          </div>
-          <div class="editor-field">
-            <label for="event-instagram">Instagram</label>
-            <input id="event-instagram" name="instagram" type="url" [(ngModel)]="form.instagram" placeholder="https://instagram.com/…" />
-          </div>
-          <div class="editor-field">
-            <label for="event-linkedin">LinkedIn</label>
-            <input id="event-linkedin" name="linkedin" type="url" [(ngModel)]="form.linkedin" placeholder="https://linkedin.com/…" />
-          </div>
-          <div class="editor-field">
-            <label for="event-registration-url">Lien d’inscription</label>
-            <input id="event-registration-url" name="registrationUrl" type="url" [(ngModel)]="form.registrationUrl" placeholder="https://…" />
-          </div>
-        </div>
-      </section>
-
-      <section class="editor-card">
-        <h2>Partenaires et publication</h2>
-        <div class="editor-grid">
-          <div class="editor-field editor-field--full">
-            <label for="event-sponsors">Partenaires / sponsors</label>
-            <input id="event-sponsors" name="sponsors" [(ngModel)]="form.sponsors" placeholder="Noms des partenaires…" />
-            <span class="editor-help">Ajoutez plusieurs noms en les séparant par des virgules.</span>
-          </div>
           <div class="editor-field">
             <label for="event-capacity">Capacité</label>
-            <input id="event-capacity" name="capacity" type="number" min="0" [(ngModel)]="form.capacity" />
+            <input id="event-capacity" name="capacity" type="number" min="1" [(ngModel)]="form.capacity" />
           </div>
           <div class="editor-field">
             <label for="event-status">Statut</label>
@@ -115,10 +89,6 @@
           <label class="editor-check">
             <input name="registrationRequired" type="checkbox" [(ngModel)]="form.registrationRequired" />
             Inscription requise
-          </label>
-          <label class="editor-check">
-            <input name="showOnHome" type="checkbox" [(ngModel)]="form.showOnHome" />
-            Mettre en avant sur la page d’accueil
           </label>
           <div class="editor-field">
             <label for="event-slug">Slug</label>

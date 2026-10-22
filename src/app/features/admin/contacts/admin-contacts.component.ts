@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { RESOURCE_CONFIG, AdminResourceConfig } from '../resource/admin-resource.config';
 import { AdminResourceBase } from '../resource/admin-resource.base';
 import { API_ROUTES } from '../../../core/constants/api-routes';
@@ -16,6 +15,24 @@ const config: AdminResourceConfig = {
   statusField: 'status',
   statusOptions: ['NEW', 'IN_PROGRESS', 'RESOLVED', 'SPAM'],
   statusEndpoint: '/status',
+  rowActions: [
+    {
+      kind: 'view',
+      label: 'Voir',
+      icon: 'bi-eye',
+      route: '/dashboard/contacts/:id'
+    },
+    {
+      kind: 'status',
+      label: 'Marquer comme lu',
+      icon: 'bi-envelope-open',
+      tone: 'success',
+      status: 'RESOLVED',
+      statusByCurrentStatus: { RESOLVED: 'IN_PROGRESS' },
+      labelByStatus: { RESOLVED: 'Marquer comme non lu' },
+      hideForStatuses: ['SPAM']
+    }
+  ],
   columns: [
     { key: 'name', label: 'Nom' },
     { key: 'email', label: 'Email' },
@@ -36,9 +53,4 @@ const config: AdminResourceConfig = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminContactsComponent extends AdminResourceBase {
-  private readonly contactsRouter = inject(Router);
-
-  openContact(row: Record<string, any>): void {
-    void this.contactsRouter.navigate(['/dashboard/contacts', this.rowId(row)]);
-  }
 }

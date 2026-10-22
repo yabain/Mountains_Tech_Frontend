@@ -1,0 +1,182 @@
+<section class="res-page">
+  <section class="admin-page-heading">
+    <div>
+      <h1><i class="bi bi-grid-fill"></i>Sections</h1>
+      <p>Gérez les sections de contenu depuis cette interface.</p>
+    </div>
+  </section>
+
+  <div class="admin-filters">
+    <div class="res-toolbar">
+      <div class="res-search">
+        <i class="bi bi-search" aria-hidden="true"></i>
+        <input type="search" placeholder="Rechercher une section..." aria-label="Rechercher une section" />
+      </div>
+      <select class="res-select">
+        <option value="">Toutes les sections</option>
+        <option value="active">Sections actives</option>
+        <option value="inactive">Sections inactives</option>
+      </select>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="admin-state">Chargement des sections...</div>
+  } @else if (error()) {
+    <div class="admin-state admin-state--error" role="alert">{{ error() }}</div>
+  } @else {
+    @if (!rows().length) {
+      <div class="admin-state">Aucune section correspondante.</div>
+    } @else {
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Type</th>
+              <th>Statut</th>
+              <th class="res-th-actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of rows(); track rowId(row)) {
+              <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.type }}</td>
+                <td>
+                  <span [class]="'bi ' + statusClass(row.status)"></span>
+                  {{ row.status }}
+                </td>
+                <td class="res-actions">
+                  <button class="res-icon-btn" title="Modifier" aria-label="Modifier">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="res-icon-btn res-icon-btn--danger" title="Supprimer" aria-label="Supprimer">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      @if (isPaginated && pages() > 1) {
+        <div class="res-pagination">
+          <button class="res-nav-btn" type="button" (click)="prevPage()" [disabled]="page() <= 1">
+            <span class="res-nav-btn__icon res-nav-btn__icon--left">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M7.828 11l5.364-5.364-1.414-1.414L4 12l7.778 7.778 1.414-1.414L7.828 13H20v-2z"></path></svg>
+            </span>
+            <span class="res-nav-btn__label">Précédent</span>
+          </button>
+          <span>Page {{ page() }} / {{ pages() }}</span>
+          <button class="res-nav-btn" type="button" (click)="nextPage()" [disabled]="page() >= pages()">
+            <span class="res-nav-btn__label">Suivant</span>
+            <span class="res-nav-btn__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+            </span>
+          </button>
+        </div>
+      }
+    }
+  }
+  @if (modalMode() !== 'none') {
+    <div class="res-overlay" (click)="closeModal()">
+      <div class="res-modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="res-modal-title">
+        <header class="res-modal__header">
+          <h2 id="res-modal-title">{{ modalTitle() }}</h2>
+          <button class="res-icon-btn" type="button" (click)="closeModal()" aria-label="Fermer">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+          </button>
+        </header>
+
+        @if (modalMode() === 'delete') {
+          <p class="res-modal__text">Voulez-vous vraiment supprimer cette section ? Cette action est irréversible.</p>
+        } @else {
+          <form (ngSubmit)="submitForm()">
+            <div class="res-modal__grid">
+              @for (field of fieldsForForm(); track field.key) {
+                <div class="res-field" [class.res-field--full]="field.type === 'textarea' || field.type === 'tags'">
+                  <label class="res-field__label" [for]="'f-' + field.key">
+                    {{ field.label }}{{ field.required ? ' *' : '' }}
+                  </label>
+
+                  @switch (field.type) {
+                    @case ('textarea') {
+                      <textarea
+                        id="f-{{ field.key }}"
+                        class="res-field__input res-field__input--textarea"
+                        [(ngModel)]="form()[field.key]"
+                        name="{{ field.key }}"
+                        [placeholder]="field.placeholder ?? ''"
+                        rows="4"
+                      ></textarea>
+                    }
+                    @case ('select') {
+                      <select id="f-{{ field.key }}" class="res-field__input" [(ngModel)]="form()[field.key]" name="{{ field.key }}">
+                        <option value="">—</option>
+                        @for (option of field.options ?? []; track option) {
+                          <option [value]="option">{{ option }}</option>
+                        }
+                      </select>
+                    }
+                    @case ('tags') {
+                      <input
+                        id="f-{{ field.key }}"
+                        class="res-field__input"
+                        type="text"
+                        [(ngModel)]="form()[field.key]"
+                        name="{{ field.key }}"
+                        placeholder="{{ field.placeholder ?? 'Séparés par des virgules' }}"
+                      />
+                    }
+                    @default {
+                      <input
+                        id="f-{{ field.key }}"
+                        class="res-field__input"
+                        [type]="field.type === 'datetime' ? 'datetime-local' : field.type"
+                        [(ngModel)]="form()[field.key]"
+                        name="{{ field.key }}"
+                        [placeholder]="field.placeholder ?? ''"
+                        [required]="field.required || false"
+                      />
+                    }
+                  }
+                </div>
+              }
+            </div>
+
+            @if (error()) {
+              <p class="res-error" role="alert">{{ error() }}</p>
+            }
+
+            <footer class="res-modal__footer">
+              <button type="button" class="res-btn res-btn--outline" (click)="closeModal()">Annuler</button>
+              <button type="submit" class="res-btn res-btn--primary" [disabled]="saving()">
+                @if (saving()) {
+                  <span class="res-spinner" aria-hidden="true"></span>
+                }
+                {{ modalMode() === 'edit' ? 'Enregistrer' : 'Créer' }}
+              </button>
+            </footer>
+          </form>
+        }
+
+        @if (modalMode() === 'delete') {
+          @if (error()) {
+            <p class="res-error" role="alert">{{ error() }}</p>
+          }
+          <footer class="res-modal__footer">
+            <button type="button" class="res-btn res-btn--outline" (click)="closeModal()">Annuler</button>
+            <button type="button" class="res-btn res-btn--danger" (click)="confirmDelete()" [disabled]="saving()">
+              @if (saving()) {
+                <span class="res-spinner" aria-hidden="true"></span>
+              }
+              Supprimer
+            </button>
+          </footer>
+        }
+      </div>
+    </div>
+  }
+</section>

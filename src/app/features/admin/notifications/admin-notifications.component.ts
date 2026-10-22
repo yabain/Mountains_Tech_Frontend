@@ -20,10 +20,15 @@ export class AdminNotificationsComponent {
     this.dataService.load();
   }
 
+  closePanel(): void {
+    this.dataService.markNotificationsSeen();
+    this.close.emit();
+  }
+
   @HostListener('document:keydown', ['$event'])
   onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
-      this.close.emit();
+      this.closePanel();
     }
   }
 }

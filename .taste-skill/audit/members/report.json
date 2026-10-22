@@ -1,0 +1,1255 @@
+{
+ "url": "http://localhost:4200/membres",
+ "at": "2026-10-19T15:03:54.346Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.97,
+    0.99
+   ],
+   "motion": {
+    "elements": 2,
+    "css": 1,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 1319,
+     "screens": 1.5,
+     "words": 80,
+     "img": 5,
+     "video": 0,
+     "canvas": 0,
+     "svg": 3,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 1,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Les membres du MountainTech",
+     "words": 4,
+     "chars": 27,
+     "lines": 1,
+     "size": 60.8,
+     "vw": 4.2,
+     "font": "Roboto",
+     "weight": 500,
+     "tracking": 0,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.97,
+     "top": 133,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Les membres du MountainTech",
+     "words": 4,
+     "lines": 1,
+     "size": 60.8,
+     "font": "Roboto"
+    },
+    "headings": [
+     {
+      "text": "Les membres du MountainTech",
+      "words": 4,
+      "chars": 27,
+      "lines": 1,
+      "size": 60.8,
+      "vw": 4.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.97,
+      "top": 133,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Une communauté engagée",
+      "words": 3,
+      "chars": 22,
+      "lines": 1,
+      "size": 29.6,
+      "vw": 2.1,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.25,
+      "top": 391,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 2,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Roboto",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      20,
+      22,
+      30,
+      61
+     ],
+     "sizeCount": 10,
+     "notLoaded": [],
+     "body": null,
+     "measureChars": null,
+     "max": {
+      "size": 60.8,
+      "vw": 4.2,
+      "font": "Roboto",
+      "text": "Les membres du MountainTech"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 1,
+     "microLabelShare": 0.012,
+     "microSamples": [
+      "Membres"
+     ],
+     "upperShare": 0.03,
+     "centerShare": 0.17,
+     "smallText": 2
+    },
+    "eyebrows": [
+     {
+      "text": "Membres",
+      "above": "Une communauté engagée",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11.2,
+      "top": 369
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 75,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#a8bac9",
+       "share": 0.55
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.25
+      },
+      {
+       "color": "#334155",
+       "share": 0.09
+      },
+      {
+       "color": "#122033",
+       "share": 0.04
+      },
+      {
+       "color": "#0f172a",
+       "share": 0.02
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 10,
+     "height": 42,
+     "withShadow": 1,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Se Connecter"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 3,
+     "shadowOverlay": 1,
+     "shadowSamples": [
+      "a.login-link → rgba(15, 23, 42, 0.08) 0px 6px 18px 0px",
+      "label.search-box → rgba(17, 54, 75, 0.06) 0px 5px 16px 0px",
+      "article.member-card → rgba(26, 59, 78, 0.08) 0px 8px 17px 0px"
+     ],
+     "gradients": 2,
+     "scrims": 0,
+     "gradientSamples": [
+      "section.members-page → linear-gradient(rgba(20, 65, 92, 0.07) 1px, rgba(0, 0, 0, 0) 1px), linear-gradient(90deg, rgba(20, 65, 92, 0.0",
+      "footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,"
+     ],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "header.header 1440px",
+      "div.footer__bottom 1296px"
+     ],
+     "outlinedBoxes": 1,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 1,
+     "boxRadius": 13,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 9,
+     "fixed": true,
+     "height": 75,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "roboto"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 1319,
+    "margins": {
+     "left": 72,
+     "right": 77
+    },
+    "sections": [
+     {
+      "sel": "main.ng-trigger.ng-trigger-pageTransition",
+      "tag": "main",
+      "top": 75,
+      "height": 900,
+      "words": 22,
+      "media": 0,
+      "middle": 33,
+      "heading": {
+       "text": "Les membres du MountainTech",
+       "size": 61,
+       "tag": "h1"
+      },
+      "left": 200,
+      "right": 200,
+      "textLeft": 200,
+      "textRight": 200,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "app-footer.ng-tns-c3179972094-1",
+      "tag": "app-footer",
+      "top": 975,
+      "height": 343,
+      "words": 47,
+      "media": 0,
+      "middle": 154,
+      "heading": {
+       "text": "Navigation",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 72,
+      "right": 72,
+      "textLeft": 72,
+      "textRight": 72,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 568,
+      "height": 468
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Les membres du MountainTech",
+      "size": 61,
+      "top": 133,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 200,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 15,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0.35,
+    "voidBox": {
+     "x": 360,
+     "y": 480,
+     "w": 1080,
+     "h": 420
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.89,
+    1
+   ],
+   "motion": {
+    "elements": 2,
+    "css": 1,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 1813,
+     "screens": 1.8,
+     "words": 70,
+     "img": 5,
+     "video": 0,
+     "canvas": 0,
+     "svg": 3,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 1,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Les membres du MountainTech",
+     "words": 4,
+     "chars": 27,
+     "lines": 1,
+     "size": 38.4,
+     "vw": 5,
+     "font": "Roboto",
+     "weight": 500,
+     "tracking": 0,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.95,
+     "top": 142,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Les membres du MountainTech",
+     "words": 4,
+     "lines": 1,
+     "size": 38.4,
+     "font": "Roboto"
+    },
+    "headings": [
+     {
+      "text": "Les membres du MountainTech",
+      "words": 4,
+      "chars": 27,
+      "lines": 1,
+      "size": 38.4,
+      "vw": 5,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 142,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Roboto",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      20,
+      22,
+      23,
+      38
+     ],
+     "sizeCount": 10,
+     "notLoaded": [],
+     "body": null,
+     "measureChars": null,
+     "max": {
+      "size": 38.4,
+      "vw": 5,
+      "font": "Roboto",
+      "text": "Les membres du MountainTech"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 1,
+     "microLabelShare": 0.014,
+     "microSamples": [
+      "Membres"
+     ],
+     "upperShare": 0.03,
+     "centerShare": 0.19,
+     "smallText": 2
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 73,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#a8bac9",
+       "share": 0.62
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.28
+      },
+      {
+       "color": "#122033",
+       "share": 0.04
+      },
+      {
+       "color": "#607080",
+       "share": 0.02
+      },
+      {
+       "color": "#12603c",
+       "share": 0.02
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 10,
+     "height": 51,
+     "withShadow": 1,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 2,
+     "shadowOverlay": 2,
+     "shadowSamples": [
+      "label.search-box → rgba(17, 54, 75, 0.06) 0px 5px 16px 0px",
+      "article.member-card.ng-star-inserted → rgba(26, 59, 78, 0.08) 0px 8px 17px 0px"
+     ],
+     "gradients": 2,
+     "scrims": 0,
+     "gradientSamples": [
+      "section.members-page → linear-gradient(rgba(20, 65, 92, 0.07) 1px, rgba(0, 0, 0, 0) 1px), linear-gradient(90deg, rgba(20, 65, 92, 0.0",
+      "footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,"
+     ],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "header.header 768px",
+      "div.footer__bottom 728px"
+     ],
+     "outlinedBoxes": 1,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 1,
+     "boxRadius": 13,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 3,
+     "fixed": true,
+     "height": 73,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "roboto",
+     "bootstrap-icons"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 1813,
+    "margins": {
+     "left": 16,
+     "right": 20
+    },
+    "sections": [
+     {
+      "sel": "main.ng-trigger.ng-trigger-pageTransition",
+      "tag": "main",
+      "top": 73,
+      "height": 1024,
+      "words": 22,
+      "media": 0,
+      "middle": 39,
+      "heading": {
+       "text": "Les membres du MountainTech",
+       "size": 38,
+       "tag": "h1"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 16,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "app-footer.ng-tns-c3179972094-1",
+      "tag": "app-footer",
+      "top": 1097,
+      "height": 717,
+      "words": 47,
+      "media": 0,
+      "middle": 66,
+      "heading": {
+       "text": "Navigation",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 560,
+      "height": 584
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Les membres du MountainTech",
+      "size": 38,
+      "top": 142,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 16,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 15,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.9,
+    1
+   ],
+   "motion": {
+    "elements": 2,
+    "css": 1,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 1660,
+     "screens": 2,
+     "words": 70,
+     "img": 5,
+     "video": 0,
+     "canvas": 0,
+     "svg": 3,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 1,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Les membres du MountainTech",
+     "words": 4,
+     "chars": 27,
+     "lines": 2,
+     "size": 38.4,
+     "vw": 9.8,
+     "font": "Roboto",
+     "weight": 500,
+     "tracking": 0,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 121,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Les membres du MountainTech",
+     "words": 4,
+     "lines": 2,
+     "size": 38.4,
+     "font": "Roboto"
+    },
+    "headings": [
+     {
+      "text": "Les membres du MountainTech",
+      "words": 4,
+      "chars": 27,
+      "lines": 2,
+      "size": 38.4,
+      "vw": 9.8,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 121,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Roboto",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      10,
+      11,
+      13,
+      14,
+      15,
+      20,
+      22,
+      38
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": null,
+     "measureChars": null,
+     "max": {
+      "size": 38.4,
+      "vw": 9.8,
+      "font": "Roboto",
+      "text": "Les membres du MountainTech"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 1,
+     "microLabelShare": 0.014,
+     "microSamples": [
+      "Membres"
+     ],
+     "upperShare": 0.03,
+     "centerShare": 0.19,
+     "smallText": 2
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 73,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#00447e",
+       "top": 73,
+       "hsl": {
+        "h": 208,
+        "s": 1,
+        "l": 0.25
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#a8bac9",
+       "share": 0.62
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.28
+      },
+      {
+       "color": "#122033",
+       "share": 0.04
+      },
+      {
+       "color": "#607080",
+       "share": 0.02
+      },
+      {
+       "color": "#12603c",
+       "share": 0.02
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 10,
+     "height": 51,
+     "withShadow": 1,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 2,
+     "shadowOverlay": 2,
+     "shadowSamples": [
+      "label.search-box → rgba(17, 54, 75, 0.06) 0px 5px 16px 0px",
+      "article.member-card → rgba(26, 59, 78, 0.08) 0px 8px 17px 0px"
+     ],
+     "gradients": 2,
+     "scrims": 0,
+     "gradientSamples": [
+      "section.members-page → linear-gradient(rgba(20, 65, 92, 0.07) 1px, rgba(0, 0, 0, 0) 1px), linear-gradient(90deg, rgba(20, 65, 92, 0.0",
+      "footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,"
+     ],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "header.header 390px",
+      "div.footer__bottom 358px"
+     ],
+     "outlinedBoxes": 1,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 1,
+     "boxRadius": 13,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 3,
+     "fixed": true,
+     "height": 73,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "roboto",
+     "bootstrap-icons"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 1660,
+    "margins": {
+     "left": 16,
+     "right": 32
+    },
+    "sections": [
+     {
+      "sel": "main.ng-trigger.ng-trigger-pageTransition",
+      "tag": "main",
+      "top": 73,
+      "height": 844,
+      "words": 22,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Les membres du MountainTech",
+       "size": 38,
+       "tag": "h1"
+      },
+      "left": 16,
+      "right": 52,
+      "textLeft": 16,
+      "textRight": 52,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "app-footer.ng-tns-c3179972094-1",
+      "tag": "app-footer",
+      "top": 917,
+      "height": 743,
+      "words": 47,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Navigation",
+       "size": 14,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 19,
+      "textLeft": 16,
+      "textRight": 19,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 604,
+      "height": 360
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Les membres du MountainTech",
+      "size": 38,
+      "top": 121,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 16,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 15,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "1 eyebrow/kicker label(s) above headings: \"Membres\" above \"Une communauté engagée\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence."
+  },
+  {
+   "level": "WARN",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "1 tiny uppercase letter-spaced label(s): \"Membres\"",
+   "fix": "Prefer sentence case at body size.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "width": 1440,
+   "message": "2 gradient fill(s): section.members-page → linear-gradient(rgba(20, 65, 92, 0.07) 1px, rgba(0, 0, 0, 0) 1px), linear-gradient(90deg, rgba(20, 65, 92, 0.0 | footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,",
+   "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "width": 1440,
+   "message": "3 box-shadow(s) on elements at rest: a.login-link → rgba(15, 23, 42, 0.08) 0px 6px 18px 0px | label.search-box → rgba(17, 54, 75, 0.06) 0px 5px 16px 0px | article.member-card → rgba(26, 59, 78, 0.08) 0px 8px 17px 0px",
+   "fix": "Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars).",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "button-fx",
+   "width": 1440,
+   "message": "Buttons with shadow/glow.",
+   "fix": "Flat fill, one colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "2 thin rule(s)/divider line(s): header.header 1440px | div.footer__bottom 1296px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "width": 1440,
+   "message": "1 box(es) drawn with a 1px outline.",
+   "fix": "Prefer a filled surface or no box.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "10 different font sizes (10, 11, 13, 14, 15, 16, 20, 22, 30, 61).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "few-pictures",
+   "width": 1440,
+   "message": "Only 1 picture(s) on the page (1 photographs, footage or raster images, 0 interface fragments). Drawings in SVG do not count.",
+   "fix": "Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "small-text",
+   "width": 1440,
+   "message": "2 text block(s) under 13px.",
+   "fix": "Nothing meant to be read goes below 13px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "focal-point",
+   "width": 1440,
+   "message": "The first screen has no dominant element: the largest type is 60.8px (4.2vw) and no single picture holds a third of the viewport.",
+   "fix": "Make one thing lead: the headline at display size, or one large picture. A grid of many small pictures is not one thing; in blind tests jurors marked a first screen without a headline down every time. On the strongest studied sites the largest type has a median of 8.4vw."
+  },
+  {
+   "level": "FAIL",
+   "id": "late-title",
+   "width": 1440,
+   "message": "The title is not readable 1.2s after the page loaded (it is at 0% opacity).",
+   "fix": "Put the headline in the HTML, painted on the first frame; the load sequence only adds arrival and is settled by 1.2s (references/motion.md, \"Load sequence in 1.2 seconds\"). No preloader, no gate, no waiting for the load event."
+  },
+  {
+   "level": "WARN",
+   "id": "blank-gap",
+   "width": 1440,
+   "message": "A 468px stretch at 568px holds nothing.",
+   "fix": "Check that it is a deliberate rest (once per page at most); otherwise close it to the normal section gap.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "hero-void",
+   "width": 1440,
+   "message": "35% of the first screen is one empty block (1080×420px at 360,480).",
+   "fix": "Place the void on purpose or fill it: move the picture, the film or one fact into it, grow the headline to meet it, or shrink the screen to its content. A void reads as placed only when something closes it on the far side and it is the screen's one rest."
+  },
+  {
+   "level": "FAIL",
+   "id": "still-page",
+   "width": 1440,
+   "message": "Only 2 element(s) moved while the page loaded and scrolled.",
+   "fix": "Build the motion layer (SKILL.md step 9, references/motion.md): the signature move, an entrance for the parts of every section, feedback on every control, and one moving picture. Transform and opacity only, with a reduced-motion fallback."
+  },
+  {
+   "level": "WARN",
+   "id": "off-centre",
+   "width": 390,
+   "message": "The margins differ: 16px on the left, 32px on the right, at 390px.",
+   "fix": "Put the navigation and the content on one pair of margins; check for padding on one side only, a scrollbar gutter, or a header on another inset than the page."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\members\\desktop-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\members\\desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\members\\tablet-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\members\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\members\\mobile-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\members\\mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

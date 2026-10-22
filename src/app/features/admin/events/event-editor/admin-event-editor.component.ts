@@ -7,6 +7,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { API_ROUTES } from '../../../../core/constants/api-routes';
 import { ApiService } from '../../../../core/http/api.service';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { environment } from '../../../../../environments/environment';
 
 interface EventForm {
   title: string;
@@ -16,16 +17,8 @@ interface EventForm {
   startAt: string;
   endAt: string;
   excerpt: string;
-  program: string;
+  contentHtml: string;
   coverUrl: string;
-  contactPhone: string;
-  contactEmail: string;
-  facebook: string;
-  instagram: string;
-  linkedin: string;
-  registrationUrl: string;
-  sponsors: string;
-  showOnHome: boolean;
   registrationRequired: boolean;
   capacity: string;
   status: string;
@@ -51,6 +44,7 @@ export class AdminEventEditorComponent {
   readonly uploading = signal(false);
   readonly error = signal('');
   readonly eventId = this.route.snapshot.paramMap.get('id') ?? '';
+  coverSource: 'url' | 'upload' = 'url';
   readonly form: EventForm = {
     title: '',
     slug: '',
@@ -59,16 +53,8 @@ export class AdminEventEditorComponent {
     startAt: '',
     endAt: '',
     excerpt: '',
-    program: '',
+    contentHtml: '',
     coverUrl: '',
-    contactPhone: '',
-    contactEmail: '',
-    facebook: '',
-    instagram: '',
-    linkedin: '',
-    registrationUrl: '',
-    sponsors: '',
-    showOnHome: false,
     registrationRequired: false,
     capacity: '',
     status: 'DRAFT'
@@ -92,19 +78,8 @@ export class AdminEventEditorComponent {
               this.form.startAt = this.dateTimeInput(event['startAt']);
               this.form.endAt = this.dateTimeInput(event['endAt']);
               this.form.excerpt = String(event['excerpt'] ?? '');
-              this.form.program = String(event['program'] ?? event['contentHtml'] ?? '');
+              this.form.contentHtml = String(event['contentHtml'] ?? '');
               this.form.coverUrl = String(event['coverUrl'] ?? '');
-              this.form.contactPhone = String(event['contactPhone'] ?? '');
-              this.form.contactEmail = String(event['contactEmail'] ?? '');
-              const socials = event['socials'] && typeof event['socials'] === 'object'
-                ? event['socials'] as Record<string, unknown>
-                : {};
-              this.form.facebook = String(socials['facebook'] ?? event['facebook'] ?? '');
-              this.form.instagram = String(socials['instagram'] ?? event['instagram'] ?? '');
-              this.form.linkedin = String(socials['linkedin'] ?? event['linkedin'] ?? '');
-              this.form.registrationUrl = String(event['registrationUrl'] ?? '');
-              this.form.sponsors = this.stringList(event['sponsors'] ?? event['partners']);
-              this.form.showOnHome = event['showOnHome'] === true || event['featured'] === true;
               this.form.registrationRequired = event['registrationRequired'] === true;
               this.form.capacity = event['capacity'] == null ? '' : String(event['capacity']);
               this.form.status = String(event['status'] ?? 'DRAFT').toUpperCase();
@@ -125,39 +100,25 @@ export class AdminEventEditorComponent {
       this.error.set('Le titre, le lieu et la date de début sont obligatoires.');
       return;
     }
-    if (this.form.contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.contactEmail)) {
-      this.error.set('L’adresse e-mail de contact est invalide.');
-      return;
-    }
     this.saving.set(true);
     this.error.set('');
+    const coverUrl = this.form.coverUrl.trim();
     const payload = {
       title: this.form.title.trim(),
-      slug: this.form.slug.trim(),
-      category: this.form.category.trim(),
-      location: this.form.location.trim(),
+      ...(this.form.slug.trim() ? { slug: this.form.slug.trim() } : {}),
+      ...(this.form.category.trim() ? { category: this.form.category.trim() } : {}),
+      ...(this.form.location.trim() ? { location: this.form.location.trim() } : {}),
       startAt: new Date(this.form.startAt).toISOString(),
       endAt: this.form.endAt ? new Date(this.form.endAt).toISOString() : undefined,
-      excerpt: this.form.excerpt.trim(),
-      contentHtml: this.form.program,
-      program: this.form.program,
-      coverUrl: this.form.coverUrl.trim(),
-      contactPhone: this.form.contactPhone.trim(),
-      contactEmail: this.form.contactEmail.trim(),
-      socials: {
-        facebook: this.form.facebook.trim(),
-        instagram: this.form.instagram.trim(),
-        linkedin: this.form.linkedin.trim()
-      },
-      registrationUrl: this.form.registrationUrl.trim(),
-      sponsors: this.listValues(this.form.sponsors),
-      showOnHome: this.form.showOnHome,
+      ...(this.form.excerpt.trim() ? { excerpt: this.form.excerpt.trim() } : {}),
+      ...(this.form.contentHtml.trim() ? { contentHtml: this.form.contentHtml } : {}),
+      ...(coverUrl ? { coverUrl: this.mediaUrl(coverUrl) } : {}),
       registrationRequired: this.form.registrationRequired,
       capacity: this.form.capacity ? Number(this.form.capacity) : undefined,
       status: this.form.status
     };
     const request = this.eventId
-      ? this.api.put<unknown>(`${API_ROUTES.admin.events}/${encodeURIComponent(this.eventId)}`, payload)
+      ? this.api.patch<unknown>(`${API_ROUTES.admin.events}/${encodeURIComponent(this.eventId)}`, payload)
       : this.api.post<unknown>(API_ROUTES.admin.events, payload);
     request.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
@@ -165,9 +126,10 @@ export class AdminEventEditorComponent {
         this.notification.success(this.eventId ? 'L’événement a été mis à jour.' : 'L’événement a été créé.');
         void this.router.navigate(['/dashboard/events']);
       },
-      error: (error: { error?: { message?: string } }) => {
+      error: (error: { error?: { message?: string | string[] } }) => {
         this.saving.set(false);
-        this.error.set(error.error?.message ?? 'Impossible d’enregistrer cet événement.');
+        const message = error.error?.message;
+        this.error.set(Array.isArray(message) ? message.join(' · ') : message ?? 'Impossible d’enregistrer cet événement.');
       }
     });
   }
@@ -181,8 +143,8 @@ export class AdminEventEditorComponent {
       input.value = '';
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
-      this.error.set('L’image ne doit pas dépasser 5 Mo.');
+    if (file.size > 10 * 1024 * 1024) {
+      this.error.set('L’image ne doit pas dépasser 10 Mo.');
       input.value = '';
       return;
     }
@@ -199,7 +161,7 @@ export class AdminEventEditorComponent {
           if (typeof url !== 'string' || !url) {
             this.error.set('Le téléversement a réussi, mais aucune URL d’image n’a été renvoyée.');
           } else {
-            this.form.coverUrl = url;
+            this.form.coverUrl = this.mediaUrl(url);
           }
           this.uploading.set(false);
         },
@@ -212,6 +174,14 @@ export class AdminEventEditorComponent {
 
   cancel(): void {
     void this.router.navigate(['/dashboard/events']);
+  }
+
+  setCoverSource(source: 'url' | 'upload'): void {
+    this.coverSource = source;
+  }
+
+  previewUrl(): string {
+    return this.mediaUrl(this.form.coverUrl);
   }
 
   private unwrap(response: unknown): Record<string, unknown> | null {
@@ -234,15 +204,10 @@ export class AdminEventEditorComponent {
     return local.toISOString().slice(0, 16);
   }
 
-  private stringList(value: unknown): string {
-    return Array.isArray(value)
-      ? value.map((item) => typeof item === 'object' && item !== null
-        ? String((item as Record<string, unknown>)['name'] ?? '')
-        : String(item)).filter(Boolean).join(', ')
-      : String(value ?? '');
-  }
-
-  private listValues(value: string): string[] {
-    return value.split(',').map((item) => item.trim()).filter(Boolean);
+  private mediaUrl(value: unknown): string {
+    const path = String(value ?? '').trim();
+    if (!path) return '';
+    if (/^https?:\/\//i.test(path)) return path;
+    return new URL(path.startsWith('/') ? path : `/${path}`, environment.apiUrl).toString();
   }
 }

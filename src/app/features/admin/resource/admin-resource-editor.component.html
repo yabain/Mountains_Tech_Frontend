@@ -1,0 +1,79 @@
+<main class="admin-editor">
+  <header class="editor-heading">
+    <button class="editor-back" type="button" (click)="cancel()" aria-label="Retour à la liste">
+      <i class="bi bi-arrow-left" aria-hidden="true"></i>
+    </button>
+    <div>
+      <h1>{{ title() }}</h1>
+      <p>Renseignez les champs pris en charge par le service.</p>
+    </div>
+  </header>
+
+  @if (loading()) {
+    <div class="editor-loading">Chargement des informations…</div>
+  } @else if (config()) {
+    @if (error()) { <div class="editor-error" role="alert">{{ error() }}</div> }
+    <form (ngSubmit)="submit()">
+      <section class="editor-card">
+        <h2>{{ config()?.title }}</h2>
+        <div class="editor-grid">
+          @for (field of fields(); track field.key) {
+            <div class="editor-field" [class.editor-field--full]="field.type === 'textarea' || field.type === 'tags'">
+              <label [for]="'resource-' + field.key">{{ field.label }}{{ field.required ? ' *' : '' }}</label>
+              @if (isImageField(field)) {
+                <div class="editor-image-source">
+                  <label>
+                    <input type="radio" [name]="'image-mode-' + field.key" [checked]="imageMode(field.key) === 'url'" (change)="setImageMode(field.key, 'url')" />
+                    Adresse URL
+                  </label>
+                  <label>
+                    <input type="radio" [name]="'image-mode-' + field.key" [checked]="imageMode(field.key) === 'upload'" (change)="setImageMode(field.key, 'upload')" />
+                    Importer un fichier
+                  </label>
+                </div>
+                @if (imageMode(field.key) === 'url') {
+                  <input [id]="'resource-' + field.key" class="editor-field-input" type="url" [(ngModel)]="form()[field.key]" [name]="field.key" [required]="field.required || false" [placeholder]="field.placeholder ?? 'https://…'" />
+                } @else {
+                  <input [id]="'resource-' + field.key" class="editor-field-input" type="file" accept="image/*" [name]="field.key + '-file'" (change)="uploadImage(field.key, $event)" [disabled]="uploadingField() === field.key" />
+                  <span class="editor-help">Image JPG, PNG, WebP ou GIF, 10 Mo maximum.</span>
+                }
+                @if (form()[field.key]) {
+                  <img class="editor-image-preview" [src]="previewUrl(form()[field.key])" [alt]="'Aperçu : ' + field.label" />
+                }
+              } @else {
+                @switch (field.type) {
+                  @case ('textarea') {
+                    <textarea [id]="'resource-' + field.key" class="editor-field-input" [(ngModel)]="form()[field.key]" [name]="field.key" [required]="field.required || false" [placeholder]="field.placeholder ?? ''" rows="5"></textarea>
+                  }
+                  @case ('select') {
+                    <select [id]="'resource-' + field.key" class="editor-field-input" [(ngModel)]="form()[field.key]" [name]="field.key" [required]="field.required || false">
+                      <option value="">—</option>
+                      @for (option of field.options ?? []; track option) {
+                        <option [value]="option">{{ optionLabel(option) }}</option>
+                      }
+                    </select>
+                  }
+                  @case ('tags') {
+                    <input [id]="'resource-' + field.key" class="editor-field-input" type="text" [(ngModel)]="form()[field.key]" [name]="field.key" [placeholder]="field.placeholder ?? 'Séparez les valeurs par des virgules'" />
+                  }
+                  @default {
+                    <input [id]="'resource-' + field.key" class="editor-field-input" [type]="field.type === 'datetime' ? 'datetime-local' : field.type" [(ngModel)]="form()[field.key]" [name]="field.key" [required]="field.required || false" [placeholder]="field.placeholder ?? ''" />
+                  }
+                }
+              }
+            </div>
+          }
+        </div>
+      </section>
+
+      @if (error()) { <p class="editor-error" role="alert">{{ error() }}</p> }
+      <footer class="editor-actions">
+        <button class="editor-btn" type="button" (click)="cancel()">Annuler</button>
+        <button class="editor-btn editor-btn--primary" type="submit" [disabled]="saving() || uploadingField() !== ''">
+          <i class="bi bi-check2" aria-hidden="true"></i>
+          {{ saving() ? 'Enregistrement…' : 'Enregistrer' }}
+        </button>
+      </footer>
+    </form>
+  }
+</main>

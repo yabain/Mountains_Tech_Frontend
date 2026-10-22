@@ -1,0 +1,29 @@
+<section class="res-page">
+  <section class="admin-page-heading">
+    <div>
+      <h1><i class="bi bi-graph-up"></i>Module de Suivi</h1>
+      <p>Consultez les indicateurs et le suivi des activités.</p>
+    </div>
+  </section>
+
+  <div class="admin-stats-grid">
+    @for (stat of stats; track stat.id) {
+      <div class="admin-stat-card">
+        <div class="admin-stat-value">{{ stat.value }}</div>
+        <div class="admin-stat-label">{{ stat.label }}</div>
+        <div class="admin-stat-icon">
+          <i [class]="'bi ' + stat.icon"></i>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (chartData && chartData.length > 0) {
+    <div class="admin-chart-section">
+      <h3>Indicateurs temporels</h3>
+      <canvas id="activityChart"></canvas>
+    </div>
+  } @else {
+    <div class="admin-state">Aucune donnée de suivi disponible.</div>
+  }
+</section>

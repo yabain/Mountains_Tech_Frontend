@@ -1,0 +1,1268 @@
+{
+ "url": "http://localhost:4200/contact",
+ "at": "2026-10-19T15:03:55.101Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.56,
+    0.65
+   ],
+   "motion": {
+    "elements": 2,
+    "css": 1,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 1382,
+     "screens": 1.5,
+     "words": 146,
+     "img": 5,
+     "video": 0,
+     "canvas": 0,
+     "svg": 7,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 1,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Contactez-nous",
+     "words": 1,
+     "chars": 14,
+     "lines": 1,
+     "size": 60.8,
+     "vw": 4.2,
+     "font": "Roboto",
+     "weight": 500,
+     "tracking": 0,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.97,
+     "top": 133,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Contactez-nous",
+     "words": 1,
+     "lines": 1,
+     "size": 60.8,
+     "font": "Roboto"
+    },
+    "headings": [
+     {
+      "text": "Contactez-nous",
+      "words": 1,
+      "chars": 14,
+      "lines": 1,
+      "size": 60.8,
+      "vw": 4.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.97,
+      "top": 133,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Roboto",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      24,
+      26,
+      61
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Roboto",
+      "size": 14,
+      "leading": 1.65,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 9.9
+     },
+     "measureChars": 61,
+     "max": {
+      "size": 60.8,
+      "vw": 4.2,
+      "font": "Roboto",
+      "text": "Contactez-nous"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0.13,
+     "smallText": 3
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#ffffff",
+       "share": 0.45
+      },
+      {
+       "color": "#a8bac9",
+       "share": 0.31
+      },
+      {
+       "color": "#6c757d",
+       "share": 0.14
+      },
+      {
+       "color": "#334155",
+       "share": 0.05
+      },
+      {
+       "color": "#00447e",
+       "share": 0.03
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 10,
+     "height": 42,
+     "withShadow": 1,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Se Connecter"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 1,
+     "shadowOverlay": 1,
+     "shadowSamples": [
+      "a.login-link → rgba(15, 23, 42, 0.08) 0px 6px 18px 0px"
+     ],
+     "gradients": 1,
+     "scrims": 0,
+     "gradientSamples": [
+      "footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,"
+     ],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "header.header 1440px",
+      "div.footer__bottom 1296px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 2,
+     "boxRadius": 20,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 9,
+     "fixed": true,
+     "height": 75,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "roboto"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 1382,
+    "margins": {
+     "left": 72,
+     "right": 77
+    },
+    "sections": [
+     {
+      "sel": "main.ng-trigger.ng-trigger-pageTransition",
+      "tag": "main",
+      "top": 75,
+      "height": 963,
+      "words": 86,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Contactez-nous",
+       "size": 61,
+       "tag": "h1"
+      },
+      "left": 184,
+      "right": 152,
+      "textLeft": 184,
+      "textRight": 161,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "app-footer.ng-tns-c3179972094-1",
+      "tag": "app-footer",
+      "top": 1038,
+      "height": 343,
+      "words": 47,
+      "media": 0,
+      "middle": 154,
+      "heading": {
+       "text": "Navigation",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 72,
+      "right": 72,
+      "textLeft": 72,
+      "textRight": 72,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Contactez-nous",
+      "size": 61,
+      "top": 133,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 184,
+      "n": 3
+     },
+     {
+      "x": 691,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 4,
+    "bodySize": 14,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0.11,
+    "voidBox": {
+     "x": 0,
+     "y": 120,
+     "w": 180,
+     "h": 780
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 3,
+   "filled": [
+    0.78,
+    0.5,
+    0.82
+   ],
+   "motion": {
+    "elements": 2,
+    "css": 1,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 2333,
+     "screens": 2.3,
+     "words": 136,
+     "img": 5,
+     "video": 0,
+     "canvas": 0,
+     "svg": 7,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 1,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Contactez-nous",
+     "words": 1,
+     "chars": 14,
+     "lines": 1,
+     "size": 38.4,
+     "vw": 5,
+     "font": "Roboto",
+     "weight": 500,
+     "tracking": 0,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.95,
+     "top": 142,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Contactez-nous",
+     "words": 1,
+     "lines": 1,
+     "size": 38.4,
+     "font": "Roboto"
+    },
+    "headings": [
+     {
+      "text": "Contactez-nous",
+      "words": 1,
+      "chars": 14,
+      "lines": 1,
+      "size": 38.4,
+      "vw": 5,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 142,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Besoin d'informations ? Contactez-nous",
+      "words": 4,
+      "chars": 38,
+      "lines": 2,
+      "size": 26,
+      "vw": 3.4,
+      "font": "Roboto",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.35,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.86,
+      "top": 458,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 2,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Roboto",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      24,
+      26,
+      38
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Roboto",
+      "size": 14,
+      "leading": 1.65,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 9.9
+     },
+     "measureChars": 95,
+     "max": {
+      "size": 38.4,
+      "vw": 5,
+      "font": "Roboto",
+      "text": "Contactez-nous"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0.14,
+     "smallText": 3
+    },
+    "eyebrows": [
+     {
+      "text": "Contact",
+      "above": "Besoin d'informations ? Contactez-nous",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 12,
+      "top": 411
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#00447e",
+       "top": 371,
+       "hsl": {
+        "h": 208,
+        "s": 1,
+        "l": 0.25
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ffffff",
+       "share": 0.48
+      },
+      {
+       "color": "#a8bac9",
+       "share": 0.33
+      },
+      {
+       "color": "#6c757d",
+       "share": 0.15
+      },
+      {
+       "color": "#00447e",
+       "share": 0.03
+      },
+      {
+       "color": "#2272c0",
+       "share": 0.01
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 10,
+     "height": 51,
+     "withShadow": 1,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 2,
+     "shadowSamples": [],
+     "gradients": 1,
+     "scrims": 0,
+     "gradientSamples": [
+      "footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,"
+     ],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "header.header 768px",
+      "div.footer__bottom 728px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 2,
+     "boxRadius": 20,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 3,
+     "fixed": true,
+     "height": 73,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "roboto",
+     "bootstrap-icons"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 2333,
+    "margins": {
+     "left": 20,
+     "right": 20
+    },
+    "sections": [
+     {
+      "sel": "main.ng-trigger.ng-trigger-pageTransition",
+      "tag": "main",
+      "top": 73,
+      "height": 1543,
+      "words": 86,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Contactez-nous",
+       "size": 38,
+       "tag": "h1"
+      },
+      "left": 36,
+      "right": 20,
+      "textLeft": 36,
+      "textRight": 37,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "app-footer.ng-tns-c3179972094-1",
+      "tag": "app-footer",
+      "top": 1616,
+      "height": 717,
+      "words": 47,
+      "media": 0,
+      "middle": 66,
+      "heading": {
+       "text": "Navigation",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Contactez-nous",
+      "size": 38,
+      "top": 142,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 52,
+      "n": 3
+     },
+     {
+      "x": 36,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 4,
+    "bodySize": 14,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 3,
+   "filled": [
+    0.89,
+    0.25,
+    0.93
+   ],
+   "motion": {
+    "elements": 2,
+    "css": 1,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 2427,
+     "screens": 2.9,
+     "words": 136,
+     "img": 5,
+     "video": 0,
+     "canvas": 0,
+     "svg": 7,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 1,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Contactez-nous",
+     "words": 1,
+     "chars": 14,
+     "lines": 1,
+     "size": 38.4,
+     "vw": 9.8,
+     "font": "Roboto",
+     "weight": 500,
+     "tracking": 0,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 130,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Contactez-nous",
+     "words": 1,
+     "lines": 1,
+     "size": 38.4,
+     "font": "Roboto"
+    },
+    "headings": [
+     {
+      "text": "Contactez-nous",
+      "words": 1,
+      "chars": 14,
+      "lines": 1,
+      "size": 38.4,
+      "vw": 9.8,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 130,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Besoin d'informations ? Contactez-nous",
+      "words": 4,
+      "chars": 38,
+      "lines": 2,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Roboto",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.35,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.73,
+      "top": 458,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Envoyer un message",
+      "words": 3,
+      "chars": 18,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Roboto",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.86,
+      "top": 941,
+      "tag": "h3",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 3,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Roboto",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      24,
+      26,
+      38
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Roboto",
+      "size": 14,
+      "leading": 1.65,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 9.9
+     },
+     "measureChars": 41,
+     "max": {
+      "size": 38.4,
+      "vw": 9.8,
+      "font": "Roboto",
+      "text": "Contactez-nous"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0.14,
+     "smallText": 3
+    },
+    "eyebrows": [
+     {
+      "text": "Contact",
+      "above": "Besoin d'informations ? Contactez-nous",
+      "upper": false,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 12,
+      "top": 411
+     },
+     {
+      "text": "Nous écrire",
+      "above": "Envoyer un message",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 915
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#00447e",
+       "top": 371,
+       "hsl": {
+        "h": 208,
+        "s": 1,
+        "l": 0.25
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ffffff",
+       "share": 0.48
+      },
+      {
+       "color": "#a8bac9",
+       "share": 0.33
+      },
+      {
+       "color": "#6c757d",
+       "share": 0.15
+      },
+      {
+       "color": "#00447e",
+       "share": 0.03
+      },
+      {
+       "color": "#2272c0",
+       "share": 0.01
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 10,
+     "height": 51,
+     "withShadow": 1,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 2,
+     "shadowSamples": [],
+     "gradients": 1,
+     "scrims": 0,
+     "gradientSamples": [
+      "footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,"
+     ],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "header.header 390px",
+      "div.footer__bottom 358px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 2,
+     "boxRadius": 20,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 3,
+     "fixed": true,
+     "height": 73,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "roboto",
+     "bootstrap-icons"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 2427,
+    "margins": {
+     "left": 16,
+     "right": 20
+    },
+    "sections": [
+     {
+      "sel": "main.ng-trigger.ng-trigger-pageTransition",
+      "tag": "main",
+      "top": 73,
+      "height": 1611,
+      "words": 86,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Contactez-nous",
+       "size": 38,
+       "tag": "h1"
+      },
+      "left": 35,
+      "right": 20,
+      "textLeft": 35,
+      "textRight": 35,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "app-footer.ng-tns-c3179972094-1",
+      "tag": "app-footer",
+      "top": 1684,
+      "height": 743,
+      "words": 47,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Navigation",
+       "size": 14,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 19,
+      "textLeft": 16,
+      "textRight": 19,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Contactez-nous",
+      "size": 38,
+      "top": 130,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 52,
+      "n": 3
+     },
+     {
+      "x": 36,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 4,
+    "bodySize": 14,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "width": 1440,
+   "message": "1 gradient fill(s): footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,",
+   "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "width": 1440,
+   "message": "1 box-shadow(s) on elements at rest: a.login-link → rgba(15, 23, 42, 0.08) 0px 6px 18px 0px",
+   "fix": "Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars)."
+  },
+  {
+   "level": "FAIL",
+   "id": "button-fx",
+   "width": 1440,
+   "message": "Buttons with shadow/glow.",
+   "fix": "Flat fill, one colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "2 thin rule(s)/divider line(s): header.header 1440px | div.footer__bottom 1296px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "body-size",
+   "width": 1440,
+   "message": "Body text is 14px (the size most of the running text is set in).",
+   "fix": "Body copy 16–20px. Map small sizes from blueprints onto your body step.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "few-pictures",
+   "width": 1440,
+   "message": "Only 1 picture(s) on the page (1 photographs, footage or raster images, 0 interface fragments). Drawings in SVG do not count.",
+   "fix": "Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "small-text",
+   "width": 1440,
+   "message": "3 text block(s) under 13px.",
+   "fix": "Nothing meant to be read goes below 13px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "focal-point",
+   "width": 1440,
+   "message": "The first screen has no dominant element: the largest type is 60.8px (4.2vw) and no single picture holds a third of the viewport.",
+   "fix": "Make one thing lead: the headline at display size, or one large picture. A grid of many small pictures is not one thing; in blind tests jurors marked a first screen without a headline down every time. On the strongest studied sites the largest type has a median of 8.4vw."
+  },
+  {
+   "level": "FAIL",
+   "id": "late-title",
+   "width": 1440,
+   "message": "The title is not readable 1.2s after the page loaded (it is at 0% opacity).",
+   "fix": "Put the headline in the HTML, painted on the first frame; the load sequence only adds arrival and is settled by 1.2s (references/motion.md, \"Load sequence in 1.2 seconds\"). No preloader, no gate, no waiting for the load event."
+  },
+  {
+   "level": "WARN",
+   "id": "name-only-title",
+   "width": 1440,
+   "message": "The h1 is a bare name (\"Contactez-nous\") and nothing else on the first screen says what this is.",
+   "fix": "Keep the name if it leads, and give the line under it (18px or more) the plain words: what it is, for whom, where or when. In the study of 97 Sites of the Day, first screens that named nothing lost usability and content points.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "still-page",
+   "width": 1440,
+   "message": "Only 2 element(s) moved while the page loaded and scrolled.",
+   "fix": "Build the motion layer (SKILL.md step 9, references/motion.md): the signature move, an entrance for the parts of every section, feedback on every control, and one moving picture. Transform and opacity only, with a reduced-motion fallback."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 768,
+   "message": "1 eyebrow/kicker label(s) above headings: \"Contact\" (pill) above \"Besoin d'informations ? Contactez-nous\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+   "alsoAt": [
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "measure",
+   "width": 768,
+   "message": "Longest paragraph runs about 95 characters per line.",
+   "fix": "Cap paragraphs at 45–75 characters (max-width: 60ch)."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\contact\\desktop-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\contact\\desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\contact\\tablet-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\contact\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\contact\\mobile-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\contact\\mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

@@ -6,6 +6,7 @@ import { ApiService } from '../../../core/http/api.service';
 export type ActivitySlotTone = 'success' | 'pending' | 'danger' | 'neutral';
 
 export interface ActivityEntry {
+  id: string;
   initials: string;
   name: string;
   detail: string;
@@ -73,6 +74,12 @@ const STATUS_LABELS: Record<string, string> = {
   IN_PROGRESS: 'En cours',
   INACTIVE: 'Inactif',
   ARCHIVED: 'Archivé',
+  SCHEDULED: 'Programmé',
+  SENDING: 'En cours d’envoi',
+  SENT: 'Envoyé',
+  FAILED: 'Échec',
+  CANCELLED: 'Annulé',
+  CANCELED: 'Annulé',
   REJECTED: 'Rejeté',
   SUSPENDED: 'Suspendu',
   UNSUBSCRIBED: 'Désabonné',
@@ -111,6 +118,7 @@ export class DashboardDataService {
   readonly error = signal('');
 
   private started = false;
+  private readonly seenStorageKey = 'mountains-tech-admin-seen-notifications';
 
   constructor(private readonly api: ApiService) {}
 
@@ -133,7 +141,7 @@ export class DashboardDataService {
         this.sections.set(CATEGORIES.map((category, index) => this.buildSection(category, results[index].items, results[index].total)));
         this.activityRows.set(results.flatMap((result) => result.items));
         this.metrics.set({
-          unreadMessages: this.countStatus(results[CATEGORIES.findIndex(({ key }) => key === 'contacts')], 'NEW'),
+          unreadMessages: this.countUnreadMessages(results[CATEGORIES.findIndex(({ key }) => key === 'contacts')]),
           announcements: results[CATEGORIES.findIndex(({ key }) => key === 'announcements')].total,
           resources: results[CATEGORIES.findIndex(({ key }) => key === 'media')].total,
           programs: results[CATEGORIES.findIndex(({ key }) => key === 'events')].total
@@ -154,6 +162,26 @@ export class DashboardDataService {
 
   statusTone(status: unknown): ActivitySlotTone {
     return STATUS_TONE[String(status ?? '').toUpperCase()] ?? 'neutral';
+  }
+
+  markNotificationsSeen(): void {
+    const seen = this.readSeenNotifications();
+    for (const section of this.sections()) {
+      for (const entry of section.entries) {
+        if (entry.id) seen.add(`${section.key}:${entry.id}`);
+      }
+    }
+    try {
+      localStorage.setItem(this.seenStorageKey, [...seen].join(','));
+      this.sections.update((sections) => sections.map((section) => ({
+        ...section,
+        entries: section.entries.filter((entry) => !seen.has(`${section.key}:${entry.id}`))
+      })));
+      this.started = false;
+    } catch (error) {
+      this.error.set('Impossible de mémoriser les notifications consultées.');
+      console.error('Échec de mémorisation des notifications consultées', error);
+    }
   }
 
   activityFor(period: '24h' | '7d' | '30d' | '12m'): DashboardActivityPoint[] {
@@ -218,23 +246,30 @@ export class DashboardDataService {
   }
 
   private buildSection(category: CategoryDef, rows: Record<string, unknown>[], total: number): ActivitySection {
+    const seen = this.readSeenNotifications();
     const sorted = [...rows]
       .map((row) => ({ row, at: new Date(this.dateOf(row)).getTime() }))
       .sort((a, b) => b.at - a.at)
       .map((item) => item.row);
+    const relevantRows = category.key === 'contacts'
+      ? sorted.filter((row) => ['NEW', 'IN_PROGRESS'].includes(String(row['status'] ?? '').toUpperCase()))
+      : sorted;
 
     return {
       key: category.key,
       label: category.label,
       icon: category.icon,
       link: category.link,
-      entries: sorted.slice(0, 2).map((row) => this.mapEntry(category, row)),
+      entries: relevantRows
+        .filter((row) => !seen.has(`${category.key}:${this.rowId(row)}`))
+        .slice(0, 2)
+        .map((row) => this.mapEntry(category, row)),
       total
     };
   }
 
-  private countStatus(result: { items: Record<string, unknown>[]; total: number }, status: string): number {
-    return result.items.filter((row) => String(row['status'] ?? '').toUpperCase() === status).length;
+  private countUnreadMessages(result: { items: Record<string, unknown>[]; total: number }): number {
+    return result.items.filter((row) => ['NEW', 'IN_PROGRESS'].includes(String(row['status'] ?? '').toUpperCase())).length;
   }
 
   private mapEntry(category: CategoryDef, row: Record<string, unknown>): ActivityEntry {
@@ -303,6 +338,7 @@ export class DashboardDataService {
     }
 
     return {
+      id: this.rowId(row),
       initials: this.initials(name) || this.initials(category.label),
       name: name || category.label,
       detail,
@@ -310,6 +346,22 @@ export class DashboardDataService {
       status: rawStatus ? this.statusLabel(rawStatus) : undefined,
       statusTone: rawStatus ? this.statusTone(rawStatus) : 'neutral'
     };
+  }
+
+  private rowId(row: Record<string, unknown>): string {
+    return String(row['id'] ?? row['_id'] ?? '');
+  }
+
+  private readSeenNotifications(): Set<string> {
+    if (typeof localStorage === 'undefined') return new Set<string>();
+    try {
+      const values = localStorage.getItem(this.seenStorageKey);
+      return new Set((values ?? '').split(',').filter(Boolean));
+    } catch (error) {
+      this.error.set('Impossible de lire les notifications déjà consultées.');
+      console.error('Échec de lecture des notifications consultées', error);
+      return new Set<string>();
+    }
   }
 
   private dateOf(row: Record<string, unknown>): string {

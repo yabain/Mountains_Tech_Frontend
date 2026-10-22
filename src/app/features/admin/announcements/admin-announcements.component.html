@@ -12,7 +12,7 @@
         <i class="bi bi-whatsapp" aria-hidden="true"></i>Annonce WhatsApp
       </button>
       <button class="announcement-button announcement-button--primary" type="button" (click)="openCreate()">
-        <i class="bi bi-envelope-fill" aria-hidden="true"></i>Annonce e-mail
+        <i class="bi bi-envelope-fill" aria-hidden="true"></i>Nouvelle annonce
       </button>
     </div>
   </header>
@@ -50,7 +50,7 @@
       </label>
       <select class="announcement-filter" [value]="selectedStatus()" (change)="onStatusFilterChange($any($event.target).value)" aria-label="Filtrer par statut">
         <option value="">Tous les statuts</option>
-        @for (status of statusOptions; track status) { <option [value]="status">{{ status }}</option> }
+        @for (status of statusOptions; track status) { <option [value]="status">{{ resourceStatusLabel(status) }}</option> }
       </select>
       <select class="announcement-filter" [value]="audienceFilter()" (change)="audienceFilter.set($any($event.target).value)" aria-label="Filtrer par destinataires">
         <option value="">Tous les destinataires</option>

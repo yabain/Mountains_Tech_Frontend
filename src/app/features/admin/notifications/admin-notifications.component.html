@@ -4,13 +4,12 @@
       <i class="bi bi-bell" aria-hidden="true"></i>
       <h2>Notifications</h2>
     </div>
-    <button class="notification-close" type="button" aria-label="Fermer les notifications" (click)="close.emit()">
+    <button class="notification-close" type="button" aria-label="Fermer les notifications" (click)="closePanel()">
       <i class="bi bi-x" aria-hidden="true"></i>
     </button>
   </header>
 
   <div class="notification-summary">
-    <span class="demo-label">DÉMONSTRATION</span>
     <h3>Dernières actions</h3>
     <p>Les 2 dernières actions de chaque catégorie.</p>
   </div>
@@ -18,7 +17,7 @@
   <div class="notification-feed">
     @for (section of sections(); track section.key) {
       <section class="notification-category">
-        <a class="notification-category-heading" [routerLink]="section.link" (click)="close.emit()" [attr.aria-label]="'Voir toutes les actions : ' + section.label">
+        <a class="notification-category-heading" [routerLink]="section.link" (click)="closePanel()" [attr.aria-label]="'Voir toutes les actions : ' + section.label">
           <div class="notification-category-name">
             <i [class]="'bi ' + section.icon" aria-hidden="true"></i>
             <h3>{{ section.label }}</h3>

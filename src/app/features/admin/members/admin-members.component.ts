@@ -15,15 +15,39 @@ const config: AdminResourceConfig = {
   statusField: 'status',
   statusOptions: ['PENDING', 'APPROVED', 'REJECTED', 'SUSPENDED'],
   statusEndpoint: '/status',
-  editable: true,
+  rowActions: [
+    {
+      kind: 'status',
+      label: 'Désactiver',
+      icon: 'bi-person-slash',
+      tone: 'default',
+      status: 'SUSPENDED',
+      statusByCurrentStatus: { SUSPENDED: 'APPROVED' },
+      labelByStatus: { SUSPENDED: 'Activer' },
+      hideForStatuses: ['PENDING', 'REJECTED']
+    }
+  ],
   columns: [
+    { key: 'logoUrl', label: 'Logo', type: 'image' },
     { key: 'companyName', label: 'Entreprise' },
     { key: 'representativeName', label: 'Représentant' },
     { key: 'representativeEmail', label: 'Email' },
     { key: 'status', label: 'Statut', type: 'status' },
     { key: 'createdAt', label: 'Créé le', type: 'date' }
   ],
-  fields: []
+  fields: [
+    { key: 'companyName', label: 'Entreprise', type: 'text', required: true },
+    { key: 'legalForm', label: 'Forme juridique', type: 'text' },
+    { key: 'representativeName', label: 'Représentant', type: 'text', required: true },
+    { key: 'representativeEmail', label: 'E-mail du représentant', type: 'email', required: true },
+    { key: 'email', label: 'E-mail de l’entreprise', type: 'email' },
+    { key: 'phone', label: 'Téléphone', type: 'text' },
+    { key: 'website', label: 'Site web', type: 'url' },
+    { key: 'address', label: 'Adresse', type: 'text' },
+    { key: 'description', label: 'Description', type: 'textarea' },
+    { key: 'sectors', label: 'Secteurs', type: 'tags' },
+    { key: 'employees', label: 'Effectif', type: 'number' }
+  ]
 };
 
 @Component({

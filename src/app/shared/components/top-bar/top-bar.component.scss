@@ -1,6 +1,11 @@
 :host {
   display: block;
+  position: sticky;
+  top: 0;
+  z-index: 25;
   margin-bottom: 32px;
+  padding: 4px 0 12px;
+  background: var(--adm-card);
 }
 
 .admin-utilities {

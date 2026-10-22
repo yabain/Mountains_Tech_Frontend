@@ -119,7 +119,7 @@
               Par page
               <select [value]="limit()" (change)="onPageSizeChange($any($event.target).value)" aria-label="Nombre d'éléments par page">
                 @for (option of pageSizeOptions; track option) {
-                  <option [value]="option">{{ option }}</option>
+                  <option [value]="option">{{ resourceOptionLabel(option) }}</option>
                 }
               </select>
             </label>
@@ -176,7 +176,7 @@
                       <select id="f-{{ field.key }}" class="res-field__input" [(ngModel)]="form()[field.key]" name="{{ field.key }}">
                         <option value="">—</option>
                         @for (option of field.options ?? []; track option) {
-                          <option [value]="option">{{ option }}</option>
+                          <option [value]="option">{{ resourceOptionLabel(option) }}</option>
                         }
                       </select>
                     }

@@ -1,0 +1,2758 @@
+{
+ "url": "http://localhost:4200/",
+ "at": "2026-10-19T14:55:44.310Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 7,
+   "filled": [
+    1,
+    0.41,
+    0.41,
+    0.46,
+    0.31,
+    0.87,
+    0.93
+   ],
+   "motion": {
+    "elements": 22,
+    "css": 2,
+    "transitions": 19,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 5484,
+     "screens": 6.1,
+     "words": 415,
+     "img": 35,
+     "video": 0,
+     "canvas": 0,
+     "svg": 3,
+     "sections": 13,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 16,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "photobangant%C3%A9.jpg",
+      "clemios_logo.jpg",
+      "sky.jpg",
+      "mboa-in-tech.jpg",
+      "yabaIn.webp",
+      "logoNavBar.png",
+      "logoNavBar.png",
+      "logoNavBar.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Uniting Cameroonian Forces in New Technologies!",
+     "words": 6,
+     "chars": 47,
+     "lines": 2,
+     "size": 46.1,
+     "vw": 3.2,
+     "font": "Roboto",
+     "weight": 500,
+     "tracking": -0.05,
+     "leading": 0.98,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "right",
+     "widthRatio": 0.44,
+     "top": 257,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Uniting Cameroonian Forces in New Technologies!",
+     "words": 6,
+     "lines": 2,
+     "size": 46.1,
+     "font": "Roboto"
+    },
+    "headings": [
+     {
+      "text": "Uniting Cameroonian Forces in New Technologies!",
+      "words": 6,
+      "chars": 47,
+      "lines": 2,
+      "size": 46.1,
+      "vw": 3.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.44,
+      "top": 257,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "À propos de MountainsTech",
+      "words": 4,
+      "chars": 25,
+      "lines": 1,
+      "size": 43.2,
+      "vw": 3,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 912,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Les entreprises qui composent l'alliance",
+      "words": 5,
+      "chars": 40,
+      "lines": 1,
+      "size": 43.2,
+      "vw": 3,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 1472,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Clemios",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.17,
+      "top": 1793,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Skyeng Pro",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.17,
+      "top": 1793,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Mboa Intech",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.17,
+      "top": 1793,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Yaba-In",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.17,
+      "top": 1793,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Notre dynamique de collaboration",
+      "words": 4,
+      "chars": 32,
+      "lines": 1,
+      "size": 43.2,
+      "vw": 3,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 2169,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ateliers et rencontres",
+      "words": 3,
+      "chars": 22,
+      "lines": 2,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.17,
+      "top": 2463,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Partenariats stratégiques",
+      "words": 2,
+      "chars": 25,
+      "lines": 2,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.17,
+      "top": 2463,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Formation & sensibilisation",
+      "words": 3,
+      "chars": 27,
+      "lines": 2,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.17,
+      "top": 2463,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Des initiatives qui façonnent l'avenir",
+      "words": 5,
+      "chars": 38,
+      "lines": 1,
+      "size": 43.2,
+      "vw": 3,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 2819,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Plateforme d’innovation",
+      "words": 2,
+      "chars": 23,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.23,
+      "top": 3154,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Campus digital",
+      "words": 2,
+      "chars": 14,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.23,
+      "top": 3154,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Solutions locales",
+      "words": 2,
+      "chars": 17,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.23,
+      "top": 3154,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Des défis pour créer et transformer",
+      "words": 6,
+      "chars": 35,
+      "lines": 1,
+      "size": 43.2,
+      "vw": 3,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 3449,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Hackathon ID",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.17,
+      "top": 3770,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Startup Sprint",
+      "words": 2,
+      "chars": 14,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.17,
+      "top": 3770,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Tech for Africa",
+      "words": 3,
+      "chars": 15,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.17,
+      "top": 3770,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Ils nous accompagnent",
+      "words": 3,
+      "chars": 21,
+      "lines": 1,
+      "size": 43.2,
+      "vw": 3,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 4091,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Restez connecté",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 32,
+      "vw": 2.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "left",
+      "widthRatio": 0.36,
+      "top": 4669,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 21,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 7,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Roboto",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20,
+      22,
+      28,
+      32,
+      43,
+      46
+     ],
+     "sizeCount": 14,
+     "notLoaded": [],
+     "body": {
+      "font": "Roboto",
+      "size": 16,
+      "leading": 1.7,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.6
+     },
+     "measureChars": 62,
+     "max": {
+      "size": 46.1,
+      "vw": 3.2,
+      "font": "Roboto",
+      "text": "Uniting Cameroonian Forces in New Techno"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 6,
+     "microLabelShare": 0.018,
+     "microSamples": [
+      "Membres",
+      "Activités",
+      "Projets",
+      "Hackathons",
+      "Partenaires",
+      "Newsletter"
+     ],
+     "upperShare": 0.02,
+     "centerShare": 0.17,
+     "smallText": 2
+    },
+    "eyebrows": [
+     {
+      "text": "Membres",
+      "above": "Les entreprises qui composent l'alliance",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 1428
+     },
+     {
+      "text": "Bangangté",
+      "above": "Clemios",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 1766
+     },
+     {
+      "text": "Bangangté",
+      "above": "Skyeng Pro",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 1766
+     },
+     {
+      "text": "Bangangté",
+      "above": "Mboa Intech",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 1766
+     },
+     {
+      "text": "Bangangté",
+      "above": "Yaba-In",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 1766
+     },
+     {
+      "text": "Activités",
+      "above": "Notre dynamique de collaboration",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 2125
+     },
+     {
+      "text": "Projets",
+      "above": "Des initiatives qui façonnent l'avenir",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 2775
+     },
+     {
+      "text": "Innovation",
+      "above": "Plateforme d’innovation",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": true,
+      "size": 11.5,
+      "top": 3113
+     },
+     {
+      "text": "Éducation",
+      "above": "Campus digital",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": true,
+      "size": 11.5,
+      "top": 3113
+     },
+     {
+      "text": "Produit",
+      "above": "Solutions locales",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": true,
+      "size": 11.5,
+      "top": 3113
+     },
+     {
+      "text": "Hackathons",
+      "above": "Des défis pour créer et transformer",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 3405
+     },
+     {
+      "text": "12 Oct 2026",
+      "above": "Hackathon ID",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 3743
+     },
+     {
+      "text": "18 Nov 2026",
+      "above": "Startup Sprint",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 3743
+     },
+     {
+      "text": "02 Dec 2026",
+      "above": "Tech for Africa",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 3743
+     },
+     {
+      "text": "Partenaires",
+      "above": "Ils nous accompagnent",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 4048
+     },
+     {
+      "text": "Newsletter",
+      "above": "Restez connecté",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 4626
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#0f2330",
+       "top": 4425,
+       "hsl": {
+        "h": 204,
+        "s": 0.52,
+        "l": 0.12
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#475569",
+       "share": 0.42
+      },
+      {
+       "color": "#000000",
+       "share": 0.21
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.15
+      },
+      {
+       "color": "#a8bac9",
+       "share": 0.1
+      },
+      {
+       "color": "#334155",
+       "share": 0.04
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 2,
+     "radius": 10,
+     "height": 52,
+     "withShadow": 1,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Se Connecter",
+      "Nous contacter"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 42,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "a.login-link → rgba(0, 0, 0, 0.18) 0px 6px 18px 0px",
+      "div.hero__panel → rgba(15, 23, 42, 0.2) 0px 18px 40px 0px",
+      "a.btn.btn-primary → rgba(0, 68, 126, 0.18) 0px 10px 24px 0px",
+      "article.highlight.ng-star-inserted → rgba(15, 23, 42, 0.04) 0px 10px 24px 0px"
+     ],
+     "gradients": 2,
+     "scrims": 3,
+     "gradientSamples": [
+      "span.about__video-overlay → linear-gradient(rgba(15, 35, 48, 0.08), rgba(15, 35, 48, 0.72))",
+      "footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,"
+     ],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "header.header.home-page 1440px",
+      "div.footer__bottom 1296px"
+     ],
+     "outlinedBoxes": 34,
+     "dashed": 0,
+     "blurred": 3,
+     "roundedBoxes": 34,
+     "boxRadius": 16,
+     "squareMedia": 2,
+     "roundedMedia": 14,
+     "mediaRadius": 19,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 1100
+      },
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 1548
+      },
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 2245
+      },
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 2894
+      },
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 3525
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "bg-image",
+      "ratio": 1
+     }
+    ],
+    "nav": {
+     "links": 9,
+     "fixed": true,
+     "height": 75,
+     "floatingPill": false,
+     "blur": true
+    },
+    "fontsLoaded": [
+     "roboto"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 5484,
+    "margins": {
+     "left": 141,
+     "right": 111
+    },
+    "sections": [
+     {
+      "sel": "main.ng-trigger.ng-trigger-pageTransition",
+      "tag": "main",
+      "top": 0,
+      "height": 5045,
+      "words": 392,
+      "media": 15,
+      "middle": 1054,
+      "heading": {
+       "text": "Uniting Cameroonian Forces in New Technologies!",
+       "size": 46,
+       "tag": "h1"
+      },
+      "left": 0,
+      "right": 0,
+      "textLeft": 152,
+      "textRight": 99,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "app-footer.ng-tns-c3179972094-1",
+      "tag": "app-footer",
+      "top": 5141,
+      "height": 343,
+      "words": 47,
+      "media": 0,
+      "middle": 154,
+      "heading": {
+       "text": "Navigation",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 72,
+      "right": 72,
+      "textLeft": 72,
+      "textRight": 72,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 4900,
+      "height": 300
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Uniting Cameroonian Forces in New Technologies!",
+      "size": 46,
+      "top": 257,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 157,
+      "n": 10
+     },
+     {
+      "x": 453,
+      "n": 6
+     },
+     {
+      "x": 749,
+      "n": 6
+     },
+     {
+      "x": 763,
+      "n": 3
+     },
+     {
+      "x": 331,
+      "n": 2
+     },
+     {
+      "x": 501,
+      "n": 2
+     },
+     {
+      "x": 552,
+      "n": 2
+     },
+     {
+      "x": 946,
+      "n": 2
+     },
+     {
+      "x": 1045,
+      "n": 2
+     },
+     {
+      "x": 179,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 36,
+    "bodySize": 16,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 10,
+   "filled": [
+    1,
+    0.47,
+    0.56,
+    0.56,
+    0.57,
+    0.53,
+    0.7,
+    0.57,
+    0.87,
+    0.93
+   ],
+   "motion": {
+    "elements": 23,
+    "css": 2,
+    "transitions": 20,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 9291,
+     "screens": 9.1,
+     "words": 405,
+     "img": 35,
+     "video": 0,
+     "canvas": 0,
+     "svg": 3,
+     "sections": 13,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 16,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "photobangant%C3%A9.jpg",
+      "clemios_logo.jpg",
+      "sky.jpg",
+      "mboa-in-tech.jpg",
+      "yabaIn.webp",
+      "logoNavBar.png",
+      "logoNavBar.png",
+      "logoNavBar.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Uniting Cameroonian Forces in New Technologies!",
+     "words": 6,
+     "chars": 47,
+     "lines": 2,
+     "size": 35.2,
+     "vw": 4.6,
+     "font": "Roboto",
+     "weight": 500,
+     "tracking": -0.05,
+     "leading": 0.98,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.82,
+     "top": 508,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Uniting Cameroonian Forces in New Technologies!",
+     "words": 6,
+     "lines": 2,
+     "size": 35.2,
+     "font": "Roboto"
+    },
+    "headings": [
+     {
+      "text": "Uniting Cameroonian Forces in New Technologies!",
+      "words": 6,
+      "chars": 47,
+      "lines": 2,
+      "size": 35.2,
+      "vw": 4.6,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.82,
+      "top": 508,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "À propos de MountainsTech",
+      "words": 4,
+      "chars": 25,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 1036,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Les entreprises qui composent l'alliance",
+      "words": 5,
+      "chars": 40,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 1868,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Notre dynamique de collaboration",
+      "words": 4,
+      "chars": 32,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 3639,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Des initiatives qui façonnent l'avenir",
+      "words": 5,
+      "chars": 38,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 4839,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Des défis pour créer et transformer",
+      "words": 6,
+      "chars": 35,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 6164,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ils nous accompagnent",
+      "words": 3,
+      "chars": 21,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 7444,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Restez connecté",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 28.1,
+      "vw": 3.7,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 7872,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 8,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 7,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Roboto",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20,
+      22,
+      25,
+      28,
+      32,
+      35
+     ],
+     "sizeCount": 14,
+     "notLoaded": [],
+     "body": {
+      "font": "Roboto",
+      "size": 16,
+      "leading": 1.7,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.6
+     },
+     "measureChars": 62,
+     "max": {
+      "size": 35.2,
+      "vw": 4.6,
+      "font": "Roboto",
+      "text": "Uniting Cameroonian Forces in New Techno"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 6,
+     "microLabelShare": 0.019,
+     "microSamples": [
+      "Membres",
+      "Activités",
+      "Projets",
+      "Hackathons",
+      "Partenaires",
+      "Newsletter"
+     ],
+     "upperShare": 0.02,
+     "centerShare": 0.18,
+     "smallText": 2
+    },
+    "eyebrows": [
+     {
+      "text": "Membres",
+      "above": "Les entreprises qui composent l'alliance",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 1825
+     },
+     {
+      "text": "Activités",
+      "above": "Notre dynamique de collaboration",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 3595
+     },
+     {
+      "text": "Projets",
+      "above": "Des initiatives qui façonnent l'avenir",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 4796
+     },
+     {
+      "text": "Hackathons",
+      "above": "Des défis pour créer et transformer",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 6120
+     },
+     {
+      "text": "Partenaires",
+      "above": "Ils nous accompagnent",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 7400
+     },
+     {
+      "text": "Newsletter",
+      "above": "Restez connecté",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 7829
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#0f2330",
+       "top": 7764,
+       "hsl": {
+        "h": 204,
+        "s": 0.52,
+        "l": 0.12
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#475569",
+       "share": 0.43
+      },
+      {
+       "color": "#000000",
+       "share": 0.22
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.13
+      },
+      {
+       "color": "#a8bac9",
+       "share": 0.11
+      },
+      {
+       "color": "#334155",
+       "share": 0.04
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 2,
+     "radius": 10,
+     "height": 52,
+     "withShadow": 1,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Nous contacter"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 41,
+     "shadowOverlay": 1,
+     "shadowSamples": [
+      "div.hero__panel → rgba(15, 23, 42, 0.2) 0px 18px 40px 0px",
+      "a.btn.btn-primary → rgba(0, 68, 126, 0.18) 0px 10px 24px 0px",
+      "article.highlight → rgba(15, 23, 42, 0.04) 0px 10px 24px 0px",
+      "article.highlight → rgba(15, 23, 42, 0.04) 0px 10px 24px 0px"
+     ],
+     "gradients": 2,
+     "scrims": 3,
+     "gradientSamples": [
+      "span.about__video-overlay → linear-gradient(rgba(15, 35, 48, 0.08), rgba(15, 35, 48, 0.72))",
+      "footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,"
+     ],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "header.header.home-page 768px",
+      "div.footer__bottom 728px"
+     ],
+     "outlinedBoxes": 34,
+     "dashed": 0,
+     "blurred": 3,
+     "roundedBoxes": 34,
+     "boxRadius": 16,
+     "squareMedia": 2,
+     "roundedMedia": 14,
+     "mediaRadius": 19,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "bg-image",
+      "ratio": 1
+     }
+    ],
+    "nav": {
+     "links": 3,
+     "fixed": true,
+     "height": 73,
+     "floatingPill": false,
+     "blur": true
+    },
+    "fontsLoaded": [
+     "roboto",
+     "bootstrap-icons"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 9291,
+    "margins": {
+     "left": 15,
+     "right": 15
+    },
+    "sections": [
+     {
+      "sel": "main.ng-trigger.ng-trigger-pageTransition",
+      "tag": "main",
+      "top": 0,
+      "height": 8478,
+      "words": 392,
+      "media": 15,
+      "middle": 1566,
+      "heading": {
+       "text": "Uniting Cameroonian Forces in New Technologies!",
+       "size": 35,
+       "tag": "h1"
+      },
+      "left": 0,
+      "right": 0,
+      "textLeft": 27,
+      "textRight": 98,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "app-footer.ng-tns-c3179972094-1",
+      "tag": "app-footer",
+      "top": 8574,
+      "height": 717,
+      "words": 47,
+      "media": 0,
+      "middle": 66,
+      "heading": {
+       "text": "Navigation",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Uniting Cameroonian Forces in New Technologies!",
+      "size": 35,
+      "top": 508,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 31,
+      "n": 33
+     },
+     {
+      "x": 43,
+      "n": 3
+     }
+    ],
+    "leftBlocks": 36,
+    "bodySize": 16,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    1,
+    0.47,
+    0.54,
+    0.58,
+    0.57,
+    0.74,
+    0.58,
+    0.57,
+    0.69,
+    0.47,
+    0.86,
+    0.93
+   ],
+   "motion": {
+    "elements": 23,
+    "css": 2,
+    "transitions": 20,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 9914,
+     "screens": 11.7,
+     "words": 405,
+     "img": 35,
+     "video": 0,
+     "canvas": 0,
+     "svg": 3,
+     "sections": 13,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 16,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "photobangant%C3%A9.jpg",
+      "clemios_logo.jpg",
+      "sky.jpg",
+      "mboa-in-tech.jpg",
+      "yabaIn.webp",
+      "logoNavBar.png",
+      "logoNavBar.png",
+      "logoNavBar.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Uniting Cameroonian Forces in New Technologies!",
+     "words": 6,
+     "chars": 47,
+     "lines": 3,
+     "size": 35.2,
+     "vw": 9,
+     "font": "Roboto",
+     "weight": 500,
+     "tracking": -0.05,
+     "leading": 0.98,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.78,
+     "top": 238,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Uniting Cameroonian Forces in New Technologies!",
+     "words": 6,
+     "lines": 3,
+     "size": 35.2,
+     "font": "Roboto"
+    },
+    "headings": [
+     {
+      "text": "Uniting Cameroonian Forces in New Technologies!",
+      "words": 6,
+      "chars": 47,
+      "lines": 3,
+      "size": 35.2,
+      "vw": 9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": -0.05,
+      "leading": 0.98,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 238,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "12+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 22.4,
+      "vw": 5.7,
+      "font": "Roboto",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.71,
+      "top": 669,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "25+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 22.4,
+      "vw": 5.7,
+      "font": "Roboto",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.71,
+      "top": 762,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "8",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 22.4,
+      "vw": 5.7,
+      "font": "Roboto",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.71,
+      "top": 856,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "À propos de MountainsTech",
+      "words": 4,
+      "chars": 25,
+      "lines": 2,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.93,
+      "top": 964,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Les entreprises qui composent l'alliance",
+      "words": 5,
+      "chars": 40,
+      "lines": 2,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.93,
+      "top": 1916,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Clemios",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 23.1,
+      "vw": 5.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 2262,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Skyeng Pro",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 23.1,
+      "vw": 5.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 2695,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Mboa Intech",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 23.1,
+      "vw": 5.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 3101,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Yaba-In",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 23.1,
+      "vw": 5.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 3507,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Notre dynamique de collaboration",
+      "words": 4,
+      "chars": 32,
+      "lines": 2,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.93,
+      "top": 3823,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ateliers et rencontres",
+      "words": 3,
+      "chars": 22,
+      "lines": 1,
+      "size": 23.1,
+      "vw": 5.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 4142,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Partenariats stratégiques",
+      "words": 2,
+      "chars": 25,
+      "lines": 1,
+      "size": 23.1,
+      "vw": 5.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 4495,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Formation & sensibilisation",
+      "words": 3,
+      "chars": 27,
+      "lines": 1,
+      "size": 23.1,
+      "vw": 5.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 4847,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Des initiatives qui façonnent l'avenir",
+      "words": 5,
+      "chars": 38,
+      "lines": 2,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.93,
+      "top": 5163,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Plateforme d’innovation",
+      "words": 2,
+      "chars": 23,
+      "lines": 1,
+      "size": 23.1,
+      "vw": 5.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 5523,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Campus digital",
+      "words": 2,
+      "chars": 14,
+      "lines": 1,
+      "size": 23.1,
+      "vw": 5.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 5917,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Solutions locales",
+      "words": 2,
+      "chars": 17,
+      "lines": 1,
+      "size": 23.1,
+      "vw": 5.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 6310,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Des défis pour créer et transformer",
+      "words": 6,
+      "chars": 35,
+      "lines": 2,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.93,
+      "top": 6599,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Hackathon ID",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 23.1,
+      "vw": 5.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 6945,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Startup Sprint",
+      "words": 2,
+      "chars": 14,
+      "lines": 1,
+      "size": 23.1,
+      "vw": 5.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 7323,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Tech for Africa",
+      "words": 3,
+      "chars": 15,
+      "lines": 1,
+      "size": 23.1,
+      "vw": 5.9,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 7702,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Ils nous accompagnent",
+      "words": 3,
+      "chars": 21,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.93,
+      "top": 7991,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Restez connecté",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 24.7,
+      "vw": 6.3,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.8,
+      "top": 8418,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 24,
+     "maxLines": 3,
+     "over2Lines": 1,
+     "statements": 0,
+     "centered": 7,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Roboto",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20,
+      22,
+      23,
+      25,
+      32,
+      35
+     ],
+     "sizeCount": 14,
+     "notLoaded": [],
+     "body": {
+      "font": "Roboto",
+      "size": 16,
+      "leading": 1.7,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.6
+     },
+     "measureChars": 40,
+     "max": {
+      "size": 35.2,
+      "vw": 9,
+      "font": "Roboto",
+      "text": "Uniting Cameroonian Forces in New Techno"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 6,
+     "microLabelShare": 0.019,
+     "microSamples": [
+      "Membres",
+      "Activités",
+      "Projets",
+      "Hackathons",
+      "Partenaires",
+      "Newsletter"
+     ],
+     "upperShare": 0.02,
+     "centerShare": 0.18,
+     "smallText": 2
+    },
+    "eyebrows": [
+     {
+      "text": "Membres",
+      "above": "Les entreprises qui composent l'alliance",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 1873
+     },
+     {
+      "text": "Activités",
+      "above": "Notre dynamique de collaboration",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 3779
+     },
+     {
+      "text": "Projets",
+      "above": "Des initiatives qui façonnent l'avenir",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 5119
+     },
+     {
+      "text": "Innovation",
+      "above": "Plateforme d’innovation",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": true,
+      "size": 11.5,
+      "top": 5482
+     },
+     {
+      "text": "Éducation",
+      "above": "Campus digital",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": true,
+      "size": 11.5,
+      "top": 5875
+     },
+     {
+      "text": "Produit",
+      "above": "Solutions locales",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": true,
+      "size": 11.5,
+      "top": 6269
+     },
+     {
+      "text": "Hackathons",
+      "above": "Des défis pour créer et transformer",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 6555
+     },
+     {
+      "text": "Partenaires",
+      "above": "Ils nous accompagnent",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 7947
+     },
+     {
+      "text": "Newsletter",
+      "above": "Restez connecté",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 10.9,
+      "top": 8376
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#0f2330",
+       "top": 8311,
+       "hsl": {
+        "h": 204,
+        "s": 0.52,
+        "l": 0.12
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#475569",
+       "share": 0.43
+      },
+      {
+       "color": "#000000",
+       "share": 0.22
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.13
+      },
+      {
+       "color": "#a8bac9",
+       "share": 0.11
+      },
+      {
+       "color": "#334155",
+       "share": 0.04
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 2,
+     "radius": 10,
+     "height": 52,
+     "withShadow": 1,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Nous contacter"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 41,
+     "shadowOverlay": 1,
+     "shadowSamples": [
+      "div.hero__panel → rgba(15, 23, 42, 0.2) 0px 18px 40px 0px",
+      "a.btn.btn-primary → rgba(0, 68, 126, 0.18) 0px 10px 24px 0px",
+      "article.highlight → rgba(15, 23, 42, 0.04) 0px 10px 24px 0px",
+      "article.highlight → rgba(15, 23, 42, 0.04) 0px 10px 24px 0px"
+     ],
+     "gradients": 2,
+     "scrims": 3,
+     "gradientSamples": [
+      "span.about__video-overlay → linear-gradient(rgba(15, 35, 48, 0.08), rgba(15, 35, 48, 0.72))",
+      "footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,"
+     ],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "header.header.home-page 390px",
+      "div.footer__bottom 358px"
+     ],
+     "outlinedBoxes": 34,
+     "dashed": 0,
+     "blurred": 3,
+     "roundedBoxes": 34,
+     "boxRadius": 16,
+     "squareMedia": 2,
+     "roundedMedia": 14,
+     "mediaRadius": 19,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "bg-image",
+      "ratio": 1
+     }
+    ],
+    "nav": {
+     "links": 3,
+     "fixed": true,
+     "height": 73,
+     "floatingPill": false,
+     "blur": true
+    },
+    "fontsLoaded": [
+     "roboto",
+     "bootstrap-icons"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 9914,
+    "margins": {
+     "left": 15,
+     "right": 15
+    },
+    "sections": [
+     {
+      "sel": "main.ng-trigger.ng-trigger-pageTransition",
+      "tag": "main",
+      "top": 0,
+      "height": 9075,
+      "words": 392,
+      "media": 15,
+      "middle": 1884,
+      "heading": {
+       "text": "Uniting Cameroonian Forces in New Technologies!",
+       "size": 35,
+       "tag": "h1"
+      },
+      "left": 0,
+      "right": 0,
+      "textLeft": 27,
+      "textRight": 28,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "app-footer.ng-tns-c3179972094-1",
+      "tag": "app-footer",
+      "top": 9171,
+      "height": 743,
+      "words": 47,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Navigation",
+       "size": 14,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 19,
+      "textLeft": 16,
+      "textRight": 19,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Uniting Cameroonian Forces in New Technologies!",
+      "size": 35,
+      "top": 238,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 31,
+      "n": 33
+     },
+     {
+      "x": 43,
+      "n": 3
+     }
+    ],
+    "leftBlocks": 36,
+    "bodySize": 16,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "16 eyebrow/kicker label(s) above headings: \"Membres\" (pill) above \"Les entreprises qui composent l'alliance\"; \"Bangangté\" above \"Clemios\"; \"Bangangté\" above \"Skyeng Pro\"; \"Bangangté\" above \"Mboa Intech\"; \"Bangangté\" above \"Yaba-In\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "6 tiny uppercase letter-spaced labels (e.g. \"Membres\", \"Activités\", \"Projets\", \"Hackathons\").",
+   "fix": "Use sentence-case text at a readable size, or delete the label.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "width": 1440,
+   "message": "2 gradient fill(s): span.about__video-overlay → linear-gradient(rgba(15, 35, 48, 0.08), rgba(15, 35, 48, 0.72)) | footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,",
+   "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "width": 1440,
+   "message": "42 box-shadow(s) on elements at rest: a.login-link → rgba(0, 0, 0, 0.18) 0px 6px 18px 0px | div.hero__panel → rgba(15, 23, 42, 0.2) 0px 18px 40px 0px | a.btn.btn-primary → rgba(0, 68, 126, 0.18) 0px 10px 24px 0px",
+   "fix": "Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars).",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "button-fx",
+   "width": 1440,
+   "message": "Buttons with shadow/glow.",
+   "fix": "Flat fill, one colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "2 thin rule(s)/divider line(s): header.header.home-page 1440px | div.footer__bottom 1296px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "outlined-box",
+   "width": 1440,
+   "message": "34 boxes drawn with a 1px outline.",
+   "fix": "Define a surface by its fill (one tone step from the page) or leave the content unboxed.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "glass",
+   "width": 1440,
+   "message": "3 backdrop-blur surfaces.",
+   "fix": "One blurred sticky bar at most; glass cards are a tell.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "card-rows",
+   "width": 1440,
+   "message": "5 rows of identical boxed cards.",
+   "fix": "Vary the composition; not every section is a card grid."
+  },
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "14 different font sizes (11, 12, 13, 14, 15, 16, 17, 18, 20, 22, 28, 32, 43, 46).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "small-text",
+   "width": 1440,
+   "message": "2 text block(s) under 13px.",
+   "fix": "Nothing meant to be read goes below 13px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "off-centre",
+   "width": 1440,
+   "message": "The margins differ: 141px on the left, 111px on the right, at 1440px.",
+   "fix": "Put the navigation and the content on one pair of margins; check for padding on one side only, a scrollbar gutter, or a header on another inset than the page."
+  },
+  {
+   "level": "FAIL",
+   "id": "late-title",
+   "width": 768,
+   "message": "The title is not readable 1.2s after the page loaded (it is at 28% opacity).",
+   "fix": "Put the headline in the HTML, painted on the first frame; the load sequence only adds arrival and is settled by 1.2s (references/motion.md, \"Load sequence in 1.2 seconds\"). No preloader, no gate, no waiting for the load event."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 390,
+   "message": "1 headline(s) wrap past two lines at 390px: \"Uniting Cameroonian Forces in New Technologies!\" → 3 lines (6 words, 35.2px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 24px or less."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\home\\desktop-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\home\\desktop-page-01.jpg",
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\home\\desktop-page-02.jpg"
+   ],
+   "film": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\home\\desktop-film-01.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\home\\tablet-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\home\\tablet-page-01.jpg",
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\home\\tablet-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\home\\mobile-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\home\\mobile-page-01.jpg",
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\home\\mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

@@ -1,0 +1,140 @@
+@startuml uc_global
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #F5F8FC
+  BorderColor #00447E
+  FontSize 12
+}
+skinparam actor {
+  BackgroundColor #FFFFFF
+  BorderColor #333333
+}
+skinparam noteBackgroundColor #FFF9DB
+
+title Diagramme de cas d'utilisation global — Mountains Tech (Frontend Angular)
+
+actor "Visiteur du site" as V
+actor "Entreprise\n(membre candidat)" as ENT
+actor "Équipe de hackathon" as EQ
+actor "Administrateur" as ADM
+actor "SUPER_ADMIN" as SA
+actor "ADMIN" as AD
+actor "EDITOR" as ED
+actor "COMMUNICATION" as COM
+
+SA --|> ADM
+AD --|> ADM
+ED --|> ADM
+COM --|> ADM
+
+rectangle "Site public — Mountains Tech (Angular)" {
+  usecase "Consulter l'accueil\n(hero, chiffres clés, projets récents,\nprochains événements, membres,\nhackathon, newsletter)" as UC01
+  usecase "Consulter la liste des membres\n(recherche · filtres · pagination)" as UC02
+  usecase "Consulter le détail d'un membre" as UC03
+  usecase "Consulter les activités et les événements" as UC04
+  usecase "S'inscrire à un événement" as UC05
+  usecase "Consulter le catalogue de projets\net le détail d'un projet" as UC06
+  usecase "Consulter les partenaires" as UC07
+  usecase "Consulter les hackathons et leur détail" as UC08
+  usecase "Soumettre une candidature d'adhésion\n(récapitulatif + confirmation)" as UC09
+  usecase "S'inscrire avec son équipe\nà un hackathon" as UC10
+  usecase "S'inscrire à la newsletter" as UC11
+  usecase "Envoyer un message de contact" as UC12
+  usecase "Consulter les pages légales\n(mentions · CGU · confidentialité)" as UC13
+}
+
+rectangle "Backoffice — /dashboard (Angular)" {
+  usecase "S'authentifier" as UC14
+  usecase "Demander la réinitialisation\ndu mot de passe" as UC15
+  usecase "Consulter le tableau de bord\n(KPI, graphiques, activité récente)" as UC16
+  usecase "Gérer les membres et valider /\nrejeter les candidatures" as UC17
+  usecase "Valider ou rejeter une équipe\nde hackathon" as UC18
+  usecase "Gérer les contenus (activités,\névénements, projets, hackathons)" as UC19
+  usecase "Gérer les utilisateurs et les rôles" as UC20
+  usecase "Gérer les messages de contact" as UC21
+  usecase "Gérer les médias (upload, aperçu, suppression)" as UC22
+  usecase "Gérer les paramètres\n(chiffres clés administrables)" as UC23
+  usecase "Gérer les abonnés newsletter\n(import/export CSV, désinscriptions)" as UC24
+  usecase "Créer · cibler · prévisualiser ·\nenvoyer ou programmer une annonce" as UC25
+  usecase "Consulter les logs d'audit" as UC26
+  usecase "Gérer les contenus éditoriaux\net pages légales" as UC27
+}
+
+' ---------- Acteurs publics ----------
+V --> UC01
+V --> UC02
+V --> UC02 : <<extend>> détail
+V --> UC03
+V --> UC04
+V --> UC05
+V --> UC06
+V --> UC07
+V --> UC08
+V --> UC11
+V --> UC12
+V --> UC13
+ENT --> UC09
+ENT --> UC05
+EQ --> UC08
+EQ --> UC10
+
+' ---------- Administrateur ----------
+ADM --> UC14
+ADM --> UC16
+ADM --> UC17
+ADM --> UC18
+ADM --> UC19
+ADM --> UC20
+ADM --> UC21
+ADM --> UC22
+ADM --> UC23
+ADM --> UC24
+ADM --> UC25
+ADM --> UC26
+ADM --> UC27
+
+UC15 ..> UC14 : <<extend>>
+
+' ---------- Les fonctions admin incluent l'authentification ----------
+UC16 ..> UC14 : <<include>>
+UC17 ..> UC14 : <<include>>
+UC18 ..> UC14 : <<include>>
+UC19 ..> UC14 : <<include>>
+UC20 ..> UC14 : <<include>>
+UC21 ..> UC14 : <<include>>
+UC22 ..> UC14 : <<include>>
+UC23 ..> UC14 : <<include>>
+UC24 ..> UC14 : <<include>>
+UC25 ..> UC14 : <<include>>
+UC26 ..> UC14 : <<include>>
+UC27 ..> UC14 : <<include>>
+
+' ---------- Liens métier ----------
+UC17 ..> UC02 : <<répercution>>\nsite public
+UC25 ..> UC11 : <<alimente>>
+UC23 ..> UC01 : <<alimente>>\nchiffres clés
+
+note right of UC09
+  Candidature publique — POST /api/v1/public/members/applications
+  → statut PENDING, confirmation affichée (critère n°4).
+end note
+
+note bottom of UC17
+  La validation est répercutée sur le site public
+  via l'API REST (critère d'acceptation n°9).
+end note
+
+note bottom of UC25
+  Envoi massif déclenché via l'API uniquement,
+  jamais depuis le navigateur (spec §7).
+end note
+
+note bottom of UC16
+  Droits par rôle (AdminPermissionGuard) :
+  • SUPER_ADMIN / ADMIN : tous les modules
+  • EDITOR : activités, événements, projets, hackathons, médias, paramètres
+  • COMMUNICATION : annonces, newsletter, contacts, médias, paramètres
+end note
+
+@enduml

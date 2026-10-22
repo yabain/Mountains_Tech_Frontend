@@ -78,33 +78,17 @@
                 }
                 @if (showActionsColumn()) {
                   <td class="res-actions">
-                    @if (hasEdit()) {
-                      <button class="res-icon-btn" type="button" title="Modifier" aria-label="Modifier" (click)="openEdit(row)">
-                        <i class="bi bi-pencil" aria-hidden="true"></i>
-                      </button>
-                    }
-                    @if (hasStatusControl) {
-                      <select
-                        class="res-status-select"
-                        [value]="rowStatus(row)"
-                        [disabled]="statusBusyId() === rowId(row)"
-                        (change)="changeStatus(row, $any($event.target).value)"
-                        aria-label="Changer le statut"
-                      >
-                        @for (status of statusOptions; track status) {
-                          <option [value]="status">{{ status === rowStatus(row) ? 'Statut : ' + status : status }}</option>
-                        }
-                      </select>
-                    }
-                    @if (config.deletable) {
+                    @for (action of rowActionsFor(row); track action.kind + action.label) {
                       <button
-                        class="res-icon-btn res-icon-btn--danger"
+                        class="res-action-button"
+                        [class.res-action-button--success]="action.tone === 'success'"
+                        [class.res-action-button--danger]="action.tone === 'danger'"
                         type="button"
-                        title="Supprimer"
-                        aria-label="Supprimer"
-                        (click)="openDelete(row)"
+                        [disabled]="statusBusyId() === rowId(row) || (action.kind === 'edit' && !hasEdit())"
+                        (click)="runRowAction(action, row)"
                       >
-                        <i class="bi bi-trash" aria-hidden="true"></i>
+                        <i [class]="'bi ' + action.icon" aria-hidden="true"></i>
+                        {{ rowActionLabel(action, row) }}
                       </button>
                     }
                   </td>
@@ -170,7 +154,7 @@
                       <select id="f-{{ field.key }}" class="res-field__input" [(ngModel)]="form()[field.key]" name="{{ field.key }}">
                         <option value="">—</option>
                         @for (option of field.options ?? []; track option) {
-                          <option [value]="option">{{ option }}</option>
+                          <option [value]="option">{{ resourceOptionLabel(option) }}</option>
                         }
                       </select>
                     }

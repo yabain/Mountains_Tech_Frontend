@@ -17,6 +17,25 @@ const config: AdminResourceConfig = {
   creatable: true,
   editable: true,
   deletable: true,
+  createRoute: '/dashboard/hackathons/new',
+  editorRoute: '/dashboard/hackathons',
+  rowActions: [
+    {
+      kind: 'registrations',
+      label: 'Inscriptions',
+      icon: 'bi-people',
+      route: '/dashboard/hackathons/:id/registrations'
+    },
+    { kind: 'edit', label: 'Modifier', icon: 'bi-pencil' },
+    {
+      kind: 'status',
+      label: 'Archiver',
+      icon: 'bi-archive',
+      status: 'ARCHIVED',
+      hideForStatuses: ['ARCHIVED']
+    },
+    { kind: 'delete', label: 'Supprimer', icon: 'bi-trash', tone: 'danger' }
+  ],
   columns: [
     { key: 'title', label: 'Titre' },
     { key: 'startDate', label: 'Debut', type: 'date' },

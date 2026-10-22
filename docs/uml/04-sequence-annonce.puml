@@ -1,0 +1,57 @@
+@startuml seq_annonce
+title Séquence — Création et programmation d'une annonce (UC25)
+
+actor "Communication\n(COMMUNICATION / ADMIN)" as COM
+participant "AnnouncementEditorComponent\n(WYSIWYG ngx-editor)" as ED
+participant "API NestJS\n/api/v1" as API
+participant "MongoDB Atlas" as DB
+participant "Worker d'envoi\n(backend)" as WK
+participant "Fournisseur SMTP" as SMTP
+
+COM -> ED : crée une annonce (/dashboard/announcements/new)
+activate ED
+ED -> ED : rédige l'objet + le contenu HTML\n(sanitisation DOMPurify à l'aperçu)
+COM -> ED : sélectionne l'audience\n(MEMBERS / NEWSLETTER / PARTICIPANTS / ADMINISTRATORS / CUSTOM)\n+ filtres (statut, événements, hackathons, tags)
+ED -> API : POST /admin/announcements/:id/recipients (debounce)
+activate API
+API -> DB : calcul des destinataires correspondants
+API --> ED : { recipientCount: 245 }
+deactivate API
+ED -> COM : affiche « 245 destinataires estimés »
+
+alt aperçu
+  COM -> ED : ouvre l'aperçu (onglets desktop 720px / mobile 375px / email 600px)
+  ED -> COM : rendu HTML sanitisé
+else envoi immédiat
+  COM -> ED : clique « Envoyer »
+  ED -> ED : confirm('Envoyer immédiatement à N destinataire(s) ?')
+  COM -> ED : confirme
+  ED -> API : POST /admin/announcements { status: SENDING }
+  API -> WK : déclenche l'envoi massif **via l'API**
+  WK -> SMTP : expédition (batchs)
+  SMTP --> WK : accusés / échecs
+  WK -> DB : status → SENT / FAILED + sent/recipientCount
+  ED -> COM : toast succès + progression dans l'historique
+else programmation
+  COM -> ED : choisit « Programmer » + date (datetime-local, min = maintenant)
+  ED -> API : POST /admin/announcements { sendMode: SCHEDULED, scheduledAt }
+  API -> DB : status → SCHEDULED
+  API --> ED : { status: SCHEDULED, recipientCount }
+  ED -> COM : toast « Campagne programmée »
+end
+
+alt 401 session expirée
+  API --> ED : 401 → purge token + redirection /login
+else 429 rate limiting
+  API --> ED : 429 → message « Trop de requêtes »
+else échec d'envoi
+  WK -> DB : status → FAILED + détail
+  COM -> ED : consulte l'historique (brouillon, programmée,\nen cours, envoyée, annulée, échec)
+end
+
+note bottom of ED
+  Le navigateur ne déclenche jamais l'envoi lui-même :
+  il met à jour le statut, le backend exécute le envoi (spec §7).
+end note
+
+@enduml

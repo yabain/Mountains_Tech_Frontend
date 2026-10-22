@@ -1,0 +1,1298 @@
+{
+ "url": "http://localhost:4200/evenements",
+ "at": "2026-10-19T15:02:52.296Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.96,
+    0.96
+   ],
+   "motion": {
+    "elements": 2,
+    "css": 1,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 1340,
+     "screens": 1.5,
+     "words": 146,
+     "img": 6,
+     "video": 0,
+     "canvas": 0,
+     "svg": 3,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 2,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "stock-photo-studio-shot-photo-of-close-up-of-a-c"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Nos rendez-vous",
+     "words": 2,
+     "chars": 15,
+     "lines": 1,
+     "size": 48,
+     "vw": 3.3,
+     "font": "Roboto",
+     "weight": 500,
+     "tracking": 0,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.97,
+     "top": 141,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Nos rendez-vous",
+     "words": 2,
+     "lines": 1,
+     "size": 48,
+     "font": "Roboto"
+    },
+    "headings": [
+     {
+      "text": "Nos rendez-vous",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.97,
+      "top": 141,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Choisissez votre prochain rendez-vous",
+      "words": 4,
+      "chars": 37,
+      "lines": 1,
+      "size": 29.6,
+      "vw": 2.1,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.36,
+      "top": 391,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 2,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Roboto",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      22,
+      30,
+      48
+     ],
+     "sizeCount": 10,
+     "notLoaded": [],
+     "body": {
+      "font": "Roboto",
+      "size": 11.5,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 5.1
+     },
+     "measureChars": 53,
+     "max": {
+      "size": 48,
+      "vw": 3.3,
+      "font": "Roboto",
+      "text": "Nos rendez-vous"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 1,
+     "microLabelShare": 0.011,
+     "microSamples": [
+      "À l'affiche"
+     ],
+     "upperShare": 0.02,
+     "centerShare": 0.08,
+     "smallText": 7
+    },
+    "eyebrows": [
+     {
+      "text": "À l'affiche",
+      "above": "Choisissez votre prochain rendez-vous",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 11.2,
+      "top": 369
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 75,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#607080",
+       "share": 0.33
+      },
+      {
+       "color": "#a8bac9",
+       "share": 0.31
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.14
+      },
+      {
+       "color": "#122033",
+       "share": 0.1
+      },
+      {
+       "color": "#334155",
+       "share": 0.05
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 2,
+     "radius": 10,
+     "height": 42,
+     "withShadow": 1,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Se Connecter",
+      "Découvrir l'événement →"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 3,
+     "shadowOverlay": 1,
+     "shadowSamples": [
+      "a.login-link → rgba(15, 23, 42, 0.08) 0px 6px 18px 0px",
+      "label.search-box → rgba(17, 54, 75, 0.06) 0px 5px 16px 0px",
+      "article.event-card → rgba(26, 59, 78, 0.08) 0px 8px 17px 0px"
+     ],
+     "gradients": 3,
+     "scrims": 0,
+     "gradientSamples": [
+      "section.events-page → linear-gradient(rgba(20, 65, 92, 0.07) 1px, rgba(0, 0, 0, 0) 1px), linear-gradient(90deg, rgba(20, 65, 92, 0.0",
+      "div.event-cover → linear-gradient(135deg, rgb(10, 62, 82), rgb(25, 168, 223))",
+      "footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,"
+     ],
+     "gradientText": 0,
+     "hairlines": 3,
+     "hairlineSamples": [
+      "header.header 1440px",
+      "a.event-link 304px",
+      "div.footer__bottom 1296px"
+     ],
+     "outlinedBoxes": 1,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 1,
+     "boxRadius": 13,
+     "squareMedia": 1,
+     "roundedMedia": 1,
+     "mediaRadius": 13,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 9,
+     "fixed": true,
+     "height": 75,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "roboto"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 1340,
+    "margins": {
+     "left": 72,
+     "right": 77
+    },
+    "sections": [
+     {
+      "sel": "main.ng-trigger.ng-trigger-pageTransition",
+      "tag": "main",
+      "top": 75,
+      "height": 921,
+      "words": 89,
+      "media": 1,
+      "middle": 199,
+      "heading": {
+       "text": "Nos rendez-vous",
+       "size": 48,
+       "tag": "h1"
+      },
+      "left": 200,
+      "right": 200,
+      "textLeft": 200,
+      "textRight": 200,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "app-footer.ng-tns-c3179972094-1",
+      "tag": "app-footer",
+      "top": 996,
+      "height": 343,
+      "words": 47,
+      "media": 0,
+      "middle": 154,
+      "heading": {
+       "text": "Navigation",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 72,
+      "right": 72,
+      "textLeft": 72,
+      "textRight": 72,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Nos rendez-vous",
+      "size": 48,
+      "top": 141,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 200,
+      "n": 1
+     },
+     {
+      "x": 215,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 2,
+    "bodySize": 12,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.29,
+    "voidBox": {
+     "x": 540,
+     "y": 480,
+     "w": 900,
+     "h": 420
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.85,
+    0.98
+   ],
+   "motion": {
+    "elements": 2,
+    "css": 1,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 1813,
+     "screens": 1.8,
+     "words": 136,
+     "img": 6,
+     "video": 0,
+     "canvas": 0,
+     "svg": 3,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 2,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "stock-photo-studio-shot-photo-of-close-up-of-a-c"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Nos rendez-vous",
+     "words": 2,
+     "chars": 15,
+     "lines": 1,
+     "size": 32,
+     "vw": 4.2,
+     "font": "Roboto",
+     "weight": 500,
+     "tracking": 0,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.95,
+     "top": 147,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Nos rendez-vous",
+     "words": 2,
+     "lines": 1,
+     "size": 32,
+     "font": "Roboto"
+    },
+    "headings": [
+     {
+      "text": "Nos rendez-vous",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 147,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Roboto",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      22,
+      23,
+      32
+     ],
+     "sizeCount": 10,
+     "notLoaded": [],
+     "body": {
+      "font": "Roboto",
+      "size": 11.5,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 5.1
+     },
+     "measureChars": 57,
+     "max": {
+      "size": 32,
+      "vw": 4.2,
+      "font": "Roboto",
+      "text": "Nos rendez-vous"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 1,
+     "microLabelShare": 0.012,
+     "microSamples": [
+      "À l'affiche"
+     ],
+     "upperShare": 0.02,
+     "centerShare": 0.08,
+     "smallText": 7
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 73,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#607080",
+       "share": 0.35
+      },
+      {
+       "color": "#a8bac9",
+       "share": 0.34
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.15
+      },
+      {
+       "color": "#122033",
+       "share": 0.11
+      },
+      {
+       "color": "#078fce",
+       "share": 0.02
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 2,
+     "radius": 10,
+     "height": 51,
+     "withShadow": 1,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Découvrir l'événement →"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 2,
+     "shadowOverlay": 2,
+     "shadowSamples": [
+      "label.search-box → rgba(17, 54, 75, 0.06) 0px 5px 16px 0px",
+      "article.event-card → rgba(26, 59, 78, 0.08) 0px 8px 17px 0px"
+     ],
+     "gradients": 3,
+     "scrims": 0,
+     "gradientSamples": [
+      "section.events-page → linear-gradient(rgba(20, 65, 92, 0.07) 1px, rgba(0, 0, 0, 0) 1px), linear-gradient(90deg, rgba(20, 65, 92, 0.0",
+      "div.event-cover → linear-gradient(135deg, rgb(10, 62, 82), rgb(25, 168, 223))",
+      "footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,"
+     ],
+     "gradientText": 0,
+     "hairlines": 3,
+     "hairlineSamples": [
+      "header.header 768px",
+      "a.event-link 328px",
+      "div.footer__bottom 728px"
+     ],
+     "outlinedBoxes": 1,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 1,
+     "boxRadius": 13,
+     "squareMedia": 1,
+     "roundedMedia": 1,
+     "mediaRadius": 13,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 3,
+     "fixed": true,
+     "height": 73,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "roboto",
+     "bootstrap-icons"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 1813,
+    "margins": {
+     "left": 16,
+     "right": 20
+    },
+    "sections": [
+     {
+      "sel": "main.ng-trigger.ng-trigger-pageTransition",
+      "tag": "main",
+      "top": 73,
+      "height": 1024,
+      "words": 89,
+      "media": 1,
+      "middle": 77,
+      "heading": {
+       "text": "Nos rendez-vous",
+       "size": 32,
+       "tag": "h1"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 16,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "app-footer.ng-tns-c3179972094-1",
+      "tag": "app-footer",
+      "top": 1097,
+      "height": 717,
+      "words": 47,
+      "media": 0,
+      "middle": 66,
+      "heading": {
+       "text": "Navigation",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Nos rendez-vous",
+      "size": 32,
+      "top": 147,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 16,
+      "n": 1
+     },
+     {
+      "x": 31,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 2,
+    "bodySize": 12,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 3,
+   "filled": [
+    0.85,
+    0.94,
+    1
+   ],
+   "motion": {
+    "elements": 2,
+    "css": 1,
+    "transitions": 0,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 1781,
+     "screens": 2.1,
+     "words": 136,
+     "img": 6,
+     "video": 0,
+     "canvas": 0,
+     "svg": 3,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 2,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "stock-photo-studio-shot-photo-of-close-up-of-a-c"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Nos rendez-vous",
+     "words": 2,
+     "chars": 15,
+     "lines": 1,
+     "size": 32,
+     "vw": 8.2,
+     "font": "Roboto",
+     "weight": 500,
+     "tracking": 0,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 147,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Nos rendez-vous",
+     "words": 2,
+     "lines": 1,
+     "size": 32,
+     "font": "Roboto"
+    },
+    "headings": [
+     {
+      "text": "Nos rendez-vous",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Roboto",
+      "weight": 500,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 147,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Roboto",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      22,
+      32
+     ],
+     "sizeCount": 9,
+     "notLoaded": [],
+     "body": {
+      "font": "Roboto",
+      "size": 11.5,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 5.1
+     },
+     "measureChars": 57,
+     "max": {
+      "size": 32,
+      "vw": 8.2,
+      "font": "Roboto",
+      "text": "Nos rendez-vous"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 1,
+     "microLabelShare": 0.012,
+     "microSamples": [
+      "À l'affiche"
+     ],
+     "upperShare": 0.02,
+     "centerShare": 0.08,
+     "smallText": 7
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 73,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#607080",
+       "share": 0.35
+      },
+      {
+       "color": "#a8bac9",
+       "share": 0.34
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.15
+      },
+      {
+       "color": "#122033",
+       "share": 0.11
+      },
+      {
+       "color": "#078fce",
+       "share": 0.02
+      }
+     ],
+     "button": null,
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 10,
+     "height": 51,
+     "withShadow": 1,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 2,
+     "shadowOverlay": 2,
+     "shadowSamples": [
+      "label.search-box → rgba(17, 54, 75, 0.06) 0px 5px 16px 0px",
+      "article.event-card → rgba(26, 59, 78, 0.08) 0px 8px 17px 0px"
+     ],
+     "gradients": 3,
+     "scrims": 0,
+     "gradientSamples": [
+      "section.events-page → linear-gradient(rgba(20, 65, 92, 0.07) 1px, rgba(0, 0, 0, 0) 1px), linear-gradient(90deg, rgba(20, 65, 92, 0.0",
+      "div.event-cover → linear-gradient(135deg, rgb(10, 62, 82), rgb(25, 168, 223))",
+      "footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,"
+     ],
+     "gradientText": 0,
+     "hairlines": 3,
+     "hairlineSamples": [
+      "header.header 390px",
+      "a.event-link 327px",
+      "div.footer__bottom 358px"
+     ],
+     "outlinedBoxes": 1,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 1,
+     "boxRadius": 13,
+     "squareMedia": 1,
+     "roundedMedia": 1,
+     "mediaRadius": 13,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.16
+     }
+    ],
+    "nav": {
+     "links": 3,
+     "fixed": true,
+     "height": 73,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "roboto",
+     "bootstrap-icons"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 1781,
+    "margins": {
+     "left": 16,
+     "right": 19
+    },
+    "sections": [
+     {
+      "sel": "main.ng-trigger.ng-trigger-pageTransition",
+      "tag": "main",
+      "top": 73,
+      "height": 965,
+      "words": 89,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Nos rendez-vous",
+       "size": 32,
+       "tag": "h1"
+      },
+      "left": 16,
+      "right": 17,
+      "textLeft": 16,
+      "textRight": 33,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "app-footer.ng-tns-c3179972094-1",
+      "tag": "app-footer",
+      "top": 1038,
+      "height": 743,
+      "words": 47,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Navigation",
+       "size": 14,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 19,
+      "textLeft": 16,
+      "textRight": 19,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Nos rendez-vous",
+      "size": 32,
+      "top": 147,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 16,
+      "n": 1
+     },
+     {
+      "x": 31,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 2,
+    "bodySize": 12,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "1 eyebrow/kicker label(s) above headings: \"À l'affiche\" above \"Choisissez votre prochain rendez-vous\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence."
+  },
+  {
+   "level": "WARN",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "1 tiny uppercase letter-spaced label(s): \"À l'affiche\"",
+   "fix": "Prefer sentence case at body size.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "width": 1440,
+   "message": "3 gradient fill(s): section.events-page → linear-gradient(rgba(20, 65, 92, 0.07) 1px, rgba(0, 0, 0, 0) 1px), linear-gradient(90deg, rgba(20, 65, 92, 0.0 | div.event-cover → linear-gradient(135deg, rgb(10, 62, 82), rgb(25, 168, 223)) | footer#footer.footer.ng-trigger → radial-gradient(at 50% 100%, rgba(0, 139, 207, 0.12), rgba(0, 0, 0, 0) 672px), linear-gradient(120deg, rgba(3,",
+   "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "width": 1440,
+   "message": "3 box-shadow(s) on elements at rest: a.login-link → rgba(15, 23, 42, 0.08) 0px 6px 18px 0px | label.search-box → rgba(17, 54, 75, 0.06) 0px 5px 16px 0px | article.event-card → rgba(26, 59, 78, 0.08) 0px 8px 17px 0px",
+   "fix": "Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars).",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "button-fx",
+   "width": 1440,
+   "message": "Buttons with shadow/glow.",
+   "fix": "Flat fill, one colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "3 thin rule(s)/divider line(s): header.header 1440px | a.event-link 304px | div.footer__bottom 1296px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "width": 1440,
+   "message": "1 box(es) drawn with a 1px outline.",
+   "fix": "Prefer a filled surface or no box.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "10 different font sizes (10, 11, 12, 13, 14, 15, 16, 22, 30, 48).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "body-size",
+   "width": 1440,
+   "message": "Body text is 11.5px (the size most of the running text is set in).",
+   "fix": "Body copy 16–20px. Map small sizes from blueprints onto your body step.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "grey-body",
+   "width": 1440,
+   "message": "The running text is a soft grey on its ground (5.1:1).",
+   "fix": "Set body copy in the full ink (7:1 or more). Keep the muted ink for secondary notes; pages read thin and unfinished when everything is grey.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "few-pictures",
+   "width": 1440,
+   "message": "Only 2 picture(s) on the page (2 photographs, footage or raster images, 0 interface fragments). Drawings in SVG do not count.",
+   "fix": "Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "FAIL",
+   "id": "small-text",
+   "width": 1440,
+   "message": "7 text blocks under 13px.",
+   "fix": "Nothing meant to be read goes below 13px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "focal-point",
+   "width": 1440,
+   "message": "The first screen has no dominant element: the largest type is 48px (3.3vw) and no single picture holds a third of the viewport.",
+   "fix": "Make one thing lead: the headline at display size, or one large picture. A grid of many small pictures is not one thing; in blind tests jurors marked a first screen without a headline down every time. On the strongest studied sites the largest type has a median of 8.4vw.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "late-title",
+   "width": 1440,
+   "message": "The title is not readable 1.2s after the page loaded (it is at 0% opacity).",
+   "fix": "Put the headline in the HTML, painted on the first frame; the load sequence only adds arrival and is settled by 1.2s (references/motion.md, \"Load sequence in 1.2 seconds\"). No preloader, no gate, no waiting for the load event.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "hero-void",
+   "width": 1440,
+   "message": "29% of the first screen is one empty block (900×420px at 540,480).",
+   "fix": "Place the void on purpose or fill it: move the picture, the film or one fact into it, grow the headline to meet it, or shrink the screen to its content. A void reads as placed only when something closes it on the far side and it is the screen's one rest."
+  },
+  {
+   "level": "FAIL",
+   "id": "still-page",
+   "width": 1440,
+   "message": "Only 2 element(s) moved while the page loaded and scrolled.",
+   "fix": "Build the motion layer (SKILL.md step 9, references/motion.md): the signature move, an entrance for the parts of every section, feedback on every control, and one moving picture. Transform and opacity only, with a reduced-motion fallback."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\events\\desktop-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\events\\desktop-page-01.jpg"
+   ],
+   "film": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\events\\desktop-film-01.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\events\\tablet-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\events\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\events\\mobile-fold.jpg",
+   "pages": [
+    "C:\\Users\\Admin\\Documents\\Cours de L3\\Stage\\MountainsTechFrontend\\MountainsTech\\.taste-skill\\audit\\events\\mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

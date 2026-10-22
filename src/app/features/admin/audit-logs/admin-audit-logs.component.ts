@@ -11,9 +11,10 @@ const config: AdminResourceConfig = {
   endpoint: API_ROUTES.admin.auditLogs,
   shape: 'items',
   columns: [
-    { key: 'entity', label: 'Entité' },
+    { key: 'resource', label: 'Ressource' },
     { key: 'action', label: 'Action' },
     { key: 'userId', label: 'Utilisateur' },
+    { key: 'metadata', label: 'Requête et réponse', type: 'json' },
     { key: 'createdAt', label: 'Date', type: 'date' }
   ],
   fields: []

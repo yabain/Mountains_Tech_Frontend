@@ -1,0 +1,24 @@
+/* Sections component styles */
+.res-page {
+  .admin-page-heading {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .admin-filters {
+    margin-bottom: var(--spacing-md);
+    .res-toolbar {
+      gap: var(--spacing-sm);
+    }
+  }
+
+  .admin-table-wrap {
+    overflow-x: auto;
+  }
+
+  .res-pagination {
+    margin-top: var(--spacing-md);
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+  }
+}

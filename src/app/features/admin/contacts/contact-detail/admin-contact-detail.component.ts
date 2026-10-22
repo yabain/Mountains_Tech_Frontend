@@ -40,12 +40,13 @@ export class AdminContactDetailComponent {
   }
 
   get isUnread(): boolean {
-    return String(this.contact()?.['status'] ?? '').toUpperCase() === 'NEW';
+    const status = String(this.contact()?.['status'] ?? '').toUpperCase();
+    return status === 'NEW' || status === 'IN_PROGRESS';
   }
 
   markReadState(): void {
     if (this.busy() || !this.contactId) return;
-    const status = this.isUnread ? 'IN_PROGRESS' : 'NEW';
+    const status = this.isUnread ? 'RESOLVED' : 'IN_PROGRESS';
     this.busy.set(true);
     this.api.patch<unknown>(`${API_ROUTES.admin.contacts}/${encodeURIComponent(this.contactId)}/status`, { status })
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -54,7 +55,7 @@ export class AdminContactDetailComponent {
           const updated = this.unwrap(response);
           this.contact.update((current) => ({ ...(current ?? {}), ...(updated ?? {}), status }));
           this.busy.set(false);
-          this.notification.success(status === 'NEW' ? 'Message marqué comme non lu.' : 'Message marqué comme lu.');
+          this.notification.success(status === 'IN_PROGRESS' ? 'Message marqué comme non lu.' : 'Message marqué comme lu.');
         },
         error: () => {
           this.busy.set(false);

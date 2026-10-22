@@ -2,7 +2,8 @@ import { Directive, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../core/http/api.service';
 import { NotificationService } from '../../../core/services/notification.service';
-import { RESOURCE_CONFIG, ResourceField, ResourceListColumn } from './admin-resource.config';
+import { RESOURCE_CONFIG, ResourceField, ResourceListColumn, ResourceRowAction } from './admin-resource.config';
+import { environment } from '../../../../environments/environment';
 
 type Row = Record<string, any>;
 
@@ -71,14 +72,45 @@ export abstract class AdminResourceBase {
 
   resourceStatusLabel(status: string): string {
     const labels: Record<string, string> = {
-      ACTIVE: 'Actifs',
-      ARCHIVED: 'Archivés',
-      DRAFT: 'Brouillons',
-      INACTIVE: 'Inactifs',
-      PUBLISHED: 'Publiés',
-      SUSPENDED: 'Suspendus'
+      ACTIVE: 'Actif',
+      ARCHIVED: 'Archivé',
+      DRAFT: 'Brouillon',
+      INACTIVE: 'Inactif',
+      PUBLISHED: 'Publié',
+      SUSPENDED: 'Suspendu',
+      NEW: 'Nouveau',
+      IN_PROGRESS: 'En cours',
+      RESOLVED: 'Résolu',
+      SPAM: 'Indésirable',
+      PENDING: 'En attente',
+      APPROVED: 'Approuvé',
+      REJECTED: 'Rejeté',
+      SUBSCRIBED: 'Abonné',
+      UNSUBSCRIBED: 'Désabonné',
+      SCHEDULED: 'Programmé',
+      SENDING: 'En cours d’envoi',
+      SENT: 'Envoyé',
+      FAILED: 'Échec',
+      CANCELLED: 'Annulé'
     };
     return labels[status] ?? status.replace(/_/g, ' ').toLowerCase();
+  }
+
+  resourceOptionLabel(option: string | number): string {
+    const value = String(option);
+    const labels: Record<string, string> = {
+      SUPER_ADMIN: 'Super administrateur',
+      ADMIN: 'Administrateur',
+      EDITOR: 'Rédacteur',
+      COMMUNICATION: 'Communication',
+      INSTITUTIONAL: 'Institutionnel',
+      TECHNICAL: 'Technique',
+      FINANCIAL: 'Financier',
+      MEDIA: 'Médias',
+      true: 'Oui',
+      false: 'Non'
+    };
+    return labels[value] ?? this.resourceStatusLabel(value);
   }
 
   resourceStatusIcon(status: string): string {
@@ -106,7 +138,51 @@ export abstract class AdminResourceBase {
   }
 
   showActionsColumn(): boolean {
+    if (this.config.rowActions) {
+      return this.config.rowActions.length > 0;
+    }
     return this.hasCreate() || this.hasEdit() || (this.config.deletable ?? false) || this.hasStatusControl;
+  }
+
+  rowActionsFor(row: Row): ResourceRowAction[] {
+    const actions = this.config.rowActions;
+    if (!actions) return [];
+    const status = this.rowStatus(row).toUpperCase();
+    return actions.filter((action) => {
+      if (action.hideForStatuses?.includes(status)) return false;
+      return !action.showWhenField || row[action.showWhenField] === action.showWhenValue;
+    });
+  }
+
+  rowActionLabel(action: ResourceRowAction, row: Row): string {
+    return action.labelByStatus?.[this.rowStatus(row).toUpperCase()] ?? action.label;
+  }
+
+  runRowAction(action: ResourceRowAction, row: Row): void {
+    if (!row || !this.rowId(row)) return;
+    if (action.confirmMessage && !confirm(action.confirmMessage)) return;
+
+    switch (action.kind) {
+      case 'edit':
+        this.openEdit(row);
+        return;
+      case 'delete':
+        this.openDelete(row);
+        return;
+      case 'status': {
+        const currentStatus = this.rowStatus(row).toUpperCase();
+        const targetStatus = action.statusByCurrentStatus?.[currentStatus] ?? action.status;
+        if (targetStatus) this.changeStatus(row, targetStatus);
+        return;
+      }
+      case 'view':
+      case 'registrations':
+        if (action.route) {
+          const route = action.route.replace(':id', encodeURIComponent(this.rowId(row)));
+          void this.router.navigateByUrl(route);
+        }
+        return;
+    }
   }
 
   hasCreate(): boolean {
@@ -131,25 +207,86 @@ export abstract class AdminResourceBase {
     return statusField ? String(row?.[statusField] ?? '') : '';
   }
 
+  jsonValue(value: unknown): string {
+    return JSON.stringify(value ?? {}, null, 2);
+  }
+
+  mediaUrl(value: unknown): string {
+    const path = String(value ?? '').trim();
+    if (!path) return '';
+    if (/^https?:\/\//i.test(path)) return path;
+    return new URL(path.startsWith('/') ? path : `/${path}`, environment.apiUrl).toString();
+  }
+
+  isImageMedia(row: Row): boolean {
+    return String(row['mimeType'] ?? '').toLowerCase().startsWith('image/');
+  }
+
+  isVideoMedia(row: Row): boolean {
+    return String(row['mimeType'] ?? '').toLowerCase().startsWith('video/');
+  }
+
   cellValue(row: Row, column: ResourceListColumn): string {
     if (!row) {
       return '-';
+    }
+    if (column.type === 'status') {
+      return this.resourceStatusLabel(String(row[column.key] ?? '').toUpperCase());
+    }
+    if (column.key === 'resource') {
+      const resources: Record<string, string> = {
+        activities: 'Actualités',
+        announcements: 'Annonces',
+        contacts: 'Contacts',
+        events: 'Événements',
+        hackathons: 'Hackathons',
+        members: 'Membres',
+        media: 'Médias',
+        newsletter: 'Newsletter',
+        partners: 'Partenaires',
+        projects: 'Projets',
+        users: 'Comptes'
+      };
+      const resource = String(row[column.key] ?? '');
+      return resources[resource] ?? resource;
+    }
+    if (column.key === 'action' && this.config.endpoint.includes('/audit-logs')) {
+      const actions: Record<string, string> = {
+        GET: 'Consultation',
+        POST: 'Création ou envoi',
+        PATCH: 'Modification',
+        PUT: 'Mise à jour',
+        DELETE: 'Suppression'
+      };
+      const action = String(row[column.key] ?? '').toUpperCase();
+      return actions[action] ?? action;
     }
     return this.formatCell(row?.[column.key], column.type);
   }
 
   statusClass(status: unknown): string {
-    const label = String(status ?? '').toLowerCase();
+    const label = String(status ?? '')
+      .trim()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[\s-]+/g, '_');
     if (['approved', 'published', 'active', 'resolved', 'subscribed', 'confirmed'].includes(label)) {
       return 'res-status res-status--success';
     }
-    if (['pending', 'new'].includes(label)) {
+    if (['pending', 'new', 'in_review', 'en_attente', 'en_cours'].includes(label)) {
       return 'res-status res-status--pending';
     }
-    if (['rejected', 'spam', 'inactive', 'suspended', 'archived', 'unsubscribed', 'cancelled'].includes(label)) {
+    if (['rejected', 'declined', 'failed', 'refused', 'refuse', 'echec', 'spam', 'inactive', 'suspended', 'archived', 'unsubscribed'].includes(label)) {
       return 'res-status res-status--danger';
     }
-    if (['in_progress', 'draft'].includes(label)) {
+    if (['cancelled', 'canceled', 'annule', 'annulee'].includes(label)) {
+      return 'res-status res-status--cancelled';
+    }
+    if (['draft', 'brouillon'].includes(label)) {
+      return 'res-status res-status--neutral';
+    }
+    if (['in_progress', 'en_cours_de_realisation'].includes(label)) {
       return 'res-status res-status--info';
     }
     return 'res-status res-status--neutral';
@@ -213,6 +350,10 @@ export abstract class AdminResourceBase {
   }
 
   openEdit(row: Row): void {
+    if (this.config.editorRoute) {
+      void this.router.navigateByUrl(`${this.config.editorRoute}/${encodeURIComponent(this.rowId(row))}/edit`);
+      return;
+    }
     const draft: Row = {};
     for (const field of this.config.fields) {
       let value = row?.[field.key];

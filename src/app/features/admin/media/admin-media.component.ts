@@ -12,6 +12,7 @@ const config: AdminResourceConfig = {
   shape: 'items',
   deletable: true,
   columns: [
+    { key: 'url', label: 'Aperçu', type: 'media' },
     { key: 'originalName', label: 'Nom' },
     { key: 'alt', label: 'Texte alternatif' },
     { key: 'mimeType', label: 'Type' },

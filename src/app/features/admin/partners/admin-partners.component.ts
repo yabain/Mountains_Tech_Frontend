@@ -16,6 +16,8 @@ const config: AdminResourceConfig = {
   creatable: true,
   editable: true,
   deletable: true,
+  createRoute: '/dashboard/partners/new',
+  editorRoute: '/dashboard/partners',
   columns: [
     { key: 'name', label: 'Nom' },
     { key: 'type', label: 'Type' },

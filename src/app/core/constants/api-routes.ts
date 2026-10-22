@@ -37,6 +37,7 @@ export const API_ROUTES = {
     settings: '/admin/settings',
     dashboard: '/admin/dashboard',
     auditLogs: '/admin/audit-logs',
+    emails: '/admin/emails',
     partners: '/admin/partners'
   }
 } as const;

@@ -40,7 +40,7 @@
           >
             <option value="">Tous les statuts</option>
             @for (status of statusOptions; track status) {
-              <option [value]="status">{{ status }}</option>
+              <option [value]="status">{{ resourceStatusLabel(status) }}</option>
             }
           </select>
         }
@@ -68,7 +68,9 @@
               <tr>
                 @for (column of config.columns; track column.key) {
                   <td>
-                    @if (column.type === 'status') {
+                    @if (column.type === 'json') {
+                      <details class="res-audit-details"><summary>Consulter</summary><pre>{{ jsonValue(row[column.key]) }}</pre></details>
+                    } @else if (column.type === 'status') {
                       <span [class]="statusClass(row[column.key])">{{ cellValue(row, column) }}</span>
                     } @else {
                       {{ cellValue(row, column) }}
@@ -91,7 +93,7 @@
                         aria-label="Changer le statut"
                       >
                         @for (status of statusOptions; track status) {
-                          <option [value]="status">{{ status === rowStatus(row) ? 'Statut : ' + status : status }}</option>
+                          <option [value]="status">{{ status === rowStatus(row) ? 'Statut : ' + resourceStatusLabel(status) : resourceStatusLabel(status) }}</option>
                         }
                       </select>
                     }
@@ -167,7 +169,7 @@
                       <select id="f-{{ field.key }}" class="res-field__input" [(ngModel)]="form()[field.key]" name="{{ field.key }}">
                         <option value="">—</option>
                         @for (option of field.options ?? []; track option) {
-                          <option [value]="option">{{ option }}</option>
+                          <option [value]="option">{{ resourceOptionLabel(option) }}</option>
                         }
                       </select>
                     }
