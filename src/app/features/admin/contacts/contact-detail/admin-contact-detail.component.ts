@@ -141,12 +141,14 @@ export class AdminContactDetailComponent {
   private unwrap(response: unknown): ContactRecord | null {
     if (!response || typeof response !== 'object') return null;
     const outer = response as ContactRecord;
-    const data = outer['data'] && typeof outer['data'] === 'object'
-      ? outer['data'] as ContactRecord
-      : outer;
+    let data = (outer['data'] && typeof outer['data'] === 'object') ? outer['data'] as ContactRecord : outer;
+    if (Array.isArray(data)) data = (data as any[])[0] ?? {};
+    if (Array.isArray(outer['items'])) data = (outer['items'] as any[])[0] ?? data;
     const item = data['contact'] && typeof data['contact'] === 'object'
       ? data['contact'] as ContactRecord
-      : data;
-    return ('id' in item || '_id' in item || 'message' in item) ? item : null;
+      : (data['message'] && typeof data['message'] === 'object')
+        ? data['message'] as ContactRecord
+        : data;
+    return item && typeof item === 'object' ? item : null;
   }
 }

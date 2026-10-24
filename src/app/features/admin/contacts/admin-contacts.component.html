@@ -65,7 +65,7 @@
           </thead>
           <tbody>
             @for (row of resourceRows(); track rowId(row)) {
-              <tr>
+              <tr (click)="viewRow(row)">
                 @for (column of config.columns; track column.key) {
                   <td>
                     @if (column.type === 'status') {
@@ -83,7 +83,7 @@
                       [class.res-action-button--danger]="action.tone === 'danger'"
                       type="button"
                       [disabled]="statusBusyId() === rowId(row)"
-                      (click)="runRowAction(action, row)"
+                      (click)="$event.stopPropagation(); runRowAction(action, row)"
                     >
                       <i [class]="'bi ' + action.icon" aria-hidden="true"></i>
                       {{ rowActionLabel(action, row) }}

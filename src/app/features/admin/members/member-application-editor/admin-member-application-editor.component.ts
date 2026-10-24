@@ -32,6 +32,8 @@ export class AdminMemberApplicationEditorComponent {
 
   readonly form = signal<AppForm>({ companyName: '', representativeName: '', representativeEmail: '', description: '', status: '' });
   readonly saving = signal(false);
+  readonly loading = signal(false);
+  readonly errorMsg = signal('');
   readonly id = signal<string>('');
 
   constructor() {
@@ -43,9 +45,14 @@ export class AdminMemberApplicationEditorComponent {
   }
 
   private load(id: string): void {
+    this.loading.set(true);
+    this.errorMsg.set('');
     this.api.get(`${API_ROUTES.admin.memberApplications}/${id}`).pipe(takeUntilDestroyed(this.destroy)).subscribe({
       next: (res: any) => {
-        const data = res?.data ?? res ?? {};
+        this.loading.set(false);
+        let data = res?.data ?? res ?? {};
+        if (Array.isArray(data)) data = data[0] ?? {};
+        if (Array.isArray(res?.items)) data = res.items[0] ?? data;
         this.form.set({
           companyName: String(data.companyName ?? ''),
           representativeName: String(data.representativeName ?? ''),
@@ -54,7 +61,11 @@ export class AdminMemberApplicationEditorComponent {
           status: String(data.status ?? 'PENDING')
         });
       },
-      error: () => this.notification.error('Impossible de charger la demande.')
+      error: () => {
+        this.loading.set(false);
+        this.errorMsg.set('Impossible de charger la demande.');
+        this.notification.error('Impossible de charger la demande.');
+      }
     });
   }
 
@@ -62,11 +73,19 @@ export class AdminMemberApplicationEditorComponent {
 
   submit(): void {
     this.saving.set(true);
+    this.errorMsg.set('');
     const payload = { ...this.form() };
     this.api.put(`${API_ROUTES.admin.memberApplications}/${this.id()}/status`, payload).pipe(takeUntilDestroyed(this.destroy)).subscribe({
-      next: () => { this.notification.success('Demande mise à jour.'); this.cancel(); },
-      error: () => this.notification.error('Erreur lors de la mise à jour.')
+      next: () => {
+        this.saving.set(false);
+        this.notification.success('Demande mise à jour.');
+        this.cancel();
+      },
+      error: () => {
+        this.saving.set(false);
+        this.errorMsg.set('Erreur lors de la mise à jour.');
+        this.notification.error('Erreur lors de la mise à jour.');
+      }
     });
-    this.saving.set(false);
   }
 }

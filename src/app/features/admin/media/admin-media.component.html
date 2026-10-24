@@ -190,6 +190,16 @@
               <i class="bi bi-link-45deg" aria-hidden="true"></i>
               Adresse URL
             </button>
+            <button
+              type="button"
+              role="tab"
+              [attr.aria-selected]="mediaMode() === 'pdf'"
+              [class.is-active]="mediaMode() === 'pdf'"
+              (click)="setMediaMode('pdf')"
+            >
+              <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+              PDF
+            </button>
           </div>
 
           @if (mediaMode() === 'file') {
@@ -202,8 +212,21 @@
             >
               <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
               <strong>{{ mediaFile()?.name || 'Cliquez ou glissez-déposez un fichier' }}</strong>
-              <span>Images, vidéos ou PDF — 10 Mo maximum</span>
-              <input #fileInput id="media-file" type="file" accept="image/*,video/*,application/pdf" (change)="onMediaFileSelected($event)" />
+              <span>Images et PDF — 10 Mo maximum</span>
+              <input #fileInput id="media-file" type="file" accept="image/*,application/pdf" (change)="onMediaFileSelected($event)" />
+            </div>
+          } @else if (mediaMode() === 'pdf') {
+            <div
+              class="media-dropzone"
+              (dragover)="onDragOver($event)"
+              (dragleave)="onDragLeave($event)"
+              (drop)="onDrop($event)"
+              [class.media-dropzone--dragover]="isDragOver()"
+            >
+              <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+              <strong>{{ mediaFile()?.name || 'Cliquez ou glissez-déposez un PDF' }}</strong>
+              <span>PDF uniquement — 10 Mo maximum</span>
+              <input #fileInputPdf id="media-file-pdf" type="file" accept="application/pdf" (change)="onMediaFileSelected($event)" />
             </div>
           } @else {
             <label class="res-field">

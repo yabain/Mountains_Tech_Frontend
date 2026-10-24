@@ -53,4 +53,7 @@ const config: AdminResourceConfig = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminContactsComponent extends AdminResourceBase {
+  viewRow(row: any): void {
+    this.router.navigate(['/dashboard/contacts', String(row.id ?? row._id)]);
+  }
 }

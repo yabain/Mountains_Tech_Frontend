@@ -4,7 +4,10 @@
     <h1>Demande d'adhésion — {{ id() }}</h1>
   </header>
 
-  <form (ngSubmit)="submit()" class="editor-form" *ngIf="form().companyName || id()">
+  @if (loading()) { <div class="editor-state">Chargement des données…</div> }
+  @if (errorMsg()) { <div class="editor-error" role="alert">{{ errorMsg() }}</div> }
+
+  <form (ngSubmit)="submit()" class="editor-form">
     <section class="editor-card">
       <h2>Informations</h2>
       <div class="editor-grid">

@@ -26,7 +26,7 @@ const config: AdminResourceConfig = {
   fields: []
 };
 
-type MediaMode = 'file' | 'url';
+type MediaMode = 'file' | 'url' | 'pdf';
 
 @Component({
   selector: 'app-admin-media',
@@ -49,6 +49,17 @@ export class AdminMediaComponent extends AdminResourceBase {
   readonly mediaError = signal('');
   readonly mediaSaving = signal(false);
   readonly isDragOver = signal(false);
+
+  private readonly allowedExts = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.pdf'];
+
+  private sanitizeFileName(name: string): string {
+    return name.replace(/[^\w\-.]/g, '').replace(/\.{2,}/g, '.');
+  }
+
+  private isAllowedFile(name: string): boolean {
+    const lower = name.toLowerCase();
+    return this.allowedExts.some(ext => lower.endsWith(ext));
+  }
 
   openMediaCreate(): void {
     this.mediaMode.set('file');
@@ -84,8 +95,20 @@ export class AdminMediaComponent extends AdminResourceBase {
     this.mediaFile.set(file);
     this.mediaError.set('');
     this.revokePreview();
-    if (file && file.type.startsWith('image/')) {
-      this.mediaPreviewUrl.set(URL.createObjectURL(file));
+    if (file && (file.type.startsWith('image/') || file.type === 'application/pdf')) {
+      if (!this.isAllowedFile(file.name)) {
+        this.mediaError.set('Fichier non autorisé. Extensions acceptées : jpg, jpeg, png, gif, webp, pdf.');
+        this.mediaFile.set(null);
+        return;
+      }
+      // Nettoyer le nom du fichier contre les caractères dangereux
+      const safeFile = new File([file], this.sanitizeFileName(file.name), { type: file.type, lastModified: file.lastModified });
+      this.mediaFile.set(safeFile);
+      this.mediaError.set('');
+      this.revokePreview();
+      if (file.type.startsWith('image/')) {
+        this.mediaPreviewUrl.set(URL.createObjectURL(file));
+      }
     }
   }
 
@@ -108,7 +131,14 @@ export class AdminMediaComponent extends AdminResourceBase {
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
       const file = files[0];
-      if (file.type.startsWith('image/') || file.type.startsWith('video/') || file.type === 'application/pdf') {
+      if (file.type.startsWith('image/') || file.type === 'application/pdf') {
+        if (!this.isAllowedFile(file.name)) {
+          this.mediaError.set('Fichier non autorisé. Extensions acceptées : jpg, jpeg, png, gif, webp, pdf.');
+          this.mediaFile.set(null);
+          return;
+        }
+        const safeFile = new File([file], this.sanitizeFileName(file.name), { type: file.type, lastModified: file.lastModified });
+        this.mediaFile.set(safeFile);
         this.mediaFile.set(file);
         this.mediaError.set('');
         this.revokePreview();
@@ -116,7 +146,7 @@ export class AdminMediaComponent extends AdminResourceBase {
           this.mediaPreviewUrl.set(URL.createObjectURL(file));
         }
       } else {
-        this.mediaError.set('Type de fichier non supporté. Accepté : images, vidéos et PDF.');
+        this.mediaError.set('Type de fichier non supporté. Accepté : images et PDF.');
       }
     }
   }
@@ -130,7 +160,7 @@ export class AdminMediaComponent extends AdminResourceBase {
     if (this.mediaSaving()) return;
     this.mediaError.set('');
 
-    if (this.mediaMode() === 'file') {
+    if (this.mediaMode() === 'file' || this.mediaMode() === 'pdf') {
       const file = this.mediaFile();
       if (!file) {
         this.mediaError.set('Sélectionnez un fichier à envoyer.');
