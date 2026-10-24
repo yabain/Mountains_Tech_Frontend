@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RESOURCE_CONFIG, AdminResourceConfig } from '../resource/admin-resource.config';
@@ -71,4 +72,11 @@ const config: AdminResourceConfig = {
   providers: [{ provide: RESOURCE_CONFIG, useValue: config }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminMemberApplicationsComponent extends AdminResourceBase {}
+export class AdminMemberApplicationsComponent extends AdminResourceBase {
+  override readonly router = inject(Router);
+
+  editRow(row: any): void {
+    const id = row?.id ?? row?._id ?? row?.['id'];
+    if (id) this.router.navigate(['/dashboard/members/applications', String(id), 'edit']);
+  }
+}

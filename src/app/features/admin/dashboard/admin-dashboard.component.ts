@@ -71,6 +71,10 @@ export class AdminDashboardComponent {
   constructor() {
     this.dataService.load();
     interval(1_000).pipe(takeUntilDestroyed()).subscribe(() => this.currentDateTime.set(new Date()));
+    // Vide la liste des dernières actions après 1 heure (3,6 millions de ms)
+    setTimeout(() => {
+      this.dataService.markNotificationsSeen(false);
+    }, 3_600_000);
   }
 
   categories(): { key: string; label: string }[] {

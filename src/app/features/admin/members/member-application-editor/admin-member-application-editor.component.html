@@ -1,0 +1,43 @@
+<main class="editor-page">
+  <header class="editor-header">
+    <button class="editor-back" type="button" (click)="cancel()" aria-label="Retour"><i class="bi bi-arrow-left"></i> Retour</button>
+    <h1>Demande d'adhésion — {{ id() }}</h1>
+  </header>
+
+  <form (ngSubmit)="submit()" class="editor-form" *ngIf="form().companyName || id()">
+    <section class="editor-card">
+      <h2>Informations</h2>
+      <div class="editor-grid">
+        <div class="editor-field">
+          <label for="app-company">Entreprise *</label>
+          <input id="app-company" name="companyName" [(ngModel)]="form().companyName" required readonly />
+        </div>
+        <div class="editor-field">
+          <label for="app-rep">Représentant *</label>
+          <input id="app-rep" name="representativeName" [(ngModel)]="form().representativeName" required readonly />
+        </div>
+        <div class="editor-field">
+          <label for="app-email">Email *</label>
+          <input id="app-email" name="representativeEmail" type="email" [(ngModel)]="form().representativeEmail" required readonly />
+        </div>
+        <div class="editor-field editor-field--full">
+          <label for="app-desc">Description</label>
+          <textarea id="app-desc" name="description" [(ngModel)]="form().description" rows="3" readonly></textarea>
+        </div>
+        <div class="editor-field">
+          <label for="app-status">Statut</label>
+          <select id="app-status" name="status" [(ngModel)]="form().status">
+            <option value="PENDING">En attente</option>
+            <option value="APPROVED">Approuvée</option>
+            <option value="REJECTED">Refusée</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <footer class="editor-actions">
+      <button class="editor-btn" type="button" (click)="cancel()">Annuler</button>
+      <button class="editor-btn editor-btn--primary" type="submit" [disabled]="saving()">{{ saving() ? 'Enregistrement…' : 'Enregistrer' }}</button>
+    </footer>
+  </form>
+</main>

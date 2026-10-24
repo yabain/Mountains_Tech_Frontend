@@ -30,10 +30,8 @@ export class AdminUserCreateComponent {
     firstName: '',
     lastName: '',
     email: '',
-    phone: '',
     role: 'EDITOR',
     status: 'ACTIVE',
-    notificationContact: false,
     password: ''
   };
 

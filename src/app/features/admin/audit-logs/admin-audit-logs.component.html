@@ -72,6 +72,8 @@
                       <details class="res-audit-details"><summary>Consulter</summary><pre>{{ jsonValue(row[column.key]) }}</pre></details>
                     } @else if (column.type === 'status') {
                       <span [class]="statusClass(row[column.key])">{{ cellValue(row, column) }}</span>
+                    } @else if (column.key === 'userId') {
+                      {{ actorName(row[column.key]) }}
                     } @else {
                       {{ cellValue(row, column) }}
                     }

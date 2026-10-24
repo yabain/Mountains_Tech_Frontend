@@ -32,10 +32,8 @@ export class AdminUserEditComponent {
     firstName: '',
     lastName: '',
     email: '',
-    phone: '',
     role: 'EDITOR',
     status: 'ACTIVE',
-    notificationContact: false,
     password: ''
   };
 
@@ -118,14 +116,11 @@ export class AdminUserEditComponent {
     this.form.firstName = String(user['firstName'] ?? '');
     this.form.lastName = String(user['lastName'] ?? '');
     this.form.email = String(user['email'] ?? '');
-    this.form.phone = String(user['phone'] ?? user['phoneNumber'] ?? '');
     this.form.role = String(user['role'] ?? 'EDITOR').toUpperCase();
     const status = String(user['status'] ?? '').toUpperCase();
     this.form.status = ['ACTIVE', 'ACTIF', 'TRUE'].includes(status) || user['isActive'] === true
       ? 'ACTIVE'
       : 'INACTIVE';
-    const notifications = user['notificationContact'] ?? user['notifyContact'] ?? user['contactNotifications'];
-    this.form.notificationContact = notifications === true;
     this.form.password = '';
   }
 }

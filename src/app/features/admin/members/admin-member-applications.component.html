@@ -65,7 +65,7 @@
           </thead>
           <tbody>
             @for (row of rows(); track rowId(row)) {
-              <tr style="cursor: pointer;" (click)="openEdit(row)">
+              <tr style="cursor: pointer; background: #f8fafb;" (click)="editRow(row)">
                 @for (column of config.columns; track column.key) {
                   <td>
                     @if (column.type === 'image') {
@@ -94,10 +94,11 @@
                         [class.res-action-button--danger]="action.tone === 'danger'"
                         type="button"
                         [disabled]="statusBusyId() === rowId(row) || (action.kind === 'edit' && !hasEdit())"
+                        [title]="rowActionLabel(action, row)"
                         (click)="runRowAction(action, row)"
                       >
                         <i [class]="'bi ' + action.icon" aria-hidden="true"></i>
-                        {{ rowActionLabel(action, row) }}
+                        <span class="res-action-label">{{ rowActionLabel(action, row) }}</span>
                       </button>
                     }
                   </td>

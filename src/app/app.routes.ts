@@ -60,6 +60,7 @@ export const routes: Routes = [
       { path: 'users', data: { permission: 'users' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/users/admin-users.component').then((m) => m.AdminUsersComponent) },
       { path: 'audit-logs', data: { permission: 'audit-logs' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/audit-logs/admin-audit-logs.component').then((m) => m.AdminAuditLogsComponent) },
       { path: 'members/applications/new', data: { permission: 'members', resourceKey: 'memberApplications', listRoute: '/dashboard/members/applications' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/resource/admin-resource-editor.component').then((m) => m.AdminResourceEditorComponent) },
+      { path: 'members/applications/:id/edit', data: { permission: 'members' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/members/member-application-editor/admin-member-application-editor.component').then((m) => m.AdminMemberApplicationEditorComponent) },
       { path: 'members/applications', data: { permission: 'members' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/members/admin-member-applications.component').then((m) => m.AdminMemberApplicationsComponent) },
       { path: 'members', data: { permission: 'members' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/members/admin-members.component').then((m) => m.AdminMembersComponent) },
       { path: 'contacts', data: { permission: 'contacts' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/contacts/admin-contacts.component').then((m) => m.AdminContactsComponent) },
@@ -87,6 +88,8 @@ export const routes: Routes = [
       { path: 'announcements/new', data: { permission: 'announcements' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/announcements/announcement-editor.component').then((m) => m.AnnouncementEditorComponent) },
       { path: 'announcements/:id/edit', data: { permission: 'announcements' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/announcements/announcement-editor.component').then((m) => m.AnnouncementEditorComponent) },
       { path: 'announcements', data: { permission: 'announcements' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/announcements/admin-announcements.component').then((m) => m.AdminAnnouncementsComponent) },
+      { path: 'tracking', data: { permission: 'tracking' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/tracking/admin-tracking-module.component').then((m) => m.AdminTrackingModuleComponent) },
+      { path: 'visibility', data: { permission: 'visibility' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/visibility/admin-visibility-state.component').then((m) => m.AdminVisibilityStateComponent) },
       { path: 'settings', data: { permission: 'settings' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/settings/admin-settings.component').then((m) => m.AdminSettingsComponent) }
     ]
   },

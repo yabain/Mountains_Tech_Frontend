@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ApiService } from '../../../core/http/api.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RESOURCE_CONFIG, AdminResourceConfig } from '../resource/admin-resource.config';
 import { AdminResourceBase } from '../resource/admin-resource.base';
 import { API_ROUTES } from '../../../core/constants/api-routes';
@@ -32,4 +34,36 @@ const config: AdminResourceConfig = {
   providers: [{ provide: RESOURCE_CONFIG, useValue: config }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AdminAuditLogsComponent extends AdminResourceBase {}
+export class AdminAuditLogsComponent extends AdminResourceBase {
+  private readonly userApi = inject(ApiService);
+  readonly userNames = signal<Record<string, string>>({});
+
+  constructor() {
+    super();
+    this.loadUsers();
+  }
+
+  private loadUsers(): void {
+    this.userApi.get(API_ROUTES.admin.users).pipe(takeUntilDestroyed()).subscribe({
+      next: (res: any) => {
+        const list = res?.items ?? res?.data ?? res ?? [];
+        const names: Record<string, string> = {};
+        for (const u of Array.isArray(list) ? list : []) {
+          const id = u?.id ?? u?._id ?? u?.userId ?? '';
+          if (!id) continue;
+          const first = String(u?.firstName ?? '').trim();
+          const last = String(u?.lastName ?? '').trim();
+          const full = first || last ? `${first} ${last}`.trim() : (String(u?.email ?? '') || id);
+          names[String(id)] = full;
+        }
+        this.userNames.set(names);
+      },
+      error: () => this.userNames.set({})
+    });
+  }
+
+  actorName(userId: string): string {
+    if (!userId || userId === 'null' || userId === 'undefined') return '—';
+    return this.userNames()[userId] ?? userId;
+  }
+}
