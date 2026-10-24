@@ -16,7 +16,9 @@ export type AdminPermission =
   | 'hackathons'
   | 'partners'
   | 'newsletter'
-  | 'announcements';
+  | 'announcements'
+  | 'tracking'
+  | 'visibility';
 
 export interface AdminNavItem {
   permission: AdminPermission;
@@ -27,14 +29,14 @@ export interface AdminNavItem {
 }
 
 export const ROLE_PERMISSIONS: Record<AdminRole, readonly AdminPermission[]> = {
-  SUPER_ADMIN: ['dashboard', 'users', 'audit-logs', 'member-applications', 'settings', 'media', 'members', 'contacts', 'events', 'activities', 'projects', 'hackathons', 'partners', 'newsletter', 'announcements'],
+  SUPER_ADMIN: ['dashboard', 'users', 'audit-logs', 'member-applications', 'settings', 'media', 'members', 'contacts', 'events', 'activities', 'projects', 'hackathons', 'partners', 'newsletter', 'announcements', 'tracking', 'visibility'],
   ADMIN: ['dashboard', 'users', 'member-applications', 'settings', 'media', 'members', 'contacts', 'events', 'activities', 'projects', 'hackathons', 'partners', 'newsletter', 'announcements'],
   EDITOR: ['activities', 'events', 'projects', 'hackathons', 'media', 'settings'],
   COMMUNICATION: ['announcements', 'newsletter', 'contacts', 'media', 'settings']
 };
 
 export const ADMIN_NAV_ITEMS: readonly AdminNavItem[] = [
-  { permission: 'dashboard', label: 'Dashboard', route: '/dashboard', icon: 'bi-grid-1x2-fill', group: 'principal' },
+  { permission: 'dashboard', label: 'Tableau de bord', route: '/dashboard', icon: 'bi-grid-1x2-fill', group: 'principal' },
   { permission: 'users', label: 'Utilisateurs', route: '/dashboard/users', icon: 'bi-people-fill', group: 'principal' },
   { permission: 'audit-logs', label: 'Journaux d’audit', route: '/dashboard/audit-logs', icon: 'bi-journal-text', group: 'système' },
   { permission: 'members', label: 'Membres', route: '/dashboard/members', icon: 'bi-person-badge-fill', group: 'contenu' },
@@ -49,6 +51,8 @@ export const ADMIN_NAV_ITEMS: readonly AdminNavItem[] = [
   { permission: 'newsletter', label: 'Prospects', route: '/dashboard/newsletter', icon: 'bi-person-lines-fill', group: 'contenu' },
   { permission: 'newsletter', label: 'E-mails', route: '/dashboard/email-settings', icon: 'bi-envelope-at-fill', group: 'contenu' },
   { permission: 'announcements', label: 'Annonces', route: '/dashboard/announcements', icon: 'bi-megaphone-fill', group: 'contenu' },
+  { permission: 'tracking', label: 'Tracking', route: '/dashboard/tracking', icon: 'bi-crosshair', group: 'contenu' },
+  { permission: 'visibility', label: 'Visibilité du site', route: '/dashboard/visibility', icon: 'bi-eye-fill', group: 'contenu' },
   { permission: 'settings', label: 'Paramètres', route: '/dashboard/settings', icon: 'bi-sliders', group: 'système' }
 ];
 

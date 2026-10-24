@@ -26,6 +26,7 @@ export class TopBarComponent {
 
   readonly currentCategory = input<string | null>(null);
   readonly notificationsOpen = input(false);
+  readonly hasUnseenNotifications = input(false);
   readonly toggleSidebar = output<void>();
   readonly toggleNotifications = output<void>();
 

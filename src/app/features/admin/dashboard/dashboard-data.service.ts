@@ -75,6 +75,7 @@ const STATUS_LABELS: Record<string, string> = {
   INACTIVE: 'Inactif',
   ARCHIVED: 'Archivé',
   SCHEDULED: 'Programmé',
+  PROCESSING: 'En cours d’envoi',
   SENDING: 'En cours d’envoi',
   SENT: 'Envoyé',
   FAILED: 'Échec',
@@ -116,6 +117,7 @@ export class DashboardDataService {
   readonly activityRows = signal<Record<string, unknown>[]>([]);
   readonly loading = signal(false);
   readonly error = signal('');
+  readonly hasUnseen = signal(false);
 
   private started = false;
   private readonly seenStorageKey = 'mountains-tech-admin-seen-notifications';
@@ -138,7 +140,9 @@ export class DashboardDataService {
 
     forkJoin(requests).subscribe({
       next: (results) => {
-        this.sections.set(CATEGORIES.map((category, index) => this.buildSection(category, results[index].items, results[index].total)));
+        const sections = CATEGORIES.map((category, index) => this.buildSection(category, results[index].items, results[index].total));
+        this.sections.set(sections);
+        this.hasUnseen.set(sections.some((section) => section.entries.length > 0));
         this.activityRows.set(results.flatMap((result) => result.items));
         this.metrics.set({
           unreadMessages: this.countUnreadMessages(results[CATEGORIES.findIndex(({ key }) => key === 'contacts')]),
@@ -164,24 +168,38 @@ export class DashboardDataService {
     return STATUS_TONE[String(status ?? '').toUpperCase()] ?? 'neutral';
   }
 
-  markNotificationsSeen(): void {
+  markNotificationsSeen(filterCurrent = true): void {
     const seen = this.readSeenNotifications();
     for (const section of this.sections()) {
       for (const entry of section.entries) {
         if (entry.id) seen.add(`${section.key}:${entry.id}`);
       }
     }
-    try {
-      localStorage.setItem(this.seenStorageKey, [...seen].join(','));
+    this.hasUnseen.set(false);
+    this.persistSeen(seen);
+    this.started = false;
+
+    if (filterCurrent) {
       this.sections.update((sections) => sections.map((section) => ({
         ...section,
         entries: section.entries.filter((entry) => !seen.has(`${section.key}:${entry.id}`))
       })));
-      this.started = false;
-    } catch (error) {
-      this.error.set('Impossible de mémoriser les notifications consultées.');
-      console.error('Échec de mémorisation des notifications consultées', error);
     }
+  }
+
+  markResourceSeen(resource: string, id: string): void {
+    if (!id) return;
+    const key = `${resource}:${id}`;
+    const seen = this.readSeenNotifications();
+    if (seen.has(key)) return;
+    seen.add(key);
+    this.persistSeen(seen);
+    this.sections.update((sections) => sections.map((section) => section.key === resource
+      ? { ...section, entries: section.entries.filter((entry) => entry.id !== id) }
+      : section
+    ));
+    this.hasUnseen.update((value) => value && this.sections().some((section) => section.entries.length > 0));
+    this.started = false;
   }
 
   activityFor(period: '24h' | '7d' | '30d' | '12m'): DashboardActivityPoint[] {
@@ -350,6 +368,15 @@ export class DashboardDataService {
 
   private rowId(row: Record<string, unknown>): string {
     return String(row['id'] ?? row['_id'] ?? '');
+  }
+
+  private persistSeen(seen: Set<string>): void {
+    try {
+      localStorage.setItem(this.seenStorageKey, [...seen].join(','));
+    } catch (error) {
+      this.error.set('Impossible de mémoriser les notifications consultées.');
+      console.error('Échec de mémorisation des notifications consultées', error);
+    }
   }
 
   private readSeenNotifications(): Set<string> {

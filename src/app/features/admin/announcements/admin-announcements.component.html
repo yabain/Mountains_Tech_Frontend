@@ -2,14 +2,11 @@
   <header class="admin-page-heading announcements-heading">
     <div>
       <h1><i class="bi bi-megaphone-fill" aria-hidden="true"></i>Annonces</h1>
-      <p>Envoyez des annonces par e-mail ou WhatsApp à vos comptes et prospects.</p>
+      <p>Envoyez des annonces par e-mail aux abonnés de votre newsletter.</p>
     </div>
     <div class="announcements-actions">
       <button class="announcement-button announcement-button--outline" type="button" (click)="goToEmailSettings()">
         <i class="bi bi-gear" aria-hidden="true"></i>Réglages e-mail
-      </button>
-      <button class="announcement-button announcement-button--outline" type="button" disabled title="Le canal WhatsApp n’est pas encore configuré.">
-        <i class="bi bi-whatsapp" aria-hidden="true"></i>Annonce WhatsApp
       </button>
       <button class="announcement-button announcement-button--primary" type="button" (click)="openCreate()">
         <i class="bi bi-envelope-fill" aria-hidden="true"></i>Nouvelle annonce
@@ -27,7 +24,7 @@
     <button class="announcement-stat announcement-stat--scheduled" type="button" [class.is-selected]="selectedStatus() === 'SCHEDULED'" (click)="setStatusFilter('SCHEDULED')">
       <strong>{{ announcementStats().scheduled }}</strong><span>Programmées</span>
     </button>
-    <button class="announcement-stat announcement-stat--sending" type="button" [class.is-selected]="selectedStatus() === 'SENDING'" (click)="setStatusFilter('SENDING')">
+    <button class="announcement-stat announcement-stat--sending" type="button" [class.is-selected]="selectedStatus() === 'PROCESSING'" (click)="setStatusFilter('PROCESSING')">
       <strong>{{ announcementStats().sending }}</strong><span>En cours</span>
     </button>
     <button class="announcement-stat announcement-stat--sent" type="button" [class.is-selected]="selectedStatus() === 'SENT'" (click)="setStatusFilter('SENT')">
@@ -52,15 +49,6 @@
         <option value="">Tous les statuts</option>
         @for (status of statusOptions; track status) { <option [value]="status">{{ resourceStatusLabel(status) }}</option> }
       </select>
-      <select class="announcement-filter" [value]="audienceFilter()" (change)="audienceFilter.set($any($event.target).value)" aria-label="Filtrer par destinataires">
-        <option value="">Tous les destinataires</option>
-        <option value="ALL">Tous</option>
-        <option value="MEMBERS">Membres</option>
-        <option value="NEWSLETTER">Newsletter</option>
-        <option value="EVENT_PARTICIPANTS">Participants aux événements</option>
-        <option value="HACKATHON_TEAMS">Équipes hackathon</option>
-        <option value="CUSTOM">Personnalisé</option>
-      </select>
     </div>
 
     <div class="announcements-table-card">
@@ -82,6 +70,16 @@
                   <button class="res-icon-btn" type="button" title="Modifier l’annonce" aria-label="Modifier l’annonce" [disabled]="row['status'] !== 'DRAFT'" (click)="editAnnouncement(row)">
                     <i class="bi bi-pencil" aria-hidden="true"></i>
                   </button>
+                  @if (row['status'] === 'DRAFT') {
+                    <button class="res-icon-btn" type="button" title="Envoyer maintenant" aria-label="Envoyer maintenant" (click)="sendAnnouncement(row)">
+                      <i class="bi bi-send" aria-hidden="true"></i>
+                    </button>
+                  }
+                  @if (row['status'] === 'SCHEDULED') {
+                    <button class="res-icon-btn res-icon-btn--danger" type="button" title="Annuler l’envoi" aria-label="Annuler l’envoi programmé" (click)="cancelAnnouncement(row)">
+                      <i class="bi bi-x-circle" aria-hidden="true"></i>
+                    </button>
+                  }
                 </td>
               </tr>
             } @empty {
@@ -104,6 +102,6 @@
         <button class="res-btn res-btn--outline" type="button" (click)="nextPage()" [disabled]="page() >= pages()">Suivant <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
       </div>
     </footer>
-    <p class="announcements-note">Les envois sont traités par vagues afin d’éviter tout blocage par les serveurs de messagerie ou WhatsApp.</p>
+    <p class="announcements-note">Les envois sont traités par vagues afin d’éviter tout blocage par les serveurs de messagerie.</p>
   }
 </section>

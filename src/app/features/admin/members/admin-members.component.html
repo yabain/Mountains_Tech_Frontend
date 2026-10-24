@@ -65,11 +65,17 @@
           </thead>
           <tbody>
             @for (row of rows(); track rowId(row)) {
-              <tr>
+              <tr style="cursor: pointer;" (click)="openEdit(row)">
                 @for (column of config.columns; track column.key) {
                   <td>
                     @if (column.type === 'image') {
-                      @if (row[column.key]) { <img class="res-media-preview" [src]="mediaUrl(row[column.key])" [alt]="'Logo de ' + (row['companyName'] ?? 'membre')" /> }
+                      @if (row[column.key]) {
+                        <img class="res-media-preview res-logo-preview" [src]="mediaUrl(row[column.key])" [alt]="'Logo de ' + (row['companyName'] ?? 'membre')" loading="lazy" />
+                      } @else {
+                        <span class="res-logo-placeholder" [attr.aria-label]="'Aucun logo pour ' + (row['companyName'] ?? 'ce membre')">
+                          {{ (row['companyName'] || '?').charAt(0).toUpperCase() }}
+                        </span>
+                      }
                     } @else if (column.type === 'status') {
                       <span [class]="statusClass(row[column.key])">{{ cellValue(row, column) }}</span>
                     } @else if (column.type === 'json') {
@@ -80,7 +86,7 @@
                   </td>
                 }
                 @if (showActionsColumn()) {
-                  <td class="res-actions">
+                  <td class="res-actions" (click)="$event.stopPropagation()">
                     @for (action of rowActionsFor(row); track action.kind + action.label) {
                       <button
                         class="res-action-button"
@@ -103,21 +109,31 @@
       </div>
 
       @if (isPaginated) {
-        <div class="res-pagination">
-          <button class="res-nav-btn" type="button" (click)="prevPage()" [disabled]="page() <= 1">
-            <span class="res-nav-btn__icon res-nav-btn__icon--left">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M7.828 11l5.364-5.364-1.414-1.414L4 12l7.778 7.778 1.414-1.414L7.828 13H20v-2z"></path></svg>
-            </span>
-            <span class="res-nav-btn__label">Précédent</span>
-          </button>
-          <span>Page {{ page() }} / {{ pages() }}</span>
-          <button class="res-nav-btn" type="button" (click)="nextPage()" [disabled]="page() >= pages()">
-            <span class="res-nav-btn__label">Suivant</span>
-            <span class="res-nav-btn__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
-            </span>
-          </button>
-        </div>
+        <footer class="res-pagination user-pagination">
+          <div class="res-pagination-left">
+            <label class="user-page-size">
+              Par page
+              <select [value]="limit()" (change)="onPageSizeChange($any($event.target).value)" aria-label="Nombre d'éléments par page">
+                @for (option of pageSizeOptions; track option) {
+                  <option [value]="option">{{ option }}</option>
+                }
+              </select>
+            </label>
+            <span class="res-copyright">Copyright © 2026 Mountains Tech.</span>
+          </div>
+          <div class="res-pagination-right">
+            <div class="user-page-controls">
+              <button class="res-btn res-btn--outline" type="button" (click)="prevPage()" [disabled]="page() <= 1">
+                <i class="bi bi-arrow-left" aria-hidden="true"></i> Précédent
+              </button>
+              <span>Page {{ page() }} / {{ pages() }} · {{ total() }} élément(s)</span>
+              <button class="res-btn res-btn--outline" type="button" (click)="nextPage()" [disabled]="page() >= pages()">
+                Suivant <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+            <span class="res-credit">Développé par <em><a href="https://yaba-in.com" target="_blank" rel="noopener" style="color: #00447e; text-decoration: none;">Yaba-In</a></em></span>
+          </div>
+        </footer>
       }
     }
   }

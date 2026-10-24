@@ -3,9 +3,12 @@
   position: sticky;
   top: 0;
   z-index: 25;
-  margin-bottom: 32px;
-  padding: 4px 0 12px;
-  background: var(--adm-card);
+  margin: 0 calc(var(--admin-page-padding-x, 32px) * -1) 28px;
+  padding: 18px var(--admin-page-padding-x, 32px) 14px;
+  border-bottom: 1px solid rgb(0 68 126 / 8%);
+  background: rgb(255 255 255 / 92%);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 22px rgb(17 45 72 / 4%);
 }
 
 .admin-utilities {
@@ -65,12 +68,20 @@
 
 .admin-notif-dot {
   position: absolute;
-  top: 6px;
-  right: 7px;
-  width: 6px;
-  height: 6px;
+  top: 7px;
+  right: 8px;
+  width: 7px;
+  height: 7px;
+  border: 2px solid #fff;
   border-radius: 50%;
-  background: var(--adm-brand-accent);
+  background: #dc3d3d;
+  box-shadow: 0 0 0 3px rgb(220 61 61 / 12%);
+  animation: admin-notif-pulse 2.4s ease-out infinite;
+}
+
+@keyframes admin-notif-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgb(220 61 61 / 10%); }
+  50% { box-shadow: 0 0 0 5px rgb(220 61 61 / 0%); }
 }
 
 .admin-breadcrumb {

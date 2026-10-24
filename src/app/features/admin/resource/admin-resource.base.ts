@@ -9,9 +9,9 @@ type Row = Record<string, any>;
 
 @Directive()
 export abstract class AdminResourceBase {
-  private readonly api = inject(ApiService);
-  private readonly router = inject(Router);
-  private readonly notification = inject(NotificationService);
+  protected readonly api = inject(ApiService);
+  protected readonly router = inject(Router);
+  protected readonly notification = inject(NotificationService);
 
   readonly config = inject(RESOURCE_CONFIG);
 
@@ -88,6 +88,7 @@ export abstract class AdminResourceBase {
       SUBSCRIBED: 'Abonné',
       UNSUBSCRIBED: 'Désabonné',
       SCHEDULED: 'Programmé',
+      PROCESSING: 'En cours d’envoi',
       SENDING: 'En cours d’envoi',
       SENT: 'Envoyé',
       FAILED: 'Échec',
@@ -489,7 +490,7 @@ export abstract class AdminResourceBase {
     return payload;
   }
 
-  private load(soft = false): void {
+  protected load(soft = false): void {
     if (soft) {
       this.reloading.set(true);
     } else {

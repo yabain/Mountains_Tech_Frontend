@@ -1,1 +1,129 @@
 @use '../resource/admin-resource';
+
+.media-modal {
+  width: min(560px, 100%);
+
+  form {
+    display: grid;
+    gap: 18px;
+    padding: 20px;
+  }
+
+  .res-modal__header {
+    align-items: flex-start;
+  }
+
+  .res-modal__footer {
+    margin: 4px -20px -20px;
+  }
+}
+
+.media-modal__subtitle {
+  margin: 4px 0 0;
+  color: var(--adm-muted-fg, #64748b);
+  font-size: 13px;
+}
+
+.media-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--adm-border, #e1e8ee);
+  border-radius: 9px;
+  background: #f5f8fb;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 38px;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--adm-muted-fg, #64748b);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 150ms, color 150ms, box-shadow 150ms;
+
+    &.is-active {
+      background: #fff;
+      color: var(--adm-primary, #00447e);
+      box-shadow: 0 2px 8px rgb(17 45 72 / 9%);
+    }
+  }
+}
+
+.media-dropzone {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  padding: 32px 20px;
+  border: 2px dashed var(--adm-border, #dee2e6);
+  border-radius: 8px;
+  background: var(--adm-muted, #f8fafb);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 150ms, background 150ms;
+
+  i {
+    font-size: 32px;
+    color: var(--adm-primary, #00447e);
+  }
+
+  strong {
+    color: var(--adm-muted-fg, #212529);
+    font-size: 14px;
+  }
+
+  span {
+    color: var(--adm-muted-fg, #6c757d);
+    font-size: 12px;
+  }
+
+  input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  &--dragover {
+    border-color: var(--adm-primary, #00447e);
+    background: #e8f1ff;
+  }
+
+  &:hover {
+    border-color: var(--adm-primary, #00447e);
+    background: #eef4f9;
+  }
+}
+
+.media-preview-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid var(--adm-border, #e1e8ee);
+  border-radius: 9px;
+  background: #fff;
+
+  img {
+    width: 92px;
+    height: 68px;
+    border-radius: 7px;
+    background: #eef3f7;
+    object-fit: cover;
+  }
+
+  span {
+    color: #52697c;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+}

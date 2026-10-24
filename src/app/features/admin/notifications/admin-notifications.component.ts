@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, inject, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, effect, inject, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DashboardDataService } from '../dashboard/dashboard-data.service';
 
@@ -18,6 +18,12 @@ export class AdminNotificationsComponent {
 
   constructor() {
     this.dataService.load();
+    effect(() => {
+      if (!this.dataService.loading() && this.dataService.sections().length) {
+        // Le panneau est ouvert : on mémorise la consultation sans vider la vue courante.
+        this.dataService.markNotificationsSeen(false);
+      }
+    });
   }
 
   closePanel(): void {

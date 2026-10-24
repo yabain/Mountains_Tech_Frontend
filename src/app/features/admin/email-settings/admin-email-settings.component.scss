@@ -37,6 +37,9 @@
 .email-action-button { justify-self: start; display: inline-flex; min-height: 35px; align-items: center; gap: 7px; padding: 0 12px; border: 1px solid var(--email-primary); border-radius: 5px; background: var(--email-primary); color: #fff; font: inherit; font-size: 12px; font-weight: 700; }
 .email-action-button:disabled { opacity: .55; cursor: not-allowed; }
 .email-api-note { align-self: center; color: var(--email-muted); font-size: 11px; line-height: 1.4; }
+.email-test-feedback { grid-column: 1 / -1; font-size: 12px; line-height: 1.4; }
+.email-test-feedback--error { color: #b42318; }
+.email-test-feedback--success { color: #247b50; }
 .email-statistics { min-height: 240px; }
 .email-statistics h2 { margin-bottom: 14px; }
 .email-stat-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }

@@ -1,8 +1,11 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { finalize } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from '../../../core/http/api.service';
 import { API_ROUTES } from '../../../core/constants/api-routes';
+import { apiErrorMessage } from '../../../core/utils/api-error';
 
 type EmailHistoryItem = Record<string, unknown>;
 
@@ -16,6 +19,7 @@ type EmailHistoryItem = Record<string, unknown>;
 })
 export class AdminEmailSettingsComponent {
   private readonly pageSize = 10;
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly smtpExpanded = signal(false);
   readonly emailSearch = signal('');
@@ -29,6 +33,9 @@ export class AdminEmailSettingsComponent {
   testEmail = '';
   testSubject = 'Test e-mail';
   testMessage = 'Ceci est un e-mail de test.';
+  readonly testSending = signal(false);
+  readonly testError = signal('');
+  readonly testSuccess = signal('');
 
   constructor(private readonly api: ApiService) {
     this.loadEmails();
@@ -36,6 +43,37 @@ export class AdminEmailSettingsComponent {
 
   toggleSmtp(): void {
     this.smtpExpanded.update((expanded) => !expanded);
+  }
+
+  sendTestEmail(): void {
+    if (this.testSending()) return;
+    this.testError.set('');
+    this.testSuccess.set('');
+
+    if (!this.testEmail.trim() || !this.testSubject.trim() || !this.testMessage.trim()) {
+      this.testError.set('Renseignez le destinataire, le sujet et le message.');
+      return;
+    }
+
+    this.testSending.set(true);
+    this.api.post<unknown>(`${API_ROUTES.admin.emails}/test`, {
+      recipient: this.testEmail.trim(),
+      subject: this.testSubject.trim(),
+      message: this.testMessage.trim()
+    })
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.testSending.set(false))
+      )
+      .subscribe({
+        next: () => {
+          this.testSuccess.set('E-mail de test envoyé.');
+          this.loadEmails();
+        },
+        error: (error: unknown) => {
+          this.testError.set(apiErrorMessage(error, 'Impossible d’envoyer l’e-mail de test.'));
+        }
+      });
   }
 
   onEmailSearch(value: string): void {
@@ -70,14 +108,17 @@ export class AdminEmailSettingsComponent {
       'event-registration-confirmation': 'Confirmation d’inscription',
       'hackathon-team-confirmation': 'Confirmation d’équipe',
       'newsletter-subscription': 'Confirmation newsletter',
-      'admin-invitation': 'Invitation administrateur'
+      'admin-invitation': 'Invitation administrateur',
+      'test-email': 'E-mail de test',
+      announcement: 'Annonce'
     };
     const type = String(email['template'] ?? '');
     return templates[type] ?? (type || 'E-mail système');
   }
 
   emailStatus(email: EmailHistoryItem): string {
-    return String(email['status'] ?? '').toUpperCase() === 'SENT' ? 'Envoyé' : 'Échec';
+    const status = String(email['status'] ?? '').toUpperCase();
+    return status === 'SENT' ? 'Envoyé' : status === 'FAILED' ? 'Échec' : status || '—';
   }
 
   emailDate(email: EmailHistoryItem): string {

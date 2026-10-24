@@ -21,10 +21,7 @@
       <h2>Bienvenue {{ firstName(currentUser$ | async) }} !</h2>
       <p>Voici un aperçu de l’activité et du contenu de votre plateforme aujourd’hui.</p>
     </div>
-    <div class="welcome-illustration" aria-hidden="true">
-      <i class="bi bi-graph-up-arrow"></i>
-      <i class="bi bi-stars"></i>
-    </div>
+    
   </section>
 
   <section class="dashboard-metrics" aria-label="Statistiques de la plateforme">
@@ -87,9 +84,12 @@
         }
         <path [attr.d]="chart().linePath" class="chart-line" />
         @for (point of chart().points; track $index) {
-          <circle [attr.cx]="point.x" [attr.cy]="20 + point.y" r="3.5" class="chart-point">
-            <title>{{ point.label }} : {{ point.value }} élément(s)</title>
-          </circle>
+          <g class="chart-point-group">
+            <text [attr.x]="point.x" [attr.y]="point.y - 8" class="chart-value-label" text-anchor="middle">{{ point.value }}</text>
+            <circle [attr.cx]="point.x" [attr.cy]="point.y + 20" r="4.5" class="chart-point">
+              <title>{{ point.label }} : {{ point.value }} élément(s)</title>
+            </circle>
+          </g>
         }
       </svg>
       <div class="chart-labels">
@@ -122,34 +122,33 @@
       </select>
     </div>
 
-    <div class="actions-grid">
-      @for (section of filteredSections(); track section.key) {
-        <article class="activity-card">
-          <div class="activity-card-header">
-            <div class="flex items-center gap-2">
-              <i [class]="'bi ' + section.icon" aria-hidden="true"></i>
-              <h3>{{ section.label }}</h3>
-              <span class="activity-total">{{ section.total }}</span>
-            </div>
-            <a [routerLink]="section.link" class="activity-card-link">Voir tout <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-          </div>
-          @for (entry of section.entries; track $index) {
-            <div class="activity-entry">
-              <span class="activity-avatar">{{ entry.initials }}</span>
-              <div class="activity-entry-content">
-                <strong class="activity-name">{{ entry.name }}</strong>
-                <p class="activity-detail">{{ entry.detail }}</p>
-                <div class="activity-time"><i class="bi bi-clock" aria-hidden="true"></i>{{ entry.time }}</div>
-              </div>
-              @if (entry.status) { <span class="status-badge status-badge--{{ entry.statusTone }}">{{ entry.status }}</span> }
-            </div>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Module</th>
+            <th>Nom</th>
+            <th>Détail</th>
+            <th>Statut</th>
+            <th>Temps</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (section of filteredSections(); track section.key) {
+            @for (entry of section.entries; track $index) {
+              <tr>
+                <td><i [class]="'bi ' + section.icon" aria-hidden="true"></i> {{ section.label }}</td>
+                <td><strong>{{ entry.name }}</strong></td>
+                <td>{{ entry.detail }}</td>
+                <td>@if (entry.status) { <span class="res-status res-status--{{ entry.statusTone }}">{{ entry.status }}</span> }</td>
+                <td><i class="bi bi-clock" aria-hidden="true"></i> {{ entry.time }}</td>
+              </tr>
+            }
           } @empty {
-            <p class="activity-empty">Aucune donnée récente.</p>
+            <tr><td colspan="5" class="admin-state">Aucune donnée récente.</td></tr>
           }
-        </article>
-      } @empty {
-        <p class="activity-empty">Aucune catégorie disponible pour le moment.</p>
-      }
+        </tbody>
+      </table>
     </div>
   </section>
 

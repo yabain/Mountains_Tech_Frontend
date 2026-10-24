@@ -33,7 +33,7 @@ export class AdminUserEditComponent {
     lastName: '',
     email: '',
     phone: '',
-    role: 'USER',
+    role: 'EDITOR',
     status: 'ACTIVE',
     notificationContact: false,
     password: ''
@@ -75,14 +75,12 @@ export class AdminUserEditComponent {
 
     this.saving.set(true);
     this.error.set('');
-    const { firstName, lastName, phone, role, status, notificationContact, password } = this.form;
+    const { firstName, lastName, role, status, password } = this.form;
     const payload: Record<string, unknown> = {
       firstName,
       lastName,
-      phone,
       role,
-      status,
-      notificationContact
+      status
     };
     if (password.trim()) {
       payload['password'] = password;
@@ -121,7 +119,7 @@ export class AdminUserEditComponent {
     this.form.lastName = String(user['lastName'] ?? '');
     this.form.email = String(user['email'] ?? '');
     this.form.phone = String(user['phone'] ?? user['phoneNumber'] ?? '');
-    this.form.role = String(user['role'] ?? 'USER').toUpperCase();
+    this.form.role = String(user['role'] ?? 'EDITOR').toUpperCase();
     const status = String(user['status'] ?? '').toUpperCase();
     this.form.status = ['ACTIVE', 'ACTIF', 'TRUE'].includes(status) || user['isActive'] === true
       ? 'ACTIVE'

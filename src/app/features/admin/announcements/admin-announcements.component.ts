@@ -6,9 +6,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { forkJoin } from 'rxjs';
 import { RESOURCE_CONFIG, AdminResourceConfig } from '../resource/admin-resource.config';
 import { AdminResourceBase } from '../resource/admin-resource.base';
-import { API_ROUTES } from '../../../core/constants/api-routes';
+import { API_ROUTES, adminDynamicRoutes } from '../../../core/constants/api-routes';
 import { ApiService } from '../../../core/http/api.service';
 import { NotificationService } from '../../../core/services/notification.service';
+import { apiErrorMessage } from '../../../core/utils/api-error';
 
 const config: AdminResourceConfig = {
   title: 'Annonces',
@@ -18,7 +19,7 @@ const config: AdminResourceConfig = {
   searchable: true,
   statusParam: 'status',
   statusField: 'status',
-  statusOptions: ['DRAFT', 'SCHEDULED', 'SENDING', 'SENT', 'FAILED', 'CANCELLED'],
+  statusOptions: ['DRAFT', 'SCHEDULED', 'PROCESSING', 'SENT', 'FAILED', 'CANCELLED'],
   columns: [
     { key: 'subject', label: 'Objet' },
     { key: 'status', label: 'Statut', type: 'status' },
@@ -49,7 +50,7 @@ export class AdminAnnouncementsComponent extends AdminResourceBase {
   readonly audienceFilter = signal('');
   readonly visibleAnnouncements = computed(() => this.rows().filter((row) => {
     const audience = this.audienceFilter();
-    return !audience || String(row['audience']?.['type'] ?? row['audienceType'] ?? '') === audience;
+    return !audience || this.audienceGroups(row).includes(audience);
   }));
   readonly announcementStats = computed(() => {
     const counts = this.statusCounts();
@@ -58,7 +59,11 @@ export class AdminAnnouncementsComponent extends AdminResourceBase {
 
   constructor() {
     super();
-    const statuses = ['DRAFT', 'SCHEDULED', 'SENDING', 'SENT', 'FAILED', 'CANCELLED'] as const;
+    this.loadStatusCounts();
+  }
+
+  private loadStatusCounts(): void {
+    const statuses = ['DRAFT', 'SCHEDULED', 'PROCESSING', 'SENT', 'FAILED', 'CANCELLED'] as const;
     forkJoin(statuses.map((status) =>
       this.announcementsApi.get<unknown>(API_ROUTES.admin.announcements, { status, page: 1, limit: 1 })
     )).pipe(takeUntilDestroyed()).subscribe({
@@ -91,17 +96,23 @@ export class AdminAnnouncementsComponent extends AdminResourceBase {
     }
   }
 
+  audienceGroups(row: Record<string, any>): string[] {
+    const groups = row['audience']?.['groups'];
+    return Array.isArray(groups) ? groups.map((group) => String(group).toUpperCase()) : [];
+  }
+
   audienceLabel(row: Record<string, any>): string {
-    const audience = String(row['audience']?.['type'] ?? row['audienceType'] ?? 'ALL').toUpperCase();
+    const groups = this.audienceGroups(row);
     const labels: Record<string, string> = {
       ALL: 'Tous',
       MEMBERS: 'Membres',
       NEWSLETTER: 'Newsletter',
-      EVENT_PARTICIPANTS: 'Événements',
-      HACKATHON_TEAMS: 'Hackathons',
+      EVENT_PARTICIPANTS: 'Participants',
+      HACKATHON_TEAMS: 'Équipes hackathon',
       CUSTOM: 'Personnalisé'
     };
-    return labels[audience] ?? audience;
+    if (!groups.length) return '—';
+    return groups.map((group) => labels[group] ?? group).join(', ');
   }
 
   announcementStatus(row: Record<string, any>): string {
@@ -109,7 +120,7 @@ export class AdminAnnouncementsComponent extends AdminResourceBase {
     const labels: Record<string, string> = {
       DRAFT: 'Brouillon',
       SCHEDULED: 'Programmée',
-      SENDING: 'En cours',
+      PROCESSING: 'En cours d’envoi',
       SENT: 'Envoyée',
       FAILED: 'Échec',
       CANCELLED: 'Annulée'
@@ -134,14 +145,49 @@ export class AdminAnnouncementsComponent extends AdminResourceBase {
   announcementProgress(row: Record<string, any>): string {
     const status = String(row['status'] ?? '').toUpperCase();
     const recipients = Number(row['recipientCount'] ?? 0);
-    const processed = Number(row['sentCount'] ?? row['deliveredCount'] ?? 0);
+    const metrics = (row['metrics'] ?? {}) as Record<string, unknown>;
+    const processed = Number(metrics['sent'] ?? row['sentCount'] ?? 0);
     if (status === 'SENT') {
       return `${recipients} / ${recipients}`;
     }
-    if (status === 'SENDING') {
+    if (status === 'PROCESSING') {
       return `${processed} / ${recipients}`;
     }
     return '—';
+  }
+
+  sendAnnouncement(row: Record<string, any>): void {
+    const id = this.rowId(row);
+    if (!id || !confirm(`Envoyer immédiatement « ${row['subject'] ?? 'cette annonce'} » ?`)) return;
+    this.announcementsApi.post<unknown>(adminDynamicRoutes.announcementSend(id), {})
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: () => {
+          this.announcementsNotification.success('Envoi lancé.');
+          this.load();
+          this.loadStatusCounts();
+        },
+        error: (error: unknown) => {
+          this.announcementsNotification.error(apiErrorMessage(error, 'Impossible de lancer l’envoi.'));
+        }
+      });
+  }
+
+  cancelAnnouncement(row: Record<string, any>): void {
+    const id = this.rowId(row);
+    if (!id || !confirm('Annuler cet envoi programmé ?')) return;
+    this.announcementsApi.post<unknown>(adminDynamicRoutes.announcementCancel(id), {})
+      .pipe(takeUntilDestroyed())
+      .subscribe({
+        next: () => {
+          this.announcementsNotification.success('Envoi programmé annulé.');
+          this.load();
+          this.loadStatusCounts();
+        },
+        error: (error: unknown) => {
+          this.announcementsNotification.error(apiErrorMessage(error, 'Impossible d’annuler cet envoi.'));
+        }
+      });
   }
 
   private extractTotal(response: unknown): number {

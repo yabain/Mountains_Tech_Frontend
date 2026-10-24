@@ -6,7 +6,7 @@ import { AdminResourceBase } from '../resource/admin-resource.base';
 import { API_ROUTES } from '../../../core/constants/api-routes';
 
 const config: AdminResourceConfig = {
-  title: 'Parametres',
+  title: 'Paramètres',
   icon: 'bi-gear-fill',
   endpoint: API_ROUTES.admin.settings,
   shape: 'array',

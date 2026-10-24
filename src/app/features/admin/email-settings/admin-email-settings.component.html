@@ -35,10 +35,15 @@
             <span>Message</span>
             <textarea name="message" [(ngModel)]="testMessage" rows="4" required></textarea>
           </label>
-          <button type="button" class="email-action-button" disabled title="L’API d’envoi d’e-mail test n’est pas disponible.">
-            <i class="bi bi-send" aria-hidden="true"></i>Envoyer le test
+          <button type="button" class="email-action-button" (click)="sendTestEmail()" [disabled]="testSending()">
+            <i class="bi bi-send" aria-hidden="true"></i>{{ testSending() ? 'Envoi…' : 'Envoyer le test' }}
           </button>
-          <small class="email-api-note">L’envoi de test sera activé lorsque l’API correspondante sera disponible.</small>
+          @if (testError()) {
+            <small class="email-test-feedback email-test-feedback--error" role="alert">{{ testError() }}</small>
+          }
+          @if (testSuccess()) {
+            <small class="email-test-feedback email-test-feedback--success" role="status">{{ testSuccess() }}</small>
+          }
         </form>
       </section>
     </main>

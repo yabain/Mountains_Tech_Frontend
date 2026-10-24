@@ -67,6 +67,12 @@
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  padding: 20px 24px;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 4%);
 }
 
 .page-title {
@@ -384,8 +390,8 @@
   background-position: right 12px center;
 }
 
-/* ===== Cards grid ===== */
-.actions-grid {
+/* ===== Cards grid (unused — replaced by table) ===== */
+/* .actions-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 20px;
@@ -535,7 +541,7 @@
   text-align: center;
   font-size: 12px;
   color: var(--dash-muted-fg);
-}
+} */
 
 /* ===== Footer ===== */
 .admin-footer {
@@ -626,24 +632,30 @@
 
 .dashboard-welcome {
   display: flex;
-  min-height: 132px;
   align-items: center;
-  justify-content: space-between;
   gap: 24px;
   margin-top: 18px;
-  padding: 22px 26px;
-  overflow: hidden;
+  padding: 24px 30px;
   border: 1px solid #b7d2e7;
-  border-radius: 9px;
-  background: linear-gradient(110deg, #f4f9fd, #fff 72%);
-  box-shadow: var(--dash-shadow-sm);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #edf5fb 0%, #f8faff 100%);
+  box-shadow: 0 4px 20px rgb(0 68 126 / 8%);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #00447e, #5a9fd4);
+    border-radius: 4px 0 0 4px;
+  }
 }
-.dashboard-welcome h2 { margin: 0; color: #172c40; font-size: clamp(20px, 2vw, 24px); }
+.dashboard-welcome h2 { margin: 0; color: #172c40; font-size: clamp(20px, 2vw, 24px); font-weight: 700; }
 .dashboard-welcome p { max-width: 520px; margin: 7px 0 0; color: #4f6070; font-size: 14px; line-height: 1.55; }
-.welcome-illustration { position: relative; display: grid; width: 146px; height: 86px; flex: 0 0 auto; place-items: center; color: #82aecd; }
-.welcome-illustration > .bi-graph-up-arrow { font-size: 66px; opacity: .75; }
-.welcome-illustration > .bi-stars { position: absolute; top: 5px; right: 4px; color: #397cad; font-size: 22px; }
-
 .dashboard-metrics { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
 .dashboard-metric {
   display: flex;
@@ -684,6 +696,7 @@
 .chart-axis-value { fill: #526374; font-size: 10px; }
 .chart-line { fill: none; stroke: #005ca8; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; vector-effect: non-scaling-stroke; }
 .chart-point { fill: #005ca8; stroke: #fff; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.chart-value-label { fill: #005ca8; font-size: 11px; font-weight: 700; dominant-baseline: auto; }
 .chart-labels { position: absolute; right: 0; bottom: 0; left: 0; height: 20px; color: #526374; font-size: 10px; }
 .chart-labels span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
 .chart-footer { align-items: center; padding: 12px 20px; border-color: #e2e8ee; color: #526374; font-size: 11px; }
@@ -693,7 +706,7 @@
 
 .actions-section { margin-top: 24px; }
 .section-title { color: #172c40; font-size: 21px; }
-.actions-grid { gap: 14px; }
+/* .actions-grid { gap: 14px; }
 .activity-card { border-color: #d8e1e9; border-radius: 9px; box-shadow: 0 3px 10px rgb(22 54 80 / 7%); }
 .activity-card-header { padding: 14px 15px; background: #f2f6fa; color: #182a3a; }
 .activity-card-header i { color: #00447e; font-size: 17px; }
@@ -708,7 +721,7 @@
 .status-badge { padding: 4px 8px; font-size: 11px; font-weight: 700; }
 .status-badge--success { background: #e4eef7; color: #174f7b; }
 .status-badge--pending { background: #fff5df; color: #76550b; }
-.status-badge--danger { background: #fff0f0; color: #923838; }
+.status-badge--danger { background: #fff0f0; color: #923838; } */
 .admin-footer { color: #526374; font-size: 11px; }
 
 @media (max-width: 1100px) {
@@ -742,9 +755,6 @@
   .page-title { font-size: 24px; }
   .dashboard-welcome { min-height: 100px; padding: 15px; }
   .dashboard-welcome p { font-size: 13px; }
-  .welcome-illustration { width: 56px; height: 56px; }
-  .welcome-illustration > .bi-graph-up-arrow { font-size: 42px; }
-  .welcome-illustration > .bi-stars { font-size: 16px; }
   .dashboard-metrics { gap: 8px; }
   .dashboard-metric { gap: 8px; min-height: 62px; padding: 8px; }
   .metric-icon { width: 32px; height: 32px; flex-basis: 32px; font-size: 15px; }

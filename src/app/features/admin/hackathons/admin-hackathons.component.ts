@@ -40,7 +40,7 @@ const config: AdminResourceConfig = {
     { key: 'title', label: 'Titre' },
     { key: 'startDate', label: 'Debut', type: 'date' },
     { key: 'status', label: 'Statut', type: 'status' },
-    { key: 'createdAt', label: 'Cree le', type: 'date' }
+    { key: 'createdAt', label: 'Créé le', type: 'date' }
   ],
   fields: [
     { key: 'title', label: 'Titre', type: 'text', required: true },

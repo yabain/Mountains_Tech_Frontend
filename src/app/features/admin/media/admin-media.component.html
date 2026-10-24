@@ -4,12 +4,10 @@
       <h1><i [class]="'bi ' + config.icon" aria-hidden="true"></i>{{ config.title }}</h1>
       <p>Gérez les {{ config.title.toLowerCase() }} depuis cette interface.</p>
     </div>
-    @if (hasCreate()) {
-      <button class="res-btn res-btn--primary" type="button" (click)="openCreate()">
-        <i class="bi bi-plus-lg" aria-hidden="true"></i>
-        Nouveau
-      </button>
-    }
+    <button class="res-btn res-btn--primary" type="button" (click)="openMediaCreate()">
+      <i class="bi bi-plus-lg" aria-hidden="true"></i>
+      Nouveau média
+    </button>
   </section>
 
   @if (loading()) {
@@ -68,7 +66,9 @@
               <tr>
                 @for (column of config.columns; track column.key) {
                   <td>
-                    @if (column.type === 'media') {
+                    @if (column.key === 'originalName') {
+                      {{ row['originalName'] || row['fileName'] || '—' }}
+                    } @else if (column.type === 'media') {
                       @if (isImageMedia(row)) {
                         <img class="res-media-preview" [src]="mediaUrl(row[column.key])" [alt]="row['alt'] || row['originalName'] || 'Aperçu du média'" />
                       } @else if (isVideoMedia(row)) {
@@ -141,6 +141,111 @@
       }
     }
   }
+  @if (mediaModalOpen()) {
+    <div class="res-overlay" (click)="closeMediaCreate()">
+      <div class="res-modal media-modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="media-modal-title">
+        <header class="res-modal__header">
+          <div>
+            <h2 id="media-modal-title">Ajouter un média</h2>
+            <p class="media-modal__subtitle">Importez un fichier ou référencez une image hébergée.</p>
+          </div>
+          <button class="res-icon-btn" type="button" (click)="closeMediaCreate()" aria-label="Fermer">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+          </button>
+        </header>
+
+        <form (ngSubmit)="submitMedia()">
+          <div class="media-tabs" role="tablist" aria-label="Source du média">
+            <button
+              type="button"
+              role="tab"
+              [attr.aria-selected]="mediaMode() === 'file'"
+              [class.is-active]="mediaMode() === 'file'"
+              (click)="setMediaMode('file')"
+            >
+              <i class="bi bi-upload" aria-hidden="true"></i>
+              Fichier
+            </button>
+            <button
+              type="button"
+              role="tab"
+              [attr.aria-selected]="mediaMode() === 'url'"
+              [class.is-active]="mediaMode() === 'url'"
+              (click)="setMediaMode('url')"
+            >
+              <i class="bi bi-link-45deg" aria-hidden="true"></i>
+              Adresse URL
+            </button>
+          </div>
+
+          @if (mediaMode() === 'file') {
+            <div 
+              class="media-dropzone" 
+              (dragover)="onDragOver($event)" 
+              (dragleave)="onDragLeave($event)" 
+              (drop)="onDrop($event)"
+              [class.media-dropzone--dragover]="isDragOver()"
+            >
+              <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
+              <strong>{{ mediaFile()?.name || 'Cliquez ou glissez-déposez un fichier' }}</strong>
+              <span>Images, vidéos ou PDF — 10 Mo maximum</span>
+              <input #fileInput id="media-file" type="file" accept="image/*,video/*,application/pdf" (change)="onMediaFileSelected($event)" />
+            </div>
+          } @else {
+            <label class="res-field">
+              <span class="res-field__label">Adresse URL *</span>
+              <input
+                class="res-field__input"
+                type="url"
+                name="mediaUrl"
+                [value]="mediaUrlValue()"
+                (input)="onMediaUrlInput($any($event.target).value)"
+                placeholder="https://exemple.com/image.webp"
+                required
+              />
+            </label>
+          }
+
+          <label class="res-field">
+            <span class="res-field__label">Texte alternatif</span>
+            <input
+              class="res-field__input"
+              type="text"
+              name="mediaAlt"
+              [value]="mediaAlt()"
+              (input)="mediaAlt.set($any($event.target).value)"
+              placeholder="Décrivez le média pour l’accessibilité"
+            />
+          </label>
+
+          @if (currentMediaPreview) {
+            <div class="media-preview-card">
+              <img [src]="currentMediaPreview" alt="Aperçu du média sélectionné" />
+              <span>Aperçu</span>
+            </div>
+          }
+
+          @if (mediaError()) {
+            <p class="res-error" role="alert">{{ mediaError() }}</p>
+          }
+          @if (mediaMode() === 'file') {
+            <p class="media-hint"><i class="bi bi-info-circle"></i> Vous pouvez aussi glisser-déposer un fichier directement dans la zone.</p>
+          }
+
+          <footer class="res-modal__footer">
+            <button type="button" class="res-btn res-btn--outline" (click)="closeMediaCreate()">Annuler</button>
+            <button type="submit" class="res-btn res-btn--primary" [disabled]="mediaSaving()">
+              @if (mediaSaving()) {
+                <span class="res-spinner" aria-hidden="true"></span>
+              }
+              {{ mediaMode() === 'file' ? 'Envoyer le fichier' : 'Enregistrer le lien' }}
+            </button>
+          </footer>
+        </form>
+      </div>
+    </div>
+  }
+
   @if (modalMode() !== 'none') {
     <div class="res-overlay" (click)="closeModal()">
       <div class="res-modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="res-modal-title">

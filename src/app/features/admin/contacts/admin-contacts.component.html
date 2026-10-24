@@ -97,17 +97,31 @@
       </div>
 
       @if (isPaginated) {
-        <div class="res-pagination">
-          <button class="res-btn res-btn--outline" type="button" (click)="prevPage()" [disabled]="page() <= 1">
-            <i class="bi bi-chevron-left" aria-hidden="true"></i>
-            Précédent
-          </button>
-          <span>Page {{ page() }} / {{ pages() }}</span>
-          <button class="res-btn res-btn--outline" type="button" (click)="nextPage()" [disabled]="page() >= pages()">
-            Suivant
-            <i class="bi bi-chevron-right" aria-hidden="true"></i>
-          </button>
-        </div>
+        <footer class="res-pagination user-pagination">
+          <div class="res-pagination-left">
+            <label class="user-page-size">
+              Par page
+              <select [value]="limit()" (change)="onPageSizeChange($any($event.target).value)" aria-label="Nombre d'éléments par page">
+                @for (option of pageSizeOptions; track option) {
+                  <option [value]="option">{{ option }}</option>
+                }
+              </select>
+            </label>
+            <span class="res-copyright">Copyright © 2026 Mountains Tech.</span>
+          </div>
+          <div class="res-pagination-right">
+            <div class="user-page-controls">
+              <button class="res-btn res-btn--outline" type="button" (click)="prevPage()" [disabled]="page() <= 1">
+                <i class="bi bi-arrow-left" aria-hidden="true"></i> Précédent
+              </button>
+              <span>Page {{ page() }} / {{ pages() }} · {{ total() }} élément(s)</span>
+              <button class="res-btn res-btn--outline" type="button" (click)="nextPage()" [disabled]="page() >= pages()">
+                Suivant <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+            <span class="res-credit">Développé par <em><a href="https://yaba-in.com" target="_blank" rel="noopener" style="color: #00447e; text-decoration: none;">Yaba-In</a></em></span>
+          </div>
+        </footer>
       }
     }
   }

@@ -34,6 +34,7 @@ export const API_ROUTES = {
     announcements: '/admin/announcements',
     media: '/admin/media',
     mediaUpload: '/admin/media/upload',
+    mediaLink: '/admin/media/link',
     settings: '/admin/settings',
     dashboard: '/admin/dashboard',
     auditLogs: '/admin/audit-logs',

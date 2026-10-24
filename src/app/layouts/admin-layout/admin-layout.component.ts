@@ -8,6 +8,7 @@ import { AuthService, AuthUser } from '../../core/auth/services/auth.service';
 import { AdminNotificationsComponent } from '../../features/admin/notifications/admin-notifications.component';
 import { ADMIN_NAV_ITEMS, AdminNavItem, AdminRole, ROLE_PERMISSIONS, normalizeRole } from '../../features/admin/admin-navigation';
 import { AdminSidebarCountsService } from '../../features/admin/admin-sidebar-counts.service';
+import { DashboardDataService } from '../../features/admin/dashboard/dashboard-data.service';
 import { TopBarComponent } from '../../shared/components/top-bar/top-bar.component';
 
 const ROLE_LABELS: Record<AdminRole, string> = {
@@ -29,6 +30,7 @@ export class AdminLayoutComponent implements AfterViewInit {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   readonly sidebarCounts = inject(AdminSidebarCountsService);
+  readonly dashboardData = inject(DashboardDataService);
 
   @ViewChild('adminNav', { read: ElementRef }) adminNav?: ElementRef<HTMLElement>;
 
@@ -51,6 +53,7 @@ export class AdminLayoutComponent implements AfterViewInit {
 
   constructor() {
     this.sidebarCounts.refresh();
+    this.dashboardData.load();
     interval(60_000).pipe(takeUntilDestroyed()).subscribe(() => this.sidebarCounts.refresh());
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))

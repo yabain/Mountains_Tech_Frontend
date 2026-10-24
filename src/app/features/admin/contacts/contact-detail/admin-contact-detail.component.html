@@ -23,7 +23,7 @@
             <p>Reçu le {{ formatDate(message['createdAt'] ?? message['date']) }}</p>
           </div>
           <span class="contact-badge" [class.contact-badge--unread]="isUnread">
-            {{ isUnread ? 'Non lu' : 'Lu' }}
+            {{ statusLabel }}
           </span>
         </div>
 
@@ -48,10 +48,12 @@
 
       <footer class="editor-actions">
         <button class="editor-btn" type="button" (click)="back()">Retour</button>
-        <button class="editor-btn" type="button" (click)="markReadState()" [disabled]="busy()">
-          <i class="bi" [class.bi-envelope-open]="isUnread" [class.bi-envelope]="!isUnread" aria-hidden="true"></i>
-          {{ isUnread ? 'Marquer comme lu' : 'Marquer comme non lu' }}
-        </button>
+        @if (canToggleRead) {
+          <button class="editor-btn" type="button" (click)="markReadState()" [disabled]="busy()">
+            <i class="bi" [class.bi-envelope-open]="isUnread" [class.bi-envelope]="!isUnread" aria-hidden="true"></i>
+            {{ isUnread ? 'Marquer comme lu' : 'Marquer comme non lu' }}
+          </button>
+        }
         <button class="editor-btn editor-btn--danger" type="button" (click)="deleteContact()" [disabled]="busy()">
           <i class="bi bi-trash" aria-hidden="true"></i>
           Supprimer

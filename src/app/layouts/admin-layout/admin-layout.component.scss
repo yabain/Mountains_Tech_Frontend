@@ -11,13 +11,13 @@
   --adm-muted: #f3f6f8;
   --adm-muted-foreground: #536575;
   --adm-border: #e1e8ee;
-  --adm-sidebar: #f8fafb;
-  --adm-sidebar-active: #e8eef3;
-  --adm-sidebar-foreground: #263b4d;
-  --adm-sidebar-muted: #617384;
+  --adm-sidebar: oklch(0.28 0.052 244);
+  --adm-sidebar-active: oklch(0.45 0.092 245);
+  --adm-sidebar-foreground: oklch(0.825 0.025 238);
+  --adm-sidebar-muted: oklch(0.672 0.044 239);
   --adm-inverse: oklch(1 0 0);
   --adm-brand-accent: #00447e;
-  --adm-navigation-fade: linear-gradient(to bottom, transparent, #f8fafb 88%);
+  --adm-navigation-fade: linear-gradient(to bottom, transparent, oklch(0.28 0.052 244) 88%);
   --adm-panel-shadow: none;
   --adm-shadow-sm: 0 8px 24px rgb(23 40 56 / 12%);
   --adm-danger: #b42318;
@@ -29,7 +29,10 @@
   height: 100dvh;
   min-height: 0;
   overflow: hidden;
-  background: var(--adm-background);
+  background:
+    radial-gradient(circle at 12% -8%, #dcebf7 0, transparent 34%),
+    radial-gradient(circle at 96% 108%, #e5eef6 0, transparent 42%),
+    var(--adm-background);
   color: var(--adm-foreground);
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
@@ -46,14 +49,23 @@
   top: 8px;
   height: calc(100dvh - 16px);
   margin: 8px 0 8px 8px;
-  border-radius: 8px;
-  border: 1px solid var(--adm-border);
+  border-radius: 14px;
+  box-shadow: 0 18px 45px rgb(17 45 72 / 8%);
   display: flex;
   flex-direction: column;
   transition: width 220ms ease;
   padding: 24px 12px 16px;
   overflow: hidden;
   z-index: 45;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: linear-gradient(180deg, #0b5e9e, #76b5df 55%, transparent);
+    pointer-events: none;
+  }
 }
 
 /* ===== Brand row ===== */
@@ -94,9 +106,9 @@
 
 /* ===== Collapse toggle ===== */
 .admin-collapse {
-  color: var(--adm-muted-foreground);
-  background: var(--adm-card);
-  border: 1px solid var(--adm-border);
+  color: var(--adm-inverse);
+  background: color-mix(in oklab, var(--adm-inverse) 8%, transparent);
+  border: 1px solid color-mix(in oklab, var(--adm-inverse) 16%, transparent);
   border-radius: 6px;
   width: 32px;
   height: 32px;
@@ -107,8 +119,7 @@
   transition: background 150ms;
 
   &:hover {
-    background: var(--adm-muted);
-    color: var(--adm-primary);
+    background: color-mix(in oklab, var(--adm-inverse) 16%, transparent);
   }
 }
 
@@ -152,22 +163,27 @@
 }
 
 .admin-nav-group-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--adm-muted-foreground);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--adm-sidebar-foreground);
+  opacity: 0.55;
   padding: 0 13px;
   margin-bottom: 10px;
 }
 
 .admin-nav a {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 11px 13px;
-  border-radius: 7px;
+  border: 1px solid transparent;
+  border-radius: 9px;
   font-size: 14px;
   min-height: 42px;
-  transition: background 150ms;
+  transition: background 150ms, border-color 150ms, color 150ms, transform 150ms;
   margin: 2px 0;
   color: var(--adm-sidebar-foreground);
   text-decoration: none;
@@ -187,15 +203,18 @@
 
   &:hover {
     background: var(--adm-sidebar-active);
-    color: var(--adm-foreground);
+    color: var(--adm-inverse);
+    transform: translateX(1px);
   }
 
   &.is-active {
-    background: var(--adm-sidebar-active);
-    color: var(--adm-primary);
+    background: var(--adm-primary);
+    color: var(--adm-inverse);
+    font-weight: 600;
+    box-shadow: inset 3px 0 0 #76b5df;
 
     i {
-      color: var(--adm-primary);
+      color: var(--adm-secondary);
     }
   }
 }
@@ -219,7 +238,7 @@
 .admin-sidebar-footer {
   margin-top: auto;
   padding-top: 20px;
-  border-top: 1px solid var(--adm-border);
+  border-top: 1px solid color-mix(in oklab, var(--adm-inverse) 10%, transparent);
 }
 
 .admin-profile {
@@ -237,8 +256,8 @@
   place-items: center;
   flex-shrink: 0;
   border-radius: 50%;
-  background: var(--adm-secondary);
-  color: var(--adm-primary);
+  background: var(--adm-sidebar-active);
+  color: var(--adm-inverse);
   font-size: 11px;
   font-weight: 700;
 }
@@ -252,7 +271,7 @@
   display: block;
   font-size: 14px;
   font-weight: 500;
-  color: var(--adm-foreground);
+  color: var(--adm-inverse);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -277,7 +296,7 @@
   border: 0;
   border-radius: 7px;
   background: transparent;
-  color: var(--adm-danger);
+  color: oklch(0.84 0.089 9);
   font: inherit;
   font-size: 14px;
   white-space: nowrap;
@@ -293,7 +312,7 @@
   }
 
   &:hover {
-    background: #fcebea;
+    background: color-mix(in oklab, var(--adm-inverse) 8%, transparent);
   }
 }
 
@@ -305,6 +324,7 @@
   .admin-brand-mark,
   .admin-nav-group-label,
   .admin-nav-label,
+  .admin-nav-count,
   .admin-profile-info {
     display: none;
   }
@@ -318,21 +338,6 @@
     justify-content: center;
     gap: 0;
     padding: 12px;
-  }
-
-  .admin-nav a {
-    position: relative;
-  }
-
-  .admin-nav-count {
-    display: block;
-    position: absolute;
-    top: 1px;
-    right: 1px;
-    min-width: 17px;
-    padding: 1px 4px;
-    text-align: center;
-    line-height: 15px;
   }
 
   .admin-nav a i,
@@ -516,16 +521,6 @@
 @media (max-width: 480px) {
   .admin-page {
     padding: 16px 12px 28px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .admin-sidebar,
-  .admin-nav a,
-  .admin-collapse,
-  .admin-logout,
-  .admin-util-button {
-    transition: none !important;
   }
 }
 

@@ -31,7 +31,7 @@ export class AdminUserCreateComponent {
     lastName: '',
     email: '',
     phone: '',
-    role: 'USER',
+    role: 'EDITOR',
     status: 'ACTIVE',
     notificationContact: false,
     password: ''
@@ -44,15 +44,13 @@ export class AdminUserCreateComponent {
 
     this.saving.set(true);
     this.error.set('');
-    const { firstName, lastName, email, phone, role, status, notificationContact, password } = this.form;
+    const { firstName, lastName, email, role, status, password } = this.form;
     this.api.post<unknown>(API_ROUTES.admin.users, {
       firstName,
       lastName,
       email,
-      phone,
       role,
       status,
-      notificationContact,
       password
     }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {

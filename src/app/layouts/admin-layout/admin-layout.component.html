@@ -72,6 +72,7 @@
       <app-top-bar
         [currentCategory]="currentCategory()"
         [notificationsOpen]="notificationsOpen()"
+        [hasUnseenNotifications]="dashboardData.hasUnseen()"
         (toggleSidebar)="toggleSidebar()"
         (toggleNotifications)="toggleNotifications()"
       ></app-top-bar>

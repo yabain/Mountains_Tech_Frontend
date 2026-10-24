@@ -1,230 +1,215 @@
-<div class="announcement-editor-page" *ngIf="!loading; else loadingTpl">
-  <header class="page-header">
-    <div class="header-content">
-      <div>
-        <a routerLink="/dashboard/announcements" class="btn-back">← Annonces</a>
-        <h1><i class="bi bi-megaphone-fill" aria-hidden="true"></i>{{ isEditing ? 'Modifier l\'annonce' : 'Nouvelle annonce' }}</h1>
-        <p class="subtitle">Rédigez, ciblez et programmez votre campagne email</p>
+@if (!loading) {
+  <div class="announcement-editor-page">
+    <header class="page-header">
+      <div class="header-content">
+        <div>
+          <a routerLink="/dashboard/announcements" class="btn-back">
+            <i class="bi bi-arrow-left" aria-hidden="true"></i>
+            Annonces
+          </a>
+          <h1>
+            <i class="bi bi-megaphone-fill" aria-hidden="true"></i>
+            {{ isEditing ? 'Modifier l’annonce' : 'Nouvelle annonce' }}
+          </h1>
+          <p class="subtitle">Rédigez, ciblez et programmez votre campagne e-mail.</p>
+        </div>
+        <div class="header-actions">
+          <button type="button" class="btn-outline" (click)="saveDraft()" [disabled]="saving">
+            <i class="bi bi-save" aria-hidden="true"></i>
+            Enregistrer le brouillon
+          </button>
+          <button type="button" class="btn-primary" (click)="openPreview()" [disabled]="saving || form.invalid">
+            <i class="bi bi-eye" aria-hidden="true"></i>
+            Aperçu
+          </button>
+        </div>
       </div>
-      <div class="header-actions">
-        <button type="button" class="btn-outline" (click)="saveDraft()" [disabled]="saving">
-          <i class="bi bi-save" aria-hidden="true"></i> Enregistrer brouillon
-        </button>
-        <button type="button" class="btn-primary" (click)="openPreview()" [disabled]="saving || form.invalid">
-          <i class="bi bi-eye" aria-hidden="true"></i> Aperçu
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <div class="editor-layout">
-    <!-- Main Editor Panel -->
-    <main class="editor-main">
-      <section class="editor-section">
-        <h2>Contenu de l'email</h2>
-
-        <div class="form-field">
-          <label for="subject">Objet <span class="required">*</span></label>
-          <input
-            id="subject"
-            type="text"
-            [formControl]="subjectCtrl"
-            placeholder="Objet de l'email (max 200 caractères)"
-            maxlength="200"
-            class="form-input"
-            [class.invalid]="subjectCtrl.invalid && subjectCtrl.touched"
-          />
-          <small class="help-text">{{ subjectCtrl.value?.length || 0 }}/200</small>
-          <small class="error-text" *ngIf="subjectCtrl.hasError('required') && subjectCtrl.touched">L'objet est obligatoire</small>
-        </div>
-
-        <div class="form-field">
-          <label>Contenu HTML <span class="required">*</span></label>
-          <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
-          <ngx-editor
-            [editor]="editor"
-            [formControl]="contentHtmlCtrl"
-            placeholder="Rédigez votre email ici... Utilisez {{ '{{firstName}}' }}, {{ '{{unsubscribeUrl}}' }} pour la personnalisation"
-            class="editor-content"
-          ></ngx-editor>
-          <small class="error-text" *ngIf="contentHtmlCtrl.invalid && contentHtmlCtrl.touched">Le contenu est obligatoire</small>
-        </div>
-
-        <div class="variables-help">
-          <strong>Variables disponibles :</strong>
-          <code>{{ '{{firstName}}' }}</code> — Prénom du destinataire &nbsp;|&nbsp;
-          <code>{{ '{{lastName}}' }}</code> — Nom &nbsp;|&nbsp;
-          <code>{{ '{{email}}' }}</code> — Email &nbsp;|&nbsp;
-          <code>{{ '{{unsubscribeUrl}}' }}</code> — Lien de désinscription (obligatoire)
-        </div>
-      </section>
-
-      <section class="editor-section">
-        <h2>Planification</h2>
-        <div class="schedule-options">
-          <label class="radio-option">
-            <input type="radio" name="scheduleType" value="immediate" [formControl]="scheduleTypeCtrl" />
-            <span class="radio-label">
-              <strong>Envoyer immédiatement</strong>
-              <small>L'email partira dès validation</small>
-            </span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="scheduleType" value="scheduled" [formControl]="scheduleTypeCtrl" />
-            <span class="radio-label">
-              <strong>Programmer l'envoi</strong>
-              <small>Choisir date et heure</small>
-            </span>
-          </label>
-        </div>
-
-        <div class="form-field" *ngIf="scheduleTypeCtrl.value === 'scheduled'">
-          <label for="scheduledAt">Date et heure d'envoi <span class="required">*</span></label>
-          <input
-            id="scheduledAt"
-            type="datetime-local"
-            [formControl]="scheduledAtCtrl"
-            class="form-input"
-            [min]="nowISO"
-          />
-          <small class="error-text" *ngIf="scheduleTypeCtrl.value === 'scheduled' && scheduledAtCtrl.invalid && scheduledAtCtrl.touched">
-            Date d'envoi requise
-          </small>
-        </div>
-      </section>
-    </main>
-
-    <!-- Sidebar: Audience & Recipients -->
-    <aside class="editor-sidebar">
-      <section class="sidebar-card">
-        <h3><i class="bi bi-people" aria-hidden="true"></i> Audience</h3>
-
-        <div class="form-field">
-          <label>Type d'audience</label>
-          <select [formControl]="audienceTypeCtrl" class="form-select">
-            <option value="ALL">Tous les contacts</option>
-            <option value="MEMBERS">Membres validés</option>
-            <option value="NEWSLETTER">Abonnés newsletter</option>
-            <option value="EVENT_PARTICIPANTS">Participants aux événements</option>
-            <option value="HACKATHON_TEAMS">Équipes hackathon</option>
-            <option value="CUSTOM">Tags personnalisés</option>
-          </select>
-        </div>
-
-        <!-- Membres: statuts -->
-        <div class="filter-group" *ngIf="audienceTypeCtrl.value === 'MEMBERS'">
-          <label>Statuts membres</label>
-          <div class="checkbox-group">
-            <label class="checkbox-item" *ngFor="let status of memberStatusOptions">
-              <input type="checkbox" [checked]="form.get('memberStatuses')?.value?.includes(status)" (change)="onMemberStatusChange(status, $event)" />
-              <span>{{ status }}</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Événements -->
-        <div class="filter-group" *ngIf="audienceTypeCtrl.value === 'EVENT_PARTICIPANTS'">
-          <label>Événements</label>
-          <div class="checkbox-group scrollable">
-            <label class="checkbox-item" *ngFor="let event of events">
-              <input type="checkbox" [checked]="form.get('eventIds')?.value?.includes(event.id)" (change)="onEventChange(event.id, $event)" />
-              <span>{{ event.title }}</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Hackathons -->
-        <div class="filter-group" *ngIf="audienceTypeCtrl.value === 'HACKATHON_TEAMS'">
-          <label>Hackathons</label>
-          <div class="checkbox-group scrollable">
-            <label class="checkbox-item" *ngFor="let h of hackathons">
-              <input type="checkbox" [checked]="form.get('hackathonIds')?.value?.includes(h.id)" (change)="onHackathonChange(h.id, $event)" />
-              <span>{{ h.title }}</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Tags personnalisés -->
-        <div class="form-field" *ngIf="audienceTypeCtrl.value === 'CUSTOM'">
-          <label for="customTags">Tags (séparés par des virgules)</label>
-          <input id="customTags" type="text" [formControl]="customTagsCtrl" placeholder="ex: vip, early-bird, partner" class="form-input" />
-        </div>
-
-        <div class="form-field checkbox-field">
-          <label class="checkbox-label">
-            <input type="checkbox" [formControl]="excludeUnsubscribedCtrl" />
-            <span>Exclure les désinscrits (recommandé)</span>
-          </label>
-        </div>
-
-        <div class="audience-summary">
-          <strong>Cible :</strong> {{ getAudienceDescription() }}
-        </div>
-      </section>
-
-      <section class="sidebar-card recipient-count">
-        <h3>Destinataires estimés</h3>
-        <div class="count-display">
-          <span class="count">{{ recipientCount }}</span>
-          <span class="label">destinataire{{ recipientCount > 1 ? 's' : '' }}</span>
-        </div>
-        <button type="button" class="btn-ghost btn-sm" (click)="countRecipients()" [disabled]="countingRecipients">
-          <i class="bi bi-arrow-clockwise" [class.spinning]="countingRecipients" aria-hidden="true"></i>
-          {{ countingRecipients ? 'Comptage...' : 'Recalculer' }}
-        </button>
-      </section>
-
-      <section class="sidebar-card actions-sticky">
-        <div class="action-buttons">
-          <button type="button" class="btn-danger" (click)="cancelScheduled()" *ngIf="isEditing && announcement?.status === 'SCHEDULED'">
-            <i class="bi bi-x-circle" aria-hidden="true"></i> Annuler l'envoi programmé
-          </button>
-          <button type="button" class="btn-primary btn-lg" (click)="sendNow()" [disabled]="saving || form.invalid || recipientCount === 0">
-            <i class="bi bi-send" aria-hidden="true"></i>
-            {{ saving ? 'Envoi...' : 'Envoyer maintenant' }}
-          </button>
-          <button type="button" class="btn-outline btn-lg" (click)="schedule()" [disabled]="saving || form.invalid || recipientCount === 0" *ngIf="form.get('scheduleType')?.value === 'scheduled'">
-            <i class="bi bi-calendar-event" aria-hidden="true"></i>
-            Programmer l'envoi
-          </button>
-        </div>
-      </section>
-    </aside>
-  </div>
-</div>
-
-<!-- Preview Modal -->
-<div class="modal-overlay" *ngIf="previewMode" (click)="closePreview()" role="dialog" aria-modal="true" aria-labelledby="preview-title">
-  <div class="modal-preview" (click)="$event.stopPropagation()">
-    <header class="modal-header">
-      <h2 id="preview-title">Aperçu de l'email</h2>
-      <button type="button" class="modal-close" (click)="closePreview()" aria-label="Fermer l'aperçu">
-        <i class="bi bi-x-lg" aria-hidden="true"></i>
-      </button>
     </header>
 
-    <div class="preview-tabs">
-      <button class="preview-tab" [class.active]="previewTab === 'desktop'" (click)="previewTab = 'desktop'">
-        <i class="bi bi-pc-display" aria-hidden="true"></i> Desktop
-      </button>
-      <button class="preview-tab" [class.active]="previewTab === 'mobile'" (click)="previewTab = 'mobile'">
-        <i class="bi bi-phone" aria-hidden="true"></i> Mobile
-      </button>
-      <button class="preview-tab" [class.active]="previewTab === 'email'" (click)="previewTab = 'email'">
-        <i class="bi bi-envelope" aria-hidden="true"></i> Email Client
-      </button>
-    </div>
+    @if (errorMessage) {
+      <div class="editor-error-banner" role="alert">
+        <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+        {{ errorMessage }}
+      </div>
+    }
 
-    <div class="preview-frame" [class]="'preview-' + previewTab">
-      <div class="email-preview" [innerHTML]="sanitizedContent"></div>
-    </div>
+    <div class="editor-layout">
+      <main class="editor-main">
+        <section class="editor-section">
+          <h2>Contenu de l’e-mail</h2>
 
-    <footer class="modal-footer">
-      <button type="button" class="btn-outline" (click)="closePreview()">Fermer</button>
-    </footer>
+          <div class="form-field">
+            <label for="subject">Objet <span class="required">*</span></label>
+            <input
+              id="subject"
+              type="text"
+              [formControl]="subjectCtrl"
+              placeholder="Objet de l’e-mail (200 caractères maximum)"
+              maxlength="200"
+              class="form-input"
+              [class.invalid]="subjectCtrl.invalid && subjectCtrl.touched"
+            />
+            <small class="help-text">{{ subjectCtrl.value?.length || 0 }}/200</small>
+            @if (subjectCtrl.hasError('required') && subjectCtrl.touched) {
+              <small class="error-text">L’objet est obligatoire.</small>
+            }
+          </div>
+
+          <div class="form-field">
+            <label>Contenu HTML <span class="required">*</span></label>
+            <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+            <ngx-editor
+              [editor]="editor"
+              [formControl]="contentHtmlCtrl"
+              placeholder="Rédigez votre e-mail ici…"
+              class="editor-content"
+            ></ngx-editor>
+            @if (contentHtmlCtrl.invalid && contentHtmlCtrl.touched) {
+              <small class="error-text">Le contenu est obligatoire.</small>
+            }
+          </div>
+
+          <div class="variables-help">
+            <strong>Variables disponibles :</strong>
+            <code>{{ '{{firstName}}' }}</code>
+            <code>{{ '{{lastName}}' }}</code>
+            <code>{{ '{{email}}' }}</code>
+            <code>{{ '{{unsubscribeUrl}}' }}</code>
+          </div>
+        </section>
+
+        <section class="editor-section">
+          <h2>Planification</h2>
+          <div class="schedule-options">
+            <label class="radio-option">
+              <input type="radio" name="scheduleType" value="immediate" [formControl]="scheduleTypeCtrl" />
+              <span class="radio-label">
+                <strong>Envoyer immédiatement</strong>
+                <small>La campagne part dès validation.</small>
+              </span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="scheduleType" value="scheduled" [formControl]="scheduleTypeCtrl" />
+              <span class="radio-label">
+                <strong>Programmer l’envoi</strong>
+                <small>Choisissez la date et l’heure.</small>
+              </span>
+            </label>
+          </div>
+
+          @if (scheduleTypeCtrl.value === 'scheduled') {
+            <div class="form-field">
+              <label for="scheduledAt">Date et heure d’envoi <span class="required">*</span></label>
+              <input
+                id="scheduledAt"
+                type="datetime-local"
+                [formControl]="scheduledAtCtrl"
+                class="form-input"
+                [min]="nowISO"
+              />
+            </div>
+          }
+        </section>
+      </main>
+
+      <aside class="editor-sidebar">
+        <section class="sidebar-card">
+          <h3><i class="bi bi-people" aria-hidden="true"></i> Audience</h3>
+          <div class="audience-choice">
+            <i class="bi bi-envelope-check" aria-hidden="true"></i>
+            <div>
+              <strong>Abonnés à la newsletter</strong>
+              <small>Seuls les abonnés actifs reçoivent les annonces.</small>
+            </div>
+          </div>
+          <p class="audience-note">
+            Les campagnes sont envoyées aux abonnés dont le statut est « Abonné ».
+          </p>
+        </section>
+
+        <section class="sidebar-card recipient-count">
+          <h3>Destinataires estimés</h3>
+          <div class="count-display">
+            <span class="count">{{ recipientCount }}</span>
+            <span class="label">destinataire{{ recipientCount > 1 ? 's' : '' }}</span>
+          </div>
+          <button type="button" class="btn-ghost btn-sm" (click)="countRecipients()" [disabled]="countingRecipients">
+            <i class="bi bi-arrow-clockwise" [class.spinning]="countingRecipients" aria-hidden="true"></i>
+            {{ countingRecipients ? 'Comptage…' : 'Recalculer' }}
+          </button>
+          @if (!recipientCount) {
+            <p class="recipient-warning">Aucun abonné actif : l’envoi est désactivé.</p>
+          }
+        </section>
+
+        <section class="sidebar-card actions-sticky">
+          <div class="action-buttons">
+            @if (isEditing && announcement?.status === 'SCHEDULED') {
+              <button type="button" class="btn-danger" (click)="cancelScheduled()" [disabled]="saving">
+                <i class="bi bi-x-circle" aria-hidden="true"></i>
+                Annuler l’envoi programmé
+              </button>
+            }
+
+            @if (scheduleTypeCtrl.value === 'scheduled') {
+              <button
+                type="button"
+                class="btn-outline btn-lg"
+                (click)="schedule()"
+                [disabled]="saving || form.invalid || recipientCount === 0"
+              >
+                <i class="bi bi-calendar-event" aria-hidden="true"></i>
+                Programmer l’envoi
+              </button>
+            } @else {
+              <button
+                type="button"
+                class="btn-primary btn-lg"
+                (click)="sendNow()"
+                [disabled]="saving || form.invalid || recipientCount === 0"
+              >
+                <i class="bi bi-send" aria-hidden="true"></i>
+                {{ saving ? 'Envoi…' : 'Envoyer maintenant' }}
+              </button>
+            }
+          </div>
+        </section>
+      </aside>
+    </div>
   </div>
-</div>
+} @else {
+  <div class="page-loading">Chargement de l’annonce…</div>
+}
 
-<ng-template #loadingTpl>
-  <div class="page-loading">Chargement…</div>
-</ng-template>
+@if (previewMode) {
+  <div class="modal-overlay" (click)="closePreview()" role="dialog" aria-modal="true" aria-labelledby="preview-title">
+    <div class="modal-preview" (click)="$event.stopPropagation()">
+      <header class="modal-header">
+        <h2 id="preview-title">Aperçu de l’e-mail</h2>
+        <button type="button" class="modal-close" (click)="closePreview()" aria-label="Fermer l’aperçu">
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+      </header>
+
+      <div class="preview-tabs">
+        <button class="preview-tab" type="button" [class.active]="previewTab === 'desktop'" (click)="previewTab = 'desktop'">
+          <i class="bi bi-pc-display" aria-hidden="true"></i> Ordinateur
+        </button>
+        <button class="preview-tab" type="button" [class.active]="previewTab === 'mobile'" (click)="previewTab = 'mobile'">
+          <i class="bi bi-phone" aria-hidden="true"></i> Mobile
+        </button>
+      </div>
+
+      <div class="preview-frame" [class]="'preview-' + previewTab">
+        <div class="email-preview">
+          <h2>{{ previewData?.subject }}</h2>
+          <div [innerHTML]="sanitizedContent"></div>
+        </div>
+      </div>
+
+      <footer class="modal-footer">
+        <button type="button" class="btn-outline" (click)="closePreview()">Fermer</button>
+      </footer>
+    </div>
+  </div>
+}

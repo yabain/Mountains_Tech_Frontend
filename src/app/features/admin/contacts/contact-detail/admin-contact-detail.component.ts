@@ -6,6 +6,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { API_ROUTES } from '../../../../core/constants/api-routes';
 import { ApiService } from '../../../../core/http/api.service';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { DashboardDataService } from '../../dashboard/dashboard-data.service';
 
 type ContactRecord = Record<string, unknown>;
 
@@ -22,6 +23,7 @@ export class AdminContactDetailComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly notification = inject(NotificationService);
+  private readonly dashboardData = inject(DashboardDataService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly loading = signal(true);
@@ -39,13 +41,30 @@ export class AdminContactDetailComponent {
     this.load();
   }
 
+  get status(): string {
+    return String(this.contact()?.['status'] ?? '').toUpperCase();
+  }
+
   get isUnread(): boolean {
-    const status = String(this.contact()?.['status'] ?? '').toUpperCase();
-    return status === 'NEW' || status === 'IN_PROGRESS';
+    return this.status === 'NEW' || this.status === 'IN_PROGRESS';
+  }
+
+  get canToggleRead(): boolean {
+    return this.status !== 'SPAM';
+  }
+
+  get statusLabel(): string {
+    const labels: Record<string, string> = {
+      NEW: 'Nouveau',
+      IN_PROGRESS: 'En cours',
+      RESOLVED: 'Résolu',
+      SPAM: 'Indésirable'
+    };
+    return labels[this.status] ?? '—';
   }
 
   markReadState(): void {
-    if (this.busy() || !this.contactId) return;
+    if (this.busy() || !this.contactId || !this.canToggleRead) return;
     const status = this.isUnread ? 'RESOLVED' : 'IN_PROGRESS';
     this.busy.set(true);
     this.api.patch<unknown>(`${API_ROUTES.admin.contacts}/${encodeURIComponent(this.contactId)}/status`, { status })
@@ -108,6 +127,7 @@ export class AdminContactDetailComponent {
             this.error.set('Ce message est introuvable.');
           } else {
             this.contact.set(record);
+            this.dashboardData.markResourceSeen('contacts', this.contactId);
           }
           this.loading.set(false);
         },

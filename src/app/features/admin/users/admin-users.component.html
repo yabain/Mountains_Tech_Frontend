@@ -75,7 +75,7 @@
             </thead>
             <tbody>
               @for (row of visibleUsers(); track rowId(row)) {
-                <tr>
+                <tr style="cursor: pointer;" (click)="openEdit(row)">
                   <td>
                     <div class="user-identity">
                       <span class="user-avatar">
@@ -95,9 +95,9 @@
                   <td><span class="user-notification-badge" [class.user-notification-badge--enabled]="userNotifications(row) === true">{{ userNotifications(row) === null ? '—' : (userNotifications(row) ? 'Oui' : 'Non') }}</span></td>
                   <td><span class="user-status-badge" [class.user-status-badge--inactive]="!userIsActive(row)">{{ userIsActive(row) ? 'Actif' : 'Inactif' }}</span></td>
                   <td>{{ userLastLogin(row) }}</td>
-                  <td class="res-actions user-actions">
+                  <td class="res-actions" (click)="$event.stopPropagation()">
                     <button
-                      class="user-status-action"
+                      class="res-action-button"
                       type="button"
                       [disabled]="statusBusyId() === rowId(row)"
                       (click)="toggleUserStatus(row)"
@@ -105,7 +105,10 @@
                       <i [class]="userIsActive(row) ? 'bi bi-ban' : 'bi bi-check-circle'" aria-hidden="true"></i>
                       {{ userIsActive(row) ? 'Désactiver' : 'Activer' }}
                     </button>
-                    <button class="user-edit-action" type="button" (click)="openEdit(row)">Modifier</button>
+                    <button class="res-action-button" type="button" (click)="openEdit(row)">
+                      <i class="bi bi-pencil" aria-hidden="true"></i>
+                      Modifier
+                    </button>
                   </td>
                 </tr>
               }
@@ -114,27 +117,31 @@
         </div>
 
         @if (isPaginated) {
-          <div class="res-pagination user-pagination">
-            <label class="user-page-size">
-              Par page
-              <select [value]="limit()" (change)="onPageSizeChange($any($event.target).value)" aria-label="Nombre d'éléments par page">
-                @for (option of pageSizeOptions; track option) {
-                  <option [value]="option">{{ resourceOptionLabel(option) }}</option>
-                }
-              </select>
-            </label>
-            <div class="user-page-controls">
-              <button class="res-btn res-btn--outline" type="button" (click)="prevPage()" [disabled]="page() <= 1">
-                <i class="bi bi-arrow-left" aria-hidden="true"></i>
-                Précédent
-              </button>
-              <span>Page {{ page() }} / {{ pages() }} · {{ total() }} comptes</span>
-              <button class="res-btn res-btn--outline" type="button" (click)="nextPage()" [disabled]="page() >= pages()">
-                Suivant
-                <i class="bi bi-arrow-right" aria-hidden="true"></i>
-              </button>
+          <footer class="res-pagination user-pagination">
+            <div class="res-pagination-left">
+              <label class="user-page-size">
+                Par page
+                <select [value]="limit()" (change)="onPageSizeChange($any($event.target).value)" aria-label="Nombre d'éléments par page">
+                  @for (option of pageSizeOptions; track option) {
+                    <option [value]="option">{{ option }}</option>
+                  }
+                </select>
+              </label>
+              <span class="res-copyright">Copyright © 2026 Mountains Tech.</span>
             </div>
-          </div>
+            <div class="res-pagination-right">
+              <div class="user-page-controls">
+                <button class="res-btn res-btn--outline" type="button" (click)="prevPage()" [disabled]="page() <= 1">
+                  <i class="bi bi-arrow-left" aria-hidden="true"></i> Précédent
+                </button>
+                <span>Page {{ page() }} / {{ pages() }} · {{ total() }} élément(s)</span>
+                <button class="res-btn res-btn--outline" type="button" (click)="nextPage()" [disabled]="page() >= pages()">
+                  Suivant <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+              <span class="res-credit">Développé par <em><a href="https://yaba-in.com" target="_blank" rel="noopener" style="color: #00447e; text-decoration: none;">Yaba-In</a></em></span>
+            </div>
+          </footer>
         }
       }
     }
