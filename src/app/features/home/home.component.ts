@@ -1,5 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import {
+  animate,
+  query,
+  stagger,
+  state,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { BehaviorSubject, finalize } from 'rxjs';
 
 import { API_ROUTES } from '../../core/constants/api-routes';
@@ -16,16 +34,70 @@ import { ButtonComponent } from '../../shared/components/button/button.component
   imports: [CommonModule, ButtonComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('scrollReveal', [
+      state('hidden, visible', style({})),
+      transition('hidden => visible', [
+        query(
+          'h1, h2, h3, p, .section-eyebrow, img, .hero__actions, .stat, .highlight__icon, .mission-card__mark, .key-figure, .activity-card__category, .project-tag, .partner-action, .partner-item, .newsletter__form, app-button, .home-action, .newsletter__contact',
+          [
+            style({ opacity: 0, transform: 'translateY(18px)' }),
+            stagger('65ms', [
+              animate(
+                '420ms cubic-bezier(0.2, 0.65, 0.3, 1)',
+                style({ opacity: 1, transform: 'translateY(0)' })
+              )
+            ])
+          ],
+          { optional: true }
+        )
+      ])
+    ])
+  ]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   readonly siteData$ = new BehaviorSubject<SiteData | undefined>(undefined);
   readonly showScrollTop$ = new BehaviorSubject(false);
   readonly loading = new BehaviorSubject(true);
+  readonly revealedSections: Record<string, boolean> = {};
+  readonly prefersReducedMotion =
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   scrollProgress = 0;
   events: EventItem[] = [];
   isLoadingEvents = true;
   hasEventsError = false;
+  private sectionObserver?: IntersectionObserver;
+
+  @ViewChild('homeContent')
+  set homeContent(element: ElementRef<HTMLElement> | undefined) {
+    this.sectionObserver?.disconnect();
+    if (!element) {
+      return;
+    }
+
+    const sections = element.nativeElement.querySelectorAll<HTMLElement>(':scope > section[id]');
+    if (typeof IntersectionObserver === 'undefined') {
+      sections.forEach((section) => {
+        this.revealedSections[section.id] = true;
+      });
+      return;
+    }
+
+    this.sectionObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+        const section = entry.target as HTMLElement;
+        this.revealedSections[section.id] = true;
+        observer.unobserve(section);
+        this.changeDetectorRef.markForCheck();
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+
+    sections.forEach((section) => this.sectionObserver?.observe(section));
+  }
 
   constructor(
     private siteDataService: SiteDataService,
@@ -42,6 +114,10 @@ export class HomeComponent implements OnInit {
 
     this.loadEvents();
     this.updateScrollState();
+  }
+
+  ngOnDestroy(): void {
+    this.sectionObserver?.disconnect();
   }
 
   @HostListener('window:scroll')

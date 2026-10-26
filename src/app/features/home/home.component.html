@@ -1,5 +1,5 @@
-<div class="page-home" *ngIf="siteData$ | async as data">
-  <section class="hero">
+<div class="page-home" *ngIf="siteData$ | async as data" #homeContent [@.disabled]="prefersReducedMotion">
+  <section class="hero" id="hero" [@scrollReveal]="revealedSections['hero'] ? 'visible' : 'hidden'">
     <div class="container-fluid hero__container px-3 px-lg-4">
       <div class="row align-items-center min-vh-100 py-3 g-4">
         <div class="col-12 col-lg-5 hero__spacer" aria-hidden="true"></div>
@@ -29,7 +29,7 @@
     </div>
   </section>
 
-  <section class="about section-shell" id="about">
+  <section class="about section-shell" id="about" [@scrollReveal]="revealedSections['about'] ? 'visible' : 'hidden'">
     <div class="about__grid">
       <div class="about__copy">
         <div class="section-heading">
@@ -84,7 +84,7 @@
     </div>
   </section>
 
-  <section class="mission-vision" id="mission-vision">
+  <section class="mission-vision" id="mission-vision" [@scrollReveal]="revealedSections['mission-vision'] ? 'visible' : 'hidden'">
     <div class="section-inner">
       <div class="section-heading">
         <span class="section-eyebrow">Mission &amp; vision</span>
@@ -125,7 +125,7 @@
     </div>
   </section>
 
-  <section class="key-figures" id="key-figures">
+  <section class="key-figures" id="key-figures" [@scrollReveal]="revealedSections['key-figures'] ? 'visible' : 'hidden'">
     <div class="section-inner">
       <div class="section-heading">
         <span class="section-eyebrow">Chiffres clés</span>
@@ -153,7 +153,7 @@
     </div>
   </section>
 
-  <section class="showcase section-shell" id="members">
+  <section class="showcase section-shell" id="members" [@scrollReveal]="revealedSections['members'] ? 'visible' : 'hidden'">
     <div class="section-heading">
       <span class="section-eyebrow">Membres</span>
       <h2>Les entreprises qui composent l'alliance</h2>
@@ -189,7 +189,7 @@
     </div>
   </section>
 
-  <section class="membership-cta section-shell" id="member-cta">
+  <section class="membership-cta section-shell" id="member-cta" [@scrollReveal]="revealedSections['member-cta'] ? 'visible' : 'hidden'">
     <div class="membership-cta__copy">
       <span class="section-eyebrow">Rejoindre l’alliance</span>
       <h2>Faisons grandir l’innovation camerounaise ensemble</h2>
@@ -214,7 +214,7 @@
     />
   </section>
 
-  <section class="showcase section-shell" id="activities">
+  <section class="showcase section-shell" id="activities" [@scrollReveal]="revealedSections['activities'] ? 'visible' : 'hidden'">
     <div class="section-heading">
       <span class="section-eyebrow">Activités</span>
       <h2>Notre dynamique de collaboration</h2>
@@ -269,7 +269,7 @@
     </ng-template>
   </section>
 
-  <section class="showcase section-shell" id="projects">
+  <section class="showcase section-shell" id="projects" [@scrollReveal]="revealedSections['projects'] ? 'visible' : 'hidden'">
     <div class="section-heading">
       <span class="section-eyebrow">Projets</span>
       <h2>Des initiatives qui façonnent l'avenir</h2>
@@ -298,7 +298,7 @@
     </div>
   </section>
 
-  <section class="showcase section-shell" id="hackathons">
+  <section class="showcase section-shell" id="hackathons" [@scrollReveal]="revealedSections['hackathons'] ? 'visible' : 'hidden'">
     <div class="section-heading">
       <span class="section-eyebrow">Hackathons</span>
       <h2>Des défis pour créer, innover et transformer</h2>
@@ -321,7 +321,7 @@
     </div>
   </section>
 
-  <section class="events section-shell" id="events">
+  <section class="events section-shell" id="events" [@scrollReveal]="revealedSections['events'] ? 'visible' : 'hidden'">
     <div class="section-heading">
       <div>
         <span class="section-eyebrow">Événements</span>
@@ -379,7 +379,7 @@
     </div>
   </section>
 
-  <section class="partners" id="partners">
+  <section class="partners" id="partners" [@scrollReveal]="revealedSections['partners'] ? 'visible' : 'hidden'">
     <div class="section-inner">
       <div class="section-heading">
         <span class="section-eyebrow">Partenaires</span>
@@ -406,7 +406,7 @@
     </div>
   </section>
 
-  <section class="newsletter section-shell" id="newsletter">
+  <section class="newsletter section-shell" id="newsletter" [@scrollReveal]="revealedSections['newsletter'] ? 'visible' : 'hidden'">
     <div class="newsletter__content">
       <div class="newsletter__main">
         <div class="newsletter__intro">

@@ -1,4 +1,10 @@
-<footer class="footer" id="footer" @footerReveal>
+<footer
+  class="footer"
+  id="footer"
+  #footerElement
+  [@footerReveal]="footerVisible ? 'visible' : 'hidden'"
+  [@.disabled]="prefersReducedMotion"
+>
   <div class="footer__main">
     <section class="footer__brand" aria-labelledby="footer-brand-title">
       <a routerLink="/" class="footer__logo-link" aria-label="Retour à l'accueil">
