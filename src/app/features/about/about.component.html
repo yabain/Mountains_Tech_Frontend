@@ -1,4 +1,9 @@
-<main class="about-page" *ngIf="siteData$ | async as data">
+<main
+  class="about-page"
+  *ngIf="siteData$ | async as data"
+  #aboutContent
+  [@.disabled]="prefersReducedMotion"
+>
   <header class="events-hero" aria-labelledby="about-hero-title">
     <h1 id="about-hero-title">{{ data.about.title }}</h1>
     <p>{{ data.about.description }}</p>
@@ -9,95 +14,230 @@
     </nav>
   </header>
 
-  <section class="manager-section" aria-labelledby="manager-title">
-    <div class="manager-section__heading">
-      <h1 id="manager-title">{{ data.generalManager.title }}</h1>
-      <span class="section-rule" aria-hidden="true"></span>
-    </div>
-
-    <div class="manager-layout">
-      <div class="manager-profile">
-        <div class="manager-profile__photo">
-          <img *ngIf="data.generalManager.image; else managerPlaceholder" [src]="data.generalManager.image" [alt]="data.generalManager.name" />
-          <ng-template #managerPlaceholder><span aria-hidden="true">JYS</span></ng-template>
-        </div>
-        <div class="manager-profile__caption">
-          <strong>{{ data.generalManager.role }}</strong>
-          <span>{{ data.generalManager.name }}</span>
-        </div>
+  <section
+    class="about-history"
+    id="history"
+    aria-labelledby="history-title"
+    [@scrollReveal]="revealedSections['history'] ? 'visible' : 'hidden'"
+  >
+    <div class="about-container">
+      <div class="about-section-heading about-section-heading--dark">
+        <span class="about-eyebrow">{{ data.history.eyebrow }}</span>
+        <h2 id="history-title">{{ data.history.title }}</h2>
+        <p>{{ data.history.description }}</p>
       </div>
 
-      <div class="manager-message">
+      <ol class="history-timeline" #historyTimeline>
+        <li
+          class="history-milestone"
+          *ngFor="let item of data.history.items; let index = index"
+        >
+          <span class="milestone-node" aria-hidden="true"></span>
+          <span class="milestone-year">{{ item.year }}</span>
+          <div class="milestone-copy">
+            <span class="milestone-index">0{{ index + 1 }}</span>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section
+    class="about-mission"
+    id="mission-vision"
+    aria-labelledby="mission-vision-title"
+    [@scrollReveal]="revealedSections['mission-vision'] ? 'visible' : 'hidden'"
+  >
+    <div class="about-container">
+      <div class="about-section-heading">
+        <span class="about-eyebrow">Mission &amp; vision</span>
+        <h2 id="mission-vision-title">Ce qui nous anime</h2>
+      </div>
+
+      <div class="mission-grid">
+        <article class="mission-item">
+          <span class="mission-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <circle cx="12" cy="12" r="9"></circle>
+              <circle cx="12" cy="12" r="5"></circle>
+              <circle cx="12" cy="12" r="1.5"></circle>
+              <path d="m13.1 10.9 5.4-5.4"></path>
+            </svg>
+          </span>
+          <h3>{{ data.mission.title }}</h3>
+          <p>{{ data.mission.text }}</p>
+        </article>
+
+        <article class="mission-item mission-item--vision">
+          <span class="mission-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </span>
+          <h3>{{ data.vision.title }}</h3>
+          <p>{{ data.vision.text }}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="about-president"
+    id="president"
+    aria-labelledby="president-title"
+    [@scrollReveal]="revealedSections['president'] ? 'visible' : 'hidden'"
+  >
+    <div class="about-container president-layout">
+      <div class="president-identity">
+        <div class="president-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M4 21a8 8 0 0 1 16 0"></path>
+          </svg>
+        </div>
+        <p class="president-name">{{ data.generalManager.name }}</p>
+        <p class="president-company">{{ data.generalManager.company }}</p>
+      </div>
+
+      <div class="president-copy">
+        <div class="about-section-heading">
+          <span class="about-eyebrow">{{ data.generalManager.eyebrow }}</span>
+          <h2 id="president-title">{{ data.generalManager.title }}</h2>
+        </div>
         <p *ngFor="let paragraph of data.generalManager.paragraphs">{{ paragraph }}</p>
-        <blockquote>{{ data.generalManager.quote }}</blockquote>
-        <div class="manager-signature">
-          <strong>{{ data.generalManager.role }}</strong>
-          <span>{{ data.generalManager.name }}</span>
-        </div>
       </div>
     </div>
   </section>
 
-  <section class="about-section role-section" aria-labelledby="role-title">
-    <div class="section-heading">
-      <h2 id="role-title">Notre rôle</h2>
-      <p id="role-description">Un point de rencontre pour les talents africains</p>
-    </div>
-    <div class="objective-grid">
-      <article class="objective" *ngFor="let item of data.values.highlights; let index = index">
-        <span class="objective__number">0{{ index + 1 }}</span>
-        <h3>{{ item.title }}</h3>
-        <p>{{ item.text }}</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="vision-section" aria-labelledby="vision-title">
-    <div class="section-heading section-heading--light">
-      <h2 id="vision-title">Notre vision</h2>
-      <p>{{ data.values.description }}</p>
-    </div>
-    <div class="vision-card">
-      <h3>{{ data.values.title }}</h3>
-      <p>Faire de Bangangté un carrefour technologique dynamique, où l'innovation locale se transforme en solutions pour l'Afrique.</p>
-      <div class="vision-card__facts">
-        <span>{{ data.values.launchDate }}</span>
-        <span>{{ data.values.location }}</span>
+  <section
+    class="about-engagement"
+    id="engagement"
+    aria-labelledby="engagement-title"
+    [@scrollReveal]="revealedSections['engagement'] ? 'visible' : 'hidden'"
+  >
+    <div class="about-container">
+      <div class="about-section-heading">
+        <span class="about-eyebrow">{{ data.values.eyebrow }}</span>
+        <h2 id="engagement-title">{{ data.values.title }}</h2>
+        <p>{{ data.values.description }}</p>
       </div>
-    </div>
-  </section>
 
-  <section class="about-section about-section--bureau" aria-labelledby="bureau-title">
-    <div class="section-heading">
-      <h2 id="bureau-title">Les membres du bureau</h2>
-      <p>Les portraits et fonctions de l'équipe pourront être ajoutés dans le dossier <strong>public/photoBureau</strong>.</p>
-    </div>
-    <div class="bureau-grid">
-      <article class="bureau-card" *ngFor="let member of data.values.officeMembers">
-        <div class="bureau-card__photo">
-          <img *ngIf="member.image; else memberPlaceholder" [src]="member.image" [alt]="member.name" loading="lazy" />
-          <ng-template #memberPlaceholder><span aria-hidden="true">{{ member.name.charAt(0) }}</span></ng-template>
-        </div>
-        <h3>{{ member.name }}</h3>
-        <p>{{ member.role }}</p>
-      </article>
-    </div>
-  </section>
+      <div class="engagement-facts">
+        <span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+            <path d="M16 3v4M8 3v4M3 10h18"></path>
+          </svg>
+          Créée en {{ data.values.launchDate }}
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+            <circle cx="12" cy="10" r="2.5"></circle>
+          </svg>
+          {{ data.values.location }}
+        </span>
+      </div>
 
-  <section class="history-section" aria-labelledby="history-title">
-    <div class="section-heading">
-      <h2 id="history-title">Notre histoire</h2>
-      <p>{{ data.history.description }}</p>
-    </div>
-    <div class="history-timeline">
-      <article class="history-item" *ngFor="let item of data.history.items; let last = last">
-        <div class="history-item__year">{{ item.year }}</div>
-        <div class="history-item__line" [class.history-item__line--last]="last" aria-hidden="true"></div>
-        <div class="history-item__card">
+      <div class="engagement-grid">
+        <article class="engagement-card" *ngFor="let item of data.values.highlights; let index = index">
+          <span class="engagement-card__number">0{{ index + 1 }}</span>
           <h3>{{ item.title }}</h3>
-          <p>{{ item.description }}</p>
-        </div>
-      </article>
+          <p>{{ item.text }}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="about-core-values"
+    id="core-values"
+    aria-labelledby="core-values-title"
+    [@scrollReveal]="revealedSections['core-values'] ? 'visible' : 'hidden'"
+  >
+    <div class="about-container">
+      <div class="about-section-heading">
+        <span class="about-eyebrow">Valeurs</span>
+        <h2 id="core-values-title">Les principes qui nous guident</h2>
+      </div>
+
+      <div class="core-values-grid">
+        <article class="core-value" *ngFor="let item of data.coreValues">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.text }}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="about-governance"
+    id="governance"
+    aria-labelledby="governance-title"
+    [@scrollReveal]="revealedSections['governance'] ? 'visible' : 'hidden'"
+  >
+    <div class="about-container">
+      <div class="about-section-heading">
+        <span class="about-eyebrow">Gouvernance</span>
+        <h2 id="governance-title">Une organisation claire et collégiale</h2>
+      </div>
+
+      <div class="governance-grid">
+        <article class="governance-card" *ngFor="let item of data.governance; let index = index">
+          <span class="governance-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6M3 9h18"></path>
+            </svg>
+          </span>
+          <p class="governance-level">Niveau {{ index + 1 }}</p>
+          <h3>{{ item.title }}</h3>
+          <p class="governance-description">{{ item.text }}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="about-board"
+    id="board"
+    aria-labelledby="board-title"
+    [@scrollReveal]="revealedSections['board'] ? 'visible' : 'hidden'"
+  >
+    <div class="about-container">
+      <div class="about-section-heading">
+        <span class="about-eyebrow">Bureau exécutif</span>
+        <h2 id="board-title">Les membres du bureau exécutif</h2>
+      </div>
+
+      <div class="board-grid">
+        <article class="board-card" *ngFor="let member of boardMembers(data); trackBy: trackByBoardMember">
+          <div class="board-photo" [class.board-photo--placeholder]="!member.image">
+            <img *ngIf="member.image; else boardPlaceholder" [src]="member.image" [alt]="member.name" loading="lazy" />
+            <ng-template #boardPlaceholder>
+              <div class="board-placeholder" aria-hidden="true">
+                <span>{{ boardInitials(member.name) }}</span>
+              </div>
+            </ng-template>
+            <a
+              class="board-linkedin"
+              href="https://www.linkedin.com/company/mountains-tech"
+              target="_blank"
+              rel="noreferrer"
+              [attr.aria-label]="'LinkedIn de ' + member.name"
+            >
+              in
+            </a>
+            <p class="board-role">{{ member.role }}</p>
+          </div>
+          <div class="board-name">
+            <p>{{ member.name }}</p>
+            <p class="board-company" *ngIf="member.company">{{ member.company }}</p>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 </main>

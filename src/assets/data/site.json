@@ -14,58 +14,77 @@
     ]
   },
   "generalManager": {
-    "eyebrow": "Leadership",
+    "eyebrow": "Présidence",
     "title": "Rencontrez notre président",
-    "role": "General Manager",
-    "name": "Flambel Sanou",
+    "role": "Président",
+    "company": "CEO de Yaba-In",
+    "name": "Flambel SANOU",
     "image": "/photoBureau/flambel.webp",
     "paragraphs": [
-      "Chaque étape comporte ses propres défis. Elle exige d'adopter un état d'esprit de croissance, de décomposer les problèmes en étapes maîtrisables et de rester fort et résilient.",
-      "MountainsTech avance avec la conviction que les fondations posées aujourd'hui permettront de relever les défis de demain.",
-      "Avec plus de 500 jeunes Camerounais recrutés en 2025 dans l'écosystème numérique, nous contribuons à ouvrir davantage l'accès au marché de l'emploi et à donner aux talents les moyens de créer des solutions utiles.",
-      "Nous poursuivons cette dynamique en accélérant les projets qui connectent les communautés, renforcent les compétences et font grandir les technologies africaines."
+      "Flambel SANOU, CEO de Yaba-In, fait partie des trois fondateurs de Mountains Tech aux côtés de Hussein MENKAM et de Merlin TONKA.",
+      "En tant que Président, il assure la direction générale, la représentation institutionnelle et la stratégie globale de l’association.",
+      "Il coordonne la planification des événements avec le Vice-Président en charge des Projets et le Secrétaire Général."
     ],
-    "quote": "Notre ambition est de construire un écosystème où chaque talent peut apprendre, collaborer et transformer une idée en impact."
+    "quote": ""
   },
   "values": {
-    "eyebrow": "Nos valeurs",
-    "title": "Un technopôle pour faire grandir l'innovation africaine",
-    "description": "Mountains Tech In Africa est un technopôle innovant basé à Bangangté, officiellement lancé le 11 janvier 2025 à l'occasion d'un hackathon. Il accompagne les jeunes créateurs, développeurs et porteurs de projets pour transformer leurs idées en solutions utiles et porter les technologies africaines vers de nouveaux sommets.",
-    "launchDate": "11 janvier 2025",
+    "eyebrow": "Notre engagement",
+    "title": "La coopération au service de l’économie numérique",
+    "description": "Mountains Tech In Africa est une association à but non lucratif fondée en 2023 à Bangangté. Son action s’étend de l’écosystème local au plan régional, national et continental.",
+    "launchDate": "2023",
     "location": "Bangangté, Cameroun",
-    "sourceUrl": "https://www.linkedin.com/posts/mountains-tech_mountainstechinafrica-innovation-africantechnology-activity-7284997936915099648-mg3L",
+    "sourceUrl": "",
     "highlights": [
       {
-        "title": "Soutenir l'innovation locale",
-        "text": "Aider les jeunes créateurs, développeurs et porteurs de projets à concrétiser leurs idées technologiques."
+        "title": "Recherche et innovation",
+        "text": "Promouvoir la recherche, la transformation digitale et l’entrepreneuriat technologique."
       },
       {
-        "title": "Créer des connexions",
-        "text": "Rassembler talents, chercheurs et entrepreneurs africains pour partager des solutions aux défis du continent."
+        "title": "Formation et inclusion",
+        "text": "Contribuer à la formation et à l’inclusion numérique des jeunes et des femmes."
       },
       {
-        "title": "Accélérer le développement",
-        "text": "Faire de Bangangté et de la région un carrefour technologique dynamique, ouvert sur l'Afrique et le monde."
+        "title": "Coopération et représentation",
+        "text": "Fédérer les acteurs et défendre les intérêts de l’écosystème auprès des pouvoirs publics et partenaires."
       }
     ],
     "officeMembers": [
-      { "id": 1, "name": "À compléter", "role": "Membre du bureau", "image": "" },
-      { "id": 2, "name": "À compléter", "role": "Membre du bureau", "image": "" },
-      { "id": 3, "name": "À compléter", "role": "Membre du bureau", "image": "" }
+      { "id": 1, "name": "Francis POUATCHA", "role": "Vice-Président en charge des Projets", "detail": "Supervision opérationnelle des projets, hackathons et programmes techniques.", "image": "" },
+      { "id": 2, "name": "Hussein MENKAM", "role": "Vice-Président en charge de l’Administration", "detail": "Gestion administrative, suivi de l’organisation interne et gouvernance.", "company": "COO de Yaba-In", "image": "" },
+      { "id": 3, "name": "Merlin TONKA", "role": "Vice-Président en charge de la Coopération", "detail": "Partenariats stratégiques, relations extérieures et synergies institutionnelles.", "company": "CEO de Clemios et de TonkaIn", "image": "" },
+      { "id": 4, "name": "Yavan TCHIETCHA", "role": "Secrétaire Général", "detail": "Gestion des adhésions, correspondance officielle et rédaction des procès-verbaux.", "image": "" },
+      { "id": 5, "name": "Pierre POKAM", "role": "Trésorier Général", "detail": "Gestion financière, cotisations, comptabilité et contrôle du budget.", "image": "" }
     ]
   },
   "history": {
     "eyebrow": "Notre histoire",
-    "title": "Une trajectoire d'innovation",
-    "description": "Des premières collaborations au technopôle Mountains Tech In Africa, chaque étape renforce notre capacité à faire émerger des solutions africaines.",
+    "title": "Une trajectoire de coopération",
+    "description": "Née à Bangangté, Mountains Tech porte une ambition locale, nationale et continentale.",
     "items": [
-      { "year": "2022", "title": "Les premières connexions", "description": "Des acteurs du numérique commencent à structurer des échanges autour des talents et des besoins technologiques locaux." },
-      { "year": "2023", "title": "Une communauté se construit", "description": "Les rencontres, ateliers et collaborations rapprochent entrepreneurs, développeurs et porteurs de projets." },
-      { "year": "2024", "title": "Préparer le technopôle", "description": "Les bases d'un espace d'innovation à Bangangté se consolident avec une ambition tournée vers l'Afrique." },
-      { "year": "2025", "title": "Lancement officiel", "description": "Mountains Tech In Africa est officiellement lancé le 11 janvier 2025 à l'occasion d'un hackathon." },
-      { "year": "Aujourd'hui", "title": "Accélérer l'impact", "description": "Le réseau continue de soutenir l'innovation locale, le partage de compétences et les projets à fort potentiel." }
+      { "year": "2023", "title": "Création à Bangangté", "description": "Flambel SANOU (CEO de Yaba-In), Hussein MENKAM (COO de Yaba-In) et Merlin TONKA (CEO de Clemios et de TonkaIn) fondent Mountains Tech." },
+      { "year": "Notre ancrage", "title": "L’Ouest-Cameroun", "description": "Le siège social est situé à Bangangté. L’association fédère les acteurs de l’écosystème technologique local et régional." },
+      { "year": "Notre portée", "title": "Du Cameroun au continent", "description": "La coopération, les partenariats et la représentation de l’écosystème s’inscrivent dans une portée nationale et continentale." }
     ]
   },
+  "mission": {
+    "title": "Notre mission",
+    "text": "Favoriser la coopération entre les acteurs du secteur technologique camerounais en vue de promouvoir l’innovation, la transformation digitale et le développement durable de l’économie numérique nationale."
+  },
+  "vision": {
+    "title": "Notre vision",
+    "text": "Un écosystème technologique coopératif, ancré à Bangangté et ouvert à la région de l’Ouest, au Cameroun et au continent africain."
+  },
+  "coreValues": [
+    { "title": "Coopération", "text": "Fédérer les acteurs et construire des synergies au sein de l’écosystème technologique." },
+    { "title": "Innovation", "text": "Promouvoir la recherche, la transformation digitale et l’entrepreneuriat technologique." },
+    { "title": "Inclusion numérique", "text": "Contribuer à la formation et à l’inclusion numérique des jeunes et des femmes." },
+    { "title": "Développement durable", "text": "Soutenir le développement durable de l’économie numérique nationale." }
+  ],
+  "governance": [
+    { "title": "Assemblée Générale", "text": "Organe suprême réunissant l’ensemble des membres à jour de leurs obligations, en session ordinaire annuelle." },
+    { "title": "Bureau Exécutif", "text": "Organe de gestion et de coordination, élu pour un mandat de deux (2) ans renouvelable une fois." },
+    { "title": "Commissions Techniques et Projets", "text": "Organes opérationnels chargés de la mise en œuvre des programmes spécifiques." }
+  ],
     "about": {
     "title": "À propos de MountainsTech",
     "description": "MountainsTech réunit des acteurs clés du numérique au Cameroun pour créer un écosystème fort, innovant et collaboratif.",

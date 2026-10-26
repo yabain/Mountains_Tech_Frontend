@@ -357,12 +357,9 @@
           <span>{{ formatEventDay(event.startAt) }}</span>
         </time>
 
-        <div class="event-card__image" *ngIf="event.coverUrl; else eventFallback">
-          <img [src]="event.coverUrl" [alt]="event.title" loading="lazy" />
+        <div class="event-card__image">
+          <img [src]="event.coverUrl || '/evenImage/event2.jpg'" [alt]="event.title" loading="lazy" />
         </div>
-        <ng-template #eventFallback>
-          <div class="event-card__image event-card__image--fallback" aria-hidden="true">MT</div>
-        </ng-template>
 
         <div class="event-card__body">
           <p class="event-card__category" *ngIf="event.category">{{ event.category }}</p>

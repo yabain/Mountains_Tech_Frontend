@@ -152,7 +152,7 @@
 }
 
 .about-section--bureau {
-  border-top: 1px solid rgba(0, 68, 126, 0.1);
+  border-top: 0;
 }
 
 .section-heading {
@@ -193,21 +193,9 @@
 
 .objective:hover,
 .bureau-card:hover {
-  transform: translateY(-4px);
+  transform: translateX(4px);
   border-color: rgba(0, 156, 203, 0.3);
-  box-shadow: 0 20px 40px rgba(15, 35, 48, 0.11);
-}
-
-.objective__number {
-  display: inline-grid;
-  width: 2.5rem;
-  height: 2.5rem;
-  place-items: center;
-  border-radius: 0.8rem;
-  background: #e7f6fa;
-  color: #007da5;
-  font-size: 0.82rem;
-  font-weight: 800;
+  box-shadow: 0 16px 30px rgba(15, 35, 48, 0.09);
 }
 
 .objective h3,
@@ -223,6 +211,12 @@
   margin: 0;
   color: #52606b;
   line-height: 1.7;
+}
+
+.bureau-heading {
+  margin: 2rem 0 0;
+  color: #00447e;
+  font-size: 1.15rem;
 }
 
 .bureau-card {
@@ -256,7 +250,7 @@
 }
 
 .manager-section,
-.role-section,
+.values-section,
 .history-section {
   max-width: 1200px;
   margin: 0 auto;
@@ -276,22 +270,13 @@
   text-align: center;
 }
 
-.manager-section__heading h1 {
+.manager-section__heading h2 {
   margin: 0.7rem 0 1rem;
   color: #071b2d;
   font-size: clamp(2rem, 4.2vw, 3.2rem);
   font-weight: 800;
   letter-spacing: -0.035em;
   line-height: 1.05;
-}
-
-.section-rule {
-  display: block;
-  width: 3.25rem;
-  height: 3px;
-  margin: 0 auto;
-  border-radius: 999px;
-  background: #009ccb;
 }
 
 .manager-layout {
@@ -341,6 +326,12 @@
   background: #fff;
   text-align: center;
   box-shadow: 0 12px 28px rgba(15, 35, 48, 0.13);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.manager-profile:hover .manager-profile__caption {
+  transform: translateX(4px);
+  box-shadow: 0 16px 30px rgba(15, 35, 48, 0.09);
 }
 
 .manager-profile__caption strong,
@@ -371,7 +362,13 @@
   color: #52606b;
   font-size: 0.98rem;
   line-height: 1.8;
-  box-shadow: 0 16px 36px rgba(15, 35, 48, 0.06);
+  box-shadow: 0 10px 24px rgba(15, 35, 48, 0.05);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.manager-message:hover {
+  transform: translateX(4px);
+  box-shadow: 0 16px 30px rgba(15, 35, 48, 0.09);
 }
 
 .manager-message p {
@@ -395,13 +392,14 @@
   border-top: 1px solid #d8e1e5;
 }
 
-.role-section {
+.values-section {
   max-width: none;
   background: #fff;
 }
 
-.role-section > .section-heading,
-.role-section > .objective-grid,
+.values-section > .section-heading,
+.values-section > .objective-grid,
+.about-section--bureau > .section-heading,
 .history-section > .section-heading,
 .history-section > .history-timeline {
   max-width: 1050px;
@@ -409,55 +407,65 @@
   margin-left: auto;
 }
 
-.vision-section {
+.mission-vision-section {
   padding: clamp(3rem, 7vw, 6rem) 1.25rem;
-  background:
-    radial-gradient(circle at 10% 15%, rgba(255, 255, 255, 0.1), transparent 24rem),
-    linear-gradient(135deg, #003866, #00447e 58%, #07558e);
+  background: #f0f8fd;
 }
 
-.section-heading--light h2,
-.section-heading--light p {
-  color: #fff;
+.mission-vision-section > .section-heading {
+  max-width: 1050px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-.vision-card {
-  max-width: 900px;
-  margin: 2rem auto 0;
-  padding: clamp(1.5rem, 5vw, 4rem);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.09);
-  box-shadow: 0 24px 60px rgba(0, 24, 49, 0.2);
-  backdrop-filter: blur(8px);
-  color: #fff;
-  text-align: center;
-}
-
-.vision-card h3 {
-  margin: 0 0 1rem;
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-}
-
-.vision-card p {
-  max-width: 70ch;
+.mission-vision-grid {
+  display: grid;
+  max-width: 1050px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
   margin: 0 auto;
-  color: rgba(255, 255, 255, 0.84);
-  line-height: 1.75;
 }
 
-.vision-card__facts {
+.mission-vision-card {
+  min-height: 100%;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid rgba(0, 68, 126, 0.1);
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(15, 35, 48, 0.05);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.mission-vision-card:hover {
+  transform: translateX(4px);
+  border-color: rgba(0, 156, 203, 0.3);
+  box-shadow: 0 16px 30px rgba(15, 35, 48, 0.09);
+}
+
+.mission-vision-card h3 {
+  margin: 0 0 0.8rem;
+  color: #00447e;
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+}
+
+.mission-vision-card p {
+  margin: 0;
+  color: #52606b;
+  line-height: 1.7;
+}
+
+.mission-vision-card__facts {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 1.5rem;
 }
 
-.vision-card__facts span {
+.mission-vision-card__facts span {
   padding: 0.5rem 0.85rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.14);
+  background: #e7f6fa;
+  color: #00447e;
   font-size: 0.8rem;
 }
 
@@ -532,7 +540,8 @@
   }
 
   .objective-grid,
-  .bureau-grid {
+  .bureau-grid,
+  .mission-vision-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -568,7 +577,8 @@
   }
 
   .objective-grid,
-  .bureau-grid {
+  .bureau-grid,
+  .mission-vision-grid {
     grid-template-columns: 1fr;
   }
 
@@ -590,13 +600,712 @@
 @media (prefers-reduced-motion: reduce) {
   .objective,
   .bureau-card,
+  .manager-profile__caption,
+  .manager-message,
+  .mission-vision-card,
   .history-item__card {
     transition: none;
   }
 
   .objective:hover,
   .bureau-card:hover,
+  .manager-profile:hover .manager-profile__caption,
+  .manager-message:hover,
+  .mission-vision-card:hover,
   .history-item__card:hover {
+    transform: none;
+  }
+}
+
+.about-container {
+  width: min(100% - 3rem, 80rem);
+  margin-inline: auto;
+}
+
+.about-section-heading {
+  max-width: 42.5rem;
+  margin-bottom: 2.5rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.about-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #00447e;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transform-origin: left center;
+  transition: transform 220ms ease;
+}
+
+.about-page section:hover .about-eyebrow,
+.about-page section:focus-within .about-eyebrow {
+  transform: scale(1.1);
+}
+
+.about-eyebrow::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: 0 0 0.5rem;
+  background: #ffe721;
+  content: '';
+}
+
+.about-section-heading h2 {
+  max-width: 42.5rem;
+  margin: 1rem 0 0;
+  color: #14212b;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.about-section-heading > p {
+  margin: 0.9rem 0 0;
+  color: #52616d;
+  line-height: 1.7;
+}
+
+.about-history {
+  padding: clamp(4.5rem, 8vw, 6rem) 0;
+  background-color: #062f4e;
+  background-image:
+    linear-gradient(to right, rgba(111, 166, 204, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(111, 166, 204, 0.14) 1px, transparent 1px);
+  background-size: 56px 56px;
+  color: #f5f8fa;
+}
+
+.about-section-heading--dark .about-eyebrow {
+  color: #63c8f2;
+}
+
+.about-section-heading--dark h2 {
+  color: #f5f8fa;
+}
+
+.about-section-heading--dark > p {
+  color: rgba(245, 248, 250, 0.72);
+}
+
+.history-timeline {
+  position: relative;
+  margin: 3.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  --timeline-progress: 0;
+}
+
+.history-timeline::before,
+.history-timeline::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 11.875rem;
+  width: 2px;
+  background: rgba(111, 166, 204, 0.25);
+  content: '';
+}
+
+.history-timeline::after {
+  background: #ffe721;
+  transform: scaleY(var(--timeline-progress));
+  transform-origin: top;
+}
+
+.history-milestone {
+  position: relative;
+  display: grid;
+  min-height: 11.875rem;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  gap: 5rem;
+  padding-bottom: 3rem;
+}
+
+.milestone-node {
+  position: absolute;
+  z-index: 1;
+  top: 0.5rem;
+  left: 11.5rem;
+  width: 0.875rem;
+  height: 0.875rem;
+  border: 2px solid #f5f8fa;
+  background: #062f4e;
+  transition: background 350ms ease, border-color 350ms ease, transform 350ms ease;
+}
+
+.milestone-year {
+  color: #f5f8fa;
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: color 400ms ease;
+}
+
+.about-page section:hover .about-eyebrow,
+.about-page section:focus-within .about-eyebrow {
+  transform: none;
+}
+
+.about-eyebrow {
+  transition: none;
+}
+
+.milestone-copy {
+  max-width: 48rem;
+  opacity: 0.38;
+  transform: translateY(1rem);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.milestone-index {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: rgba(245, 248, 250, 0.5);
+  font-size: 0.75rem;
+}
+
+.milestone-copy h3 {
+  margin: 0;
+  color: #f5f8fa;
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.milestone-copy p {
+  max-width: 48rem;
+  margin: 0.9rem 0 0;
+  color: rgba(245, 248, 250, 0.7);
+  line-height: 1.65;
+}
+
+.milestone-active .milestone-node {
+  border-color: #ffe721;
+  background: #ffe721;
+  transform: rotate(45deg);
+}
+
+.milestone-active .milestone-year {
+  color: #ffe721;
+}
+
+.milestone-active .milestone-copy {
+  opacity: 1;
+  transform: none;
+}
+
+.about-mission,
+.about-president,
+.about-core-values,
+.about-board {
+  padding: clamp(4.5rem, 8vw, 6rem) 0;
+  background: #fff;
+}
+
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.mission-item {
+  padding: 1.5rem 2rem 2rem;
+  border: 0;
+  border-top: 2px solid #00447e;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.mission-item--vision {
+  border-top-color: #ffe721;
+}
+
+.mission-icon,
+.governance-icon {
+  display: inline-flex;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background: #00447e;
+  color: #fff;
+}
+
+.mission-icon svg,
+.governance-icon svg,
+.president-mark svg,
+.engagement-facts svg,
+.board-placeholder svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.mission-item h3 {
+  margin: 1.25rem 0 0;
+  color: #14212b;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.mission-item > p {
+  margin: 0.75rem 0 0;
+  color: #52616d;
+  line-height: 1.7;
+}
+
+.president-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 3rem);
+}
+
+.president-identity {
+  display: flex;
+  min-height: 34rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 2rem;
+  border-bottom: 4px solid #ffe721;
+  background-color: #062f4e;
+  background-image:
+    linear-gradient(to right, rgba(111, 166, 204, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(111, 166, 204, 0.14) 1px, transparent 1px);
+  background-size: 56px 56px;
+  color: #f5f8fa;
+}
+
+.president-mark {
+  display: grid;
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 1.25rem;
+  place-items: center;
+  color: rgba(245, 248, 250, 0.6);
+}
+
+.president-mark svg {
+  width: 4rem;
+  height: 4rem;
+  stroke-width: 1.4;
+}
+
+.president-name {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.president-company {
+  margin: 0.35rem 0 0;
+  color: rgba(245, 248, 250, 0.78);
+}
+
+.president-copy .about-section-heading {
+  margin-bottom: 1.5rem;
+}
+
+.president-copy > p {
+  margin: 0 0 1rem;
+  color: #52616d;
+  line-height: 1.7;
+}
+
+.about-engagement,
+.about-governance {
+  padding: clamp(4.5rem, 8vw, 6rem) 0;
+  background: #fffbea;
+}
+
+.engagement-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin: -0.5rem 0 2rem;
+  color: #34424c;
+  font-size: 0.9rem;
+}
+
+.engagement-facts span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.engagement-facts svg {
+  width: 1rem;
+  height: 1rem;
+  color: #00447e;
+}
+
+.engagement-grid,
+.governance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.engagement-card,
+.core-value,
+.governance-card {
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 68, 126, 0.12);
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: 0 0.5rem 1.5rem rgba(15, 35, 48, 0.06);
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.engagement-card:hover,
+.core-value:hover,
+.governance-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 68, 126, 0.28);
+  box-shadow: 0 1rem 2rem rgba(15, 35, 48, 0.12);
+}
+
+.engagement-card__number {
+  color: #c7a900;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.engagement-card h3,
+.core-value h3,
+.governance-card h3 {
+  margin: 0.75rem 0 0;
+  color: #14212b;
+  font-size: 1.15rem;
+  line-height: 1.35;
+}
+
+.engagement-card p,
+.core-value p,
+.governance-description {
+  margin: 0.6rem 0 0;
+  color: #52616d;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.core-values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.about-governance .about-section-heading {
+  margin-bottom: 2.5rem;
+}
+
+.governance-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+}
+
+.governance-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.governance-level {
+  margin: 1rem 0 0;
+  color: #00447e;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.governance-card h3 {
+  margin-top: 0.35rem;
+}
+
+.governance-description {
+  font-size: 0.9rem;
+}
+
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.board-card {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 0.5rem 1.5rem rgba(15, 35, 48, 0.08);
+}
+
+.board-photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #e5eef4;
+}
+
+.board-photo > img,
+.board-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1), filter 900ms ease;
+}
+
+.board-placeholder {
+  display: grid;
+  place-items: center;
+  background: #e5eef4;
+  color: #00447e;
+  font-size: clamp(4rem, 8vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), background-color 300ms ease;
+}
+
+.board-photo--placeholder {
+  background: #e5eef4;
+}
+
+.board-card:hover .board-placeholder {
+  background: #d8e8f1;
+  transform: scale(1.04);
+}
+
+.board-card:hover .board-photo > img {
+  filter: saturate(1.15);
+  transform: scale(1.12) translateY(-2%);
+}
+
+.board-linkedin {
+  position: absolute;
+  z-index: 2;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border-radius: 50%;
+  background: #00447e;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 220ms ease, background-color 220ms ease;
+}
+
+.board-linkedin:hover,
+.board-linkedin:focus-visible {
+  background: #003866;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.board-linkedin:focus-visible {
+  outline: 3px solid #ffe721;
+  outline-offset: 3px;
+}
+
+.board-role {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 2.5rem 1rem 0.6rem;
+  background: linear-gradient(to top, rgba(0, 68, 126, 0.85), transparent);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: translateY(6px);
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.board-card:hover .board-role,
+.board-card:focus-within .board-role {
+  transform: translateY(0);
+}
+
+.board-name {
+  position: relative;
+  min-height: 4.5rem;
+  padding: 1rem;
+  background: #00447e;
+  color: #fff;
+}
+
+.board-name::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: #ffe721;
+  content: '';
+  transition: width 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.board-card:hover .board-name::before,
+.board-card:focus-within .board-name::before {
+  width: 100%;
+}
+
+.board-name > p {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.board-name .board-company {
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  opacity: 0.85;
+  text-transform: none;
+}
+
+@media (max-width: 1023px) {
+  .core-values-grid,
+  .board-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .president-layout {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .about-container {
+    width: min(100% - 2rem, 80rem);
+  }
+
+  .about-history,
+  .about-mission,
+  .about-president,
+  .about-engagement,
+  .about-core-values,
+  .about-governance,
+  .about-board {
+    padding-block: 4rem;
+  }
+
+  .history-timeline {
+    margin-top: 3rem;
+  }
+
+  .history-timeline::before,
+  .history-timeline::after {
+    left: 0.45rem;
+  }
+
+  .history-milestone {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0 0 3rem 2.5rem;
+  }
+
+  .milestone-node {
+    left: 0;
+  }
+
+  .milestone-year {
+    font-size: 1.5rem;
+  }
+
+  .mission-grid,
+  .engagement-grid,
+  .governance-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .mission-item {
+    padding: 1.25rem 1rem 1.5rem;
+  }
+
+  .president-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .president-identity {
+    min-height: 28rem;
+  }
+
+  .core-values-grid,
+  .board-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .board-role {
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (max-width: 420px) {
+  .core-values-grid,
+  .board-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .engagement-facts {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .milestone-node,
+  .milestone-year,
+  .milestone-copy,
+  .engagement-card,
+  .core-value,
+  .governance-card,
+  .board-photo > img,
+  .board-linkedin,
+  .board-role,
+  .board-name::before {
+    transition: none;
+  }
+
+  .milestone-copy {
+    opacity: 1;
+    transform: none;
+  }
+
+  .history-timeline::after {
+    transform: scaleY(1);
+  }
+
+  .engagement-card:hover,
+  .core-value:hover,
+  .governance-card:hover,
+  .board-card:hover .board-photo > img {
     transform: none;
   }
 }

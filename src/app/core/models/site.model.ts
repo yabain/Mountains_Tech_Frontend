@@ -4,6 +4,10 @@ export interface SiteData {
   generalManager: GeneralManagerSection;
   values: ValuesSection;
   history: HistorySection;
+  mission: { title: string; text: string };
+  vision: { title: string; text: string };
+  coreValues: { title: string; text: string }[];
+  governance: { title: string; text: string }[];
   members: MemberItem[];
   activities: ActivityItem[];
   projects: ProjectItem[];
@@ -37,15 +41,18 @@ export interface OfficeMember {
   id: number;
   name: string;
   role: string;
-  image: string;
+  detail?: string;
+  company?: string;
+  image?: string;
 }
 
 export interface GeneralManagerSection {
   eyebrow: string;
   title: string;
   role: string;
+  company?: string;
   name: string;
-  image: string;
+  image?: string;
   paragraphs: string[];
   quote: string;
 }

@@ -198,7 +198,14 @@ input[aria-invalid='true'] {
 }
 
 .submit-button:hover:not(:disabled) {
-  background: #008ec8;
+  background: #063902;
+  transform: translateY(-1px);
+}
+
+.submit-button:focus-visible:not(:disabled) {
+  background: #063902;
+  outline: 3px solid #00447e;
+  outline-offset: 3px;
   transform: translateY(-1px);
 }
 

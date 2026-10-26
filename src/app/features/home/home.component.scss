@@ -1110,6 +1110,10 @@ h2 {
   object-fit: cover;
 }
 
+#member-cta:hover .section-eyebrow {
+  transform: none;
+}
+
 .home-action {
   display: inline-flex;
   min-height: 2.9rem;
@@ -1213,13 +1217,13 @@ h2 {
   min-width: 0;
   flex-direction: column;
   overflow: hidden;
-  background: var(--home-soft);
+  background: #fff;
   transition: transform 250ms ease, background-color 250ms ease;
 }
 
 .activity-card:hover {
   transform: translateY(-5px) scale(1.025);
-  background: #eaf1f5;
+  background: #fff;
 }
 
 .activity-card > img {
@@ -1784,8 +1788,6 @@ h2 {
   .mission-card,
   .key-figure,
   .member-card,
-  .membership-cta__copy,
-  .membership-cta__image,
   .activity-card,
   .project-card,
   .event-card,
@@ -1794,7 +1796,6 @@ h2 {
     transition: transform 250ms ease, opacity 250ms ease;
   }
 
-  .membership-cta__image,
   .event-card__image img,
   .project-card img,
   .activity-card > img,
@@ -1802,13 +1803,47 @@ h2 {
     transition: transform 450ms ease;
   }
 
-  .membership-cta:hover .membership-cta__image,
   .event-card:hover .event-card__image img,
   .project-card:hover img,
   .activity-card:hover img,
   .member-card:hover > img {
     transform: scale(1.025);
   }
+}
+
+.highlight,
+.mission-card,
+.key-figure,
+.member-card,
+.activity-card,
+.project-card,
+.event-card,
+.info-card,
+.partner-item,
+.newsletter__content {
+  transition: box-shadow 220ms ease, transform 250ms ease, background-color 250ms ease;
+}
+
+.highlight:hover,
+.mission-card:hover,
+.key-figure:hover,
+.member-card:hover,
+.activity-card:hover,
+.project-card:hover,
+.event-card:hover,
+.info-card:hover,
+.partner-item:hover,
+.newsletter__content:hover {
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.18);
+}
+
+#hackathons .info-card {
+  background: #fff;
+}
+
+#hackathons .info-card:hover {
+  background: #fff;
+  transform: translateY(-5px);
 }
 
 @media (max-width: 992px) {
