@@ -31,6 +31,7 @@
 
   <section class="about section-shell" id="about">
     <div class="section-heading">
+      <span class="section-eyebrow">À propos</span>
       <h2>{{ data.about.title }}</h2>
     </div>
 
@@ -66,51 +67,152 @@
     </div>
   </section>
 
+  <section class="mission-vision" id="mission-vision">
+    <div class="section-inner">
+      <div class="section-heading">
+        <span class="section-eyebrow">Mission &amp; vision</span>
+        <h2>Ce qui nous anime</h2>
+      </div>
+
+      <div class="mission-vision__grid">
+        <article class="mission-card">
+          <span class="mission-card__mark" aria-hidden="true">M</span>
+          <h3>Notre mission</h3>
+          <p>
+            Favoriser la coopération entre les acteurs du secteur technologique camerounais pour
+            promouvoir l’innovation, la transformation digitale et le développement durable de
+            l’économie numérique nationale.
+          </p>
+        </article>
+
+        <article class="mission-card mission-card--vision">
+          <span class="mission-card__mark" aria-hidden="true">V</span>
+          <h3>Notre vision</h3>
+          <p>
+            Un écosystème technologique coopératif, ancré à Bangangté et ouvert à la région de
+            l’Ouest, au Cameroun et au continent africain.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="key-figures" id="key-figures">
+    <div class="section-inner">
+      <div class="section-heading">
+        <span class="section-eyebrow">Chiffres clés</span>
+        <h2>Notre impact en quelques chiffres</h2>
+      </div>
+
+      <dl class="key-figures__grid">
+        <div class="key-figure">
+          <dt>Année de création</dt>
+          <dd>2023</dd>
+        </div>
+        <div class="key-figure">
+          <dt>Membres fondateurs</dt>
+          <dd>3</dd>
+        </div>
+        <div class="key-figure">
+          <dt>Responsables au Bureau Exécutif</dt>
+          <dd>6</dd>
+        </div>
+        <div class="key-figure">
+          <dt>Catégories de membres</dt>
+          <dd>4</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
   <section class="showcase section-shell" id="members">
     <div class="section-heading">
-      <span class="section-tag">Membres</span>
+      <span class="section-eyebrow">Membres</span>
       <h2>Les entreprises qui composent l'alliance</h2>
     </div>
 
-    <div class="card-grid">
-      <article class="info-card" *ngFor="let member of data.members.slice(0, 4)">
-        <img [src]="member.image" [alt]="member.name" loading="lazy" width="320" height="220" />
-        <div class="info-card__body">
-          <small>{{ member.city }}</small>
+    <div class="member-grid">
+      <article class="member-card" *ngFor="let member of data.members.slice(0, 4)">
+        <img [src]="member.image" [alt]="member.name" loading="lazy" width="640" height="420" />
+        <div class="member-card__body">
+          <p class="member-card__city">{{ member.city }}</p>
           <h3>{{ member.name }}</h3>
           <p class="role">{{ member.role }}</p>
-          <p>{{ member.description }}</p>
+          <p class="member-card__description">{{ member.description }}</p>
+          <a
+            class="member-card__link"
+            [href]="'/membres/' + member.name.toLowerCase().replace('é', 'e').replace(' ', '-')"
+          >
+            Découvrir le membre <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </article>
     </div>
 
-<div class="section-actions section-actions--center">
-  <app-button routerLink="/membres" variant="primary" [buttonAs]="'link'">Voir plus</app-button>
-  <app-button routerLink="/membres" variant="secondary" [buttonAs]="'link'">En savoir plus</app-button>
-</div>
+    <div class="section-actions section-actions--center">
+      <a class="home-action" href="/membres">
+        <span class="home-action__text">Voir plus</span>
+        <span class="home-action__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M16.172 11 10.808 5.636l1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" />
+          </svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <section class="membership-cta section-shell" id="member-cta">
+    <div class="membership-cta__copy">
+      <span class="section-eyebrow">Rejoindre l’alliance</span>
+      <h2>Faisons grandir l’innovation camerounaise ensemble</h2>
+      <p>
+        Entreprises, startups et acteurs du numérique : prenez part à une communauté qui coopère
+        pour faire avancer les technologies au Cameroun.
+      </p>
+      <a class="home-action home-action--filled" href="/devenir-membre">
+        <span class="home-action__text">Devenir membre</span>
+        <span class="home-action__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M16.172 11 10.808 5.636l1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" />
+          </svg>
+        </span>
+      </a>
+    </div>
+    <img
+      class="membership-cta__image"
+      src="https://images.unsplash.com/photo-1484959014842-cd1d967a39cf?auto=format&fit=crop&q=80&w=1160"
+      alt=""
+      loading="lazy"
+    />
   </section>
 
   <section class="showcase section-shell" id="activities">
     <div class="section-heading">
-      <span class="section-tag">Activités</span>
+      <span class="section-eyebrow">Activités</span>
       <h2>Notre dynamique de collaboration</h2>
     </div>
 
     <ng-container *ngIf="data.activities; else emptyActivities">
-      <div class="card-grid">
-        <article class="info-card" *ngFor="let activity of data.activities">
-          <img [src]="activity.image" [alt]="activity.title" loading="lazy" width="320" height="220" />
-          <div class="info-card__body">
+      <div class="activity-grid">
+        <article class="activity-card" *ngFor="let activity of data.activities">
+          <img [src]="activity.image" [alt]="activity.title" loading="lazy" width="640" height="400" />
+          <div class="activity-card__body">
             <h3>{{ activity.title }}</h3>
             <p>{{ activity.description }}</p>
           </div>
         </article>
       </div>
 
-<div class="section-actions section-actions--center">
-  <app-button routerLink="/activites" variant="primary" [buttonAs]="'link'">Voir plus</app-button>
-  <app-button routerLink="/activites" variant="secondary" [buttonAs]="'link'">En savoir plus</app-button>
-</div>
+      <div class="section-actions section-actions--center">
+        <a class="home-action" href="/activites">
+          <span class="home-action__text">Voir plus</span>
+          <span class="home-action__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M16.172 11 10.808 5.636l1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" />
+            </svg>
+          </span>
+        </a>
+      </div>
     </ng-container>
 
     <ng-template #emptyActivities>
@@ -124,7 +226,7 @@
 
   <section class="showcase section-shell" id="projects">
     <div class="section-heading">
-      <span class="section-tag">Projets</span>
+      <span class="section-eyebrow">Projets</span>
       <h2>Des initiatives qui façonnent l'avenir</h2>
     </div>
 
@@ -139,10 +241,16 @@
       </article>
     </div>
 
-<div class="section-actions section-actions--center">
-  <app-button routerLink="/projets" variant="primary" [buttonAs]="'link'">Voir plus</app-button>
-  <app-button routerLink="/projets" variant="secondary" [buttonAs]="'link'">En savoir plus</app-button>
-</div>
+    <div class="section-actions section-actions--center">
+      <a class="home-action" href="/projets">
+        <span class="home-action__text">Voir plus</span>
+        <span class="home-action__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M16.172 11 10.808 5.636l1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" />
+          </svg>
+        </span>
+      </a>
+    </div>
   </section>
 
   <section class="showcase section-shell" id="hackathons">
@@ -168,10 +276,70 @@
     </div>
   </section>
 
-  <section class="partners section-shell" id="partners">
+  <section class="events section-shell" id="events">
     <div class="section-heading">
-      <span class="section-tag">Partenaires</span>
-      <h2>Ils nous accompagnent</h2>
+      <div>
+        <span class="section-eyebrow">Événements</span>
+        <h2>Les prochains rendez-vous</h2>
+      </div>
+      <a class="home-action" href="/evenements">
+        <span class="home-action__text">Voir plus</span>
+        <span class="home-action__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M16.172 11 10.808 5.636l1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" />
+          </svg>
+        </span>
+      </a>
+    </div>
+
+    <p class="events__state" *ngIf="isLoadingEvents">Chargement des événements…</p>
+    <p class="events__state events__state--error" *ngIf="hasEventsError">
+      Impossible de charger les événements pour le moment.
+    </p>
+    <p class="events__state" *ngIf="!isLoadingEvents && !hasEventsError && !events.length">
+      Aucun événement à venir pour le moment.
+    </p>
+
+    <div class="event-grid" *ngIf="!isLoadingEvents && !hasEventsError && events.length">
+      <article class="event-card" *ngFor="let event of events">
+        <time
+          class="event-card__date"
+          [attr.datetime]="event.startAt"
+          [attr.aria-label]="formatEventDate(event.startAt)"
+        >
+          <span>{{ formatEventYear(event.startAt) }}</span>
+          <span class="event-card__date-rule" aria-hidden="true"></span>
+          <span>{{ formatEventDay(event.startAt) }}</span>
+        </time>
+
+        <div class="event-card__image" *ngIf="event.coverUrl; else eventFallback">
+          <img [src]="event.coverUrl" [alt]="event.title" loading="lazy" />
+        </div>
+        <ng-template #eventFallback>
+          <div class="event-card__image event-card__image--fallback" aria-hidden="true">MT</div>
+        </ng-template>
+
+        <div class="event-card__body">
+          <p class="event-card__category" *ngIf="event.category">{{ event.category }}</p>
+          <h3>{{ event.title }}</h3>
+          <p class="event-card__location">
+            <span>Lieu</span>{{ event.location || 'À confirmer' }}
+          </p>
+          <p class="event-card__description">{{ event.excerpt }}</p>
+          <a class="event-card__link" [href]="'/evenements/' + event.slug">
+            Découvrir l’événement <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="partners" id="partners">
+    <div class="section-inner">
+      <div class="section-heading">
+        <span class="section-eyebrow">Partenaires</span>
+        <h2>Ils nous accompagnent</h2>
+      </div>
     </div>
 
     <div class="partners__marquee">
@@ -181,40 +349,51 @@
             <img [src]="partner.logo" [alt]="partner.name" loading="lazy" width="160" height="80" />
           </a>
         </div>
-        <div class="partner-item" *ngFor="let partner of data.partners">
-          <a [href]="partner.website" target="_blank" rel="noreferrer">
-            <img [src]="partner.logo" [alt]="partner.name" loading="lazy" width="160" height="80" />
+        <div class="partner-item" *ngFor="let partner of data.partners" aria-hidden="true">
+          <a [href]="partner.website" target="_blank" rel="noreferrer" tabindex="-1">
+            <img [src]="partner.logo" alt="" loading="lazy" width="160" height="80" />
           </a>
         </div>
       </div>
     </div>
 
     <div class="section-actions section-actions--center">
-      <app-button routerLink="/contact" variant="primary" [buttonAs]="'link'">Devenir partenaire</app-button>
+      <a class="home-action home-action--light" href="/contact">
+        Devenir partenaire <span aria-hidden="true">↗</span>
+      </a>
     </div>
   </section>
 
   <section class="newsletter section-shell" id="newsletter">
     <div class="newsletter__content">
-      <div class="newsletter__intro">
-        <span class="section-tag">Newsletter</span>
-        <h2>{{ data.newsletter.title }}</h2>
-        <p>{{ data.newsletter.description }}</p>
-        <app-button routerLink="/contact" variant="primary" [buttonAs]="'link'">{{ data.newsletter.buttonLabel }}</app-button>
+      <div class="newsletter__main">
+        <div class="newsletter__intro">
+          <span class="section-eyebrow">Newsletter</span>
+          <h2>{{ data.newsletter.title }}</h2>
+          <p>{{ data.newsletter.description }}</p>
+          <a class="newsletter__contact" href="/contact">{{ data.newsletter.buttonLabel }} <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <form class="newsletter__form">
+          <div class="field" *ngFor="let field of data.newsletter.formFields">
+            <label [for]="field.name">{{ field.label }}</label>
+            <input
+              [id]="field.name"
+              [name]="field.name"
+              [type]="field.type"
+              [placeholder]="field.placeholder"
+            />
+          </div>
+          <app-button href="/newsletter" variant="secondary" [buttonAs]="'link'">S'abonner</app-button>
+        </form>
       </div>
 
-      <form class="newsletter__form">
-        <div class="field" *ngFor="let field of data.newsletter.formFields">
-          <label [for]="field.name">{{ field.label }}</label>
-          <input
-            [id]="field.name"
-            [name]="field.name"
-            [type]="field.type"
-            [placeholder]="field.placeholder"
-          />
-        </div>
-        <app-button variant="secondary" [buttonAs]="'link'">S'abonner</app-button>
-      </form>
+      <img
+        class="newsletter__image"
+        src="/newsletter.jpg"
+        alt="Des membres de MountainsTech échangent autour d’un ordinateur"
+        loading="lazy"
+      />
     </div>
   </section>
 
