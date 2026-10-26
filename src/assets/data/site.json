@@ -92,9 +92,9 @@
     { "id": 5, "name": "Général Biotech", "role": "Biotech & data", "city": "Bangangté", "description": "Innovation à la croisée du numérique, de la biotechnologie et de l’impact social.", "image": "/logopartenaires/Generabiotech.jpg" }
   ],
   "activities": [
-    { "id": 1, "title": "Ateliers et rencontres", "description": "Des sessions de co-création et de partage d’expertise entre acteurs du secteur.", "image": "/logoMountainsTech/logoNavBar.png" },
-    { "id": 2, "title": "Partenariats stratégiques", "description": "Des collaborations concrètes pour accélérer les projets tech camerounais.", "image": "/logoMountainsTech/logoNavBar.png" },
-    { "id": 3, "title": "Formation & sensibilisation", "description": "Des initiatives pour renforcer les compétences numériques et les bonnes pratiques.", "image": "/logoMountainsTech/logoNavBar.png" }
+    { "id": 1, "title": "Ateliers et rencontres", "description": "Des sessions de co-création et de partage d’expertise entre acteurs du secteur.", "image": "/logoMountainsTech/logoNavBar.png", "category": "Communauté", "publisherName": "MountainsTech", "publisherImage": "/logoMountainsTech/logoNavBar.png" },
+    { "id": 2, "title": "Partenariats stratégiques", "description": "Des collaborations concrètes pour accélérer les projets tech camerounais.", "image": "/logoMountainsTech/logoNavBar.png", "category": "Innovation", "publisherName": "MountainsTech", "publisherImage": "/logoMountainsTech/logoNavBar.png" },
+    { "id": 3, "title": "Formation & sensibilisation", "description": "Des initiatives pour renforcer les compétences numériques et les bonnes pratiques.", "image": "/logoMountainsTech/logoNavBar.png", "category": "Formation", "publisherName": "MountainsTech", "publisherImage": "/logoMountainsTech/logoNavBar.png" }
   ],
   "projects": [
     { "id": 1, "title": "Plateforme d’innovation", "description": "Un espace de collaboration pour incubateurs, startups et entreprises.", "image": "/logoMountainsTech/logoNavBar.png", "tag": "Innovation" },

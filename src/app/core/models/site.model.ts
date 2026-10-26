@@ -82,6 +82,10 @@ export interface ActivityItem {
   title: string;
   description: string;
   image: string;
+  category?: string;
+  date?: string;
+  publisherName?: string;
+  publisherImage?: string;
 }
 
 export interface ProjectItem {

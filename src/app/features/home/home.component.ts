@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   readonly siteData$ = new BehaviorSubject<SiteData | undefined>(undefined);
   readonly showScrollTop$ = new BehaviorSubject(false);
   readonly loading = new BehaviorSubject(true);
+  scrollProgress = 0;
   events: EventItem[] = [];
   isLoadingEvents = true;
   hasEventsError = false;
@@ -36,6 +37,7 @@ export class HomeComponent implements OnInit {
     this.siteDataService.getSiteData().subscribe((data) => {
       this.siteData$.next(data);
       this.loading.next(false);
+      this.updateScrollState();
     });
 
     this.loadEvents();
@@ -48,8 +50,15 @@ export class HomeComponent implements OnInit {
   }
 
   private updateScrollState(): void {
-    const heroHeight = window.innerHeight * 0.92;
-    this.showScrollTop$.next(window.scrollY > heroHeight);
+    const hero = document.querySelector<HTMLElement>('.page-home .hero');
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    const heroHasPassed = hero ? hero.getBoundingClientRect().bottom <= 0 : false;
+    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+    this.showScrollTop$.next(heroHasPassed);
+    this.scrollProgress = scrollableHeight > 0
+      ? Math.min(100, Math.max(0, (scrollY / scrollableHeight) * 100))
+      : 0;
   }
 
   scrollToTop(): void {
@@ -61,6 +70,13 @@ export class HomeComponent implements OnInit {
     return date
       ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(date)
       : 'Date à confirmer';
+  }
+
+  formatActivityDate(value: string): string {
+    const date = new Date(value);
+    return Number.isNaN(date.getTime())
+      ? 'Date à confirmer'
+      : new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
   }
 
   formatEventYear(value: string): string {

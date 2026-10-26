@@ -13,13 +13,13 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('pageTransition', [
-      state('visible', style({ opacity: 1, transform: 'translateY(0)' })),
+      state('visible', style({ opacity: 1 })),
       transition(':enter', [
         query(':self', [
           sequence([
-            style({ opacity: 0, transform: 'translateY(12px)' }),
+            style({ opacity: 0 }),
             group([
-              animate('280ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+              animate('280ms ease-out', style({ opacity: 1 })),
               query(':scope > *', [
                 stagger(40, animate('220ms ease-out', style({ opacity: 1 })))
               ], { optional: true })
