@@ -182,8 +182,8 @@
 .news-delete-action { border-color: #f2c7cc; background: #fff5f6; color: #a72d38; }
 .news-action-button:disabled, .news-text-action:disabled { opacity: .5; cursor: wait; }
 .news-empty { height: 100px; color: var(--news-muted); text-align: center; }
-.news-pagination { padding: 16px 0; }
-.news-page-controls { margin-left: auto; }
+.news-pagination { padding: 8px 0 16px; }
+.news-page-controls { margin-left: 0; }
 
 .news-overlay { position: fixed; z-index: 1050; inset: 0; display: grid; place-items: center; padding: 20px; background: #10192380; }
 .news-dialog { width: min(100%, 480px); padding: 20px; border-radius: 9px; background: #fff; box-shadow: 0 12px 36px #0003; }
@@ -204,7 +204,6 @@
   .news-toolbar .user-search { max-width: none; }
   .news-toolbar .user-create-button { margin-left: 0; }
   .news-table-card { padding: 10px; }
-  .news-pagination { align-items: flex-start; flex-direction: column; }
   .news-page-controls { width: 100%; justify-content: space-between; gap: 4px; margin-left: 0; }
 }
 

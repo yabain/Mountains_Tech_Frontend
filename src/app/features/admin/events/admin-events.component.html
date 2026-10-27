@@ -88,7 +88,7 @@
                         (click)="runRowAction(action, row)"
                       >
                         <i [class]="'bi ' + action.icon" aria-hidden="true"></i>
-                        {{ rowActionLabel(action, row) }}
+                        <span class="res-action-label">{{ rowActionLabel(action, row) }}</span>
                       </button>
                     }
                   </td>
@@ -110,7 +110,7 @@
                 }
               </select>
             </label>
-            <span class="res-copyright">Copyright © 2026 Mountains Tech.</span>
+            <span class="res-copyright">Copyright © 2026 UdM ~ Toujours rechercher l’excellence</span>
           </div>
           <div class="res-pagination-right">
             <div class="user-page-controls">

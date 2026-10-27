@@ -4,8 +4,8 @@
   #aboutContent
   [@.disabled]="prefersReducedMotion"
 >
-  <header class="events-hero" aria-labelledby="about-hero-title">
-    <h1 id="about-hero-title">{{ data.about.title }}</h1>
+  <header class="events-hero" aria-labelledby="about-hero-title" [@heroReveal]="'visible'">
+    <h1 id="about-hero-title">À propos de <em>Mountains Tech</em></h1>
     <p>{{ data.about.description }}</p>
     <nav class="about-breadcrumb" aria-label="Fil d’Ariane">
       <a routerLink="/home">Accueil</a>

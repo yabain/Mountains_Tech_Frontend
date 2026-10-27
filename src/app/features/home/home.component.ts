@@ -167,16 +167,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private loadEvents(): void {
-    this.api.get<ApiResponse<EventListData>>(API_ROUTES.public.events, { limit: 3, upcoming: true })
+    this.api.get<ApiResponse<EventListData>>(API_ROUTES.public.events)
       .pipe(finalize(() => {
         this.isLoadingEvents = false;
         this.changeDetectorRef.markForCheck();
       }))
       .subscribe({
         next: (response) => {
-          this.events = (response.data?.items ?? [])
-            .filter((event) => event.status === 'PUBLISHED')
-            .slice(0, 3);
+          this.events = response.data?.items?.slice(0, 3) ?? [];
           this.changeDetectorRef.markForCheck();
         },
         error: () => {

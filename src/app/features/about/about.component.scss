@@ -4,30 +4,6 @@
   background: #f5f7f8;
 }
 
-.about-page > .events-hero {
-  min-height: 300px;
-  padding: clamp(3.5rem, 7vw, 5.5rem) 1.25rem;
-  background:
-    radial-gradient(ellipse at 50% 110%, rgba(0, 156, 203, 0.2), transparent 55%),
-    linear-gradient(135deg, #003866, #00447e 55%, #07558e);
-}
-
-.about-page > .events-hero h1 {
-  max-width: 18ch;
-  margin: 0 auto;
-  font-size: clamp(2.25rem, 5.2vw, 4rem);
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 1.08;
-}
-
-.about-page > .events-hero > p {
-  max-width: 58rem;
-  margin: 1rem auto 0;
-  font-size: clamp(1rem, 1.8vw, 1.25rem);
-  line-height: 1.65;
-}
-
 .about-page .about-breadcrumb {
   margin-top: 1.4rem;
 }
@@ -534,11 +510,6 @@
 }
 
 @media (max-width: 760px) {
-  .about-page > .events-hero {
-    min-height: 250px;
-    padding: 3.25rem 1.25rem;
-  }
-
   .objective-grid,
   .bureau-grid,
   .mission-vision-grid {
@@ -563,19 +534,6 @@
 }
 
 @media (max-width: 520px) {
-  .about-page > .events-hero {
-    min-height: 230px;
-    padding: 2.75rem 1rem;
-  }
-
-  .about-page > .events-hero h1 {
-    font-size: clamp(2rem, 10vw, 2.8rem);
-  }
-
-  .about-page > .events-hero > p {
-    font-size: 0.95rem;
-  }
-
   .objective-grid,
   .bureau-grid,
   .mission-vision-grid {
@@ -1040,7 +998,7 @@
 
 .board-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.5rem;
 }
 
@@ -1283,6 +1241,7 @@
   .milestone-node,
   .milestone-year,
   .milestone-copy,
+  .about-eyebrow,
   .engagement-card,
   .core-value,
   .governance-card,

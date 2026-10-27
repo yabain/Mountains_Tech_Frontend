@@ -61,8 +61,9 @@
         </table>
       </div>
 
-      @if (isPaginated && pages() > 1) {
-        <div class="res-pagination">
+      @if (isPaginated) {
+        <div class="res-pagination user-pagination">
+          <div class="res-page-controls">
           <button class="res-nav-btn" type="button" (click)="prevPage()" [disabled]="page() <= 1">
             <span class="res-nav-btn__icon res-nav-btn__icon--left">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M7.828 11l5.364-5.364-1.414-1.414L4 12l7.778 7.778 1.414-1.414L7.828 13H20v-2z"></path></svg>
@@ -76,6 +77,9 @@
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
             </span>
           </button>
+          </div>
+          <span class="res-copyright">Copyright © 2026 UdM ~ Toujours rechercher l’excellence</span>
+          <span class="res-credit">Développé par <em><a href="https://yaba-in.com" target="_blank" rel="noopener">Yaba-In</a></em></span>
         </div>
       }
     }

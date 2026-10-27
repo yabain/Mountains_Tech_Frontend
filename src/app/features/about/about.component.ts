@@ -15,6 +15,23 @@ import { SiteDataService } from '../../core/services/site-data.service';
   styleUrl: './about.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
+    trigger('heroReveal', [
+      transition(':enter', [
+        query(
+          'h1, p, .about-breadcrumb',
+          [
+            style({ opacity: 0, transform: 'translateY(18px)' }),
+            stagger('65ms', [
+              animate(
+                '420ms cubic-bezier(0.2, 0.65, 0.3, 1)',
+                style({ opacity: 1, transform: 'translateY(0)' })
+              )
+            ])
+          ],
+          { optional: true }
+        )
+      ])
+    ]),
     trigger('scrollReveal', [
       state('hidden, visible', style({})),
       transition('hidden => visible', [

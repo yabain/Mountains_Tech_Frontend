@@ -98,16 +98,18 @@
                   <td class="res-actions" (click)="$event.stopPropagation()">
                     <button
                       class="res-action-button"
+                      [class.res-action-button--success]="!userIsActive(row)"
+                      [class.res-action-button--danger]="userIsActive(row)"
                       type="button"
                       [disabled]="statusBusyId() === rowId(row)"
                       (click)="toggleUserStatus(row)"
                     >
                       <i [class]="userIsActive(row) ? 'bi bi-ban' : 'bi bi-check-circle'" aria-hidden="true"></i>
-                      {{ userIsActive(row) ? 'Désactiver' : 'Activer' }}
+                      <span class="res-action-label">{{ userIsActive(row) ? 'Désactiver' : 'Activer' }}</span>
                     </button>
                     <button class="res-action-button" type="button" (click)="openEdit(row)">
                       <i class="bi bi-pencil" aria-hidden="true"></i>
-                      Modifier
+                      <span class="res-action-label">Modifier</span>
                     </button>
                   </td>
                 </tr>
@@ -127,7 +129,7 @@
                   }
                 </select>
               </label>
-              <span class="res-copyright">Copyright © 2026 Mountains Tech.</span>
+              <span class="res-copyright">Copyright © 2026 UdM ~ Toujours rechercher l’excellence</span>
             </div>
             <div class="res-pagination-right">
               <div class="user-page-controls">
