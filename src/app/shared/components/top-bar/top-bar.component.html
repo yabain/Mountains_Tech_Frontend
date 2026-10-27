@@ -1,6 +1,15 @@
-<header class="admin-utilities">
+<header class="admin-utilities" [class.admin-utilities--sidebar-collapsed]="sidebarCollapsed()">
   <div class="admin-utilities-left">
-    <button class="admin-menu-button" type="button" aria-label="Ouvrir le menu" (click)="toggleSidebar.emit()">
+    <a class="admin-compact-brand" routerLink="/dashboard" aria-label="Mountains Tech — Tableau de bord">
+      <img src="/logoMountainsTech/Logo.png" alt="" />
+    </a>
+    <button
+      class="admin-menu-button"
+      [class.admin-menu-button--visible]="sidebarCollapsed()"
+      type="button"
+      aria-label="Ouvrir ou réduire la navigation"
+      (click)="toggleSidebar.emit()"
+    >
       <i class="bi bi-list" aria-hidden="true"></i>
     </button>
     <nav class="admin-breadcrumb" aria-label="Fil d’Ariane">

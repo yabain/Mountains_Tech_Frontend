@@ -29,6 +29,24 @@
   min-width: 0;
 }
 
+.admin-compact-brand {
+  display: none;
+  width: 48px;
+  height: 40px;
+  flex: 0 0 48px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 68px;
+    height: 68px;
+    flex: 0 0 68px;
+    object-fit: contain;
+  }
+}
+
 .admin-utilities-right {
   gap: 10px;
   flex-shrink: 0;
@@ -60,6 +78,18 @@
 
 .admin-menu-button {
   display: none;
+}
+
+.admin-menu-button--visible {
+  display: grid;
+}
+
+.admin-menu-button--visible + .admin-breadcrumb {
+  display: flex;
+}
+
+.admin-utilities--sidebar-collapsed .admin-compact-brand {
+  display: flex;
 }
 
 .admin-util-button--notifications {
@@ -297,6 +327,10 @@
 
   .admin-menu-button {
     display: grid;
+  }
+
+  .admin-compact-brand {
+    display: flex;
   }
 
   .admin-utilities-right {

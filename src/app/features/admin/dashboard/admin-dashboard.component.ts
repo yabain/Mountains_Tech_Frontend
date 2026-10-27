@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { interval } from 'rxjs';
 import { AuthService } from '../../../core/auth/services/auth.service';
-import { DashboardActivityPoint, DashboardDataService, ActivitySection } from './dashboard-data.service';
+import { DashboardActivityPoint, DashboardDataService } from './dashboard-data.service';
 
 type ChartPeriod = '24h' | '7d' | '30d' | '12m';
 
@@ -46,7 +46,6 @@ export class AdminDashboardComponent {
     month: 'long',
     year: 'numeric'
   }).format(this.currentDateTime()));
-  readonly categoryFilter = signal('all');
   readonly chart = computed(() => {
     const selectedPeriod = this.period();
     const points = this.dataService.activityFor(selectedPeriod);
@@ -63,22 +62,13 @@ export class AdminDashboardComponent {
       labelEvery: selectedPeriod === '24h' ? 2 : selectedPeriod === '7d' ? 1 : selectedPeriod === '30d' ? 5 : 1
     };
   });
-  readonly filteredSections = computed<ActivitySection[]>(() => {
-    const key = this.categoryFilter();
-    return key === 'all' ? this.sections() : this.sections().filter((section) => section.key === key);
-  });
-
   constructor() {
     this.dataService.load();
     interval(1_000).pipe(takeUntilDestroyed()).subscribe(() => this.currentDateTime.set(new Date()));
-    // Vide la liste des dernières actions après 1 heure (3,6 millions de ms)
+    // Marque les notifications du tableau de bord comme vues après une heure.
     setTimeout(() => {
       this.dataService.markNotificationsSeen(false);
     }, 3_600_000);
-  }
-
-  categories(): { key: string; label: string }[] {
-    return this.dataService.categories().map(({ key, label }) => ({ key, label }));
   }
 
   sectionTotal(key: string): number {
@@ -94,10 +84,6 @@ export class AdminDashboardComponent {
     if (period === '24h' || period === '7d' || period === '30d' || period === '12m') {
       this.period.set(period);
     }
-  }
-
-  setCategoryFilter(category: string): void {
-    this.categoryFilter.set(category);
   }
 
   exportReport(): void {

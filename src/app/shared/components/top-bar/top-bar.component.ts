@@ -25,6 +25,7 @@ export class TopBarComponent {
   private readonly host = inject(ElementRef<HTMLElement>);
 
   readonly currentCategory = input<string | null>(null);
+  readonly sidebarCollapsed = input(false);
   readonly notificationsOpen = input(false);
   readonly hasUnseenNotifications = input(false);
   readonly toggleSidebar = output<void>();

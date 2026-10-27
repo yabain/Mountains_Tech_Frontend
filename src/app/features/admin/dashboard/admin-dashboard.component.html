@@ -108,50 +108,6 @@
     </div>
   </section>
 
-  <section class="actions-section" aria-label="Dernières actions">
-    <div class="actions-heading">
-      <div>
-        <h2 class="section-title">Dernières actions</h2>
-        <p class="section-subtitle">Les dernières entrées de chaque catégorie.</p>
-      </div>
-      <select class="actions-filter" [value]="categoryFilter()" (change)="setCategoryFilter($any($event.target).value)" aria-label="Filtrer par catégorie">
-        <option value="all">Toutes les catégories</option>
-        @for (category of categories(); track category.key) {
-          <option [value]="category.key">{{ category.label }}</option>
-        }
-      </select>
-    </div>
-
-    <div class="admin-table-wrap">
-      <table class="admin-table">
-        <thead>
-          <tr>
-            <th>Module</th>
-            <th>Nom</th>
-            <th>Détail</th>
-            <th>Statut</th>
-            <th>Temps</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (section of filteredSections(); track section.key) {
-            @for (entry of section.entries; track $index) {
-              <tr>
-                <td><i [class]="'bi ' + section.icon" aria-hidden="true"></i> {{ section.label }}</td>
-                <td><strong>{{ entry.name }}</strong></td>
-                <td>{{ entry.detail }}</td>
-                <td>@if (entry.status) { <span class="res-status res-status--{{ entry.statusTone }}">{{ entry.status }}</span> }</td>
-                <td><i class="bi bi-clock" aria-hidden="true"></i> {{ entry.time }}</td>
-              </tr>
-            }
-          } @empty {
-            <tr><td colspan="5" class="admin-state">Aucune donnée récente.</td></tr>
-          }
-        </tbody>
-      </table>
-    </div>
-  </section>
-
   <footer class="admin-footer">
     <span>© 2026 Mountains Tech · Bangangté, Cameroun</span>
     <span><i class="bi bi-geo-alt" aria-hidden="true"></i>Administration</span>

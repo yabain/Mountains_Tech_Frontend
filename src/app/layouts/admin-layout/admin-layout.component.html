@@ -71,13 +71,16 @@
     <main class="admin-page">
       <app-top-bar
         [currentCategory]="currentCategory()"
+        [sidebarCollapsed]="sidebarCollapsed()"
         [notificationsOpen]="notificationsOpen()"
         [hasUnseenNotifications]="dashboardData.hasUnseen()"
-        (toggleSidebar)="toggleSidebar()"
+        (toggleSidebar)="toggleNavigation()"
         (toggleNotifications)="toggleNotifications()"
       ></app-top-bar>
 
-      <router-outlet></router-outlet>
+      <div class="admin-content">
+        <router-outlet></router-outlet>
+      </div>
     </main>
   </div>
 

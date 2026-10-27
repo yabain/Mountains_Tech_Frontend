@@ -34,7 +34,7 @@ export class AdminLayoutComponent implements AfterViewInit {
 
   @ViewChild('adminNav', { read: ElementRef }) adminNav?: ElementRef<HTMLElement>;
 
-  private static readonly COLLAPSE_KEY = 'mt_admin_sidebar_collapsed';
+  private static readonly COLLAPSE_KEY = 'mt_admin_sidebar_collapsed_v2';
 
   readonly sidebarOpen = signal(false);
   readonly sidebarCollapsed = signal(this.loadCollapsed());
@@ -122,6 +122,15 @@ export class AdminLayoutComponent implements AfterViewInit {
     this.sidebarOpen.update((open) => !open);
   }
 
+  toggleNavigation(): void {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      this.toggleSidebar();
+      return;
+    }
+
+    this.toggleCollapsed();
+  }
+
   closeSidebar(): void {
     this.sidebarOpen.set(false);
   }
@@ -164,7 +173,7 @@ export class AdminLayoutComponent implements AfterViewInit {
   }
 
   private loadCollapsed(): boolean {
-    return localStorage.getItem(AdminLayoutComponent.COLLAPSE_KEY) === '1';
+    return localStorage.getItem(AdminLayoutComponent.COLLAPSE_KEY) !== '0';
   }
 
   private initialRole(): AdminRole {
