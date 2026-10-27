@@ -39,7 +39,7 @@ export class AdminLayoutComponent implements AfterViewInit {
   readonly sidebarOpen = signal(false);
   readonly sidebarCollapsed = signal(this.loadCollapsed());
   readonly currentUser$ = this.authService.currentUser$;
-  readonly navGroups = ['principal', 'contenu', 'système'] as const;
+  readonly navGroups = ['principal', 'contenu', 'communication', 'système'] as const;
   readonly previewRole = signal<AdminRole>(this.initialRole());
   readonly notificationsOpen = signal(false);
   readonly currentCategory = signal<string | null>(null);
@@ -98,7 +98,12 @@ export class AdminLayoutComponent implements AfterViewInit {
   }
 
   groupLabel(group: AdminNavItem['group']): string {
-    return group === 'principal' ? 'Principal' : group === 'contenu' ? 'Gestion du contenu' : 'Système';
+    switch (group) {
+      case 'principal': return 'Principal';
+      case 'contenu': return 'Gestion du contenu';
+      case 'communication': return 'Communication';
+      case 'système': return 'Système';
+    }
   }
 
   userInitials(user: AuthUser | null): string {

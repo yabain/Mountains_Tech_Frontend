@@ -25,7 +25,7 @@ export interface AdminNavItem {
   label: string;
   route: string;
   icon: string;
-  group: 'principal' | 'contenu' | 'système';
+  group: 'principal' | 'contenu' | 'communication' | 'système';
 }
 
 export const ROLE_PERMISSIONS: Record<AdminRole, readonly AdminPermission[]> = {
@@ -37,23 +37,23 @@ export const ROLE_PERMISSIONS: Record<AdminRole, readonly AdminPermission[]> = {
 
 export const ADMIN_NAV_ITEMS: readonly AdminNavItem[] = [
   { permission: 'dashboard', label: 'Tableau de bord', route: '/dashboard', icon: 'bi-grid-1x2-fill', group: 'principal' },
-  { permission: 'users', label: 'Utilisateurs', route: '/dashboard/users', icon: 'bi-people-fill', group: 'principal' },
-  { permission: 'audit-logs', label: 'Journaux d’audit', route: '/dashboard/audit-logs', icon: 'bi-journal-text', group: 'système' },
+  { permission: 'tracking', label: 'Tracking', route: '/dashboard/tracking', icon: 'bi-crosshair', group: 'principal' },
+  { permission: 'member-applications', label: 'Demandes d’adhésion', route: '/dashboard/members/applications', icon: 'bi-person-vcard-fill', group: 'principal' },
   { permission: 'members', label: 'Membres', route: '/dashboard/members', icon: 'bi-person-badge-fill', group: 'contenu' },
-  { permission: 'member-applications', label: 'Demandes d’adhésion', route: '/dashboard/members/applications', icon: 'bi-person-vcard-fill', group: 'contenu' },
-  { permission: 'contacts', label: 'Contacts', route: '/dashboard/contacts', icon: 'bi-person-lines-fill', group: 'contenu' },
   { permission: 'events', label: 'Événements', route: '/dashboard/events', icon: 'bi-calendar-event-fill', group: 'contenu' },
   { permission: 'activities', label: 'Actualités', route: '/dashboard/activities', icon: 'bi-newspaper', group: 'contenu' },
   { permission: 'projects', label: 'Projets', route: '/dashboard/projects', icon: 'bi-kanban-fill', group: 'contenu' },
   { permission: 'hackathons', label: 'Hackathons', route: '/dashboard/hackathons', icon: 'bi-trophy-fill', group: 'contenu' },
-  { permission: 'partners', label: 'Partenaires', route: '/dashboard/partners', icon: 'bi-building-fill', group: 'contenu' },
-  { permission: 'media', label: 'Médias', route: '/dashboard/media', icon: 'bi-images', group: 'contenu' },
-  { permission: 'newsletter', label: 'Prospects', route: '/dashboard/newsletter', icon: 'bi-person-lines-fill', group: 'contenu' },
-  { permission: 'newsletter', label: 'E-mails', route: '/dashboard/email-settings', icon: 'bi-envelope-at-fill', group: 'contenu' },
-  { permission: 'announcements', label: 'Annonces', route: '/dashboard/announcements', icon: 'bi-megaphone-fill', group: 'contenu' },
-  { permission: 'tracking', label: 'Tracking', route: '/dashboard/tracking', icon: 'bi-crosshair', group: 'contenu' },
-  { permission: 'visibility', label: 'Visibilité du site', route: '/dashboard/visibility', icon: 'bi-eye-fill', group: 'contenu' },
-  { permission: 'settings', label: 'Paramètres', route: '/dashboard/settings', icon: 'bi-sliders', group: 'système' }
+  { permission: 'contacts', label: 'Contacts', route: '/dashboard/contacts', icon: 'bi-person-lines-fill', group: 'communication' },
+  { permission: 'newsletter', label: 'E-mails', route: '/dashboard/email-settings', icon: 'bi-envelope-at-fill', group: 'communication' },
+  { permission: 'newsletter', label: 'Prospect', route: '/dashboard/newsletter', icon: 'bi-clipboard', group: 'communication' },
+  { permission: 'partners', label: 'Partenaires', route: '/dashboard/partners', icon: 'bi-building-fill', group: 'communication' },
+  { permission: 'announcements', label: 'Annonces', route: '/dashboard/announcements', icon: 'bi-megaphone-fill', group: 'communication' },
+  { permission: 'users', label: 'Utilisateurs', route: '/dashboard/users', icon: 'bi-people-fill', group: 'système' },
+  { permission: 'audit-logs', label: 'Journaux d’audit', route: '/dashboard/audit-logs', icon: 'bi-journal-text', group: 'système' },
+  { permission: 'media', label: 'Médias', route: '/dashboard/media', icon: 'bi-images', group: 'système' },
+  { permission: 'settings', label: 'Paramètres', route: '/dashboard/settings', icon: 'bi-sliders', group: 'système' },
+  { permission: 'visibility', label: 'Visibilité du site', route: '/dashboard/visibility', icon: 'bi-eye-fill', group: 'système' }
 ];
 
 export function normalizeRole(role: string): AdminRole | null {
