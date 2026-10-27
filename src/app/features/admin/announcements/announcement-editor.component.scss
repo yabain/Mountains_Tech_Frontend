@@ -689,6 +689,27 @@
   color: var(--adm-muted-fg, #6c757d);
 }
 
+.admin-page-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 38px;
+  padding: 14px 0;
+  color: var(--adm-muted-fg, #6c757d);
+  font-size: 12px;
+
+  p { margin: 0; }
+
+  a {
+    color: #263b68;
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+}
+
 .spinning {
   display: inline-block;
   animation: announcement-spin 1s linear infinite;
@@ -696,4 +717,12 @@
 
 @keyframes announcement-spin {
   to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .admin-page-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
 }

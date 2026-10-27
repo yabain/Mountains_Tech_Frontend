@@ -173,6 +173,31 @@
   margin-top: 18px;
 }
 
+.admin-page-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 38px;
+  padding: 14px 0;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.admin-page-footer p {
+  margin: 0;
+}
+
+.admin-page-footer a {
+  color: #263b68;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.admin-page-footer a:hover {
+  text-decoration: underline;
+}
+
 .editor-error {
   margin-bottom: 16px;
   padding: 12px 14px;
@@ -278,6 +303,7 @@
 @media (max-width: 700px) {
   .admin-editor { padding: 18px 14px; }
   .editor-heading { align-items: flex-start; flex-wrap: wrap; }
+  .admin-page-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
   .editor-grid { grid-template-columns: 1fr; }
   .editor-field--full { grid-column: auto; }
   .editor-card { padding: 18px; }

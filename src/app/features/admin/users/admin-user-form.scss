@@ -86,6 +86,20 @@
 .admin-user-submit { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--user-primary); background: var(--user-primary); color: #fff; }
 .admin-user-submit:disabled { opacity: .55; cursor: not-allowed; }
 
+.admin-page-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 38px;
+  padding: 14px 0;
+  color: var(--user-muted);
+  font-size: 12px;
+}
+.admin-page-footer p { margin: 0; }
+.admin-page-footer a { color: #263b68; font-weight: 700; text-decoration: none; }
+.admin-page-footer a:hover { text-decoration: underline; }
+
 @media (max-width: 650px) {
   .admin-user-form-page { padding-top: 0; }
   .admin-user-form-section { padding: 21px 18px; }
@@ -93,4 +107,5 @@
   .admin-user-option-row { align-items: flex-start; }
   .admin-user-status-choice { flex-wrap: wrap; justify-content: flex-end; }
   .admin-user-form-actions { padding: 17px 18px; }
+  .admin-page-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
 }
