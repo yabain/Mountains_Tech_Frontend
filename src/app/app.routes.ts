@@ -55,6 +55,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard, AdminGuard],
     children: [
       { path: '', data: { permission: 'dashboard' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/dashboard/admin-dashboard.component').then((m) => m.AdminDashboardComponent) },
+      { path: 'profile', loadComponent: () => import('./features/admin/profile/admin-profile.component').then((m) => m.AdminProfileComponent) },
       { path: 'users/new', data: { permission: 'users' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/users/user-create/admin-user-create.component').then((m) => m.AdminUserCreateComponent) },
       { path: 'users/:id/edit', data: { permission: 'users' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/users/user-edit/admin-user-edit.component').then((m) => m.AdminUserEditComponent) },
       { path: 'users', data: { permission: 'users' }, canActivate: [AdminPermissionGuard], loadComponent: () => import('./features/admin/users/admin-users.component').then((m) => m.AdminUsersComponent) },

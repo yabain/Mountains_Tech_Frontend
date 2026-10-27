@@ -58,7 +58,11 @@
         (click)="toggleAccountMenu()"
       >
         @if (currentUser$ | async; as user) {
-          <span class="admin-account-avatar">{{ userInitials(user) }}</span>
+          @if (user.avatar) {
+            <img class="admin-account-avatar" [src]="avatarSource(user.avatar)" alt="" />
+          } @else {
+            <span class="admin-account-avatar">{{ userInitials(user) }}</span>
+          }
         } @else {
           <span class="admin-account-avatar"><i class="bi bi-person" aria-hidden="true"></i></span>
         }
@@ -68,42 +72,25 @@
       @if (accountMenuOpen()) {
         <div class="admin-account-menu">
           @if (currentUser$ | async; as user) {
-            @if (profileDetailsOpen()) {
-              <button class="admin-account-back" type="button" (click)="showAccountActions()">
-                <i class="bi bi-arrow-left" aria-hidden="true"></i>
-                Retour
+            <div class="admin-account-identity">
+              <strong>{{ user.name }}</strong>
+              <span>{{ user.email }}</span>
+              <span class="admin-account-role">{{ roleLabel(user) }}</span>
+            </div>
+            <div class="admin-account-actions">
+              <a routerLink="/dashboard/profile" (click)="closeAccountMenu()">
+                <i class="bi bi-person-gear" aria-hidden="true"></i>
+                Mon profil
+              </a>
+              <a routerLink="/" (click)="closeAccountMenu()">
+                <i class="bi bi-globe" aria-hidden="true"></i>
+                Voir le site public
+              </a>
+              <button type="button" class="admin-account-logout" (click)="logout()">
+                <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+                Se déconnecter
               </button>
-              <div class="admin-account-identity">
-                <strong>{{ user.name }}</strong>
-                <span>{{ user.email }}</span>
-              </div>
-              <dl class="admin-account-details">
-                <div>
-                  <dt>Rôle</dt>
-                  <dd>{{ roleLabel(user) }}</dd>
-                </div>
-              </dl>
-            } @else {
-              <div class="admin-account-identity">
-                <strong>{{ user.name }}</strong>
-                <span>{{ user.email }}</span>
-                <span class="admin-account-role">{{ roleLabel(user) }}</span>
-              </div>
-              <div class="admin-account-actions">
-                <button type="button" (click)="showProfileDetails()">
-                  <i class="bi bi-person-gear" aria-hidden="true"></i>
-                  Mon profil
-                </button>
-                <a routerLink="/" (click)="closeAccountMenu()">
-                  <i class="bi bi-globe" aria-hidden="true"></i>
-                  Voir le site public
-                </a>
-                <button type="button" class="admin-account-logout" (click)="logout()">
-                  <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
-                  Se déconnecter
-                </button>
-              </div>
-            }
+            </div>
           }
         </div>
       }

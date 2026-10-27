@@ -1,0 +1,93 @@
+<main class="profile-page">
+  <header class="profile-heading">
+    <h1><i class="bi bi-person-gear" aria-hidden="true"></i> Mon profil</h1>
+    <p>Consultez vos informations, modifiez-les et gérez votre photo de profil.</p>
+  </header>
+
+  @if (error()) {
+    <p class="profile-alert" role="alert">{{ error() }}</p>
+  }
+
+  <div class="profile-columns">
+    <section class="profile-panel profile-summary" aria-label="Résumé du compte">
+      @if (avatar()) {
+        <img class="profile-summary-photo" [src]="avatar()" [alt]="'Photo de profil de ' + displayName" />
+      } @else {
+        <span class="profile-summary-initials" aria-hidden="true">{{ initials }}</span>
+      }
+      <h2>{{ displayName }}</h2>
+      <a class="profile-email" [href]="'mailto:' + (user?.email ?? '')">{{ user?.email }}</a>
+      <span class="profile-role">{{ roleLabel }}</span>
+      <dl class="profile-meta">
+        <div>
+          <dt><i class="bi bi-telephone" aria-hidden="true"></i> Téléphone</dt>
+          <dd>{{ phoneNumber() || 'Non renseigné' }}</dd>
+        </div>
+        <div>
+          <dt><i class="bi bi-calendar-check" aria-hidden="true"></i> Membre depuis</dt>
+          <dd>{{ formattedDate(user?.createdAt) }}</dd>
+        </div>
+        <div>
+          <dt><i class="bi bi-clock-history" aria-hidden="true"></i> Dernière connexion</dt>
+          <dd>{{ formattedDate(user?.lastLoginAt) }}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="profile-panel profile-photo-panel">
+      <h2><i class="bi bi-camera" aria-hidden="true"></i> Photo de profil</h2>
+      <p class="profile-help">Formats image acceptés, 5 Mo maximum. La photo est convertie en WebP et mise à jour dans la barre de navigation.</p>
+      <div class="profile-photo-frame">
+        @if (avatar()) {
+          <img [src]="avatar()" [alt]="'Photo de profil de ' + displayName" />
+        } @else {
+          <span class="profile-photo-placeholder"><i class="bi bi-person" aria-hidden="true"></i></span>
+        }
+        @if (avatar()) {
+          <button class="profile-photo-remove" type="button" aria-label="Supprimer la photo de profil" title="Supprimer la photo" [disabled]="uploading()" (click)="removeAvatar()">
+            <i class="bi bi-trash" aria-hidden="true"></i>
+          </button>
+        }
+        <label class="profile-photo-upload" [class.is-disabled]="uploading()" [attr.aria-label]="avatar() ? 'Changer la photo de profil' : 'Ajouter une photo de profil'">
+          <input type="file" accept="image/*" [disabled]="uploading()" (change)="onAvatarSelected($event)" />
+          <i class="bi" [class.bi-camera]="!uploading()" [class.bi-arrow-repeat]="uploading()" aria-hidden="true"></i>
+        </label>
+      </div>
+      @if (uploading()) {
+        <p class="profile-help" role="status">Mise à jour de la photo…</p>
+      }
+    </section>
+
+    <section class="profile-panel profile-information">
+      <h2><i class="bi bi-person-vcard" aria-hidden="true"></i> Informations personnelles</h2>
+      <form (ngSubmit)="saveProfile()">
+        <div class="profile-fields">
+          <label>
+            <span>Prénom</span>
+            <input name="firstName" [ngModel]="firstName()" (ngModelChange)="firstName.set($event)" autocomplete="given-name" required />
+          </label>
+          <label>
+            <span>Nom de famille</span>
+            <input name="lastName" [ngModel]="lastName()" (ngModelChange)="lastName.set($event)" autocomplete="family-name" required />
+          </label>
+          <label class="profile-field-wide">
+            <span>Téléphone</span>
+            <input name="phoneNumber" [ngModel]="phoneNumber()" (ngModelChange)="phoneNumber.set($event)" type="tel" autocomplete="tel" />
+          </label>
+          <label class="profile-field-wide">
+            <span>Adresse e-mail</span>
+            <input [value]="user?.email ?? ''" type="email" disabled />
+            <small>L’adresse e-mail ne peut pas être modifiée ici.</small>
+          </label>
+        </div>
+        @if (saved()) {
+          <p class="profile-success" role="status">Les modifications ont été enregistrées.</p>
+        }
+        <button class="profile-save" type="submit" [disabled]="saving() || uploading()">
+          <i class="bi bi-check2" aria-hidden="true"></i>
+          {{ saving() ? 'Enregistrement…' : 'Enregistrer les modifications' }}
+        </button>
+      </form>
+    </section>
+  </div>
+</main>

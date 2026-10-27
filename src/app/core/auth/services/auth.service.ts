@@ -10,6 +10,11 @@ export interface AuthUser {
   name: string;
   role: string;
   avatar?: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  createdAt?: string;
+  lastLoginAt?: string;
   location?: string;
 }
 
@@ -71,6 +76,15 @@ export class AuthService {
     return Boolean(this.getToken() && this.currentUser$.value);
   }
 
+  updateCurrentUser(updates: Partial<AuthUser>): void {
+    const currentUser = this.currentUser$.value;
+    if (!currentUser) return;
+
+    const updatedUser = { ...currentUser, ...updates };
+    this.currentUser$.next(updatedUser);
+    localStorage.setItem('auth_user', JSON.stringify(updatedUser));
+  }
+
   isAdmin(): boolean {
     const role = this.currentUser$.value?.role.toLowerCase();
     return role === 'admin' || role === 'super_admin';
@@ -130,7 +144,12 @@ export class AuthService {
       email,
       name,
       role,
-      avatar: this.asString(user['avatar']),
+      avatar: this.asString(user['avatar']) ?? this.asString(user['avatarUrl']) ?? this.asString(user['profileImage']),
+      firstName: this.asString(user['firstName']),
+      lastName: this.asString(user['lastName']),
+      phoneNumber: this.asString(user['phoneNumber']) ?? this.asString(user['phone']),
+      createdAt: this.asString(user['createdAt']),
+      lastLoginAt: this.asString(user['lastLoginAt']) ?? this.asString(user['lastLogin']) ?? this.asString(user['lastSeenAt']),
       location: this.asString(user['location'])
     };
   }

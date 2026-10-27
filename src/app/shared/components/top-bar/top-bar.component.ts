@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, i
 import { Router, RouterLink } from '@angular/router';
 import { AuthService, AuthUser } from '../../../core/auth/services/auth.service';
 import { normalizeRole } from '../../../features/admin/admin-navigation';
+import { environment } from '../../../../environments/environment';
 
 const ROLE_LABELS: Record<string, string> = {
   SUPER_ADMIN: 'Super administrateur',
@@ -33,7 +34,6 @@ export class TopBarComponent {
 
   readonly currentUser$ = this.authService.currentUser$;
   readonly accountMenuOpen = signal(false);
-  readonly profileDetailsOpen = signal(false);
   readonly welcomeShown = signal(false);
 
   userInitials(user: AuthUser | null): string {
@@ -49,23 +49,17 @@ export class TopBarComponent {
     return role ? ROLE_LABELS[role] : user?.role ?? '';
   }
 
+  avatarSource(value: string): string {
+    if (/^https?:\/\//i.test(value)) return value;
+    return new URL(value.startsWith('/') ? value : `/${value}`, environment.apiUrl).toString();
+  }
+
   toggleAccountMenu(): void {
-    const isOpening = !this.accountMenuOpen();
-    this.accountMenuOpen.set(isOpening);
-    this.profileDetailsOpen.set(false);
-  }
-
-  showProfileDetails(): void {
-    this.profileDetailsOpen.set(true);
-  }
-
-  showAccountActions(): void {
-    this.profileDetailsOpen.set(false);
+    this.accountMenuOpen.update((open) => !open);
   }
 
   closeAccountMenu(): void {
     this.accountMenuOpen.set(false);
-    this.profileDetailsOpen.set(false);
   }
 
   rebuildSite(): void {

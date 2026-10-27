@@ -63,7 +63,7 @@ export class AdminLayoutComponent implements AfterViewInit {
         const match = ADMIN_NAV_ITEMS
           .filter((item) => url === item.route || url.startsWith(`${item.route}/`))
           .sort((a, b) => b.route.length - a.route.length)[0];
-        this.currentCategory.set(match?.label ?? null);
+        this.currentCategory.set(url.startsWith('/dashboard/profile') ? 'Mon profil' : match?.label ?? null);
         this.notificationsOpen.set(false);
         this.sidebarCounts.refresh();
       });
