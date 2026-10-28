@@ -57,8 +57,12 @@ export class AuthService {
     }
 
     return this.loadProfile().pipe(
-      catchError(() => {
-        this.clearSession();
+      catchError((err) => {
+        const status = err?.status ?? err?.statusCode;
+        // Ne déconnecte que si c'est un rejet d'authentification (401/403), pas si le backend est down
+        if (status === 401 || status === 403) {
+          this.clearSession();
+        }
         return of(null);
       })
     );

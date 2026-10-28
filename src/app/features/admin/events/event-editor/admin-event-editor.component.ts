@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+﻿import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,7 +17,6 @@ interface EventForm {
   startAt: string;
   endAt: string;
   excerpt: string;
-  contentHtml: string;
   coverUrl: string;
   registrationRequired: boolean;
   capacity: string;
@@ -44,6 +43,7 @@ export class AdminEventEditorComponent {
   readonly uploading = signal(false);
   readonly error = signal('');
   readonly eventId = this.route.snapshot.paramMap.get('id') ?? '';
+  readonly panelists = signal<{ name: string; role: string; photoUrl?: string }[]>([]);
   coverSource: 'url' | 'upload' = 'url';
   readonly form: EventForm = {
     title: '',
@@ -53,7 +53,6 @@ export class AdminEventEditorComponent {
     startAt: '',
     endAt: '',
     excerpt: '',
-    contentHtml: '',
     coverUrl: '',
     registrationRequired: false,
     capacity: '',
@@ -69,7 +68,7 @@ export class AdminEventEditorComponent {
           next: (response) => {
             const event = this.unwrap(response);
             if (!event) {
-              this.error.set('Les informations de cet événement sont indisponibles.');
+              this.error.set('Les informations de cet Ã©vÃ©nement sont indisponibles.');
             } else {
               this.form.title = String(event['title'] ?? '');
               this.form.slug = String(event['slug'] ?? '');
@@ -78,7 +77,6 @@ export class AdminEventEditorComponent {
               this.form.startAt = this.dateTimeInput(event['startAt']);
               this.form.endAt = this.dateTimeInput(event['endAt']);
               this.form.excerpt = String(event['excerpt'] ?? '');
-              this.form.contentHtml = String(event['contentHtml'] ?? '');
               this.form.coverUrl = String(event['coverUrl'] ?? '');
               this.form.registrationRequired = event['registrationRequired'] === true;
               this.form.capacity = event['capacity'] == null ? '' : String(event['capacity']);
@@ -87,7 +85,7 @@ export class AdminEventEditorComponent {
             this.loading.set(false);
           },
           error: () => {
-            this.error.set('Impossible de charger cet événement.');
+            this.error.set('Impossible de charger cet Ã©vÃ©nement.');
             this.loading.set(false);
           }
         });
@@ -97,7 +95,7 @@ export class AdminEventEditorComponent {
   submit(): void {
     if (this.saving() || this.loading()) return;
     if (!this.form.title.trim() || !this.form.startAt || !this.form.location.trim()) {
-      this.error.set('Le titre, le lieu et la date de début sont obligatoires.');
+      this.error.set('Le titre, le lieu et la date de dÃ©but sont obligatoires.');
       return;
     }
     this.saving.set(true);
@@ -111,7 +109,6 @@ export class AdminEventEditorComponent {
       startAt: new Date(this.form.startAt).toISOString(),
       endAt: this.form.endAt ? new Date(this.form.endAt).toISOString() : undefined,
       ...(this.form.excerpt.trim() ? { excerpt: this.form.excerpt.trim() } : {}),
-      ...(this.form.contentHtml.trim() ? { contentHtml: this.form.contentHtml } : {}),
       ...(coverUrl ? { coverUrl: this.mediaUrl(coverUrl) } : {}),
       registrationRequired: this.form.registrationRequired,
       capacity: this.form.capacity ? Number(this.form.capacity) : undefined,
@@ -123,15 +120,40 @@ export class AdminEventEditorComponent {
     request.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.saving.set(false);
-        this.notification.success(this.eventId ? 'L’événement a été mis à jour.' : 'L’événement a été créé.');
+        this.notification.success(this.eventId ? 'Lâ€™Ã©vÃ©nement a Ã©tÃ© mis Ã  jour.' : 'Lâ€™Ã©vÃ©nement a Ã©tÃ© crÃ©Ã©.');
         void this.router.navigate(['/dashboard/events']);
       },
       error: (error: { error?: { message?: string | string[] } }) => {
         this.saving.set(false);
         const message = error.error?.message;
-        this.error.set(Array.isArray(message) ? message.join(' · ') : message ?? 'Impossible d’enregistrer cet événement.');
+        this.error.set(Array.isArray(message) ? message.join(' Â· ') : message ?? 'Impossible dâ€™enregistrer cet Ã©vÃ©nement.');
       }
     });
+  }
+
+  addPanelist(): void {
+    this.panelists.set([...this.panelists(), { name: '', role: '' }]);
+  }
+
+  removePanelist(index: number): void {
+    const updated = this.panelists().filter((_, i) => i !== index);
+    this.panelists.set(updated);
+  }
+
+  onPanelistPhoto(event: Event, index: number): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+    const body = new FormData();
+    body.append('file', file);
+    body.append('name', this.panelists()[index]?.name ?? '');
+    body.append('role', this.panelists()[index]?.role ?? '');
+    this.api.post<unknown>(`${API_ROUTES.admin.events}/${this.eventId}/panelists`, body)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => { input.value = ''; },
+        error: () => { this.error.set('Impossible dâ€™ajouter le panÃ©liste.'); input.value = ''; }
+      });
   }
 
   onCoverSelected(event: Event): void {
@@ -139,12 +161,12 @@ export class AdminEventEditorComponent {
     const file = input.files?.[0];
     if (!file) return;
     if (!file.type.startsWith('image/')) {
-      this.error.set('Sélectionnez un fichier image.');
+      this.error.set('SÃ©lectionnez un fichier image.');
       input.value = '';
       return;
     }
     if (file.size > 10 * 1024 * 1024) {
-      this.error.set('L’image ne doit pas dépasser 10 Mo.');
+      this.error.set('Lâ€™image ne doit pas dÃ©passer 10 Mo.');
       input.value = '';
       return;
     }
@@ -159,14 +181,14 @@ export class AdminEventEditorComponent {
           const result = this.unwrap(response);
           const url = result?.['url'] ?? result?.['imageUrl'] ?? result?.['coverUrl'];
           if (typeof url !== 'string' || !url) {
-            this.error.set('Le téléversement a réussi, mais aucune URL d’image n’a été renvoyée.');
+            this.error.set('Le tÃ©lÃ©versement a rÃ©ussi, mais aucune URL dâ€™image nâ€™a Ã©tÃ© renvoyÃ©e.');
           } else {
             this.form.coverUrl = this.mediaUrl(url);
           }
           this.uploading.set(false);
         },
         error: () => {
-          this.error.set('Impossible de téléverser l’image.');
+          this.error.set('Impossible de tÃ©lÃ©verser lâ€™image.');
           this.uploading.set(false);
         }
       });

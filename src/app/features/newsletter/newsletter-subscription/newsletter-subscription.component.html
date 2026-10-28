@@ -1,4 +1,26 @@
-<section>
+<section class="mv-newsletter" aria-label="Inscription newsletter">
   <h2>Newsletter</h2>
   <p>Recevez les dernières actualités et annonces de la communauté.</p>
+
+  @if (!submitted()) {
+    <form (ngSubmit)="subscribe()" class="mv-newsletter__form">
+      <label for="nl-email">Adresse email *</label>
+      <input id="nl-email" type="email" [(ngModel)]="form.email" name="email" required placeholder="votre@email.com" />
+
+      <label for="nl-firstName">Prénom</label>
+      <input id="nl-firstName" type="text" [(ngModel)]="form.firstName" name="firstName" placeholder="Jean" />
+
+      <label class="mv-newsletter__check">
+        <input type="checkbox" [(ngModel)]="form.consent" name="consent" required />
+        J'accepte de recevoir la newsletter
+      </label>
+
+      <button type="submit" class="btn-primary">S'inscrire</button>
+    </form>
+  } @else {
+    <div class="mv-newsletter__success" role="status">
+      <strong>Félicitations, vous êtes inscrit(e) !</strong>
+      <p>Vous recevrez bientôt nos actualités.</p>
+    </div>
+  }
 </section>

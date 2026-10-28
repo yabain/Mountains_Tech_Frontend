@@ -1,4 +1,4 @@
-import { InjectionToken } from '@angular/core';
+﻿import { InjectionToken } from '@angular/core';
 import { API_ROUTES } from '../../../core/constants/api-routes';
 
 export const RESOURCE_CONFIG = new InjectionToken<AdminResourceConfig>('RESOURCE_CONFIG');
@@ -92,19 +92,19 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
     editable: true,
     deletable: true,
     columns: [
-      { key: 'firstName', label: 'Prénom' },
+      { key: 'firstName', label: 'PrÃ©nom' },
       { key: 'lastName', label: 'Nom' },
       { key: 'email', label: 'Email' },
-      { key: 'role', label: 'Rôle' },
+      { key: 'role', label: 'RÃ´le' },
       { key: 'status', label: 'Statut', type: 'status' },
-      { key: 'createdAt', label: 'Créé le', type: 'date' }
+      { key: 'createdAt', label: 'CrÃ©Ã© le', type: 'date' }
     ],
     fields: [
-      { key: 'firstName', label: 'Prénom', type: 'text', required: true },
+      { key: 'firstName', label: 'PrÃ©nom', type: 'text', required: true },
       { key: 'lastName', label: 'Nom', type: 'text', required: true },
       { key: 'email', label: 'Email', type: 'email', required: true },
-      { key: 'password', label: 'Mot de passe', type: 'text', required: true, createOnly: true, placeholder: 'Minimum 8 caractères' },
-      { key: 'role', label: 'Rôle', type: 'select', options: ['SUPER_ADMIN', 'ADMIN', 'EDITOR', 'COMMUNICATION'] },
+      { key: 'password', label: 'Mot de passe', type: 'text', required: true, createOnly: true, placeholder: 'Minimum 8 caractÃ¨res' },
+      { key: 'role', label: 'RÃ´le', type: 'select', options: ['SUPER_ADMIN', 'ADMIN', 'EDITOR', 'COMMUNICATION'] },
       { key: 'status', label: 'Statut', type: 'select', options: ['ACTIVE', 'INACTIVE', 'SUSPENDED'] }
     ]
   },
@@ -117,25 +117,25 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
       { key: 'resource', label: 'Ressource' },
       { key: 'action', label: 'Action' },
       { key: 'userId', label: 'Utilisateur' },
-      { key: 'metadata', label: 'Requête et réponse', type: 'json' },
+      { key: 'metadata', label: 'RequÃªte et rÃ©ponse', type: 'json' },
       { key: 'createdAt', label: 'Date', type: 'date' }
     ],
     fields: []
   },
   settings: {
-    title: 'Paramètres',
+    title: 'ParamÃ¨tres',
     icon: 'bi-gear-fill',
     endpoint: API_ROUTES.admin.settings,
     shape: 'array',
     columns: [
-      { key: 'key', label: 'Clé' },
+      { key: 'key', label: 'ClÃ©' },
       { key: 'value', label: 'Valeur' },
       { key: 'isPublic', label: 'Public', type: 'boolean' }
     ],
     fields: []
   },
   media: {
-    title: 'Médias',
+    title: 'MÃ©dias',
     icon: 'bi-images',
     endpoint: API_ROUTES.admin.media,
     shape: 'items',
@@ -163,7 +163,7 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
       { key: 'email', label: 'Email' },
       { key: 'subject', label: 'Sujet' },
       { key: 'status', label: 'Statut', type: 'status' },
-      { key: 'createdAt', label: 'Reçu le', type: 'date' }
+      { key: 'createdAt', label: 'ReÃ§u le', type: 'date' }
     ],
     fields: []
   },
@@ -179,16 +179,16 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
     statusEndpoint: '/status',
     columns: [
       { key: 'companyName', label: 'Entreprise' },
-      { key: 'representativeName', label: 'Représentant' },
+      { key: 'representativeName', label: 'ReprÃ©sentant' },
       { key: 'representativeEmail', label: 'Email' },
       { key: 'status', label: 'Statut', type: 'status' },
-      { key: 'createdAt', label: 'Créé le', type: 'date' }
+      { key: 'createdAt', label: 'CrÃ©Ã© le', type: 'date' }
     ],
     fields: [],
     editable: true
   },
   memberApplications: {
-    title: "Demandes d'adhésion",
+    title: "Demandes d'adhÃ©sion",
     icon: 'bi-person-vcard-fill',
     endpoint: API_ROUTES.admin.memberApplications,
     createEndpoint: API_ROUTES.public.memberApplications,
@@ -204,21 +204,21 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
     creatable: true,
     columns: [
       { key: 'companyName', label: 'Entreprise' },
-      { key: 'representativeName', label: 'Représentant' },
+      { key: 'representativeName', label: 'ReprÃ©sentant' },
       { key: 'representativeEmail', label: 'Email' },
       { key: 'status', label: 'Statut', type: 'status' },
-      { key: 'createdAt', label: 'Reçu le', type: 'date' }
+      { key: 'createdAt', label: 'ReÃ§u le', type: 'date' }
     ],
     fields: [
       { key: 'companyName', label: 'Entreprise', type: 'text', required: true },
       { key: 'legalForm', label: 'Forme juridique', type: 'text', placeholder: 'Ex. SARL' },
-      { key: 'description', label: 'Description', type: 'textarea', placeholder: 'Activité de l’entreprise' },
+      { key: 'description', label: 'Description', type: 'textarea', placeholder: 'ActivitÃ© de lâ€™entreprise' },
       { key: 'website', label: 'Site web', type: 'url' },
-      { key: 'email', label: 'Email de l’entreprise', type: 'email', required: true },
-      { key: 'phone', label: 'Téléphone', type: 'text' },
+      { key: 'email', label: 'Email de lâ€™entreprise', type: 'email', required: true },
+      { key: 'phone', label: 'TÃ©lÃ©phone', type: 'text' },
       { key: 'address', label: 'Adresse', type: 'text' },
-      { key: 'representativeName', label: 'Représentant', type: 'text', required: true, placeholder: 'Nom Prénom' },
-      { key: 'representativeEmail', label: 'Email du représentant', type: 'email', required: true },
+      { key: 'representativeName', label: 'ReprÃ©sentant', type: 'text', required: true, placeholder: 'Nom PrÃ©nom' },
+      { key: 'representativeEmail', label: 'Email du reprÃ©sentant', type: 'email', required: true },
       { key: 'logoUrl', label: 'Logo', type: 'url', placeholder: 'https://cdn.example/logo.png' },
       { key: 'sectors', label: 'Secteurs', type: 'tags', placeholder: 'Ex. Fintech, EdTech' },
       { key: 'employees', label: 'Effectif', type: 'number' }
@@ -242,22 +242,22 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
     columns: [
       { key: 'title', label: 'Titre' },
       { key: 'status', label: 'Statut', type: 'status' },
-      { key: 'createdAt', label: 'Créé le', type: 'date' }
+      { key: 'createdAt', label: 'CrÃ©Ã© le', type: 'date' }
     ],
     fields: [
       { key: 'title', label: 'Titre', type: 'text', required: true },
-      { key: 'slug', label: 'Slug', type: 'text', placeholder: 'Généré automatiquement si vide' },
-      { key: 'excerpt', label: 'Résumé', type: 'textarea' },
+      { key: 'slug', label: 'Slug', type: 'text', placeholder: 'GÃ©nÃ©rÃ© automatiquement si vide' },
+      { key: 'excerpt', label: 'RÃ©sumÃ©', type: 'textarea' },
       { key: 'contentHtml', label: 'Contenu HTML', type: 'textarea' },
       { key: 'coverUrl', label: 'Image de couverture', type: 'url' },
-      { key: 'startDate', label: 'Début', type: 'date' },
+      { key: 'startDate', label: 'DÃ©but', type: 'date' },
       { key: 'endDate', label: 'Fin', type: 'date' },
       { key: 'tags', label: 'Tags', type: 'tags' },
       STATUSES_CONTENT
     ]
   },
   activities: {
-    title: 'Activités',
+    title: 'ActivitÃ©s',
     icon: 'bi-lightning-charge-fill',
     endpoint: API_ROUTES.admin.activities,
     shape: 'items',
@@ -270,22 +270,22 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
     deletable: true,
     columns: [
       { key: 'title', label: 'Titre' },
-      { key: 'category', label: 'Catégorie' },
+      { key: 'category', label: 'CatÃ©gorie' },
       { key: 'status', label: 'Statut', type: 'status' },
-      { key: 'createdAt', label: 'Créé le', type: 'date' }
+      { key: 'createdAt', label: 'CrÃ©Ã© le', type: 'date' }
     ],
     fields: [
       { key: 'title', label: 'Titre', type: 'text', required: true },
-      { key: 'slug', label: 'Slug', type: 'text', placeholder: 'Généré automatiquement si vide' },
-      { key: 'excerpt', label: 'Résumé', type: 'textarea' },
+      { key: 'slug', label: 'Slug', type: 'text', placeholder: 'GÃ©nÃ©rÃ© automatiquement si vide' },
+      { key: 'excerpt', label: 'RÃ©sumÃ©', type: 'textarea' },
       { key: 'contentHtml', label: 'Contenu HTML', type: 'textarea' },
       { key: 'coverUrl', label: 'Image de couverture', type: 'url' },
-      { key: 'category', label: 'Catégorie', type: 'text' },
+      { key: 'category', label: 'CatÃ©gorie', type: 'text' },
       STATUSES_CONTENT
     ]
   },
   events: {
-    title: 'Événements',
+    title: 'Ã‰vÃ©nements',
     icon: 'bi-calendar-event-fill',
     endpoint: API_ROUTES.admin.events,
     shape: 'items',
@@ -298,23 +298,23 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
     deletable: true,
     columns: [
       { key: 'title', label: 'Titre' },
-      { key: 'category', label: 'Catégorie' },
+      { key: 'category', label: 'CatÃ©gorie' },
       { key: 'location', label: 'Lieu' },
-      { key: 'startAt', label: 'Début', type: 'date' },
+      { key: 'startAt', label: 'DÃ©but', type: 'date' },
       { key: 'status', label: 'Statut', type: 'status' }
     ],
     fields: [
       { key: 'title', label: 'Titre', type: 'text', required: true },
-      { key: 'slug', label: 'Slug', type: 'text', placeholder: 'Généré automatiquement si vide' },
-      { key: 'excerpt', label: 'Résumé', type: 'textarea' },
+      { key: 'slug', label: 'Slug', type: 'text', placeholder: 'GÃ©nÃ©rÃ© automatiquement si vide' },
+      { key: 'excerpt', label: 'RÃ©sumÃ©', type: 'textarea' },
       { key: 'contentHtml', label: 'Contenu HTML', type: 'textarea' },
       { key: 'coverUrl', label: 'Image de couverture', type: 'url' },
-      { key: 'category', label: 'Catégorie', type: 'text' },
+      { key: 'category', label: 'CatÃ©gorie', type: 'text' },
       { key: 'location', label: 'Lieu', type: 'text' },
-      { key: 'startAt', label: 'Début', type: 'datetime', required: true },
+      { key: 'startAt', label: 'DÃ©but', type: 'datetime', required: true },
       { key: 'endAt', label: 'Fin', type: 'datetime' },
       { key: 'registrationRequired', label: 'Inscription requise', type: 'select', options: ['true', 'false'] },
-      { key: 'capacity', label: 'Capacité', type: 'number' },
+      { key: 'capacity', label: 'CapacitÃ©', type: 'number' },
       STATUSES_CONTENT
     ]
   },
@@ -335,22 +335,22 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
     createLabel: 'Nouveau hackathon',
     columns: [
       { key: 'title', label: 'Titre' },
-      { key: 'startDate', label: 'Début', type: 'date' },
+      { key: 'startDate', label: 'DÃ©but', type: 'date' },
       { key: 'status', label: 'Statut', type: 'status' },
-      { key: 'createdAt', label: 'Créé le', type: 'date' }
+      { key: 'createdAt', label: 'CrÃ©Ã© le', type: 'date' }
     ],
     fields: [
       { key: 'title', label: 'Titre', type: 'text', required: true },
-      { key: 'slug', label: 'Slug', type: 'text', placeholder: 'Généré automatiquement si vide' },
+      { key: 'slug', label: 'Slug', type: 'text', placeholder: 'GÃ©nÃ©rÃ© automatiquement si vide' },
       { key: 'description', label: 'Description', type: 'textarea' },
-      { key: 'rulesHtml', label: 'Règlement HTML', type: 'textarea' },
+      { key: 'rulesHtml', label: 'RÃ¨glement HTML', type: 'textarea' },
       { key: 'coverUrl', label: 'Image de couverture', type: 'url' },
-      { key: 'startDate', label: 'Début', type: 'date' },
+      { key: 'startDate', label: 'DÃ©but', type: 'date' },
       { key: 'endDate', label: 'Fin', type: 'date' },
       { key: 'registrationDeadline', label: 'Date limite d\'inscription', type: 'date' },
-      { key: 'maxTeamSize', label: 'Taille max équipe', type: 'number' },
-      { key: 'minTeamSize', label: 'Taille min équipe', type: 'number' },
-      { key: 'themes', label: 'Thèmes', type: 'tags' },
+      { key: 'maxTeamSize', label: 'Taille max Ã©quipe', type: 'number' },
+      { key: 'minTeamSize', label: 'Taille min Ã©quipe', type: 'number' },
+      { key: 'themes', label: 'ThÃ¨mes', type: 'tags' },
       { key: 'prizes', label: 'Prix', type: 'tags' },
       STATUSES_CONTENT
     ]
@@ -397,7 +397,7 @@ newsletter: {
     deletable: true,
     columns: [
       { key: 'email', label: 'Email' },
-      { key: 'firstName', label: 'Prénom' },
+      { key: 'firstName', label: 'PrÃ©nom' },
       { key: 'status', label: 'Statut', type: 'status' },
       { key: 'createdAt', label: 'Inscrit le', type: 'date' }
     ],
@@ -412,7 +412,7 @@ newsletter: {
       { key: 'subject', label: 'Objet' },
       { key: 'status', label: 'Statut', type: 'status' },
       { key: 'recipientCount', label: 'Destinataires' },
-      { key: 'createdAt', label: 'Créée le', type: 'date' }
+      { key: 'createdAt', label: 'CrÃ©Ã©e le', type: 'date' }
     ],
     fields: [],
     creatable: true,
@@ -421,3 +421,6 @@ newsletter: {
     createRoute: '/dashboard/announcements/new'
   }
 };
+
+
+

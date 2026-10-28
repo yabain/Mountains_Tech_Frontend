@@ -41,10 +41,6 @@
             <label for="event-excerpt">Description courte</label>
             <textarea id="event-excerpt" name="excerpt" [(ngModel)]="form.excerpt" rows="3" placeholder="Présentez brièvement l’événement"></textarea>
           </div>
-          <div class="editor-field editor-field--full">
-            <label for="event-program">Programme et contenu détaillé</label>
-            <textarea id="event-program" name="contentHtml" [(ngModel)]="form.contentHtml" rows="6" placeholder="Déroulé et informations détaillées de l’événement"></textarea>
-          </div>
         </div>
       </section>
 
@@ -94,6 +90,24 @@
             <label for="event-slug">Slug</label>
             <input id="event-slug" name="slug" [(ngModel)]="form.slug" placeholder="Généré automatiquement si vide" />
           </div>
+        </div>
+      </section>
+
+      <section class="editor-card">
+        <h2>Panélistes</h2>
+        <p class="editor-help">Ajoutez les intervenants de l'événement. La photo est uploadée via multipart.</p>
+        <div class="panelists-list">
+          @for (p of panelists(); track $index) {
+            <div class="panelist-row">
+              <input type="text" placeholder="Nom" [(ngModel)]="p.name" />
+              <input type="text" placeholder="Rôle / Titre" [(ngModel)]="p.role" />
+              <input type="file" accept="image/*" (change)="onPanelistPhoto($event, $index)" />
+              <button type="button" class="editor-btn editor-btn--danger" (click)="removePanelist($index)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          }
+          <button type="button" class="res-btn res-btn--outline" (click)="addPanelist()">+ Ajouter un panéliste</button>
         </div>
       </section>
 

@@ -1,0 +1,52 @@
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  background: #f3f6f8;
+  color: #172838;
+}
+
+.error-header {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+}
+
+.error-body {
+  text-align: center;
+  max-width: 560px;
+}
+
+.error-title {
+  font-size: clamp(8rem, 20vw, 14rem);
+  font-weight: 500;
+  line-height: 0.9;
+  color: #00447e;
+  margin: 0 0 16px;
+  letter-spacing: -0.06em;
+}
+
+.error-desc {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #536575;
+  margin: 0 0 32px;
+}
+
+.error-cta {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 8px;
+  background: #00447e;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.error-cta:hover {
+  background: #00325a;
+}
