@@ -8,10 +8,100 @@
   </nav>
 </header>
 
-<section class="mv-contact" aria-label="Page de contact temporaire">
-  <div class="contact-success" role="status">
-    <h2>Félicitations, vous avez envoyé un message !</h2>
-    <p>Nous vous répondrons rapidement.</p>
-    <a class="mv-contact__btn" routerLink="/">Retour à l'accueil</a>
+<section class="mv-contact">
+  <div class="mv-contact__inner">
+    <div class="mv-contact__info">
+      <span class="mv-contact__tag">Contact</span>
+      <h2>Besoin d'informations ?<br>Contactez-nous</h2>
+      <p>Contactez-nous dès aujourd'hui pour des stratégies sur mesure et un conseil expert. Nous sommes impatients d'aider votre communauté à grandir !</p>
+
+      <div class="mv-contact__details">
+        <div class="mv-contact__detail-item">
+          <div class="mv-contact__detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V19a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3 5.18 2 2 0 0 1 5 3h2.09a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.92z"/></svg>
+          </div>
+          <div>
+            <div class="mv-contact__detail-label">Téléphone</div>
+            <div class="mv-contact__detail-value">+237 671 87 59 46</div>
+          </div>
+        </div>
+
+        <div class="mv-contact__detail-item">
+          <div class="mv-contact__detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div>
+            <div class="mv-contact__detail-label">Email</div>
+            <div class="mv-contact__detail-value">contact&#64;mountainstech.cm</div>
+          </div>
+        </div>
+
+        <div class="mv-contact__detail-item">
+          <div class="mv-contact__detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="mv-contact__detail-label">Siège social</div>
+            <div class="mv-contact__detail-value">Bangangté, Cameroun</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mv-contact__form-wrap">
+      <span class="mv-contact__form-tag">Nous écrire</span>
+      <h3>Envoyer un message</h3>
+      <p class="mv-contact__form-sub">Veuillez remplir le formulaire ci-dessous avec vos coordonnées et votre message, et notre équipe vous répondra dans les plus brefs délais.</p>
+
+      <ng-container *ngIf="!sent">
+        <form (ngSubmit)="send()" novalidate>
+          <div class="mv-contact__row">
+            <div class="mv-contact__field">
+              <label class="mv-visually-hidden" for="contact-first-name">Prénom</label>
+              <input id="contact-first-name" class="mv-contact__input" type="text" name="firstName" [(ngModel)]="firstName" placeholder="Prénom*" autocomplete="given-name" />
+            </div>
+            <div class="mv-contact__field">
+              <label class="mv-visually-hidden" for="contact-last-name">Nom</label>
+              <input id="contact-last-name" class="mv-contact__input" type="text" name="lastName" [(ngModel)]="lastName" placeholder="Nom*" autocomplete="family-name" />
+            </div>
+          </div>
+          <div class="mv-contact__row">
+            <div class="mv-contact__field">
+              <label class="mv-visually-hidden" for="contact-email">Email</label>
+              <input id="contact-email" class="mv-contact__input" type="email" name="email" [(ngModel)]="email" placeholder="Email*" autocomplete="email" required />
+            </div>
+            <div class="mv-contact__field">
+              <label class="mv-visually-hidden" for="contact-phone">Téléphone</label>
+              <input id="contact-phone" class="mv-contact__input" type="tel" name="phone" [(ngModel)]="phone" placeholder="Téléphone" autocomplete="tel" />
+            </div>
+          </div>
+          <div class="mv-contact__field">
+            <label class="mv-visually-hidden" for="contact-subject">Sujet</label>
+            <input id="contact-subject" class="mv-contact__input" type="text" name="subject" [(ngModel)]="subject" placeholder="Sujet*" />
+          </div>
+          <div class="mv-contact__field">
+            <label class="mv-visually-hidden" for="contact-message">Message</label>
+            <textarea id="contact-message" class="mv-contact__textarea" name="message" [(ngModel)]="message" placeholder="Écrivez votre message" rows="5" required></textarea>
+          </div>
+          <p class="mv-contact__error" role="alert" *ngIf="error">{{ error }}</p>
+          <button class="mv-contact__btn" type="submit" [disabled]="sending || !firstName || !email || !message">
+            <span *ngIf="!sending">Envoyer le message</span>
+            <span *ngIf="sending">Envoi en cours…</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </form>
+      </ng-container>
+
+      <ng-container *ngIf="sent">
+        <div class="mv-contact__success">
+          <div class="mv-contact__success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h4>Message envoyé !</h4>
+          <p>Merci d'avoir pris contact. Notre équipe vous répondra dans les plus brefs délais.</p>
+          <button class="mv-contact__btn mv-contact__btn--outline" (click)="reset()">Envoyer un autre message</button>
+        </div>
+      </ng-container>
+    </div>
   </div>
 </section>

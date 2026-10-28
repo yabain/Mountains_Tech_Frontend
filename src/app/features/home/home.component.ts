@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
   animate,
   query,
@@ -31,7 +32,7 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, FormsModule, ButtonComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -67,6 +68,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   events: EventItem[] = [];
   isLoadingEvents = true;
   hasEventsError = false;
+  newsletterForm: Record<string, string> = {};
+  newsletterSubmitting = false;
+  newsletterSubmitted = false;
+  newsletterSubmittedEmail = '';
+  newsletterError = '';
   private sectionObserver?: IntersectionObserver;
 
   @ViewChild('homeContent')
@@ -157,6 +163,45 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   formatEventYear(value: string): string {
     return this.parseEventDate(value)?.getFullYear().toString() ?? '—';
+  }
+
+  subscribeToNewsletter(): void {
+    if (this.newsletterSubmitting || this.newsletterSubmitted) {
+      return;
+    }
+
+    const email = this.newsletterForm['email']?.trim() ?? '';
+    if (!email) {
+      this.newsletterError = 'Veuillez renseigner une adresse e-mail valide.';
+      return;
+    }
+
+    const firstName = (this.newsletterForm['firstName'] ?? this.newsletterForm['name'] ?? '').trim();
+    this.newsletterSubmitting = true;
+    this.newsletterError = '';
+    this.api.post<ApiResponse<unknown>>(API_ROUTES.public.newsletter, {
+      email,
+      ...(firstName ? { firstName } : {}),
+      consent: true
+    })
+      .pipe(finalize(() => {
+        this.newsletterSubmitting = false;
+        this.changeDetectorRef.markForCheck();
+      }))
+      .subscribe({
+        next: () => {
+          this.newsletterSubmittedEmail = email;
+          this.newsletterSubmitted = true;
+          this.changeDetectorRef.markForCheck();
+        },
+        error: (error: { error?: { message?: string | string[] } }) => {
+          const message = error.error?.message;
+          this.newsletterError = Array.isArray(message)
+            ? message.join(' ')
+            : message ?? 'Impossible de confirmer votre inscription. Veuillez réessayer.';
+          this.changeDetectorRef.markForCheck();
+        }
+      });
   }
 
   formatEventDay(value: string): string {

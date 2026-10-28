@@ -406,25 +406,51 @@
   <section class="newsletter section-shell" id="newsletter" [@scrollReveal]="revealedSections['newsletter'] ? 'visible' : 'hidden'">
     <div class="newsletter__content">
       <div class="newsletter__main">
-        <div class="newsletter__intro">
-          <span class="section-eyebrow">Newsletter</span>
-          <h2>{{ data.newsletter.title }}</h2>
-          <p>{{ data.newsletter.description }}</p>
-          <a class="newsletter__contact" href="/contact">{{ data.newsletter.buttonLabel }} <span aria-hidden="true">↗</span></a>
-        </div>
-
-        <form class="newsletter__form">
-          <div class="field" *ngFor="let field of data.newsletter.formFields">
-            <label [for]="field.name">{{ field.label }}</label>
-            <input
-              [id]="field.name"
-              [name]="field.name"
-              [type]="field.type"
-              [placeholder]="field.placeholder"
-            />
+        <ng-container *ngIf="!newsletterSubmitted; else newsletterSuccess">
+          <div class="newsletter__intro">
+            <span class="section-eyebrow">Newsletter</span>
+            <h2>{{ data.newsletter.title }}</h2>
+            <p>{{ data.newsletter.description }}</p>
+            <a class="newsletter__contact" href="/contact">{{ data.newsletter.buttonLabel }} <span aria-hidden="true">↗</span></a>
           </div>
-          <app-button href="/newsletter" variant="secondary" [buttonAs]="'link'">S'abonner</app-button>
-        </form>
+
+          <form class="newsletter__form" (ngSubmit)="subscribeToNewsletter()">
+            <div class="field" *ngFor="let field of data.newsletter.formFields">
+              <label [for]="'newsletter-' + field.name">{{ field.label }}</label>
+              <input
+                [id]="'newsletter-' + field.name"
+                [name]="field.name"
+                [type]="field.type"
+                [placeholder]="field.placeholder"
+                [(ngModel)]="newsletterForm[field.name]"
+                [required]="field.name === 'email'"
+                [disabled]="newsletterSubmitting"
+              />
+            </div>
+            <p class="newsletter__error" role="alert" *ngIf="newsletterError">{{ newsletterError }}</p>
+            <app-button
+              type="submit"
+              variant="secondary"
+              [disabled]="newsletterSubmitting"
+            >{{ newsletterSubmitting ? 'Inscription en cours…' : "S'abonner" }}</app-button>
+          </form>
+        </ng-container>
+
+        <ng-template #newsletterSuccess>
+          <div class="newsletter__success" role="status" aria-live="polite">
+            <span class="newsletter__success-icon" aria-hidden="true">
+              <i class="bi bi-check-lg"></i>
+            </span>
+            <div>
+              <span class="section-eyebrow">Newsletter</span>
+              <h2>Bravo, vous êtes inscrit !</h2>
+              <p>
+                Votre inscription est confirmée. Un e-mail de confirmation a été envoyé à
+                <strong>{{ newsletterSubmittedEmail }}</strong>.
+              </p>
+            </div>
+          </div>
+        </ng-template>
       </div>
 
       <img
