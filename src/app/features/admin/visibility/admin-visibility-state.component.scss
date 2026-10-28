@@ -1,114 +1,13 @@
-/* Visibility state component styles */
-.res-page {
-  .admin-page-heading {
-    margin-bottom: var(--spacing-md);
-  }
+.visibility-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
 
-  .admin-visibility-config {
-    .admin-visibility-item {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-md);
-      padding: var(--spacing-md);
-      background: var(--adm-card);
-      border: 1px solid var(--adm-border);
-      border-radius: var(--radius-md);
-      margin-bottom: var(--spacing-sm);
-
-      .admin-visibility-item-header {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-sm);
-
-        .admin-visibility-item-icon {
-          width: 40px;
-          height: 40px;
-          flex-shrink: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          i {
-            font-size: var(--font-size-lg);
-            color: var(--adm-foreground);
-          }
-        }
-
-        .admin-visibility-item-name {
-          color: var(--adm-foreground);
-          font-weight: var(--font-weight-medium);
-        }
-      }
-
-      .admin-visibility-item-body {
-        margin-top: var(--spacing-xxs);
-
-        .admin-visibility-toggle {
-          display: flex;
-          align-items: center;
-          gap: var(--spacing-sm);
-          margin-top: var(--spacing-xs);
-
-          input[type="checkbox"] {
-            transform: scale(1.2);
-            accent-color: var(--adm-primary);
-          }
-
-          span {
-            color: var(--adm-foreground);
-            font-size: var(--font-size-sm);
-          }
-        }
-
-        .admin-visibility-status {
-          margin-top: var(--spacing-xs);
-
-          span {
-            padding: var(--spacing-xxs) var(--spacing-sm);
-            border-radius: var(--radius-sm);
-            font-size: var(--font-size-sm);
-            font-weight: var(--font-weight-medium);
-
-            &.bi-dash {
-              color: var(--adm-muted-foreground);
-            }
-            &.bi-check {
-              color: var(--adm-success);
-            }
-            &.bi-hourglass {
-              color: var(--adm-warning);
-            }
-          }
-        }
-
-        .admin-visibility-description {
-          margin-top: var(--spacing-xxs);
-          color: var(--adm-muted-foreground);
-          font-size: var(--font-size-sm);
-          line-height: 1.5;
-        }
-      }
-    }
-
-    .admin-global-toggle {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-      margin-top: var(--spacing-md);
-      padding: var(--spacing-md);
-      background: var(--adm-card);
-      border: 1px solid var(--adm-border);
-      border-radius: var(--radius-md);
-
-      input[type="checkbox"] {
-        transform: scale(1.2);
-        accent-color: var(--adm-primary);
-      }
-
-      label {
-        color: var(--adm-foreground);
-        font-size: var(--font-size-sm);
-      }
-    }
-  }
+.res-count {
+  margin-left: auto;
+  color: var(--adm-muted-foreground);
+  font-size: 0.95rem;
 }
