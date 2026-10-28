@@ -20,10 +20,6 @@
       <span class="profile-role">{{ roleLabel }}</span>
       <dl class="profile-meta">
         <div>
-          <dt><i class="bi bi-telephone" aria-hidden="true"></i> Téléphone</dt>
-          <dd>{{ phoneNumber() || 'Non renseigné' }}</dd>
-        </div>
-        <div>
           <dt><i class="bi bi-calendar-check" aria-hidden="true"></i> Membre depuis</dt>
           <dd>{{ formattedDate(user?.createdAt) }}</dd>
         </div>
@@ -69,10 +65,6 @@
           <label>
             <span>Nom de famille</span>
             <input name="lastName" [ngModel]="lastName()" (ngModelChange)="lastName.set($event)" autocomplete="family-name" required />
-          </label>
-          <label class="profile-field-wide">
-            <span>Téléphone</span>
-            <input name="phoneNumber" [ngModel]="phoneNumber()" (ngModelChange)="phoneNumber.set($event)" type="tel" autocomplete="tel" />
           </label>
           <label class="profile-field-wide">
             <span>Adresse e-mail</span>

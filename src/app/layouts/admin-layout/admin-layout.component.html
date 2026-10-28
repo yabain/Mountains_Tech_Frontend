@@ -51,14 +51,12 @@
     </div>
 
     <div class="admin-sidebar-footer">
-      <div class="admin-profile">
-        @if (currentUser$ | async; as user) {
-          <span class="admin-profile-avatar">{{ userInitials(user) }}</span>
-          <span class="admin-profile-info">
-            <span class="admin-profile-name">{{ user.name }}</span>
-            <span class="admin-profile-role">{{ roleLabel(user) }}</span>
-          </span>
-        }
+      <div class="admin-brand-footer" aria-label="Mountains Tech In Africa, version 1">
+        <span class="admin-brand-footer-name">
+          <span>Mountains Tech</span>
+          <span class="admin-brand-footer-region">In Africa</span>
+        </span>
+        <span class="admin-brand-footer-version">v1</span>
       </div>
       <button class="admin-logout" type="button" (click)="logout()" title="Déconnexion">
         <i class="bi bi-box-arrow-right" aria-hidden="true"></i>

@@ -4,19 +4,12 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } fro
 import { filter, interval } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AlertComponent } from '../../shared/components/alert/alert.component';
-import { AuthService, AuthUser } from '../../core/auth/services/auth.service';
+import { AuthService } from '../../core/auth/services/auth.service';
 import { AdminNotificationsComponent } from '../../features/admin/notifications/admin-notifications.component';
 import { ADMIN_NAV_ITEMS, AdminNavItem, AdminRole, ROLE_PERMISSIONS, normalizeRole } from '../../features/admin/admin-navigation';
 import { AdminSidebarCountsService } from '../../features/admin/admin-sidebar-counts.service';
 import { DashboardDataService } from '../../features/admin/dashboard/dashboard-data.service';
 import { TopBarComponent } from '../../shared/components/top-bar/top-bar.component';
-
-const ROLE_LABELS: Record<AdminRole, string> = {
-  SUPER_ADMIN: 'Super administrateur',
-  ADMIN: 'Administrateur',
-  EDITOR: 'Éditeur',
-  COMMUNICATION: 'Communication'
-};
 
 @Component({
   selector: 'app-admin-layout',
@@ -104,19 +97,6 @@ export class AdminLayoutComponent implements AfterViewInit {
       case 'communication': return 'Communication';
       case 'système': return 'Système';
     }
-  }
-
-  userInitials(user: AuthUser | null): string {
-    if (!user) {
-      return '?';
-    }
-    const words = user.name.trim().split(/\s+/).filter(Boolean);
-    return words.slice(0, 2).map((word) => word.charAt(0)).join('').toUpperCase() || '?';
-  }
-
-  roleLabel(user: AuthUser | null): string {
-    const role = user ? normalizeRole(user.role) : null;
-    return role ? ROLE_LABELS[role] : '';
   }
 
   onNavScroll(): void {

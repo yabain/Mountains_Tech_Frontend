@@ -11,10 +11,10 @@
 }
 
 .directory-hero {
-  padding: 2.4rem 1.25rem;
+  min-height: 250px;
+  padding: 3rem 1.25rem;
   color: #fff;
-  text-align: center;
-  background: linear-gradient(110deg, #07536a, #17a6df);
+  background: #00447e;
 }
 
 .directory-hero h1 {
@@ -22,9 +22,27 @@
   font-size: clamp(2rem, 4vw, 3rem);
 }
 
-.directory-hero p:last-child {
+.directory-hero > p {
   margin: 0;
   font-size: 0.95rem;
+}
+
+.about-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.75rem;
+  color: rgb(255 255 255 / 75%);
+  font-size: 0.82rem;
+}
+
+.about-breadcrumb a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.about-breadcrumb a:hover {
+  text-decoration: underline;
 }
 
 .eyebrow,

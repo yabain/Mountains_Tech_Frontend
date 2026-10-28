@@ -3,7 +3,7 @@
    ============================================================ */
 
 .admin-shell {
-  --adm-background: #edf0f2;
+  --adm-background: #f5f7f9;
   --adm-foreground: #172838;
   --adm-card: oklch(1 0 0);
   --adm-primary: #00447e;
@@ -229,50 +229,35 @@
   border-top: 1px solid color-mix(in oklab, var(--adm-inverse) 10%, transparent);
 }
 
-.admin-profile {
+.admin-brand-footer {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 3px 10px 16px;
-  min-width: 0;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 10px 16px;
 }
 
-.admin-profile-avatar {
-  width: 36px;
-  height: 36px;
+.admin-brand-footer-name {
   display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--adm-sidebar-active);
+  gap: 1px;
   color: var(--adm-inverse);
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.admin-profile-info {
-  min-width: 0;
-  overflow: hidden;
-}
-
-.admin-profile-name {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--adm-inverse);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-.admin-profile-role {
-  display: block;
-  margin-top: 1px;
-  font-size: 11px;
+.admin-brand-footer-region {
+  justify-self: end;
   color: var(--adm-sidebar-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.admin-brand-footer-version {
+  padding-bottom: 1px;
+  color: var(--adm-sidebar-muted);
+  font-size: 10px;
 }
 
 .admin-logout {
@@ -313,7 +298,7 @@
   .admin-nav-group-label,
   .admin-nav-label,
   .admin-nav-count,
-  .admin-profile-info {
+  .admin-brand-footer-name {
     display: none;
   }
 
@@ -333,9 +318,9 @@
     width: auto;
   }
 
-  .admin-profile {
-    padding: 0 6px 16px;
+  .admin-brand-footer {
     justify-content: center;
+    padding: 0 0 14px;
   }
 }
 
@@ -378,8 +363,8 @@
 app-top-bar {
   flex: 0 0 auto;
   margin-bottom: 14px;
-  outline: 1px solid var(--adm-border);
-  border-radius: 4px;
+  outline: none;
+  border-radius: 14px;
 }
 
 .admin-page > app-top-bar {
@@ -390,13 +375,14 @@ app-top-bar {
   flex: 1 1 auto;
   min-height: 0;
   margin-inline: calc(var(--admin-page-padding-x) * -1);
-  padding: 16px var(--admin-page-padding-x) 24px;
+  margin-top: -26px;
+  padding: 42px var(--admin-page-padding-x) 24px;
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
-  border: 1px solid var(--adm-border);
-  border-radius: 8px;
-  background: #fff;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   scrollbar-width: thin;
   scrollbar-color: #9bb2c5 transparent;
 
@@ -446,7 +432,7 @@ app-top-bar {
 
 @media (max-width: 1100px) {
   .admin-content {
-    padding-top: 14px;
+    padding-top: 40px;
   }
 }
 
@@ -473,7 +459,7 @@ app-top-bar {
     .admin-nav-group-label,
     .admin-nav-label,
     .admin-nav-count,
-    .admin-profile-info {
+    .admin-brand-footer-name {
       display: block;
     }
 
@@ -493,9 +479,13 @@ app-top-bar {
       width: 18px;
     }
 
-    .admin-profile {
-      justify-content: flex-start;
-      padding: 3px 10px 16px;
+    .admin-brand-footer {
+      justify-content: space-between;
+      padding: 0 10px 16px;
+    }
+
+    .admin-brand-footer-name {
+      display: grid;
     }
   }
 
@@ -530,7 +520,7 @@ app-top-bar {
   }
 
   .admin-content {
-    padding: 14px var(--admin-page-padding-x) 20px;
+    padding: 40px var(--admin-page-padding-x) 20px;
   }
 }
 

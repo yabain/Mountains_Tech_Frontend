@@ -33,7 +33,6 @@ export class AdminProfileComponent {
   readonly user = this.auth.currentUser$.value;
   readonly firstName = signal(this.user?.firstName ?? this.namePart(0));
   readonly lastName = signal(this.user?.lastName ?? this.namePart(1));
-  readonly phoneNumber = signal(this.user?.phoneNumber ?? '');
   readonly avatar = signal(this.user?.avatar ?? '');
   readonly saving = signal(false);
   readonly uploading = signal(false);
@@ -72,18 +71,16 @@ export class AdminProfileComponent {
 
     const firstName = this.firstName().trim();
     const lastName = this.lastName().trim();
-    const phoneNumber = this.phoneNumber().trim();
     this.saving.set(true);
     this.error.set('');
     this.saved.set(false);
 
     this.api.patch<unknown>(`${API_ROUTES.admin.users}/${encodeURIComponent(this.user.id)}`, {
       firstName,
-      lastName,
-      phoneNumber
+      lastName
     }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
-        this.auth.updateCurrentUser({ firstName, lastName, name: `${firstName} ${lastName}`, phoneNumber });
+        this.auth.updateCurrentUser({ firstName, lastName, name: `${firstName} ${lastName}` });
         this.saving.set(false);
         this.saved.set(true);
       },

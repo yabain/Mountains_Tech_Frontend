@@ -23,14 +23,16 @@ const config: AdminResourceConfig = {
       route: '/dashboard/contacts/:id'
     },
     {
-      kind: 'status',
+      kind: 'read',
       label: 'Marquer comme lu',
       icon: 'bi-envelope-open',
       tone: 'success',
-      status: 'RESOLVED',
-      statusByCurrentStatus: { RESOLVED: 'IN_PROGRESS' },
-      labelByStatus: { RESOLVED: 'Marquer comme non lu' },
-      hideForStatuses: ['SPAM']
+      readField: 'isRead',
+      readEndpoint: '/read',
+      labelByReadState: {
+        read: 'Marquer comme non lu',
+        unread: 'Marquer comme lu'
+      }
     }
   ],
   columns: [

@@ -1,4 +1,79 @@
-<section>
-  <h2>Partenaires</h2>
-  <p>Des institutions, entreprises et organisations qui soutiennent la communauté.</p>
+<section class="partners-page">
+  <header class="events-hero">
+    <h1>Nos partenaires</h1>
+    <p>Les organisations qui accompagnent et renforcent l’écosystème Mountains Tech.</p>
+    <nav class="about-breadcrumb" aria-label="Fil d’Ariane">
+      <a routerLink="/home">Accueil</a>
+      <span aria-hidden="true">›</span>
+      <span>Partenaires</span>
+    </nav>
+  </header>
+
+  <div class="partners-shell">
+    <div class="section-heading">
+      <div>
+        <p class="section-tag">Partenaires</p>
+        <h2>Ensemble, faisons grandir l’innovation</h2>
+      </div>
+      <span>{{ filteredPartners.length }} partenaire{{ filteredPartners.length > 1 ? 's' : '' }}</span>
+    </div>
+
+    <label class="search-box">
+      <span aria-hidden="true">⌕</span>
+      <input
+        type="search"
+        placeholder="Rechercher un partenaire..."
+        [value]="searchTerm"
+        (input)="searchTerm = $any($event.target).value"
+        aria-label="Rechercher un partenaire">
+    </label>
+
+    <p class="state-message" *ngIf="isLoading">Chargement des partenaires...</p>
+    <p class="state-message state-message--error" *ngIf="hasError">Impossible de charger les partenaires pour le moment.</p>
+    <p class="state-message" *ngIf="!isLoading && !hasError && !filteredPartners.length">
+      Aucun partenaire ne correspond à votre recherche.
+    </p>
+
+    <div class="partner-grid" *ngIf="!isLoading && !hasError && filteredPartners.length">
+      <article
+        class="partner-card"
+        *ngFor="let partner of filteredPartners; trackBy: trackByPartner"
+        tabindex="0"
+        [attr.aria-label]="'Informations sur ' + partner.name">
+        <span class="partner-card-frame" aria-hidden="true"></span>
+        <div class="partner-card-surface">
+          <div class="partner-card-front">
+            <div class="partner-logo">
+              <img *ngIf="partner.logoUrl" [src]="partner.logoUrl" [alt]="'Logo de ' + partner.name" loading="lazy">
+              <span *ngIf="!partner.logoUrl" aria-hidden="true">{{ partnerInitial(partner.name) }}</span>
+            </div>
+            <div class="partner-info">
+              <h3>{{ partner.name }}</h3>
+              <p class="partner-description" *ngIf="partner.description">{{ partner.description }}</p>
+            </div>
+            <span class="partner-card-hint" aria-hidden="true">
+              Survoler pour découvrir <i class="bi bi-arrow-up-right"></i>
+            </span>
+          </div>
+
+          <div class="partner-card-details">
+            <h3>{{ partner.name }}</h3>
+            <p>{{ partner.description || 'Un partenaire engagé aux côtés de Mountains Tech.' }}</p>
+            <a
+              *ngIf="partner.website"
+              class="partner-link"
+              [href]="partner.website"
+              target="_blank"
+              rel="noopener noreferrer"
+              [attr.aria-label]="'Visiter le site de ' + partner.name">
+              Visiter le site <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+            <span *ngIf="!partner.website" class="partner-link partner-link--unavailable">
+              Site web non renseigné
+            </span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
 </section>

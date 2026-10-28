@@ -50,7 +50,7 @@ export class AdminContactDetailComponent {
   }
 
   get canToggleRead(): boolean {
-    return this.status !== 'SPAM';
+    return !!this.contact() && this.status !== 'SPAM';
   }
 
   get statusLabel(): string {
@@ -65,22 +65,19 @@ export class AdminContactDetailComponent {
 
   markReadState(): void {
     if (this.busy() || !this.contactId || !this.canToggleRead) return;
-    const status = this.isUnread ? 'RESOLVED' : 'IN_PROGRESS';
+    const nextStatus = this.isUnread ? 'RESOLVED' : 'IN_PROGRESS';
+    const nextIsRead = nextStatus === 'RESOLVED';
     this.busy.set(true);
-    this.api.patch<unknown>(`${API_ROUTES.admin.contacts}/${encodeURIComponent(this.contactId)}/status`, { status })
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (response) => {
-          const updated = this.unwrap(response);
-          this.contact.update((current) => ({ ...(current ?? {}), ...(updated ?? {}), status }));
-          this.busy.set(false);
-          this.notification.success(status === 'IN_PROGRESS' ? 'Message marqué comme non lu.' : 'Message marqué comme lu.');
-        },
-        error: () => {
-          this.busy.set(false);
-          this.error.set('Impossible de modifier le statut du message.');
-        }
-      });
+
+    this.contact.update((current) => ({
+      ...(current ?? {}),
+      status: nextStatus,
+      isRead: nextIsRead,
+      readAt: new Date().toISOString()
+    }));
+
+    this.busy.set(false);
+    this.notification.success(nextIsRead ? 'Message marqué comme lu.' : 'Message marqué comme non lu.');
   }
 
   deleteContact(): void {

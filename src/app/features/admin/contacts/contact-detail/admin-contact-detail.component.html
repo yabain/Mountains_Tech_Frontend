@@ -23,6 +23,9 @@
             <p>Reçu le {{ formatDate(message['createdAt'] ?? message['date']) }}</p>
           </div>
           <span class="contact-badge" [class.contact-badge--unread]="isUnread">
+            {{ isUnread ? 'Non lu' : 'Lu' }}
+          </span>
+          <span class="contact-badge">
             {{ statusLabel }}
           </span>
         </div>

@@ -4,6 +4,9 @@ export interface Contact {
   email: string;
   subject: string;
   message: string;
+  status?: string;
+  isRead?: boolean;
+  readAt?: string;
   createdAt?: string;
 }
 

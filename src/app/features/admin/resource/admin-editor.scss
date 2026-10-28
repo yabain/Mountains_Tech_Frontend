@@ -1,26 +1,38 @@
-.admin-editor {
+.admin-editor,
+.editor-page {
   --editor-accent: #172c5b;
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 28px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 20px 0 28px;
   color: #1e293b;
 }
 
-.editor-heading {
+.admin-editor > form,
+.editor-page > form {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0;
+}
+
+.editor-heading,
+.editor-header {
   display: flex;
   align-items: center;
   gap: 16px;
   margin-bottom: 24px;
 }
 
-.editor-heading h1 {
+.editor-heading h1,
+.editor-header h1 {
   margin: 0;
   color: var(--editor-accent);
   font-size: 25px;
   font-weight: 750;
 }
 
-.editor-heading p {
+.editor-heading p,
+.editor-header p {
   margin: 6px 0 0;
   color: #64748b;
 }
@@ -301,8 +313,10 @@
 }
 
 @media (max-width: 700px) {
-  .admin-editor { padding: 18px 14px; }
-  .editor-heading { align-items: flex-start; flex-wrap: wrap; }
+  .admin-editor,
+  .editor-page { padding: 18px 0 20px; }
+  .editor-heading,
+  .editor-header { align-items: flex-start; flex-wrap: wrap; }
   .admin-page-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
   .editor-grid { grid-template-columns: 1fr; }
   .editor-field--full { grid-column: auto; }

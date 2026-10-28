@@ -269,3 +269,46 @@ body {
 .about-breadcrumb a:hover {
   text-decoration: underline;
 }
+
+.admin-content .admin-table-wrap,
+.admin-content .outgoing-table-wrap,
+.admin-content .registration-table-wrap,
+.admin-content .tracking-table-scroll {
+  max-width: 100%;
+  overflow-x: auto !important;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-color: #8ca3b6 #e8eef3;
+  scrollbar-width: thin;
+}
+
+.admin-content .admin-table-wrap::-webkit-scrollbar,
+.admin-content .outgoing-table-wrap::-webkit-scrollbar,
+.admin-content .registration-table-wrap::-webkit-scrollbar,
+.admin-content .tracking-table-scroll::-webkit-scrollbar {
+  height: 9px;
+}
+
+.admin-content .admin-table-wrap::-webkit-scrollbar-track,
+.admin-content .outgoing-table-wrap::-webkit-scrollbar-track,
+.admin-content .registration-table-wrap::-webkit-scrollbar-track,
+.admin-content .tracking-table-scroll::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background: #e8eef3;
+}
+
+.admin-content .admin-table-wrap::-webkit-scrollbar-thumb,
+.admin-content .outgoing-table-wrap::-webkit-scrollbar-thumb,
+.admin-content .registration-table-wrap::-webkit-scrollbar-thumb,
+.admin-content .tracking-table-scroll::-webkit-scrollbar-thumb {
+  border: 2px solid #e8eef3;
+  border-radius: 8px;
+  background: #8ca3b6;
+}
+
+.admin-content .admin-table-wrap > table,
+.admin-content .outgoing-table-wrap > table,
+.admin-content .registration-table-wrap > table,
+.admin-content .tracking-table-scroll > table {
+  min-width: max(100%, 760px);
+}

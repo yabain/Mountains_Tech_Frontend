@@ -25,19 +25,47 @@
     <p class="state-message" *ngIf="!isLoading && !hasError && !filteredMembers.length">Aucun membre ne correspond à votre recherche.</p>
 
     <div class="member-grid" *ngIf="!isLoading && !hasError && filteredMembers.length">
-      <article class="member-card" *ngFor="let member of filteredMembers">
-        <div class="member-avatar">
-          <img *ngIf="member.avatarUrl" [src]="member.avatarUrl" [alt]="memberName(member)">
-          <span *ngIf="!member.avatarUrl">{{ memberName(member).charAt(0).toUpperCase() }}</span>
+      <article class="member-card" *ngFor="let member of filteredMembers; trackBy: trackByMember"
+        tabindex="0" [attr.aria-label]="'Informations sur ' + memberName(member)">
+        <span class="member-card-frame" aria-hidden="true"></span>
+        <div class="member-card-surface">
+          <div class="member-card-front">
+            <div class="member-avatar">
+              <img *ngIf="member.logoUrl || member.avatarUrl" [src]="member.logoUrl || member.avatarUrl" [alt]="'Logo de ' + memberName(member)" loading="lazy">
+              <span *ngIf="!member.logoUrl && !member.avatarUrl" aria-hidden="true">{{ memberName(member).charAt(0).toUpperCase() }}</span>
+            </div>
+            <div class="member-info">
+              <h3>{{ memberName(member) }}</h3>
+              <p class="member-role" *ngIf="member.role">{{ member.role }}</p>
+              <span class="status-badge" [class.status-badge--pending]="member.status.toLowerCase() === 'pending'"
+                [class.status-badge--inactive]="member.status.toLowerCase() === 'inactive'">{{ statusLabel(member.status) }}</span>
+            </div>
+            <span class="member-card-hint" aria-hidden="true">Survoler pour découvrir <i class="bi bi-arrow-up-right"></i></span>
+          </div>
+
+          <div class="member-card-details">
+            <h3>{{ memberName(member) }}</h3>
+            <p class="member-role" *ngIf="member.role">{{ member.role }}</p>
+            <dl class="member-meta">
+              <div>
+                <dt>Membre depuis</dt>
+                <dd>{{ formatMemberDate(member.joinedAt || member.createdAt) }}</dd>
+              </div>
+              <div>
+                <dt>{{ memberSectorLabel(member) }}</dt>
+                <dd>{{ memberSectors(member) }}</dd>
+              </div>
+              <div *ngIf="member.email">
+                <dt>Contact</dt>
+                <dd class="member-meta-email">{{ member.email }}</dd>
+              </div>
+            </dl>
+            <a class="member-link" [routerLink]="['/membres', member.slug]"
+              [attr.aria-label]="'Voir le profil de ' + memberName(member)">
+              Voir le profil <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
         </div>
-        <div class="member-info">
-          <h3>{{ memberName(member) }}</h3>
-          <p class="member-role" *ngIf="member.role">{{ member.role }}</p>
-          <p class="member-email">{{ member.email }}</p>
-          <span class="status-badge" [class.status-badge--pending]="member.status.toLowerCase() === 'pending'"
-            [class.status-badge--inactive]="member.status.toLowerCase() === 'inactive'">{{ statusLabel(member.status) }}</span>
-        </div>
-        <a class="member-link" [routerLink]="['/membres', member.slug]" [attr.aria-label]="'Voir le profil de ' + memberName(member)">→</a>
       </article>
     </div>
   </div>

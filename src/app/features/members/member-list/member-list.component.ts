@@ -55,7 +55,8 @@ export class MemberListComponent implements OnInit {
       this.memberName(member),
       member.email,
       member.role,
-      member.status
+      member.status,
+      ...(member.sectors ?? [])
     ].some((value) => value?.toLowerCase().includes(term)));
   }
 
@@ -69,6 +70,35 @@ export class MemberListComponent implements OnInit {
       inactive: 'Inactif', INACTIVE: 'Inactif'
     };
     return labels[status] || status;
+  }
+
+  formatMemberDate(value?: string): string {
+    if (!value) {
+      return 'Non renseignée';
+    }
+
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) {
+      return 'Non renseignée';
+    }
+
+    return new Intl.DateTimeFormat('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(date);
+  }
+
+  memberSectorLabel(member: Member): string {
+    return `Secteur${(member.sectors?.length ?? 0) > 1 ? 's' : ''} d’activité`;
+  }
+
+  memberSectors(member: Member): string {
+    return member.sectors?.length ? member.sectors.join(', ') : 'Non renseigné';
+  }
+
+  trackByMember(_index: number, member: Member): string {
+    return member.id;
   }
 
   private itemsFromResponse(data: MemberListData | Member[]): Member[] {

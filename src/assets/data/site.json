@@ -1,9 +1,9 @@
 {
   "hero": {
     "eyebrow": "MountainsTech",
-    "title": "Uniting Cameroonian Forces in New Technologies!",
-    "subtitle": "A consortium that brings together key players in Cameroon’s new technology sector.",
-    "description": "Together, we form a strategic alliance to innovate, collaborate, and propel the African tech ecosystem to international heights.",
+    "title": "Unir les forces camerounaises autour des nouvelles technologies !",
+    "subtitle": "Un consortium qui rassemble les acteurs clés du secteur des nouvelles technologies au Cameroun.",
+    "description": "Ensemble, nous formons une alliance stratégique pour innover, coopérer et porter l’écosystème technologique africain sur la scène internationale.",
     "ctaPrimary": "Découvrir les membres",
     "ctaSecondary": "Nous contacter",
     "stats": [
@@ -17,11 +17,11 @@
     "eyebrow": "Présidence",
     "title": "Rencontrez notre président",
     "role": "Président",
-    "company": "CEO de Yaba-In",
+    "company": "Directeur général de Yaba-In",
     "name": "Flambel SANOU",
     "image": "/photoBureau/flambel.webp",
     "paragraphs": [
-      "Flambel SANOU, CEO de Yaba-In, fait partie des trois fondateurs de Mountains Tech aux côtés de Hussein MENKAM et de Merlin TONKA.",
+      "Flambel SANOU, directeur général de Yaba-In, fait partie des trois fondateurs de Mountains Tech aux côtés de Hussein MENKAM et de Merlin TONKA.",
       "En tant que Président, il assure la direction générale, la représentation institutionnelle et la stratégie globale de l’association.",
       "Il coordonne la planification des événements avec le Vice-Président en charge des Projets et le Secrétaire Général."
     ],
@@ -49,10 +49,10 @@
       }
     ],
     "officeMembers": [
-      { "id": 1, "name": "Francis POUATCHA", "role": "Vice-Président en charge des Projets", "detail": "Supervision opérationnelle des projets, hackathons et programmes techniques.", "image": "" },
-      { "id": 2, "name": "Hussein MENKAM", "role": "Vice-Président en charge de l’Administration", "detail": "Gestion administrative, suivi de l’organisation interne et gouvernance.", "company": "COO de Yaba-In", "image": "" },
-      { "id": 3, "name": "Merlin TONKA", "role": "Vice-Président en charge de la Coopération", "detail": "Partenariats stratégiques, relations extérieures et synergies institutionnelles.", "company": "CEO de Clemios et de TonkaIn", "image": "" },
-      { "id": 4, "name": "Yavan TCHIETCHA", "role": "Secrétaire Général", "detail": "Gestion des adhésions, correspondance officielle et rédaction des procès-verbaux.", "image": "" },
+      { "id": 3, "name": "Merlin TONKA", "role": "Vice-Président en charge de la Coopération", "detail": "Partenariats stratégiques, relations extérieures et synergies institutionnelles.", "company": "Directeur général de Clemios et de TonkaIn", "image": "/photoBureau/merlinTonka.jpg" },
+      { "id": 2, "name": "Hussein MENKAM", "role": "Vice-Président en charge de l’Administration", "detail": "Gestion administrative, suivi de l’organisation interne et gouvernance.", "company": "Directeur des opérations de Yaba-In", "image": "/photoBureau/hussein-profile.webp" },
+      { "id": 1, "name": "Francis POUATCHA", "role": "Vice-Président en charge des Projets", "detail": "Supervision opérationnelle des projets, hackathons et programmes techniques.", "company": "Responsable technique chez adorsys", "image": "/photoBureau/francisPouatcha.jpg" },
+      { "id": 4, "name": "Yvan TCHIETCHA", "role": "Secrétaire Général", "detail": "Gestion des adhésions, correspondance officielle et rédaction des procès-verbaux.", "company": "Chef de département chez Skyengpro Sarl", "image": "/photoBureau/yvanTchietcha.jpg" },
       { "id": 5, "name": "Pierre POKAM", "role": "Trésorier Général", "detail": "Gestion financière, cotisations, comptabilité et contrôle du budget.", "image": "" }
     ]
   },
@@ -61,7 +61,7 @@
     "title": "Une trajectoire de coopération",
     "description": "Née à Bangangté, Mountains Tech porte une ambition locale, nationale et continentale.",
     "items": [
-      { "year": "2023", "title": "Création à Bangangté", "description": "Flambel SANOU (CEO de Yaba-In), Hussein MENKAM (COO de Yaba-In) et Merlin TONKA (CEO de Clemios et de TonkaIn) fondent Mountains Tech." },
+      { "year": "2023", "title": "Création à Bangangté", "description": "Flambel SANOU (directeur général de Yaba-In), Hussein MENKAM (directeur des opérations de Yaba-In) et Merlin TONKA (directeur général de Clemios et de TonkaIn) fondent Mountains Tech." },
       { "year": "Notre ancrage", "title": "L’Ouest-Cameroun", "description": "Le siège social est situé à Bangangté. L’association fédère les acteurs de l’écosystème technologique local et régional." },
       { "year": "Notre portée", "title": "Du Cameroun au continent", "description": "La coopération, les partenariats et la représentation de l’écosystème s’inscrivent dans une portée nationale et continentale." }
     ]
@@ -91,39 +91,39 @@
     "highlights": [
       {
         "title": "Collaboration",
-        "text": "Foster collaboration among local businesses and innovation stakeholders."
+        "text": "Favoriser la collaboration entre les entreprises locales et les acteurs de l’innovation."
       },
       {
         "title": "Innovation",
-        "text": "Promote technological innovation made in Cameroon and built for the future."
+        "text": "Promouvoir une innovation technologique camerounaise tournée vers l’avenir."
       },
       {
         "title": "Impact",
-        "text": "Strengthen our collective impact in the new technologies market and beyond."
+        "text": "Renforcer notre impact collectif dans le secteur des nouvelles technologies et au-delà."
       }
     ]
   },
   "members": [
-    { "id": 1, "name": "Clemios", "role": "Digital innovation", "city": "Bangangté", "description": "Entreprise spécialisée dans les solutions numériques et le développement d’écosystèmes technologiques.", "image": "/logopartenaires/clemios_logo.jpg" },
-    { "id": 2, "name": "Skyeng Pro", "role": "IT & consulting", "city": "Bangangté", "description": "Accompagnement stratégique et opérationnel pour les entreprises ambitieuses.", "image": "/logopartenaires/sky.jpg" },
-    { "id": 3, "name": "Mboa Intech", "role": "Innovation tech", "city": "Bangangté", "description": "Mise en place d’outils pour la transformation numérique locale.", "image": "/logopartenaires/mboa-in-tech.jpg" },
-    { "id": 4, "name": "Yaba-In", "role": "Startups & ecosystem", "city": "Bangangté", "description": "Création de ponts entre talents, investisseurs et projets d’avenir.", "image": "/logopartenaires/yabaIn.webp" },
-    { "id": 5, "name": "Général Biotech", "role": "Biotech & data", "city": "Bangangté", "description": "Innovation à la croisée du numérique, de la biotechnologie et de l’impact social.", "image": "/logopartenaires/Generabiotech.jpg" }
+    { "id": 1, "name": "Clemios", "role": "Innovation numérique", "city": "Bangangté", "description": "Entreprise spécialisée dans les solutions numériques et le développement d’écosystèmes technologiques.", "image": "/logopartenaires/clemios_logo.jpg" },
+    { "id": 2, "name": "Skyeng Pro", "role": "Informatique et conseil", "city": "Bangangté", "description": "Accompagnement stratégique et opérationnel pour les entreprises ambitieuses.", "image": "/logopartenaires/sky.jpg" },
+    { "id": 3, "name": "Mboa Intech", "role": "Innovation technologique", "city": "Bangangté", "description": "Mise en place d’outils pour la transformation numérique locale.", "image": "/logopartenaires/mboa-in-tech.jpg" },
+    { "id": 4, "name": "Yaba-In", "role": "Jeunes entreprises et écosystème", "city": "Bangangté", "description": "Création de ponts entre talents, investisseurs et projets d’avenir.", "image": "/logopartenaires/yabaIn.webp" },
+    { "id": 5, "name": "Général Biotech", "role": "Biotechnologies et données", "city": "Bangangté", "description": "Innovation à la croisée du numérique, de la biotechnologie et de l’impact social.", "image": "/logopartenaires/Generabiotech.jpg" }
   ],
   "activities": [
     { "id": 1, "title": "Ateliers et rencontres", "description": "Des sessions de co-création et de partage d’expertise entre acteurs du secteur.", "image": "/logoMountainsTech/logoNavBar.png", "category": "Communauté", "publisherName": "MountainsTech", "publisherImage": "/logoMountainsTech/logoNavBar.png" },
-    { "id": 2, "title": "Partenariats stratégiques", "description": "Des collaborations concrètes pour accélérer les projets tech camerounais.", "image": "/logoMountainsTech/logoNavBar.png", "category": "Innovation", "publisherName": "MountainsTech", "publisherImage": "/logoMountainsTech/logoNavBar.png" },
+    { "id": 2, "title": "Partenariats stratégiques", "description": "Des collaborations concrètes pour accélérer les projets technologiques camerounais.", "image": "/logoMountainsTech/logoNavBar.png", "category": "Innovation", "publisherName": "MountainsTech", "publisherImage": "/logoMountainsTech/logoNavBar.png" },
     { "id": 3, "title": "Formation & sensibilisation", "description": "Des initiatives pour renforcer les compétences numériques et les bonnes pratiques.", "image": "/logoMountainsTech/logoNavBar.png", "category": "Formation", "publisherName": "MountainsTech", "publisherImage": "/logoMountainsTech/logoNavBar.png" }
   ],
   "projects": [
-    { "id": 1, "title": "Plateforme d’innovation", "description": "Un espace de collaboration pour incubateurs, startups et entreprises.", "image": "/logoMountainsTech/logoNavBar.png", "tag": "Innovation" },
+    { "id": 1, "title": "Plateforme d’innovation", "description": "Un espace de collaboration pour les incubateurs, les jeunes pousses et les entreprises établies.", "image": "/logoMountainsTech/logoNavBar.png", "tag": "Innovation" },
     { "id": 2, "title": "Campus digital", "description": "Un écosystème éducatif et technique pour stimuler le talent local.", "image": "/logoMountainsTech/logoNavBar.png", "tag": "Éducation" },
     { "id": 3, "title": "Solutions locales", "description": "Développement d’outils conçus pour les besoins du marché africain.", "image": "/logoMountainsTech/logoNavBar.png", "tag": "Produit" }
   ],
   "hackathons": [
-    { "id": 1, "title": "Hackathon ID", "description": "Un challenge de création pour générer des solutions utiles et impactantes.", "image": "/logoMountainsTech/logoNavBar.png", "date": "12 Oct 2026" },
-    { "id": 2, "title": "Startup Sprint", "description": "Un espace de prototypage rapide pour transformer les idées en projets concrets.", "image": "/logoMountainsTech/logoNavBar.png", "date": "18 Nov 2026" },
-    { "id": 3, "title": "Tech for Africa", "description": "Une rencontre de talents pour résoudre les problématiques du continent.", "image": "/logoMountainsTech/logoNavBar.png", "date": "02 Dec 2026" }
+    { "id": 1, "title": "Défi d’innovation ID", "description": "Un défi de création pour faire émerger des solutions utiles et concrètes.", "image": "/logoMountainsTech/logoNavBar.png", "date": "12 oct. 2026" },
+    { "id": 2, "title": "Sprint des jeunes pousses", "description": "Un espace de prototypage rapide pour transformer les idées en projets concrets.", "image": "/logoMountainsTech/logoNavBar.png", "date": "18 nov. 2026" },
+    { "id": 3, "title": "La technologie pour l’Afrique", "description": "Une rencontre de talents pour résoudre les problématiques du continent.", "image": "/logoMountainsTech/logoNavBar.png", "date": "2 déc. 2026" }
   ],
   "partners": [
     { "id": 1, "name": "Clemios", "logo": "/logoMountainsTech/logoNavBar.png", "website": "https://example.com" },
@@ -142,7 +142,7 @@
     "buttonLink": "/contact",
     "formFields": [
       { "name": "name", "label": "Nom*", "type": "text", "placeholder": "Votre nom" },
-      { "name": "email", "label": "Email*", "type": "email", "placeholder": "Votre email" },
+      { "name": "email", "label": "Courriel*", "type": "email", "placeholder": "Votre adresse courriel" },
       { "name": "phone", "label": "Téléphone", "type": "tel", "placeholder": "+237 ..." }
     ]
   }

@@ -114,17 +114,20 @@
 
 /* ===== Table ===== */
 .admin-table-wrap {
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   border: 0;
   border-radius: 10px;
   background: var(--adm-card, #fff);
   box-shadow: 0 3px 14px rgb(22 34 51 / 6%);
+  scrollbar-width: thin;
+  scrollbar-color: #8ca3b6 #e8eef3;
 }
 
 .admin-table {
   width: 100%;
-  min-width: auto;
+  min-width: max(100%, 760px);
   border-collapse: collapse;
   font-size: 14px;
   text-align: left;

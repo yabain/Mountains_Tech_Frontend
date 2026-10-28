@@ -156,6 +156,10 @@ export abstract class AdminResourceBase {
   }
 
   rowActionLabel(action: ResourceRowAction, row: Row): string {
+    if (action.kind === 'read') {
+      const field = action.readField ?? 'isRead';
+      return action.labelByReadState?.[row[field] === true ? 'read' : 'unread'] ?? action.label;
+    }
     return action.labelByStatus?.[this.rowStatus(row).toUpperCase()] ?? action.label;
   }
 
@@ -176,6 +180,9 @@ export abstract class AdminResourceBase {
         if (targetStatus) this.changeStatus(row, targetStatus);
         return;
       }
+      case 'read':
+        this.toggleRead(row, action);
+        return;
       case 'view':
       case 'registrations':
         if (action.route) {
@@ -462,6 +469,29 @@ export abstract class AdminResourceBase {
         this.notification.error('Impossible de mettre à jour le statut.');
       }
     });
+  }
+
+  private toggleRead(row: Row, action: ResourceRowAction): void {
+    const id = this.rowId(row);
+    const field = action.readField ?? 'isRead';
+    const nextValue = row[field] !== true;
+    this.statusBusyId.set(id);
+
+    this.rows.update((entries) => entries.map((entry) => {
+      if (this.rowId(entry) !== id) return entry;
+      const updated = { ...entry, [field]: nextValue };
+      if (field === 'isRead' && this.config.statusField && 'status' in entry) {
+        const currentStatus = String(entry['status'] ?? '').toUpperCase();
+        const nextStatus = nextValue
+          ? (currentStatus === 'SPAM' ? 'SPAM' : 'RESOLVED')
+          : (currentStatus === 'SPAM' ? 'SPAM' : 'IN_PROGRESS');
+        updated['status'] = nextStatus;
+      }
+      return updated;
+    }));
+
+    this.statusBusyId.set('');
+    this.notification.success(nextValue ? 'Message marqué comme lu.' : 'Message marqué comme non lu.');
   }
 
   private buildPayload(): Row {
