@@ -10,7 +10,7 @@
   background-size: 42px 42px;
 }
 
-.members-hero { padding: 2.4rem 1.25rem; color: #fff; text-align: center; background: linear-gradient(110deg, #07536a, #17a6df); }
+.members-hero { padding: 3rem 1.25rem; color: #fff; text-align: center; display: flex; flex-direction: column; align-items: center; background: radial-gradient(circle at 50% 45%, rgba(11, 32, 47, 0.85) 60%, rgba(0, 68, 126, 0.95)); }
 .members-hero h1 { margin: 0.55rem 0 0.35rem; font-size: clamp(2rem, 4vw, 3rem); }
 .members-hero p:last-child { margin: 0; font-size: 0.95rem; }
 .eyebrow, .section-tag { margin: 0; color: #078fce; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }

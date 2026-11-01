@@ -589,8 +589,8 @@
 .dashboard-heading { margin-bottom: 0; }
 .dashboard-heading-actions { display: flex; align-items: center; gap: 14px; }
 .dashboard-clock { display: grid; min-width: 180px; gap: 4px; padding: 4px 0; color: #526374; text-align: right; }
-.dashboard-clock strong { color: #172c40; font-size: 24px; font-variant-numeric: tabular-nums; line-height: 1.1; }
-.dashboard-clock span { font-size: 15px; text-transform: capitalize; }
+.dashboard-clock strong { color: #172c40; font-size: 32px; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.dashboard-clock span { font-size: 18px; text-transform: capitalize; }
 .page-title { font-size: clamp(25px, 2.2vw, 31px); }
 .subtitle, .section-subtitle { color: #4f6070; font-size: 14px; }
 .dash-btn { min-height: 42px; font-size: 14px; font-weight: 600; }

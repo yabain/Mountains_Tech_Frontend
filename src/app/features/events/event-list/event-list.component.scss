@@ -14,7 +14,11 @@
   min-height: 250px;
   padding: 3rem 1.25rem;
   color: #fff;
-  background: #00447e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: radial-gradient(circle at 50% 45%, rgba(11, 32, 47, 0.85) 60%, rgba(0, 68, 126, 0.95));
 }
 
 .eyebrow,
