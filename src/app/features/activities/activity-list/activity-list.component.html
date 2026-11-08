@@ -1,8 +1,53 @@
-<section>
-  <h2>Activités</h2>
-  <ul>
-    <li>Atelier de développement web</li>
-    <li>Conférence IA</li>
-    <li>Session UX/UI</li>
-  </ul>
+<section class="activities-page">
+  <header class="activities-hero">
+    <h1>Nos activités</h1>
+    <p>Découvrez les ateliers, conférences et rencontres de la communauté.</p>
+    <nav class="about-breadcrumb" aria-label="Fil d'Ariane">
+      <a routerLink="/home">Accueil</a>
+      <span aria-hidden="true">›</span>
+      <span>Activités</span>
+    </nav>
+  </header>
+
+  <div class="activities-shell">
+    <div class="section-heading">
+      <div>
+        <p class="section-tag">À l'affiche</p>
+        <h2>Choisissez votre prochaine activité</h2>
+      </div>
+      <span class="activity-count">{{ filteredActivities.length }} activité{{ filteredActivities.length > 1 ? 's' : '' }} à découvrir</span>
+    </div>
+
+    <label class="search-box">
+      <span aria-hidden="true">⌕</span>
+      <input
+        type="search"
+        placeholder="Rechercher par thème, lieu ou date..."
+        [value]="searchTerm"
+        (input)="searchTerm = $any($event.target).value"
+        aria-label="Rechercher une activité">
+    </label>
+
+    <p class="state-message" *ngIf="isLoading">Chargement des activités...</p>
+    <p class="state-message state-message--error" *ngIf="hasError">Impossible de charger les activités pour le moment.</p>
+    <p class="state-message" *ngIf="!isLoading && !hasError && !filteredActivities.length">Aucune activité ne correspond à votre recherche.</p>
+
+    <div class="activity-grid" *ngIf="!isLoading && !hasError && filteredActivities.length">
+      <article class="activity-card" *ngFor="let activity of filteredActivities">
+        <div class="activity-cover">
+          <img *ngIf="activity.coverUrl" [src]="activity.coverUrl" [alt]="activity.title">
+          <div class="activity-cover__fallback" *ngIf="!activity.coverUrl" aria-hidden="true">MT</div>
+          <span class="date-badge">{{ activity.date ? formatDate(activity.date) : 'Date à confirmer' }}</span>
+        </div>
+
+        <div class="activity-card__body">
+          <p class="activity-category" *ngIf="activity.category">{{ activity.category }}</p>
+          <h3>{{ activity.title }}</h3>
+          <p class="activity-description">{{ activity.description || 'Découvrez cette activité MountainTech.' }}</p>
+
+          <a class="activity-link" [routerLink]="['/activites', activity.id]">Découvrir l'activité <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
 </section>

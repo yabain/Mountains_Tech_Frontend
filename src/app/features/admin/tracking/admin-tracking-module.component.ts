@@ -164,7 +164,7 @@ interface TrackingPayload {
       </section>
 
       <footer class="tracking-footer">
-        <span>Copyright © 2026 UdM ~ Toujours rechercher l’excellence</span>
+        <span>Copyright © 2026 Mountains Tech · Bangangté, Cameroun</span>
         <span>Développé par <a href="https://yaba-in.com" target="_blank" rel="noopener">Yaba-In</a></span>
       </footer>
     </main>
