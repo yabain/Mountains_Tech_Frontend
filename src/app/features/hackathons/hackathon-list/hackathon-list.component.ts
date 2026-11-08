@@ -19,9 +19,11 @@ import { Hackathon, HackathonListData } from '../../../core/models/hackathon.int
 })
 export class HackathonListComponent implements OnInit {
   readonly tones = ['orange', 'dark', 'blue', 'cyan', 'green', 'yellow', 'pink', 'purple'];
+  readonly pageSize = 8;
   hackathons: Hackathon[] = [];
   searchTerm = '';
   selectedFilter = 'All Programs';
+  visibleCount = this.pageSize;
   isLoading = true;
   hasError = false;
 
@@ -60,6 +62,14 @@ export class HackathonListComponent implements OnInit {
     return this.filteredHackathons[0];
   }
 
+  get visiblePrograms(): Array<Hackathon & { tone: string; featured: boolean }> {
+    return this.programs.slice(0, this.visibleCount);
+  }
+
+  get hasMorePrograms(): boolean {
+    return this.visibleCount < this.filteredHackathons.length;
+  }
+
   get filteredHackathons(): Hackathon[] {
     const term = this.searchTerm.trim().toLowerCase();
     return this.hackathons.filter((hackathon) => {
@@ -74,6 +84,24 @@ export class HackathonListComponent implements OnInit {
 
   selectFilter(filter: string): void {
     this.selectedFilter = filter;
+    this.visibleCount = this.pageSize;
+  }
+
+  showMore(): void {
+    this.visibleCount = Math.min(this.visibleCount + this.pageSize, this.filteredHackathons.length);
+  }
+
+  isProgramEnded(program: Hackathon): boolean {
+    const end = program.endAt || program.endDate;
+    return program.status?.toLowerCase() === 'archived'
+      || Boolean(end && new Date(end).getTime() < Date.now());
+  }
+
+  canRegister(program: Hackathon): boolean {
+    const deadlinePassed = Boolean(
+      program.registrationDeadline && new Date(program.registrationDeadline).getTime() < Date.now()
+    );
+    return !this.isProgramEnded(program) && !deadlinePassed && program.registrationRequired !== false;
   }
 
   formatDates(hackathon: Hackathon): string {

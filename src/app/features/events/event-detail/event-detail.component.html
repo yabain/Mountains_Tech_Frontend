@@ -9,24 +9,28 @@
           <span aria-hidden="true">›</span>
           <span>{{ event?.title }}</span>
         </nav>
-        <span class="status-badge" [class]="statusClass(event?.status || '')">{{ statusLabel(event?.status || '') }}</span>
         <h1>{{ event?.title }}</h1>
-        <div class="event-meta-grid">
-          <div class="detail-meta" *ngIf="event?.startAt">
-            <i class="bi bi-calendar3" aria-hidden="true"></i>
-            <span>{{ formatDate(event!.startAt) }}</span>
-          </div>
-          <div class="detail-meta" *ngIf="event?.startAt">
-            <i class="bi bi-clock" aria-hidden="true"></i>
-            <span>{{ formatTime(event!.startAt) }}</span>
-          </div>
-          <div class="detail-meta" *ngIf="event?.location">
-            <i class="bi bi-geo-alt" aria-hidden="true"></i>
-            <span>{{ event!.location }}</span>
-          </div>
-          <div class="detail-meta" *ngIf="event?.category">
-            <i class="bi bi-tag" aria-hidden="true"></i>
-            <span>{{ event!.category }}</span>
+        <p class="hero-excerpt" *ngIf="event?.excerpt">{{ event!.excerpt }}</p>
+        <div class="hero-actions">
+          <a
+            *ngIf="needsRegistration()"
+            [routerLink]="['/evenements', event?.slug, 'inscription']"
+            class="btn-primary"
+          >
+            <i class="bi bi-calendar-check" aria-hidden="true"></i>
+            Réserver ma place
+          </a>
+          <span class="free-entry" *ngIf="!needsRegistration()">Accès libre</span>
+
+          <div class="event-meta-grid">
+            <div class="detail-meta" *ngIf="event?.startAt">
+              <i class="bi bi-calendar3" aria-hidden="true"></i>
+              <span>Début · {{ formatDate(event!.startAt) }} à {{ formatTime(event!.startAt) }}</span>
+            </div>
+            <div class="detail-meta" *ngIf="event?.location">
+              <i class="bi bi-geo-alt" aria-hidden="true"></i>
+              <span>{{ event!.location }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -59,55 +63,57 @@
       </article>
 
       <aside class="detail-sidebar">
-        <div class="sidebar-card" *ngIf="needsRegistration()">
-          <h3>Inscription</h3>
-          <p>Cet événement nécessite une inscription préalable.</p>
-          <a [routerLink]="['/evenements', event?.slug, 'inscription']" class="btn-primary btn-block">
-            <i class="bi bi-pencil-square" aria-hidden="true"></i>
-            M'inscrire
-          </a>
-        </div>
-
-        <div class="sidebar-card" *ngIf="!needsRegistration()">
-          <h3>Accès libre</h3>
-          <p>Cet événement est accessible sans inscription.</p>
-        </div>
-
-        <div class="sidebar-card">
-          <h3>Informations</h3>
+        <section class="sidebar-card practical-info" aria-labelledby="practical-info-heading">
+          <p class="sidebar-kicker">Informations pratiques</p>
+          <h2 id="practical-info-heading">À retenir</h2>
           <dl class="info-list">
             <div *ngIf="event?.startAt">
-              <dt>Date</dt>
-              <dd>{{ formatDate(event!.startAt) }}</dd>
-            </div>
-            <div *ngIf="event?.startAt">
-              <dt>Heure</dt>
-              <dd>{{ formatTime(event!.startAt) }}</dd>
+              <i class="bi bi-calendar-event info-icon" aria-hidden="true"></i>
+              <dt>Début</dt>
+              <dd>
+                <time [attr.datetime]="event!.startAt">
+                  {{ formatDate(event!.startAt) }} à {{ formatTime(event!.startAt) }}
+                </time>
+              </dd>
             </div>
             <div *ngIf="event?.endAt">
+              <i class="bi bi-clock info-icon" aria-hidden="true"></i>
               <dt>Fin</dt>
-              <dd>{{ formatTime(event!.endAt) }}</dd>
+              <dd>
+                <time [attr.datetime]="event!.endAt">
+                  {{ formatDate(event!.endAt) }} à {{ formatTime(event!.endAt) }}
+                </time>
+              </dd>
             </div>
             <div *ngIf="event?.location">
+              <i class="bi bi-geo-alt info-icon" aria-hidden="true"></i>
               <dt>Lieu</dt>
               <dd>{{ event!.location }}</dd>
             </div>
             <div *ngIf="event?.category">
+              <i class="bi bi-tag info-icon" aria-hidden="true"></i>
               <dt>Catégorie</dt>
               <dd>{{ event!.category }}</dd>
             </div>
             <div *ngIf="event?.capacity">
+              <i class="bi bi-people info-icon" aria-hidden="true"></i>
               <dt>Capacité</dt>
               <dd>{{ event!.capacity }} places</dd>
             </div>
           </dl>
-        </div>
+        </section>
 
-        <div class="sidebar-card">
-          <a routerLink="/evenements" class="btn-back">
-            ← Retour aux événements
-          </a>
-        </div>
+        <section class="sidebar-card share-card" aria-labelledby="share-heading">
+          <p class="sidebar-kicker">Partage</p>
+          <h2 id="share-heading">Partager l’événement</h2>
+          <button type="button" class="share-button" (click)="copyEventLink()">
+            <i class="bi bi-share-fill" aria-hidden="true"></i>
+            {{ copyStatus ? 'Lien copié' : 'Partager' }}
+          </button>
+          <p class="copy-feedback" aria-live="polite">{{ copyStatus }}</p>
+        </section>
+
+        <a routerLink="/evenements" class="btn-back">← Retour aux événements</a>
       </aside>
     </div>
   </div>

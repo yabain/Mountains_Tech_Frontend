@@ -44,26 +44,33 @@
     <p class="state-message" *ngIf="!isLoading && !hasError && !filteredHackathons.length">No programs match your search.</p>
 
     <div class="program-grid" *ngIf="!isLoading && !hasError && filteredHackathons.length">
-      <article class="program-card" *ngFor="let program of programs">
+      <article class="program-card" *ngFor="let program of visiblePrograms">
         <div class="program-card__visual" [class]="'program-card__visual program-card__visual--' + program.tone">
           <img *ngIf="program.coverUrl" [src]="program.coverUrl" [alt]="program.title">
-          <span class="program-mark">{{ program.title.substring(0, 2).toUpperCase() }}</span>
-          <span class="date-chip">▣ {{ formatDates(program) }}</span>
-          <span class="featured-chip" *ngIf="program.featured">★ Featured</span>
+          <span class="program-mark" *ngIf="!program.coverUrl">{{ program.title.substring(0, 2).toUpperCase() }}</span>
+          <span class="date-chip"><i class="bi bi-calendar3" aria-hidden="true"></i> {{ formatDates(program) }}</span>
+          <span class="featured-chip" *ngIf="program.featured">À la une</span>
         </div>
         <div class="program-card__body">
           <h2>{{ program.title }}</h2>
-          <p *ngIf="program.category">◈ {{ program.category }}</p>
-          <p>⌖ {{ program.location || 'En ligne' }}</p>
+          <p *ngIf="program.category"><i class="bi bi-grid" aria-hidden="true"></i> {{ program.category }}</p>
+          <p><i class="bi bi-geo-alt" aria-hidden="true"></i> {{ program.location || 'En ligne' }}</p>
           <div class="program-card__footer">
-            <span>♧ Participants</span>
-            <a class="btn-register" [routerLink]="['/hackathons', program.slug, 'inscription']">S'inscrire</a>
-            <a class="btn-detail" [routerLink]="['/hackathons', program.slug]">Détail</a>
+            <span *ngIf="program.maxTeams"><i class="bi bi-people" aria-hidden="true"></i> {{ program.maxTeams }} équipes max.</span>
+            <a
+              *ngIf="canRegister(program)"
+              class="btn-register"
+              [routerLink]="['/hackathons', program.slug, 'inscription']"
+            >S'inscrire</a>
+            <span class="program-ended" *ngIf="!canRegister(program)">Le programme est terminé.</span>
+            <a class="btn-detail" [routerLink]="['/hackathons', program.slug]">Détail <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </article>
     </div>
 
-    <button class="view-more" type="button">View More <span aria-hidden="true">⌄</span></button>
+    <button class="view-more" type="button" *ngIf="hasMorePrograms" (click)="showMore()">
+      Voir plus <span aria-hidden="true">⌄</span>
+    </button>
   </div>
 </section>

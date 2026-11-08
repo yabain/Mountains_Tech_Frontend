@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, HostListener, inject, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { filter } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
+  private readonly platformId = inject(PLATFORM_ID);
   readonly isScrolled$ = new BehaviorSubject(false);
   readonly isHomePage$ = new BehaviorSubject(false);
   readonly isMenuOpen$ = new BehaviorSubject(false);
@@ -30,7 +31,9 @@ export class HeaderComponent {
 
   @HostListener('window:scroll')
   onWindowScroll(): void {
-    this.isScrolled$.next(this.isHomePage$.value && window.scrollY > 10);
+    if (isPlatformBrowser(this.platformId)) {
+      this.isScrolled$.next(this.isHomePage$.value && window.scrollY > 10);
+    }
   }
 
   toggleMenu(): void {
@@ -51,6 +54,6 @@ export class HeaderComponent {
       return;
     }
 
-    this.isScrolled$.next(window.scrollY > 10);
+    this.isScrolled$.next(isPlatformBrowser(this.platformId) && window.scrollY > 10);
   }
 }

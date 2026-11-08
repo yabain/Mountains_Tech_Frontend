@@ -1,79 +1,94 @@
 <section class="detail-page" *ngIf="!isLoading && !hasError; else loadingOrError">
-  <header class="detail-hero" [style.background-image]="activity?.imageUrl ? 'url(' + activity!.imageUrl + ')' : ''">
-    <div class="detail-hero__overlay">
-      <div class="container">
-        <nav class="breadcrumb" aria-label="Fil d'Ariane">
-          <a routerLink="/">Accueil</a>
-          <span aria-hidden="true">›</span>
-          <a routerLink="/activites">Activités</a>
-          <span aria-hidden="true">›</span>
-          <span>{{ activity?.title }}</span>
-        </nav>
-        <span class="status-badge" [class]="statusClass(activity?.status)">{{ statusLabel(activity?.status) }}</span>
-        <h1>{{ activity?.title }}</h1>
-        <p class="detail-meta" *ngIf="activity?.date">
+  <div class="detail-sheet">
+    <article class="detail-main">
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a routerLink="/">Accueil</a>
+        <span aria-hidden="true">›</span>
+        <a routerLink="/activites">Activités</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">{{ activity?.title }}</span>
+      </nav>
+
+      <p class="article-category" *ngIf="activity?.category">{{ activity!.category }}</p>
+      <h1>{{ activity?.title }}</h1>
+      <div class="article-meta">
+        <span *ngIf="activity?.date">
           <i class="bi bi-calendar3" aria-hidden="true"></i>
           {{ formatDate(activity!.date) }}
-        </p>
-        <p class="detail-meta" *ngIf="activity?.location">
+        </span>
+        <span *ngIf="activity?.location">
           <i class="bi bi-geo-alt" aria-hidden="true"></i>
           {{ activity!.location }}
-        </p>
+        </span>
       </div>
-    </div>
-  </header>
 
-  <div class="container detail-content">
-    <div class="detail-grid">
-      <article class="detail-main">
-        <section class="detail-section" *ngIf="activity?.description">
-          <h2>Description</h2>
-          <div class="prose">{{ activity!.description }}</div>
-        </section>
+      <img
+        *ngIf="articleImage"
+        class="article-cover"
+        [src]="articleImage"
+        [alt]="activity?.title || 'Illustration de l’actualité'"
+      >
 
-        <section class="detail-section" *ngIf="activity?.category">
-          <h2>Catégorie</h2>
-          <p>{{ activity!.category }}</p>
-        </section>
-      </article>
+      <div class="article-body" *ngIf="activity?.contentHtml; else descriptionContent" [innerHTML]="activity!.contentHtml"></div>
+      <ng-template #descriptionContent>
+        <div class="article-body article-body--plain">{{ activity?.description }}</div>
+      </ng-template>
+    </article>
 
-      <aside class="detail-sidebar">
-        <div class="sidebar-card">
-          <h3>Informations</h3>
-          <dl class="info-list">
-            <div *ngIf="activity?.date">
-              <dt>Date</dt>
-              <dd>{{ formatDate(activity!.date) }}</dd>
-            </div>
-            <div *ngIf="activity?.location">
-              <dt>Lieu</dt>
-              <dd>{{ activity!.location }}</dd>
-            </div>
-            <div *ngIf="activity?.category">
-              <dt>Catégorie</dt>
-              <dd>{{ activity!.category }}</dd>
-            </div>
-          </dl>
+    <aside class="detail-sidebar">
+      <section class="sidebar-section share-section" aria-labelledby="share-heading">
+        <h2 id="share-heading">Partager</h2>
+        <div class="share-links">
+          <a
+            [href]="'https://www.facebook.com/sharer/sharer.php?u=' + shareUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Partager sur Facebook"
+            title="Partager sur Facebook"
+          ><i class="bi bi-facebook" aria-hidden="true"></i></a>
+          <a
+            [href]="'https://www.linkedin.com/sharing/share-offsite/?url=' + shareUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Partager sur LinkedIn"
+            title="Partager sur LinkedIn"
+          ><i class="bi bi-linkedin" aria-hidden="true"></i></a>
         </div>
+      </section>
 
-        <div class="sidebar-card">
-          <a routerLink="/activites" class="btn-back">
-            ← Retour aux activités
-          </a>
-        </div>
-      </aside>
-    </div>
+      <section class="sidebar-section more-news" aria-labelledby="more-news-heading">
+        <h2 id="more-news-heading">Plus d’actualités</h2>
+        <p class="related-state" *ngIf="isRelatedLoading">Chargement des actualités…</p>
+        <p class="related-state related-state--error" *ngIf="relatedError">Les autres actualités sont momentanément indisponibles.</p>
+        <p class="related-state" *ngIf="!isRelatedLoading && !relatedError && !relatedActivities.length">
+          Aucune autre actualité pour le moment.
+        </p>
+
+        <a
+          class="related-article"
+          *ngFor="let related of relatedActivities"
+          [routerLink]="['/activites', related.slug || related.id]"
+        >
+          <img
+            *ngIf="related.coverUrl || related.imageUrl"
+            [src]="related.coverUrl || related.imageUrl"
+            [alt]="related.title"
+            loading="lazy"
+          >
+          <span class="related-article__title">{{ related.title }}</span>
+          <span class="read-more">Lire plus <span aria-hidden="true">→</span></span>
+        </a>
+      </section>
+    </aside>
   </div>
 </section>
 
 <ng-template #loadingOrError>
-  <div class="detail-page">
-    <div class="container">
-      <div class="state-message" *ngIf="isLoading">Chargement de l'activité…</div>
-      <div class="state-message state-message--error" *ngIf="hasError">
-        Activité introuvable.
-        <a routerLink="/activites" class="link">← Retour aux activités</a>
-      </div>
+  <div class="detail-page detail-page--state">
+    <div class="state-message" *ngIf="isLoading">Chargement de l'activité…</div>
+    <div class="state-message state-message--error" *ngIf="hasError">
+      Activité introuvable.
+      <a routerLink="/activites" class="link">← Retour aux activités</a>
     </div>
   </div>
 </ng-template>
