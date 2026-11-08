@@ -366,7 +366,7 @@ export abstract class AdminResourceBase {
     for (const field of this.config.fields) {
       let value = row?.[field.key];
       if (field.type === 'tags') {
-        value = Array.isArray(value) ? value.join(', ') : (value ?? '');
+        value = this.tagsInputValue(value, field.key);
       } else if (field.type === 'date') {
         value = this.toDateInput(String(value ?? ''));
       } else if (field.type === 'datetime') {
@@ -518,6 +518,23 @@ export abstract class AdminResourceBase {
       }
     }
     return payload;
+  }
+
+  private tagsInputValue(value: unknown, fieldKey: string): string {
+    if (!Array.isArray(value)) {
+      return String(value ?? '');
+    }
+
+    return value
+      .map((item) => {
+        if (fieldKey === 'partners' && typeof item === 'object' && item !== null) {
+          const partner = item as Record<string, unknown>;
+          return String(partner['_id'] ?? partner['id'] ?? '');
+        }
+        return String(item);
+      })
+      .filter(Boolean)
+      .join(', ');
   }
 
   protected load(soft = false): void {

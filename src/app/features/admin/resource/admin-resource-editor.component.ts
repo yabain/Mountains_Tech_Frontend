@@ -178,7 +178,7 @@ export class AdminResourceEditorComponent {
             for (const field of config.fields) {
               const value = record[field.key];
               if (field.type === 'tags') {
-                form[field.key] = Array.isArray(value) ? value.join(', ') : String(value ?? '');
+                form[field.key] = this.tagsInputValue(value, field.key);
               } else if (field.type === 'date') {
                 form[field.key] = this.dateInput(value);
               } else if (field.type === 'datetime') {
@@ -226,6 +226,23 @@ export class AdminResourceEditorComponent {
       if (value !== undefined && value !== '') payload[field.key] = value;
     }
     return payload;
+  }
+
+  private tagsInputValue(value: unknown, fieldKey: string): string {
+    if (!Array.isArray(value)) {
+      return String(value ?? '');
+    }
+
+    return value
+      .map((item) => {
+        if (fieldKey === 'partners' && typeof item === 'object' && item !== null) {
+          const partner = item as Record<string, unknown>;
+          return String(partner['_id'] ?? partner['id'] ?? '');
+        }
+        return String(item);
+      })
+      .filter(Boolean)
+      .join(', ');
   }
 
   private unwrapRecord(response: unknown): FormValue | null {

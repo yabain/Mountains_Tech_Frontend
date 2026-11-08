@@ -3,7 +3,7 @@
    ============================================================ */
 
 .admin-shell {
-  --adm-background: #f5f7f9;
+  --adm-background: #fdfeff;
   --adm-foreground: #172838;
   --adm-card: oklch(1 0 0);
   --adm-primary: #00447e;
@@ -527,6 +527,22 @@ app-top-bar {
 @media (max-width: 480px) {
   .admin-page {
     --admin-page-padding-x: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-content :is(
+    .res-search,
+    .announcement-search,
+    .prospects-search,
+    .registration-search,
+    .outgoing-search
+  ) {
+    width: min(100%, 300px);
+    max-width: 300px;
+    flex: 0 1 300px;
+    align-self: flex-start;
+    box-sizing: border-box;
   }
 }
 

@@ -28,10 +28,10 @@ const config: AdminResourceConfig = {
     { key: 'title', label: 'Titre', type: 'text', required: true },
     { key: 'slug', label: 'Slug', type: 'text', placeholder: 'Genere automatiquement si vide' },
     { key: 'excerpt', label: 'Resume', type: 'textarea' },
-    { key: 'contentHtml', label: 'Contenu HTML', type: 'textarea' },
     { key: 'coverUrl', label: 'Image de couverture', type: 'url' },
     { key: 'startDate', label: 'Debut', type: 'date' },
     { key: 'endDate', label: 'Fin', type: 'date' },
+    { key: 'partners', label: 'Partenaires (IDs membres)', type: 'tags', placeholder: 'IDs séparés par des virgules' },
     { key: 'tags', label: 'Tags', type: 'tags' },
     { key: 'status', label: 'Statut', type: 'select', options: ['DRAFT', 'PUBLISHED', 'ARCHIVED'] }
   ]

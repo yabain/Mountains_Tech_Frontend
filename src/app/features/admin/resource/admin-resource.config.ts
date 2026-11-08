@@ -251,10 +251,10 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
       { key: 'title', label: 'Titre', type: 'text', required: true },
       { key: 'slug', label: 'Slug', type: 'text', placeholder: 'Généré automatiquement si vide' },
       { key: 'excerpt', label: 'Résumé', type: 'textarea' },
-      { key: 'contentHtml', label: 'Contenu HTML', type: 'textarea' },
       { key: 'coverUrl', label: 'Image de couverture', type: 'url' },
       { key: 'startDate', label: 'Début', type: 'date' },
       { key: 'endDate', label: 'Fin', type: 'date' },
+      { key: 'partners', label: 'Partenaires (IDs membres)', type: 'tags', placeholder: 'IDs séparés par des virgules' },
       { key: 'tags', label: 'Tags', type: 'tags' },
       STATUSES_CONTENT
     ]
@@ -346,7 +346,6 @@ export const ADMIN_RESOURCE_CONFIG: Record<string, AdminResourceConfig> = {
       { key: 'title', label: 'Titre', type: 'text', required: true },
       { key: 'slug', label: 'Slug', type: 'text', placeholder: 'Généré automatiquement si vide' },
       { key: 'description', label: 'Description', type: 'textarea' },
-      { key: 'rulesHtml', label: 'Règlement HTML', type: 'textarea' },
       { key: 'coverUrl', label: 'Image de couverture', type: 'url' },
       { key: 'startDate', label: 'Début', type: 'date' },
       { key: 'endDate', label: 'Fin', type: 'date' },
@@ -424,5 +423,3 @@ newsletter: {
     createRoute: '/dashboard/announcements/new'
   }
 };
-
-
