@@ -50,6 +50,7 @@ export const adminDynamicRoutes = {
   memberApplicationStatus: (id: string) => `/admin/members/applications/${id}/status`,
   memberStatus: (id: string) => `/admin/members/${id}/status`,
   contactStatus: (id: string) => `/admin/contacts/${id}/status`,
+  contactRead: (id: string) => `/admin/contacts/${id}/read`,
   announcementRecipients: (id: string) => `/admin/announcements/${id}/recipients`,
   announcementSend: (id: string) => `/admin/announcements/${id}/send`,
   announcementSchedule: (id: string) => `/admin/announcements/${id}/schedule`,

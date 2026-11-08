@@ -39,6 +39,7 @@ const config: AdminResourceConfig = {
     { key: 'name', label: 'Nom' },
     { key: 'email', label: 'Email' },
     { key: 'subject', label: 'Sujet' },
+    { key: 'isRead', label: 'Lecture', type: 'read' },
     { key: 'status', label: 'Statut', type: 'status' },
     { key: 'createdAt', label: 'Reçu le', type: 'date' }
   ],

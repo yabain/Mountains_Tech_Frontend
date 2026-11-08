@@ -7,7 +7,23 @@ import { ApiService } from '../../../core/http/api.service';
 import { API_ROUTES } from '../../../core/constants/api-routes';
 import { apiErrorMessage } from '../../../core/utils/api-error';
 
-type EmailHistoryItem = Record<string, unknown>;
+interface SmtpSettings {
+  host: string;
+  port: number;
+  user: string;
+  from: string;
+  alertEmail: string;
+  encryption: 'SSL/TLS' | 'STARTTLS' | 'NONE';
+}
+
+const SMTP_SETTING_KEYS = {
+  host: 'emailSmtpHost',
+  port: 'emailSmtpPort',
+  user: 'emailSmtpUser',
+  from: 'emailSmtpFrom',
+  alertEmail: 'emailAlertAddress',
+  encryption: 'emailSmtpEncryption'
+} as const;
 
 @Component({
   selector: 'app-admin-email-settings',
@@ -18,27 +34,28 @@ type EmailHistoryItem = Record<string, unknown>;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminEmailSettingsComponent {
-  private readonly pageSize = 10;
   private readonly destroyRef = inject(DestroyRef);
 
   readonly smtpExpanded = signal(false);
-  readonly emailSearch = signal('');
-  readonly emails = signal<EmailHistoryItem[]>([]);
-  readonly loadingEmails = signal(false);
-  readonly emailError = signal('');
-  readonly emailPage = signal(1);
-  readonly emailPages = signal(1);
-  readonly emailTotal = signal(0);
-  readonly emailStats = signal({ sent: 0, failed: 0, month: 0 });
+  readonly loadingSettings = signal(false);
+  readonly savingSettings = signal(false);
+  readonly settingsError = signal('');
+  readonly settingsSuccess = signal('');
+  readonly smtpSettings = signal<SmtpSettings>({
+    host: '',
+    port: 465,
+    user: '',
+    from: '',
+    alertEmail: '',
+    encryption: 'SSL/TLS'
+  });
   testEmail = '';
-  testSubject = 'Test e-mail';
-  testMessage = 'Ceci est un e-mail de test.';
   readonly testSending = signal(false);
   readonly testError = signal('');
   readonly testSuccess = signal('');
 
   constructor(private readonly api: ApiService) {
-    this.loadEmails();
+    this.loadSmtpSettings();
   }
 
   toggleSmtp(): void {
@@ -50,16 +67,18 @@ export class AdminEmailSettingsComponent {
     this.testError.set('');
     this.testSuccess.set('');
 
-    if (!this.testEmail.trim() || !this.testSubject.trim() || !this.testMessage.trim()) {
-      this.testError.set('Renseignez le destinataire, le sujet et le message.');
+    if (!this.testEmail.trim()) {
+      this.testError.set('Renseignez le destinataire.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.testEmail.trim())) {
+      this.testError.set('Renseignez une adresse e-mail valide.');
       return;
     }
 
     this.testSending.set(true);
     this.api.post<unknown>(`${API_ROUTES.admin.emails}/test`, {
-      recipient: this.testEmail.trim(),
-      subject: this.testSubject.trim(),
-      message: this.testMessage.trim()
+      to: this.testEmail.trim()
     })
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -67,8 +86,7 @@ export class AdminEmailSettingsComponent {
       )
       .subscribe({
         next: () => {
-          this.testSuccess.set('E-mail de test envoyé.');
-          this.loadEmails();
+          this.testSuccess.set('La demande de test a été acceptée par le backend. La livraison réelle n’est pas confirmée par cette API.');
         },
         error: (error: unknown) => {
           this.testError.set(apiErrorMessage(error, 'Impossible d’envoyer l’e-mail de test.'));
@@ -76,96 +94,90 @@ export class AdminEmailSettingsComponent {
       });
   }
 
-  onEmailSearch(value: string): void {
-    this.emailSearch.set(value);
-    this.emailPage.set(1);
-    this.loadEmails();
+  updateSmtpSetting<K extends keyof SmtpSettings>(key: K, value: SmtpSettings[K]): void {
+    this.smtpSettings.update((settings) => ({ ...settings, [key]: value }));
   }
 
-  previousEmailPage(): void {
-    if (this.emailPage() <= 1) return;
-    this.emailPage.update((page) => page - 1);
-    this.loadEmails();
-  }
+  saveSmtpSettings(): void {
+    if (this.savingSettings()) return;
+    this.settingsError.set('');
+    this.settingsSuccess.set('');
 
-  nextEmailPage(): void {
-    if (this.emailPage() >= this.emailPages()) return;
-    this.emailPage.update((page) => page + 1);
-    this.loadEmails();
-  }
+    const settings = this.smtpSettings();
+    if (!settings.host.trim() || !settings.user.trim() || !settings.from.trim() || !settings.alertEmail.trim()) {
+      this.settingsError.set('Renseignez le serveur, l’utilisateur et les deux adresses e-mail.');
+      return;
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(settings.from.trim()) || !emailPattern.test(settings.alertEmail.trim())) {
+      this.settingsError.set('Renseignez des adresses e-mail valides pour l’envoi et les alertes.');
+      return;
+    }
+    if (!Number.isInteger(settings.port) || settings.port < 1 || settings.port > 65535) {
+      this.settingsError.set('Le port doit être un nombre compris entre 1 et 65535.');
+      return;
+    }
 
-  emailRecipients(email: EmailHistoryItem): string {
-    const recipients = email['recipients'];
-    return Array.isArray(recipients) ? recipients.map(String).join(', ') : '—';
-  }
-
-  emailType(email: EmailHistoryItem): string {
-    const templates: Record<string, string> = {
-      'contact-notification': 'Notification de contact',
-      'contact-acknowledgment': 'Confirmation de contact',
-      'member-application-confirmation': 'Confirmation de demande d’adhésion',
-      'member-application-review': 'Réponse à une demande d’adhésion',
-      'event-registration-confirmation': 'Confirmation d’inscription',
-      'hackathon-team-confirmation': 'Confirmation d’équipe',
-      'newsletter-subscription': 'Confirmation newsletter',
-      'admin-invitation': 'Invitation administrateur',
-      'test-email': 'E-mail de test',
-      announcement: 'Annonce'
+    const values: Record<string, unknown> = {
+      [SMTP_SETTING_KEYS.host]: settings.host.trim(),
+      [SMTP_SETTING_KEYS.port]: settings.port,
+      [SMTP_SETTING_KEYS.user]: settings.user.trim(),
+      [SMTP_SETTING_KEYS.from]: settings.from.trim(),
+      [SMTP_SETTING_KEYS.alertEmail]: settings.alertEmail.trim(),
+      [SMTP_SETTING_KEYS.encryption]: settings.encryption
     };
-    const type = String(email['template'] ?? '');
-    return templates[type] ?? (type || 'E-mail système');
+
+    this.savingSettings.set(true);
+    this.api.patch<unknown>(API_ROUTES.admin.settings, values)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.savingSettings.set(false))
+      )
+      .subscribe({
+        next: () => this.settingsSuccess.set('Réglages enregistrés. Ils ne sont pas encore utilisés par le service d’envoi du backend.'),
+        error: (error: unknown) => {
+          this.settingsError.set(apiErrorMessage(error, 'Impossible d’enregistrer les réglages.'));
+        }
+      });
   }
 
-  emailStatus(email: EmailHistoryItem): string {
-    const status = String(email['status'] ?? '').toUpperCase();
-    return status === 'SENT' ? 'Envoyé' : status === 'FAILED' ? 'Échec' : status || '—';
+  private loadSmtpSettings(): void {
+    this.loadingSettings.set(true);
+    this.settingsError.set('');
+    this.api.get<unknown>(API_ROUTES.admin.settings)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.loadingSettings.set(false))
+      )
+      .subscribe({
+        next: (response) => {
+          const root = this.asRecord(response);
+          const data = this.asRecord(root?.['data']) ?? root;
+          if (!data) return;
+
+          const current = this.smtpSettings();
+          this.smtpSettings.set({
+            host: String(data[SMTP_SETTING_KEYS.host] ?? current.host),
+            port: Number(data[SMTP_SETTING_KEYS.port] ?? current.port),
+            user: String(data[SMTP_SETTING_KEYS.user] ?? current.user),
+            from: String(data[SMTP_SETTING_KEYS.from] ?? current.from),
+            alertEmail: String(data[SMTP_SETTING_KEYS.alertEmail] ?? current.alertEmail),
+            encryption: this.encryption(data[SMTP_SETTING_KEYS.encryption])
+          });
+        },
+        error: (error: unknown) => {
+          this.settingsError.set(apiErrorMessage(error, 'Impossible de charger les réglages enregistrés.'));
+        }
+      });
   }
 
-  emailDate(email: EmailHistoryItem): string {
-    const value = email['createdAt'];
-    if (!value) return '—';
-    const date = new Date(String(value));
-    return Number.isNaN(date.getTime())
-      ? String(value)
-      : date.toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' });
+  private encryption(value: unknown): SmtpSettings['encryption'] {
+    return value === 'STARTTLS' || value === 'NONE' ? value : 'SSL/TLS';
   }
 
-  private loadEmails(): void {
-    this.loadingEmails.set(true);
-    this.emailError.set('');
-    this.api.get<unknown>(API_ROUTES.admin.emails, {
-      page: this.emailPage(),
-      limit: this.pageSize,
-      search: this.emailSearch().trim()
-    }).subscribe({
-      next: (response) => {
-        const root = this.asRecord(response);
-        const data = this.asRecord(root?.['data']) ?? root;
-        const items = Array.isArray(data?.['items'])
-          ? data['items'].filter((item): item is EmailHistoryItem => this.asRecord(item) !== null)
-          : [];
-        const pagination = this.asRecord(data?.['pagination']);
-        const stats = this.asRecord(data?.['stats']);
-        this.emails.set(items);
-        this.emailTotal.set(Number(pagination?.['total'] ?? 0));
-        this.emailPages.set(Math.max(1, Number(pagination?.['pages'] ?? 1)));
-        this.emailStats.set({
-          sent: Number(stats?.['sent'] ?? 0),
-          failed: Number(stats?.['failed'] ?? 0),
-          month: Number(stats?.['month'] ?? 0)
-        });
-        this.loadingEmails.set(false);
-      },
-      error: () => {
-        this.emailError.set('Impossible de charger l’historique des e-mails envoyés.');
-        this.loadingEmails.set(false);
-      }
-    });
-  }
-
-  private asRecord(value: unknown): EmailHistoryItem | null {
+  private asRecord(value: unknown): Record<string, unknown> | null {
     return typeof value === 'object' && value !== null && !Array.isArray(value)
-      ? value as EmailHistoryItem
+      ? value as Record<string, unknown>
       : null;
   }
 }

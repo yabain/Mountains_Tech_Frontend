@@ -68,7 +68,9 @@
               <tr (click)="viewRow(row)">
                 @for (column of config.columns; track column.key) {
                   <td>
-                    @if (column.type === 'status') {
+                    @if (column.type === 'read') {
+                      <span [class]="readStatusClass(row, column.key)">{{ cellValue(row, column) }}</span>
+                    } @else if (column.type === 'status') {
                       <span [class]="statusClass(row[column.key])">{{ cellValue(row, column) }}</span>
                     } @else {
                       {{ cellValue(row, column) }}

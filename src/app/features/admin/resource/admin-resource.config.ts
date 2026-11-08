@@ -27,7 +27,7 @@ export interface ResourceField {
 export interface ResourceListColumn {
   key: string;
   label: string;
-  type?: 'text' | 'status' | 'date' | 'boolean' | 'tags' | 'json' | 'image' | 'media';
+  type?: 'text' | 'status' | 'read' | 'date' | 'boolean' | 'tags' | 'json' | 'image' | 'media';
 }
 
 export type ResourceRowActionKind = 'edit' | 'delete' | 'status' | 'read' | 'view' | 'registrations';

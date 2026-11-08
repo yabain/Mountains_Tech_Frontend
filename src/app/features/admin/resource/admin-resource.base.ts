@@ -248,6 +248,9 @@ export abstract class AdminResourceBase {
     if (!row) {
       return '-';
     }
+    if (column.type === 'read') {
+      return row[column.key] === true ? 'Lu' : 'Non lu';
+    }
     if (column.type === 'status') {
       return this.resourceStatusLabel(String(row[column.key] ?? '').toUpperCase());
     }
@@ -280,6 +283,12 @@ export abstract class AdminResourceBase {
       return actions[action] ?? action;
     }
     return this.formatCell(row?.[column.key], column.type);
+  }
+
+  readStatusClass(row: Row, field: string): string {
+    return row?.[field] === true
+      ? 'res-status res-status--success'
+      : 'res-status res-status--pending';
   }
 
   statusClass(status: unknown): string {
@@ -465,7 +474,7 @@ export abstract class AdminResourceBase {
     const id = this.rowId(row);
     this.statusBusyId.set(id);
     const endpoint = this.config.statusEndpoint === '/status'
-      ? `${this.config.endpoint}/${id}/status`
+      ? `${this.config.endpoint}/${encodeURIComponent(id)}/status`
       : this.withId(this.config.endpoint, id);
 
     this.api.patch<unknown>(endpoint, { status }).subscribe({

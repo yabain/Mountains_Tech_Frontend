@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { API_ROUTES } from '../../../../core/constants/api-routes';
+import { API_ROUTES, adminDynamicRoutes } from '../../../../core/constants/api-routes';
 import { ApiService } from '../../../../core/http/api.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { DashboardDataService } from '../../dashboard/dashboard-data.service';
@@ -53,7 +53,7 @@ export class AdminContactDetailComponent {
   }
 
   get canToggleRead(): boolean {
-    return !!this.contact() && this.status !== 'SPAM';
+    return !!this.contact();
   }
 
   get statusLabel(): string {
@@ -71,7 +71,7 @@ export class AdminContactDetailComponent {
     const nextIsRead = this.isUnread;
     this.busy.set(true);
     this.api.patch<unknown>(
-      `${API_ROUTES.admin.contacts}/${encodeURIComponent(this.contactId)}/read`,
+      adminDynamicRoutes.contactRead(encodeURIComponent(this.contactId)),
       { isRead: nextIsRead }
     )
       .pipe(takeUntilDestroyed(this.destroyRef))

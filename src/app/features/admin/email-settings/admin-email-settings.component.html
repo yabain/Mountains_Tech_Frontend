@@ -1,7 +1,7 @@
 <section class="email-settings-page">
   <header class="email-page-heading">
     <h1><i class="bi bi-send" aria-hidden="true"></i>Paramètres e-mail</h1>
-    <p>Configurez le serveur SMTP, envoyez des e-mails de test et consultez les statistiques.</p>
+    <p>Gérez les paramètres enregistrés, testez la demande d’envoi et vérifiez les données disponibles.</p>
   </header>
 
   <div class="email-overview">
@@ -10,13 +10,64 @@
         <button class="smtp-toggle" type="button" [attr.aria-expanded]="smtpExpanded()" (click)="toggleSmtp()">
           <span><i class="bi bi-chevron-right" [class.is-open]="smtpExpanded()" aria-hidden="true"></i></span>
           <strong>Configuration SMTP</strong>
-          <small>Paramètres de connexion au serveur de messagerie</small>
+          <small>Informations conservées dans les paramètres du site</small>
         </button>
         @if (smtpExpanded()) {
-          <div class="smtp-details">
-            <i class="bi bi-shield-lock" aria-hidden="true"></i>
-            <p>La configuration SMTP est fournie par l’environnement serveur afin de protéger les identifiants de messagerie.</p>
-          </div>
+          <form class="smtp-form" (submit)="$event.preventDefault(); saveSmtpSettings()">
+            <p class="smtp-warning" role="note">
+              Ces champs sont enregistrés dans les paramètres du site, mais le backend continue d’utiliser ses variables d’environnement pour envoyer les e-mails.
+              Le mot de passe n’est pas enregistré ici. Il faut une modification du backend pour appliquer ces réglages de façon sécurisée.
+            </p>
+            <div class="smtp-fields">
+              <label>
+                <span>Serveur SMTP</span>
+                <input type="text" name="smtpHost" [ngModel]="smtpSettings().host" (ngModelChange)="updateSmtpSetting('host', $event)" placeholder="smtp.exemple.com" required />
+              </label>
+              <label>
+                <span>Port</span>
+                <input type="number" name="smtpPort" [ngModel]="smtpSettings().port" (ngModelChange)="updateSmtpSetting('port', $event)" min="1" max="65535" required />
+              </label>
+              <label>
+                <span>Utilisateur</span>
+                <input type="text" name="smtpUser" [ngModel]="smtpSettings().user" (ngModelChange)="updateSmtpSetting('user', $event)" autocomplete="username" required />
+              </label>
+              <label>
+                <span>Mot de passe</span>
+                <input type="password" name="smtpPassword" value="" autocomplete="new-password" disabled aria-describedby="smtp-password-note" />
+                <small id="smtp-password-note">Non modifiable depuis le frontend.</small>
+              </label>
+              <label>
+                <span>Chiffrement</span>
+                <select name="smtpEncryption" [ngModel]="smtpSettings().encryption" (ngModelChange)="updateSmtpSetting('encryption', $event)">
+                  <option value="SSL/TLS">SSL/TLS</option>
+                  <option value="STARTTLS">STARTTLS</option>
+                  <option value="NONE">Aucun</option>
+                </select>
+              </label>
+              <label>
+                <span>E-mail d’envoi</span>
+                <input type="email" name="smtpFrom" [ngModel]="smtpSettings().from" (ngModelChange)="updateSmtpSetting('from', $event)" placeholder="noreply@exemple.com" required />
+              </label>
+              <label>
+                <span>E-mail pour alertes</span>
+                <input type="email" name="alertEmail" [ngModel]="smtpSettings().alertEmail" (ngModelChange)="updateSmtpSetting('alertEmail', $event)" placeholder="admin@exemple.com" required />
+              </label>
+            </div>
+            <div class="smtp-actions">
+              <button type="submit" class="email-action-button" [disabled]="savingSettings() || loadingSettings()">
+                {{ savingSettings() ? 'Enregistrement…' : 'Enregistrer les réglages' }}
+              </button>
+              @if (loadingSettings()) {
+                <small>Chargement des réglages enregistrés…</small>
+              }
+            </div>
+            @if (settingsError()) {
+              <small class="email-test-feedback email-test-feedback--error" role="alert">{{ settingsError() }}</small>
+            }
+            @if (settingsSuccess()) {
+              <small class="email-test-feedback email-test-feedback--success" role="status">{{ settingsSuccess() }}</small>
+            }
+          </form>
         }
       </section>
 
@@ -26,14 +77,6 @@
           <label>
             <span>Destinataire</span>
             <input type="email" name="recipient" [(ngModel)]="testEmail" placeholder="nom@organisation.com" required />
-          </label>
-          <label>
-            <span>Sujet</span>
-            <input type="text" name="subject" [(ngModel)]="testSubject" required />
-          </label>
-          <label class="email-test-message">
-            <span>Message</span>
-            <textarea name="message" [(ngModel)]="testMessage" rows="4" required></textarea>
           </label>
           <button type="button" class="email-action-button" (click)="sendTestEmail()" [disabled]="testSending()">
             <i class="bi bi-send" aria-hidden="true"></i>{{ testSending() ? 'Envoi…' : 'Envoyer le test' }}
@@ -45,57 +88,26 @@
             <small class="email-test-feedback email-test-feedback--success" role="status">{{ testSuccess() }}</small>
           }
         </form>
+        <p class="email-api-note">Le backend utilise actuellement sa configuration SMTP serveur et ne confirme pas la livraison de l’e-mail de test.</p>
       </section>
     </main>
 
     <aside class="email-panel email-statistics">
       <h2>Statistiques</h2>
       <div class="email-stat-cards">
-        <div class="email-stat email-stat--sent"><strong>{{ emailStats().sent }}</strong><span>Envoyés</span></div>
-        <div class="email-stat email-stat--failed"><strong>{{ emailStats().failed }}</strong><span>Échecs</span></div>
-        <div class="email-stat email-stat--month"><strong>{{ emailStats().month }}</strong><span>Ce mois</span></div>
+        <div class="email-stat"><strong>—</strong><span>Envoyés</span></div>
+        <div class="email-stat"><strong>—</strong><span>Échecs</span></div>
+        <div class="email-stat"><strong>—</strong><span>Ce mois</span></div>
       </div>
-      <p class="email-api-note">Statistiques calculées à partir des envois enregistrés.</p>
+      <p class="email-api-note">Indisponibles : le backend ne journalise pas encore les e-mails envoyés et ne fournit pas de statistiques.</p>
     </aside>
   </div>
 
   <section class="email-panel outgoing-panel">
-    <h2>E-mails sortants</h2>
-    <label class="outgoing-search">
-      <i class="bi bi-search" aria-hidden="true"></i>
-      <input type="search" [ngModel]="emailSearch()" (ngModelChange)="onEmailSearch($event)" name="outgoingSearch" placeholder="Rechercher par destinataire ou sujet..." aria-label="Rechercher dans les e-mails sortants" />
-    </label>
-    <div class="outgoing-table-wrap">
-      <table class="outgoing-table">
-        <thead><tr><th>Type</th><th>Destinataire</th><th>Sujet</th><th>Date</th><th>Statut</th></tr></thead>
-        <tbody>
-          @if (loadingEmails()) {
-            <tr><td class="outgoing-empty" colspan="5">Chargement de l’historique…</td></tr>
-          } @else if (emailError()) {
-            <tr><td class="outgoing-empty" colspan="5" role="alert">{{ emailError() }}</td></tr>
-          } @else {
-            @for (email of emails(); track email['id'] ?? email['_id']) {
-              <tr>
-                <td>{{ emailType(email) }}</td>
-                <td>{{ emailRecipients(email) }}</td>
-                <td>{{ email['subject'] ?? 'Sans sujet' }}</td>
-                <td>{{ emailDate(email) }}</td>
-                <td><span class="res-status" [class.res-status--success]="email['status'] === 'SENT'" [class.res-status--danger]="email['status'] === 'FAILED'">{{ emailStatus(email) }}</span></td>
-              </tr>
-            } @empty {
-              <tr><td class="outgoing-empty" colspan="5">Aucun e-mail sortant à afficher.</td></tr>
-            }
-          }
-        </tbody>
-      </table>
+    <h2>Historique des e-mails sortants</h2>
+    <div class="history-unavailable" role="status">
+      <i class="bi bi-info-circle" aria-hidden="true"></i>
+      <p>L’historique ne peut pas être affiché : l’API actuelle ne conserve pas de journal d’envoi. Les compteurs ne peuvent donc pas inclure les e-mails envoyés par le site.</p>
     </div>
-    <footer class="outgoing-pagination">
-      <label>Par page <select aria-label="Nombre d’e-mails par page" disabled><option>10</option></select></label>
-      <div>
-        <button type="button" (click)="previousEmailPage()" [disabled]="emailPage() <= 1 || loadingEmails()"><i class="bi bi-arrow-left" aria-hidden="true"></i> Précédent</button>
-        <span>Page {{ emailPage() }} / {{ emailPages() }} · {{ emailTotal() }} e-mail(s)</span>
-        <button type="button" (click)="nextEmailPage()" [disabled]="emailPage() >= emailPages() || loadingEmails()">Suivant <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
-      </div>
-    </footer>
   </section>
 </section>
