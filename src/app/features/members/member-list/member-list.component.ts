@@ -7,11 +7,12 @@ import { API_ROUTES } from '../../../core/constants/api-routes';
 import { ApiService } from '../../../core/http/api.service';
 import { ApiResponse } from '../../../core/models/api-response.interface';
 import { Member, MemberListData } from '../../../core/models/member.interface';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-member-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ButtonComponent],
   templateUrl: './member-list.component.html',
   styleUrl: './member-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

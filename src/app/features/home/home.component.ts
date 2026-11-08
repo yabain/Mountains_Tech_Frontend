@@ -29,6 +29,11 @@ import { SiteData } from '../../core/models/site.model';
 import { SiteDataService } from '../../core/services/site-data.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 
+interface PartnerLogo {
+  name: string;
+  src: string;
+}
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -62,6 +67,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   readonly showScrollTop$ = new BehaviorSubject(false);
   readonly loading = new BehaviorSubject(true);
   readonly revealedSections: Record<string, boolean> = {};
+  readonly logoTrackCopies = [0, 1];
+  readonly partnerLogoColumns: PartnerLogo[][] = [
+    [
+      { name: 'Clemios', src: '/logopartenaires/clemios_logo.jpg' },
+      { name: 'DigiKuntz', src: '/logopartenaires/digikuntz.jpg' },
+      { name: 'SDK Games', src: '/logopartenaires/sdkGames.png' }
+    ],
+    [
+      { name: 'Adorsys International', src: '/logopartenaires/adorsys_international_logo.jpg' },
+      { name: 'Général Biotech', src: '/logopartenaires/Genrabiotech.png' },
+      { name: 'Yaba-In', src: '/logopartenaires/yabaIn.webp' }
+    ],
+    [
+      { name: 'Mboa Intech', src: '/logopartenaires/mboa-in-tech.jpg' },
+      { name: 'Sky', src: '/logopartenaires/sky.jpg' },
+      { name: 'Technopark', src: '/logopartenaires/technopark.png' }
+    ]
+  ];
   readonly prefersReducedMotion =
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   scrollProgress = 0;

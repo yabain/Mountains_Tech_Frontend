@@ -1119,12 +1119,74 @@ h2 {
   line-height: 1.7;
 }
 
-.membership-cta__image {
+.membership-cta__logos {
+  display: grid;
+  min-width: 0;
+  min-height: 360px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1rem;
+  padding: 0.85rem;
+  overflow: hidden;
+  border: 1px solid #dfe7ec;
+  border-radius: 1.25rem;
+  background: #f3f6f8;
+}
+
+.membership-cta__logo-column {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.membership-cta__logo-track {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-50%);
+  animation: partner-logo-flow 22s linear infinite;
+}
+
+.membership-cta__logo-column:nth-child(2) .membership-cta__logo-track {
+  animation-duration: 26s;
+}
+
+.membership-cta__logo-column:nth-child(3) .membership-cta__logo-track {
+  animation-duration: 24s;
+}
+
+.membership-cta__logo-group {
+  display: grid;
+  flex: 0 0 auto;
+  gap: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.membership-cta__logo-tile {
+  display: grid;
+  min-height: 5.5rem;
+  aspect-ratio: 1 / 0.9;
+  padding: 0.75rem;
+  place-items: center;
+  border: 1px solid #e6ebef;
+  border-radius: 0.85rem;
+  background: #fff;
+  box-shadow: 0 5px 12px rgba(17, 54, 75, 0.08);
+}
+
+.membership-cta__logo-tile img {
   display: block;
   width: 100%;
-  height: 100%;
-  min-height: 360px;
-  object-fit: cover;
+  max-height: 4rem;
+  object-fit: contain;
+}
+
+@keyframes partner-logo-flow {
+  from {
+    transform: translateY(-50%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }
 
 #member-cta:hover .section-eyebrow {
@@ -1984,7 +2046,7 @@ h2 {
     padding: 2rem 1.5rem;
   }
 
-  .membership-cta__image {
+  .membership-cta__logos {
     min-height: 280px;
     max-height: 360px;
   }
@@ -2121,6 +2183,11 @@ h2 {
   .home-action__icon {
     animation: none;
     transition: none;
+  }
+
+  .membership-cta__logo-track {
+    animation: none;
+    transform: none;
   }
 
 

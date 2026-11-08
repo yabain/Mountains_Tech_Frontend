@@ -49,6 +49,7 @@
 .member-link i { transition: transform 160ms ease; }
 .member-link:hover i { transform: translateX(4px); }
 .member-link:focus-visible { outline: 2px solid #078fce; outline-offset: 4px; }
+.member-join-action { display: flex; justify-content: center; margin-top: 2.25rem; }
 .status-badge { display: inline-block; margin-top: 0.45rem; padding: 0.25rem 0.45rem; border-radius: 0.3rem; color: #12603c; background: #d9f4e4; font-size: 0.62rem; font-weight: 700; }
 .status-badge--pending { color: #825c10; background: #fff1c9; }
 .status-badge--inactive { color: #69747c; background: #e8edf0; }

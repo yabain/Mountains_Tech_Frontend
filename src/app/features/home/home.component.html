@@ -206,12 +206,21 @@
         </span>
       </a>
     </div>
-    <img
-      class="membership-cta__image"
-      src="https://images.unsplash.com/photo-1484959014842-cd1d967a39cf?auto=format&fit=crop&q=80&w=1160"
-      alt=""
-      loading="lazy"
-    />
+    <div class="membership-cta__logos" role="group" aria-label="Partenaires de Mountains Tech">
+      <div class="membership-cta__logo-column" *ngFor="let column of partnerLogoColumns">
+        <div class="membership-cta__logo-track">
+          <div
+            class="membership-cta__logo-group"
+            *ngFor="let copy of logoTrackCopies"
+            [attr.aria-hidden]="copy === 1 ? 'true' : null"
+          >
+            <div class="membership-cta__logo-tile" *ngFor="let logo of column">
+              <img [src]="logo.src" [alt]="copy === 0 ? logo.name : ''" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="showcase section-shell" id="activities" [@scrollReveal]="revealedSections['activities'] ? 'visible' : 'hidden'">
