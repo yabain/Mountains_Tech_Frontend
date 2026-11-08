@@ -92,6 +92,12 @@
   object-fit: contain;
 }
 
+.admin-brand-mark picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 /* ===== Collapse toggle ===== */
 .admin-collapse {
   color: var(--adm-inverse);
@@ -531,7 +537,7 @@ app-top-bar {
 }
 
 @media (max-width: 768px) {
-  .admin-content :is(
+  :host ::ng-deep .admin-content :is(
     .res-search,
     .announcement-search,
     .prospects-search,

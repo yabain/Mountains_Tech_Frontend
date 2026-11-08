@@ -8,7 +8,10 @@
   <div class="footer__main">
     <section class="footer__brand" aria-labelledby="footer-brand-title">
       <a routerLink="/" class="footer__logo-link" aria-label="Retour à l'accueil">
-        <img class="footer__logo" src="/logoMountainsTech/logoNavBar.png" alt="MountainsTech" />
+        <picture>
+          <source media="(max-width: 768px)" srcset="/logoMountainsTech/Logo.png" />
+          <img class="footer__logo" src="/logoMountainsTech/logoNavBar.png" alt="MountainsTech" />
+        </picture>
       </a>
       <h2 id="footer-brand-title" class="visually-hidden">MountainsTech</h2>
       <p>Uniting Cameroonian Forces in New Technologies!</p>

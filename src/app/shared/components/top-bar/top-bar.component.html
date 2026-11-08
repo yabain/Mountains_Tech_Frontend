@@ -1,7 +1,10 @@
 <header class="admin-utilities" [class.admin-utilities--sidebar-collapsed]="sidebarCollapsed()">
   <div class="admin-utilities-left">
     <a class="admin-compact-brand" routerLink="/dashboard" aria-label="Mountains Tech — Tableau de bord">
-      <img src="/logoMountainsTech/logoNavBar.png" alt="" />
+      <picture>
+        <source media="(max-width: 768px)" srcset="/logoMountainsTech/Logo.png" />
+        <img src="/logoMountainsTech/logoNavBar.png" alt="" />
+      </picture>
     </a>
     <button
       class="admin-menu-button"

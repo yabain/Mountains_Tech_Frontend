@@ -285,6 +285,12 @@ h2 {
   background: #e2e8f0;
 }
 
+.info-card picture,
+.project-card picture {
+  display: block;
+  width: 100%;
+}
+
 .info-card__body,
 .project-card__content {
   padding: 1.1rem 1rem 1.3rem;
@@ -583,6 +589,15 @@ h2 {
   .newsletter__content {
     min-height: 0;
     padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .activity-card__image--logo img,
+  .project-card__image--logo img,
+  .info-card__image--logo img {
+    object-fit: contain;
+    background: #fff;
   }
 }
 
@@ -1228,7 +1243,12 @@ h2 {
   background: #fff;
 }
 
-.activity-card > img {
+.activity-card > picture {
+  display: block;
+  width: 100%;
+}
+
+.activity-card > picture img {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 10;
@@ -1282,6 +1302,15 @@ h2 {
   padding-top: 1.2rem;
   color: #7b8790;
   font-size: 0.78rem;
+}
+
+.activity-card__meta picture {
+  display: block;
+  width: 1.35rem;
+  height: 1.35rem;
+  flex: 0 0 1.35rem;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .activity-card__publisher-image {
@@ -1850,7 +1879,7 @@ h2 {
 
   .event-card__image img,
   .project-card img,
-  .activity-card > img,
+  .activity-card > picture img,
   .member-card > img {
     transition: transform 450ms ease;
   }
@@ -2086,13 +2115,15 @@ h2 {
   .membership-cta__image,
   .event-card__image img,
   .project-card img,
-  .activity-card > img,
+  .activity-card > picture img,
   .member-card > img,
   .home-action__text,
   .home-action__icon {
     animation: none;
     transition: none;
   }
+
+
 
   .home-action:not(.home-action--light) .home-action__text,
   .home-action:not(.home-action--light) .home-action__icon {

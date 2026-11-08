@@ -224,17 +224,27 @@
       <div class="activity-grid">
         <article class="activity-card" *ngFor="let activity of data.activities">
           <span class="activity-card__category">{{ activity.category || 'Communauté' }}</span>
-          <img [src]="activity.image" [alt]="activity.title" loading="lazy" width="640" height="400" />
+          <picture class="activity-card__image" [class.activity-card__image--logo]="isNavbarLogo(activity.image)">
+            <source *ngIf="isNavbarLogo(activity.image)" media="(max-width: 768px)" srcset="/logoMountainsTech/Logo.png" />
+            <img [src]="activity.image" [alt]="activity.title" loading="lazy" width="640" height="400" />
+          </picture>
           <div class="activity-card__body">
             <h3>{{ activity.title }}</h3>
             <p>{{ activity.description }}</p>
             <div class="activity-card__meta">
-              <img
-                class="activity-card__publisher-image"
-                [src]="activity.publisherImage || '/logoMountainsTech/logoNavBar.png'"
-                [alt]="activity.publisherName || 'MountainsTech'"
-                loading="lazy"
-              />
+              <picture>
+                <source
+                  *ngIf="isNavbarLogo(activity.publisherImage || '/logoMountainsTech/logoNavBar.png')"
+                  media="(max-width: 768px)"
+                  srcset="/logoMountainsTech/Logo.png"
+                />
+                <img
+                  class="activity-card__publisher-image"
+                  [src]="activity.publisherImage || '/logoMountainsTech/logoNavBar.png'"
+                  [alt]="activity.publisherName || 'MountainsTech'"
+                  loading="lazy"
+                />
+              </picture>
               <span class="activity-card__publisher">{{ activity.publisherName || 'MountainsTech' }}</span>
               <span class="activity-card__meta-separator" aria-hidden="true">·</span>
               <time *ngIf="activity.date; else missingActivityDate" [attr.datetime]="activity.date">
@@ -277,7 +287,10 @@
 
     <div class="project-grid">
       <article class="project-card" *ngFor="let project of data.projects">
-        <img [src]="project.image" [alt]="project.title" loading="lazy" width="320" height="220" />
+        <picture class="project-card__image" [class.project-card__image--logo]="isNavbarLogo(project.image)">
+          <source *ngIf="isNavbarLogo(project.image)" media="(max-width: 768px)" srcset="/logoMountainsTech/Logo.png" />
+          <img [src]="project.image" [alt]="project.title" loading="lazy" width="320" height="220" />
+        </picture>
         <div class="project-card__content">
           <span class="project-tag">{{ project.tag }}</span>
           <h3>{{ project.title }}</h3>
@@ -306,7 +319,10 @@
 
     <div class="card-grid">
       <article class="info-card" *ngFor="let hackathon of data.hackathons">
-        <img [src]="hackathon.image" [alt]="hackathon.title" loading="lazy" width="320" height="220" />
+        <picture class="info-card__image" [class.info-card__image--logo]="isNavbarLogo(hackathon.image)">
+          <source *ngIf="isNavbarLogo(hackathon.image)" media="(max-width: 768px)" srcset="/logoMountainsTech/Logo.png" />
+          <img [src]="hackathon.image" [alt]="hackathon.title" loading="lazy" width="320" height="220" />
+        </picture>
         <div class="info-card__body">
           <small>{{ hackathon.date }}</small>
           <h3>{{ hackathon.title }}</h3>

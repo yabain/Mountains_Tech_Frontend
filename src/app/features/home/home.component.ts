@@ -111,6 +111,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
+  isNavbarLogo(source: string | undefined): boolean {
+    return !!source && /(?:^|\/)logoNavBar\.png(?:[?#].*)?$/i.test(source);
+  }
+
   ngOnInit(): void {
     this.siteDataService.getSiteData().subscribe((data) => {
       this.siteData$.next(data);

@@ -39,6 +39,12 @@
   justify-content: center;
   overflow: hidden;
 
+  picture {
+    display: block;
+    width: 40px;
+    height: 40px;
+  }
+
   img {
     display: block;
     width: 40px;

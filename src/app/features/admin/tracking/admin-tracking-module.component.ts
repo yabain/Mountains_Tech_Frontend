@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from '../../../core/http/api.service';
 
-type TrackingRange = '24h' | '7d' | '30d' | '12m';
+type TrackingRange = '7d' | '30d';
 
 interface TrackingMetric {
   date: string;
@@ -31,6 +31,10 @@ interface ChartPoint {
 interface TrackingPayload {
   metrics: TrackingMetric[];
   pages: TrackedPage[];
+  summary: {
+    totalViews: number;
+    uniqueVisitors: number;
+  } | null;
 }
 
 @Component({
@@ -181,24 +185,25 @@ export class AdminTrackingModuleComponent {
   readonly metrics = signal<TrackingMetric[]>([]);
   readonly visitors = signal<Record<string, unknown>[]>([]);
   readonly pages = signal<TrackedPage[]>([]);
-  readonly selectedRange = signal<TrackingRange>('24h');
+  readonly selectedRange = signal<TrackingRange>('30d');
   readonly ranges: { id: TrackingRange; label: string }[] = [
-    { id: '24h', label: '24 h' },
     { id: '7d', label: '7 jours' },
-    { id: '30d', label: '30 jours' },
-    { id: '12m', label: '12 mois' }
+    { id: '30d', label: '30 jours' }
   ];
+  private readonly summary = signal<TrackingPayload['summary']>(null);
 
   constructor() {
     this.load();
   }
 
   get totalVisitors(): number {
-    return this.metrics().reduce((sum, row) => sum + row.uniqueVisitors, 0);
+    return this.summary()?.uniqueVisitors
+      ?? this.metrics().reduce((sum, row) => sum + row.uniqueVisitors, 0);
   }
 
   get totalViews(): number {
-    return this.metrics().reduce((sum, row) => sum + row.views, 0);
+    return this.summary()?.totalViews
+      ?? this.metrics().reduce((sum, row) => sum + row.views, 0);
   }
 
   get todayVisitors(): number {
@@ -279,12 +284,14 @@ export class AdminTrackingModuleComponent {
           const payload = this.normalizeTracking(response);
           this.metrics.set(payload.metrics);
           this.pages.set(payload.pages);
+          this.summary.set(payload.summary);
           finish();
         },
         error: () => {
           this.error.set('Impossible de charger les métriques de fréquentation.');
           this.metrics.set([]);
           this.pages.set([]);
+          this.summary.set(null);
           finish();
         }
       });
@@ -314,10 +321,8 @@ export class AdminTrackingModuleComponent {
 
   private rangeDuration(): number {
     const durations: Record<TrackingRange, number> = {
-      '24h': 24 * 60 * 60 * 1000,
       '7d': 7 * 24 * 60 * 60 * 1000,
-      '30d': 30 * 24 * 60 * 60 * 1000,
-      '12m': 365 * 24 * 60 * 60 * 1000
+      '30d': 30 * 24 * 60 * 60 * 1000
     };
     return durations[this.selectedRange()];
   }
@@ -328,9 +333,6 @@ export class AdminTrackingModuleComponent {
   }
 
   private formatChartDate(date: Date): string {
-    if (this.selectedRange() === '24h' && this.metrics().some((metric) => metric.date.includes('T'))) {
-      return date.toLocaleTimeString('fr-FR', { hour: '2-digit' });
-    }
     return date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
   }
 
@@ -349,7 +351,13 @@ export class AdminTrackingModuleComponent {
   private normalizeTracking(response: unknown): TrackingPayload {
     const root = this.asRecord(response);
     const data = this.asRecord(root?.['data']) ?? root;
-    const rawMetrics = Array.isArray(root?.['data']) ? root['data'] : data?.['metrics'];
+    const rawMetrics = Array.isArray(data?.['daily'])
+      ? data['daily']
+      : Array.isArray(data?.['metrics'])
+        ? data['metrics']
+        : Array.isArray(root?.['data'])
+          ? root['data']
+          : [];
     const metrics = Array.isArray(rawMetrics)
       ? rawMetrics.map((row) => this.normalizeMetric(row)).filter((row): row is TrackingMetric => row !== null)
       : [];
@@ -359,7 +367,14 @@ export class AdminTrackingModuleComponent {
         .sort((left, right) => right.views - left.views)
         .slice(0, 10)
       : [];
-    return { metrics, pages };
+    const rawSummary = this.asRecord(data?.['summary']);
+    const summary = rawSummary
+      ? {
+          totalViews: this.nonNegativeNumber(rawSummary['totalViews']),
+          uniqueVisitors: this.nonNegativeNumber(rawSummary['uniqueVisitors'])
+        }
+      : null;
+    return { metrics, pages, summary };
   }
 
   private normalizeMetric(value: unknown): TrackingMetric | null {
@@ -383,7 +398,12 @@ export class AdminTrackingModuleComponent {
 
   private normalizeVisitors(response: unknown): Record<string, unknown>[] {
     const root = this.asRecord(response);
-    const values = Array.isArray(root?.['data']) ? root['data'] : [];
+    const data = this.asRecord(root?.['data']) ?? root;
+    const values = Array.isArray(data?.['visitors'])
+      ? data['visitors']
+      : Array.isArray(root?.['data'])
+        ? root['data']
+        : [];
     return values.map((value) => this.asRecord(value)).filter((row): row is Record<string, unknown> => row !== null);
   }
 
