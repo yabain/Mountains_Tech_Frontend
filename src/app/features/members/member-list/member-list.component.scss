@@ -24,18 +24,18 @@
 .search-box input { width: 100%; border: 0; outline: 0; font-size: 0.78rem; }
 .member-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; }
 .member-card { position: relative; min-width: 0; min-height: 300px; outline: none; }
-.member-card-frame { position: absolute; inset: 0; border: 2px dashed #122033; pointer-events: none; }
-.member-card-surface { position: relative; display: flex; min-height: 300px; overflow: hidden; border: 2px solid #122033; background: #fff; transition: transform 220ms ease; }
+.member-card-frame { display: none; }
+.member-card-surface { position: relative; display: flex; min-height: 300px; overflow: hidden; border: 1px solid #003866; background: #fff; transition: transform 220ms ease; }
 .member-card:hover .member-card-surface, .member-card:focus .member-card-surface, .member-card:focus-within .member-card-surface { transform: translate(-7px, -7px); }
 .member-card:focus-visible { outline: 3px solid #078fce; outline-offset: 5px; }
-.member-card-front { display: flex; flex: 1; flex-direction: column; align-items: flex-start; justify-content: flex-end; min-width: 0; padding: 1.25rem; transition: opacity 160ms ease, visibility 160ms ease; }
-.member-avatar { display: grid; width: 5rem; height: 5rem; margin-bottom: auto; place-items: center; overflow: hidden; border-radius: 50%; color: #fff; background: linear-gradient(135deg, #07536a, #17a6df); font-size: 1.8rem; font-weight: 800; }
-.member-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.member-card-front { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; min-width: 0; padding: 1.25rem; transition: opacity 160ms ease, visibility 160ms ease; }
+.member-avatar { display: grid; width: 2.8rem; height: 2.8rem; flex: 0 0 2.8rem; margin-bottom: 0.8rem; place-items: center; overflow: hidden; color: #fff; background: #111827; font-size: 1.35rem; font-weight: 800; }
+.member-avatar img { width: 100%; height: 100%; object-fit: contain; }
 .member-info { width: 100%; min-width: 0; }
-.member-info h3, .member-card-details h3 { margin: 0; color: #122033; font-size: 1.1rem; font-weight: 650; line-height: 1.25; overflow-wrap: anywhere; }
+.member-info h3, .member-card-details h3 { margin: 0; color: #078fce; font-size: 1.1rem; font-weight: 650; line-height: 1.25; text-align: center; overflow-wrap: anywhere; }
 .member-role { display: -webkit-box; overflow: hidden; margin: 0.35rem 0 0; color: #078fce; font-size: 0.82rem; font-weight: 700; line-height: 1.4; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .member-email { overflow: hidden; margin: 0.25rem 0 0; color: #607080; font-size: 0.7rem; text-overflow: ellipsis; white-space: nowrap; }
-.member-card-hint { display: flex; align-items: center; gap: 0.5rem; margin-top: 1.2rem; color: #607080; font-size: 0.72rem; }
+.member-card-hint { position: absolute; right: 0.5rem; bottom: 0.45rem; left: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.35rem; color: #607080; font-size: 0.68rem; }
 .member-card-hint i { color: #078fce; }
 .member-card-details { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 1.25rem; background: #fff; opacity: 0; visibility: hidden; transition: opacity 180ms ease, visibility 180ms ease; }
 .member-card:hover .member-card-front, .member-card:focus .member-card-front, .member-card:focus-within .member-card-front { opacity: 0; visibility: hidden; }
@@ -65,7 +65,6 @@
 
 @media (hover: none) {
   .member-card-surface { transform: none !important; }
-  .member-card-details { position: relative; opacity: 1; visibility: visible; }
 }
 
 @media (prefers-reduced-motion: reduce) {
