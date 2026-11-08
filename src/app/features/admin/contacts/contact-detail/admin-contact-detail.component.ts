@@ -46,7 +46,10 @@ export class AdminContactDetailComponent {
   }
 
   get isUnread(): boolean {
-    return this.status === 'NEW' || this.status === 'IN_PROGRESS';
+    const isRead = this.contact()?.['isRead'];
+    return typeof isRead === 'boolean'
+      ? !isRead
+      : this.status === 'NEW' || this.status === 'IN_PROGRESS';
   }
 
   get canToggleRead(): boolean {
@@ -65,19 +68,32 @@ export class AdminContactDetailComponent {
 
   markReadState(): void {
     if (this.busy() || !this.contactId || !this.canToggleRead) return;
-    const nextStatus = this.isUnread ? 'RESOLVED' : 'IN_PROGRESS';
-    const nextIsRead = nextStatus === 'RESOLVED';
+    const nextIsRead = this.isUnread;
     this.busy.set(true);
-
-    this.contact.update((current) => ({
-      ...(current ?? {}),
-      status: nextStatus,
-      isRead: nextIsRead,
-      readAt: new Date().toISOString()
-    }));
-
-    this.busy.set(false);
-    this.notification.success(nextIsRead ? 'Message marqué comme lu.' : 'Message marqué comme non lu.');
+    this.api.patch<unknown>(
+      `${API_ROUTES.admin.contacts}/${encodeURIComponent(this.contactId)}/read`,
+      { isRead: nextIsRead }
+    )
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (response) => {
+          const updated = this.unwrap(response);
+          this.contact.update((current) => ({
+            ...(current ?? {}),
+            ...(updated ?? {}),
+            isRead: nextIsRead,
+            readAt: nextIsRead
+              ? updated?.['readAt'] ?? new Date().toISOString()
+              : null
+          }));
+          this.busy.set(false);
+          this.notification.success(nextIsRead ? 'Message marqué comme lu.' : 'Message marqué comme non lu.');
+        },
+        error: () => {
+          this.busy.set(false);
+          this.notification.error('Impossible de modifier le statut de lecture du message.');
+        }
+      });
   }
 
   deleteContact(): void {

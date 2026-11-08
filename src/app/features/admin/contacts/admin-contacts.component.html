@@ -79,7 +79,7 @@
                   @for (action of rowActionsFor(row); track action.kind + action.label) {
                     <button
                       class="res-action-button"
-                      [class.res-action-button--success]="action.tone === 'success'"
+                      [class.res-action-button--success]="rowActionIsSuccess(action, row)"
                       [class.res-action-button--danger]="action.tone === 'danger'"
                       type="button"
                       [disabled]="statusBusyId() === rowId(row)"

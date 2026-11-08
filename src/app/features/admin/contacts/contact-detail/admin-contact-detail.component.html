@@ -52,7 +52,13 @@
       <footer class="editor-actions">
         <button class="editor-btn" type="button" (click)="back()">Retour</button>
         @if (canToggleRead) {
-          <button class="editor-btn" type="button" (click)="markReadState()" [disabled]="busy()">
+          <button
+            class="editor-btn"
+            [class.editor-btn--success]="!isUnread"
+            type="button"
+            (click)="markReadState()"
+            [disabled]="busy()"
+          >
             <i class="bi" [class.bi-envelope-open]="isUnread" [class.bi-envelope]="!isUnread" aria-hidden="true"></i>
             {{ isUnread ? 'Marquer comme lu' : 'Marquer comme non lu' }}
           </button>

@@ -1,9 +1,11 @@
-import { Directive, computed, inject, signal } from '@angular/core';
+import { Directive, DestroyRef, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../core/http/api.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { RESOURCE_CONFIG, ResourceField, ResourceListColumn, ResourceRowAction } from './admin-resource.config';
 import { environment } from '../../../../environments/environment';
+import { apiErrorMessage } from '../../../core/utils/api-error';
 
 type Row = Record<string, any>;
 
@@ -12,6 +14,7 @@ export abstract class AdminResourceBase {
   protected readonly api = inject(ApiService);
   protected readonly router = inject(Router);
   protected readonly notification = inject(NotificationService);
+  private readonly rowActionDestroyRef = inject(DestroyRef);
 
   readonly config = inject(RESOURCE_CONFIG);
 
@@ -161,6 +164,13 @@ export abstract class AdminResourceBase {
       return action.labelByReadState?.[row[field] === true ? 'read' : 'unread'] ?? action.label;
     }
     return action.labelByStatus?.[this.rowStatus(row).toUpperCase()] ?? action.label;
+  }
+
+  rowActionIsSuccess(action: ResourceRowAction, row: Row): boolean {
+    if (action.kind === 'read') {
+      return action.tone === 'success' && row[action.readField ?? 'isRead'] === true;
+    }
+    return action.tone === 'success';
   }
 
   runRowAction(action: ResourceRowAction, row: Row): void {
@@ -475,23 +485,28 @@ export abstract class AdminResourceBase {
     const id = this.rowId(row);
     const field = action.readField ?? 'isRead';
     const nextValue = row[field] !== true;
+    const readEndpoint = action.readEndpoint;
+    if (!readEndpoint) {
+      this.notification.error('Action de lecture non configurée.');
+      return;
+    }
+
     this.statusBusyId.set(id);
-
-    this.rows.update((entries) => entries.map((entry) => {
-      if (this.rowId(entry) !== id) return entry;
-      const updated = { ...entry, [field]: nextValue };
-      if (field === 'isRead' && this.config.statusField && 'status' in entry) {
-        const currentStatus = String(entry['status'] ?? '').toUpperCase();
-        const nextStatus = nextValue
-          ? (currentStatus === 'SPAM' ? 'SPAM' : 'RESOLVED')
-          : (currentStatus === 'SPAM' ? 'SPAM' : 'IN_PROGRESS');
-        updated['status'] = nextStatus;
-      }
-      return updated;
-    }));
-
-    this.statusBusyId.set('');
-    this.notification.success(nextValue ? 'Message marqué comme lu.' : 'Message marqué comme non lu.');
+    this.api.patch<unknown>(`${this.config.endpoint}/${encodeURIComponent(id)}${readEndpoint}`, { [field]: nextValue })
+      .pipe(takeUntilDestroyed(this.rowActionDestroyRef))
+      .subscribe({
+        next: () => {
+          this.rows.update((entries) => entries.map((entry) =>
+            this.rowId(entry) === id ? { ...entry, [field]: nextValue } : entry
+          ));
+          this.statusBusyId.set('');
+          this.notification.success(nextValue ? 'Message marqué comme lu.' : 'Message marqué comme non lu.');
+        },
+        error: (error: unknown) => {
+          this.statusBusyId.set('');
+          this.notification.error(apiErrorMessage(error, 'Impossible de modifier le statut de lecture.'));
+        }
+      });
   }
 
   private buildPayload(): Row {
