@@ -1,7 +1,7 @@
 import { AsyncPipe, } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, computed, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { filter, interval } from 'rxjs';
+import { filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AlertComponent } from '../../shared/components/alert/alert.component';
 import { AuthService } from '../../core/auth/services/auth.service';
@@ -45,9 +45,7 @@ export class AdminLayoutComponent implements AfterViewInit {
   });
 
   constructor() {
-    this.sidebarCounts.refresh();
-    this.dashboardData.load();
-    interval(60_000).pipe(takeUntilDestroyed()).subscribe(() => this.sidebarCounts.refresh());
+    this.refreshCurrentRouteCount();
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .pipe(takeUntilDestroyed())
@@ -58,7 +56,7 @@ export class AdminLayoutComponent implements AfterViewInit {
           .sort((a, b) => b.route.length - a.route.length)[0];
         this.currentCategory.set(url.startsWith('/dashboard/profile') ? 'Mon profil' : match?.label ?? null);
         this.notificationsOpen.set(false);
-        this.sidebarCounts.refresh();
+        this.refreshCurrentRouteCount();
       });
   }
 
@@ -84,8 +82,8 @@ export class AdminLayoutComponent implements AfterViewInit {
   }
 
   onNavItemClick(route: string): void {
-    if (this.sidebarCounts.countForRoute(route)) {
-      this.sidebarCounts.refresh();
+    if (this.router.url === route) {
+      this.sidebarCounts.refreshForRoute(route);
     }
     this.closeSidebar();
   }
@@ -159,6 +157,14 @@ export class AdminLayoutComponent implements AfterViewInit {
 
   private loadCollapsed(): boolean {
     return localStorage.getItem(AdminLayoutComponent.COLLAPSE_KEY) !== '0';
+  }
+
+  private refreshCurrentRouteCount(): void {
+    const url = this.router.url;
+    const item = ADMIN_NAV_ITEMS.find((candidate) => url === candidate.route);
+    if (item) {
+      this.sidebarCounts.refreshForRoute(item.route);
+    }
   }
 
   private initialRole(): AdminRole {

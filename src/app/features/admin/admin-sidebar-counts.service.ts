@@ -42,43 +42,34 @@ export class AdminSidebarCountsService {
     newsletter: { ...EMPTY_COUNT }
   });
 
-  private loading = false;
-  private refreshQueued = false;
+  private readonly loading = new Set<AdminSidebarCountKey>();
+  private readonly refreshQueued = new Set<AdminSidebarCountKey>();
 
   constructor(private readonly api: ApiService) {}
 
-  refresh(): void {
-    if (this.loading) {
-      this.refreshQueued = true;
+  refreshForRoute(route: string): void {
+    const key = this.countKeyForRoute(route);
+    if (!key) {
       return;
     }
-    this.loading = true;
-
-    forkJoin({
-      members: this.fetchStatusCount(API_ROUTES.admin.members, 'PENDING'),
-      memberApplications: this.fetchStatusCount(API_ROUTES.admin.memberApplications, 'PENDING'),
-      contacts: this.fetchUnreadContactCount(),
-      hackathonRegistrations: this.fetchPendingHackathonRegistrations(),
-      newsletter: this.fetchRecentNewsletterSubscribers()
-    }).subscribe({
-      next: (results) => {
-        this.counts.set({
-          members: results.members,
-          memberApplications: results.memberApplications,
-          contacts: results.contacts,
-          hackathonRegistrations: results.hackathonRegistrations,
-          newsletter: results.newsletter
-        });
-        this.finishRefresh();
+    if (this.loading.has(key)) {
+      this.refreshQueued.add(key);
+      return;
+    }
+    this.loading.add(key);
+    this.fetchCount(key).subscribe({
+      next: (count) => {
+        this.counts.update((current) => ({ ...current, [key]: count }));
+        this.finishRefresh(key);
       },
       error: () => {
-        this.counts.update((current) => Object.fromEntries(
-          Object.entries(current).map(([key, count]) => [
-            key,
-            count.value === null ? { value: null, unavailable: true } : count
-          ])
-        ) as Record<AdminSidebarCountKey, AdminSidebarCount>);
-        this.finishRefresh();
+        this.counts.update((current) => ({
+          ...current,
+          [key]: current[key].value === null
+            ? { value: null, unavailable: true }
+            : current[key]
+        }));
+        this.finishRefresh(key);
       }
     });
   }
@@ -106,12 +97,48 @@ export class AdminSidebarCountsService {
     return labels[route] ?? 'éléments à traiter';
   }
 
-  private finishRefresh(): void {
-    this.loading = false;
-    if (this.refreshQueued) {
-      this.refreshQueued = false;
-      this.refresh();
+  private finishRefresh(key: AdminSidebarCountKey): void {
+    this.loading.delete(key);
+    if (this.refreshQueued.delete(key)) {
+      this.refreshForRoute(this.routeForCountKey(key));
     }
+  }
+
+  private fetchCount(key: AdminSidebarCountKey): Observable<AdminSidebarCount> {
+    switch (key) {
+      case 'members':
+        return this.fetchStatusCount(API_ROUTES.admin.members, 'PENDING');
+      case 'memberApplications':
+        return this.fetchStatusCount(API_ROUTES.admin.memberApplications, 'PENDING');
+      case 'contacts':
+        return this.fetchUnreadContactCount();
+      case 'hackathonRegistrations':
+        return this.fetchPendingHackathonRegistrations();
+      case 'newsletter':
+        return this.fetchRecentNewsletterSubscribers();
+    }
+  }
+
+  private countKeyForRoute(route: string): AdminSidebarCountKey | null {
+    const keyByRoute: Record<string, AdminSidebarCountKey> = {
+      '/dashboard/members': 'members',
+      '/dashboard/members/applications': 'memberApplications',
+      '/dashboard/contacts': 'contacts',
+      '/dashboard/hackathons': 'hackathonRegistrations',
+      '/dashboard/newsletter': 'newsletter'
+    };
+    return keyByRoute[route] ?? null;
+  }
+
+  private routeForCountKey(key: AdminSidebarCountKey): string {
+    const routeByKey: Record<AdminSidebarCountKey, string> = {
+      members: '/dashboard/members',
+      memberApplications: '/dashboard/members/applications',
+      contacts: '/dashboard/contacts',
+      hackathonRegistrations: '/dashboard/hackathons',
+      newsletter: '/dashboard/newsletter'
+    };
+    return routeByKey[key];
   }
 
   private fetchStatusCount(endpoint: string, status: string): Observable<AdminSidebarCount> {
