@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     ],
     [
       { name: 'Mboa Intech', src: '/logopartenaires/mboa-in-tech.jpg' },
-      { name: 'Sky', src: '/logopartenaires/sky.jpg' },
+      { name: 'Skyeng Pro', src: '/logopartenaires/sky.jpg' },
       { name: 'Technopark', src: '/logopartenaires/technopark.png' }
     ]
   ];
